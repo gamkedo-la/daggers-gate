@@ -8,18 +8,21 @@ const KEY_LETTER_A = 65;
 const KEY_LETTER_S = 83;
 const KEY_LETTER_D = 68;
 const KEY_NUMBER_1 = 49;
+const KEY_NUMBER_2 = 50;
 
 var mouseX = 0;
 var mouseY = 0;
 var tileOverIdx = -1;
 var mouseDragging = false;
 
+var showCollisions = false;
+
 function initInput() {
   document.addEventListener("keydown", keyPressed);
   document.addEventListener("keyup", keyReleased);
   document.addEventListener("mousemove", mousemoved);
   document.addEventListener("mousedown", mouseclicked);
-  document.addEventListener("mouseup", mousereleased); /////
+  document.addEventListener("mouseup", mousereleased);
   
   p1.setupControls(KEY_UP_ARROW,KEY_RIGHT_ARROW,KEY_DOWN_ARROW,KEY_LEFT_ARROW);
 }
@@ -42,9 +45,10 @@ function setKeyHoldState(thisKey, thisPlayer, setTo) {
 function keyPressed(evt) {
   setKeyHoldState(evt.keyCode, p1, true);
   //console.log(evt.keyCode);
-  //console.log(evt.keyCode);
   if(evt.keyCode == KEY_NUMBER_1){
 	  pathFindingDisplay = !pathFindingDisplay;
+  } else if (evt.keyCode == KEY_NUMBER_2){
+	  showCollisions = !showCollisions;
   }
   evt.preventDefault(); // without this, arrow keys scroll the browser!
 }
@@ -58,8 +62,6 @@ function mouseclicked(evt) {
 		startPath(tileOverIdx, p1); 
     }
 }
-
-
 
 function mousereleased(evt) {
     mouseDragging = false;
@@ -84,14 +86,6 @@ function mousemoved(evt) {
     }
 
     if(mouseDragging && tileOverIdx != -1) { /////
-      /*  if(mouseSettingWalls) { /////
-            if(grid[tileOverIdx].elementType != WALL) {
-               grid[tileOverIdx].wallToggle(); 
-            }
-        } else {
-            if(grid[tileOverIdx].elementType == WALL) {
-               grid[tileOverIdx].wallToggle(); 
-            }
-        } */
+
     } /////
 }

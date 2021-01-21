@@ -26,6 +26,13 @@ function enemyClass() {
   this.move_South = false;
   this.move_West = false;
 
+  //collisions
+  this.colHeight = 40;
+  this.colWidth = 20;
+  this.colTopLeftX;
+  this.colTopLeftY;
+  this.myCollisionColor = "green";
+  
   this.init = function(whichGraphic,whichName) {
     this.myBitmap = whichGraphic;
     this.myName = whichName;
@@ -189,10 +196,36 @@ function enemyClass() {
         // any other tile type number was found... do nothing, for now
         break;
     }
+	//updates to collision boxes
+	this.colTopLeftX = this.x - this.colWidth/2;
+	this.colTopLeftY = this.y - this.colHeight/2;
   }
+  
+  	this.isOverLapping = function(testX, testY){
+		if(	testX > this.colTopLeftX && testX < this.colTopLeftX + this.colWidth &&
+			testY > this.colTopLeftY && testY < this.colTopLeftY + this.colHeight){
+			
+			return true;
+		} else {
+			return false;
+		}			
+	}
+	
+	this.checkCollisionAgainst = function(thisEntity){
+		console.log(thisEntity);
+		if(thisEntity.isOverLapping(this.x,this.y)){
+			this.collisionColor = "red"; 
+		} else {
+			this.collisionColor = this.myCollisionColor;
+		}
+	}
   
   this.draw = function() {
     drawBitmapCenteredAtLocationWithRotation(this.myBitmap, this.x, this.y, 0.0 );
+  	if(showCollisions){
+		colorRect(this.colTopLeftX, this.colTopLeftY, this.colWidth, this.colHeight, this.myCollisionColor);
+	}
   }
+  
 
 } // end of class

@@ -33,9 +33,19 @@ function loadingDoneSoStartGame() {
 }
 
 function moveEverything() {
+	//movement
 	p1.move();
 	for(var i = 0; i < enemyList.length; i++){
 		enemyList[i].move();
+	}
+	//collisions
+	/*for(var i = 0; i < enemyList.length; i++){
+		for (var ii = i+1; ii < enemyList.length; i++){
+			enemyList[i].checkCollisionAgainst(enemyList[ii]);
+		}
+	}*/
+	for(var i = 0; i < enemyList.length; i++){
+		enemyList[i].checkCollisionAgainst(p1);
 	}
 }
 

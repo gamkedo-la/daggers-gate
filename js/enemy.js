@@ -204,7 +204,6 @@ function enemyClass() {
   	this.isOverLapping = function(testX, testY){
 		if(	testX > this.colTopLeftX && testX < this.colTopLeftX + this.colWidth &&
 			testY > this.colTopLeftY && testY < this.colTopLeftY + this.colHeight){
-			
 			return true;
 		} else {
 			return false;
@@ -212,8 +211,7 @@ function enemyClass() {
 	}
 	
 	this.checkCollisionAgainst = function(thisEntity){
-		console.log(thisEntity);
-		if(thisEntity.isOverLapping(this.x,this.y)){
+		if(this.isOverLapping(thisEntity.x,thisEntity.y)){
 			this.collisionColor = "red"; 
 		} else {
 			this.collisionColor = this.myCollisionColor;
@@ -223,7 +221,7 @@ function enemyClass() {
   this.draw = function() {
     drawBitmapCenteredAtLocationWithRotation(this.myBitmap, this.x, this.y, 0.0 );
   	if(showCollisions){
-		colorRect(this.colTopLeftX, this.colTopLeftY, this.colWidth, this.colHeight, this.myCollisionColor);
+		colorRect(this.colTopLeftX, this.colTopLeftY, this.colWidth, this.colHeight, this.collisionColor);
 	}
   }
   

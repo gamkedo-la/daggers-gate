@@ -14,6 +14,9 @@ window.onload = function() {
 		if(roomGrid[i] == TILE_ENEMY){
 			addEnemy();
 		} 
+		if (roomGrid[i] == TILE_FIRE_RUNE){
+			addObject();
+		}
 	}
 }
 
@@ -29,6 +32,9 @@ function loadingDoneSoStartGame() {
 	for(var i = 0; i < enemyList.length; i++){
 		enemyList[i].init(goblinPic, "red");
 	}
+	for(var i = 0; i < gameObjectList.length; i++){
+		gameObjectList[i].init(fireRunePic, "red");
+	}
     initInput();
 }
 
@@ -38,6 +44,11 @@ function moveEverything() {
 	for(var i = 0; i < enemyList.length; i++){
 		enemyList[i].move();
 	}
+	for(var i = 0; i < gameObjectList.length; i++){
+		gameObjectList[i].move();
+	}
+
+
 	//collisions
 	/*for(var i = 0; i < enemyList.length; i++){
 		for (var ii = i+1; ii < enemyList.length; i++){
@@ -46,6 +57,12 @@ function moveEverything() {
 	}*/
 	for(var i = 0; i < enemyList.length; i++){
 		enemyList[i].checkCollisionAgainst(p1);
+	}
+	for(var i = 0; i < enemyList.length; i++){
+		p1.checkCollisionAgainst(enemyList[i]);
+	}
+	for(var i = 0; i < gameObjectList.length; i++){
+		p1.checkCollisionAgainst(gameObjectList[i]);
 	}
 }
 
@@ -57,5 +74,8 @@ function drawEverything() {
 	p1.draw();
 	for(var i = 0; i < enemyList.length; i++){
 		enemyList[i].draw();
+	}
+	for(var i = 0; i < gameObjectList.length; i++){
+		gameObjectList[i].draw();
 	}
 }

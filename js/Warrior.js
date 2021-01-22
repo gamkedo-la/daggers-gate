@@ -144,6 +144,7 @@ function warriorClass() {
     
     switch( walkIntoTileType ) {
       case TILE_GROUND:
+	  case TILE_WALL_15: //OPEN DOOR
         this.x = nextX;
         this.y = nextY;
         break;
@@ -151,8 +152,14 @@ function warriorClass() {
         this.reset();
         break;
       case TILE_DOOR:
+		if(this.keysHeld > 0) {
+          this.keysHeld--; // one less key
+          document.getElementById("debugText").innerHTML = "Keys: "+this.keysHeld;
+          roomGrid[walkIntoTileIndex] = TILE_WALL_15; // remove door
+		  SetupPathfindingGridData(p1);
+        }
+        break;	  
 	  case TILE_DOOR_YELLOW_FRONT:
-        console.log("Door");
 		if(this.keysHeld > 0) {
           this.keysHeld--; // one less key
           document.getElementById("debugText").innerHTML = "Keys: "+this.keysHeld;
@@ -191,7 +198,6 @@ function warriorClass() {
   	this.isOverLapping = function(testX, testY){
 		if(	testX > this.colTopLeftX && testX < this.colTopLeftX + this.colWidth &&
 			testY > this.colTopLeftY && testY < this.colTopLeftY + this.colHeight){
-			
 			return true;
 		} else {
 			return false;
@@ -199,8 +205,7 @@ function warriorClass() {
 	}
 	
 	this.checkCollisionAgainst = function(thisEntity){
-		console.log("x: " + testX + " y: " + testY)
-		if(thisEntity.isOverLapping(this.x,this.y)){
+		if(this.isOverLapping(thisEntity.x,thisEntity.y)){
 			this.collisionColor = "red"; 
 		} else {
 			this.collisionColor = this.myCollisionColor;
@@ -210,7 +215,7 @@ function warriorClass() {
   this.draw = function() {
     drawBitmapCenteredAtLocationWithRotation( this.myBitmap, this.x, this.y, 0.0 );
   	if(showCollisions){
-		colorRect(this.colTopLeftX, this.colTopLeftY, this.colWidth, this.colHeight, this.myCollisionColor);
+		colorRect(this.colTopLeftX, this.colTopLeftY, this.colWidth, this.colHeight, this.collisionColor);
 	}  
 	  
   }

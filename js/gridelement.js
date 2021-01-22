@@ -105,7 +105,8 @@ function GridElement() {
 		return SOURCE;
 	} else if (
 		updatedElementType == TILE_KEY ||
-		updatedElementType == TILE_GROUND
+		updatedElementType == TILE_GROUND ||
+		updatedElementType == TILE_WALL_15
 		){
 		return NOTHING;
 	} else {

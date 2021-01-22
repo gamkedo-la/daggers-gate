@@ -1,5 +1,7 @@
 var playerPic = document.createElement("img");
 var goblinPic = document.createElement("img");
+var fireRunePic = document.createElement("img");
+
 var tilePics = [];
 
 var picsToLoad = 0;
@@ -26,8 +28,8 @@ function loadImages() {
   var imageList = [
     {varName:playerPic, theFile:"warrior.png"},
 	{varName:goblinPic, theFile:"goblin.png"},
+	{varName:fireRunePic, theFile:"fireRune.png"},
 	
-    
     {tileType:TILE_GROUND, theFile:"world_ground.png"},
     {tileType:TILE_WALL_1, theFile:"dungeonWall_1.png"},
     {tileType:TILE_WALL_2, theFile:"dungeonWall_2.png"},
@@ -43,6 +45,7 @@ function loadImages() {
 	{tileType:TILE_WALL_12, theFile:"dungeonWall_12.png"},
 	{tileType:TILE_WALL_13, theFile:"dungeonWall_13.png"},
 	{tileType:TILE_WALL_14, theFile:"dungeonWall_14.png"},
+	{tileType:TILE_WALL_15, theFile:"dungeonWall_15.png"},
     {tileType:TILE_GOAL, theFile:"world_goal.png"},
     {tileType:TILE_KEY, theFile:"world_key.png"},
     {tileType:TILE_DOOR_YELLOW_FRONT, theFile:"yellowDoor_Front.png"},	

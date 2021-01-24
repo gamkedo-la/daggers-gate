@@ -173,6 +173,10 @@ function enemyClass() {
     switch( walkIntoTileType ) {
       case TILE_GROUND:
 	  case TILE_GOAL:
+	  case TILE_FLOOR_FIRE_RUNE:
+      case TILE_FLOOR_WATER_RUNE:
+	  case TILE_FLOOR_WIND_RUNE:
+	  case TILE_FLOOR_EARTH_RUNE:
 	  case TILE_KEY:
         this.x = nextX;
         this.y = nextY;

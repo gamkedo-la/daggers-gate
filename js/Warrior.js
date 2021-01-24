@@ -144,6 +144,10 @@ function warriorClass() {
     
     switch( walkIntoTileType ) {
       case TILE_GROUND:
+	  case TILE_FLOOR_FIRE_RUNE:
+      case TILE_FLOOR_WATER_RUNE:
+	  case TILE_FLOOR_WIND_RUNE:
+	  case TILE_FLOOR_EARTH_RUNE:
 	  case TILE_WALL_15: //OPEN DOOR
         this.x = nextX;
         this.y = nextY;

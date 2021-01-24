@@ -4,12 +4,12 @@ const ROOM_ROWS = 12;
 
 var roomGrid =
     [ 11, 1, 1, 1, 1, 1,16, 1, 1, 1,16, 1,16, 1, 1, 9,
-      11, 0, 0, 0, 0, 0,15, 0, 0, 0, 5, 0,15, 0, 0, 9,
+      11,34, 0, 0, 0, 0,15,36, 0,37, 5, 0,15,35, 0, 9,
       11, 0, 4, 0, 4, 0,15, 0, 2, 0,15, 0,15, 4, 4, 9,
       11, 0, 0, 0, 0, 0,15, 0, 0, 0,15,19, 1,19, 1, 9,
       11, 1,20,19,20, 1,14, 0, 4, 0,15, 0, 0, 0, 0, 9,
-      11, 0, 0, 0, 0, 0, 0, 0, 0, 0,15, 0, 4, 0, 0, 9,
-      11,30, 0, 0, 0, 0, 0,30, 0, 0,15, 0, 0, 0, 0, 9,
+      11, 0, 0, 0, 0, 0, 0,30, 0, 0,15, 0, 4, 0, 0, 9,
+      11,30, 0, 0, 0, 0, 0,38, 0,39,15, 0, 0, 0, 0, 9,
       11, 0,16, 1,16, 1,16, 1, 1, 1,15, 0, 4, 0, 0, 9,
       11, 0,15, 0,15, 0,15,33, 0,32,15, 0, 0, 0, 0, 9,
       11, 0, 5, 0, 5, 0, 5, 0, 3, 0,15, 0, 0, 0, 0, 9,
@@ -43,6 +43,12 @@ const TILE_ENEMY = 30;
 const TILE_WALL_15 = 31;
 const TILE_FIRE_RUNE = 32;
 const TILE_WIND_RUNE = 33;
+const TILE_WATER_RUNE = 34;
+const TILE_EARTH_RUNE = 35;
+const TILE_FLOOR_FIRE_RUNE = 36;
+const TILE_FLOOR_WIND_RUNE = 37;
+const TILE_FLOOR_WATER_RUNE = 38;
+const TILE_FLOOR_EARTH_RUNE = 39;
 
 function roomTileToIndex(tileCol, tileRow) {
   return (tileCol + ROOM_COLS*tileRow);
@@ -71,7 +77,11 @@ function tileTypeHasTransparency(checkTileType) {
   return (checkTileType == TILE_GOAL ||
           checkTileType == TILE_KEY ||
 		  checkTileType == TILE_DOOR_YELLOW_FRONT ||
-          checkTileType == TILE_DOOR);
+          checkTileType == TILE_FLOOR_FIRE_RUNE ||
+          checkTileType == TILE_FLOOR_WATER_RUNE ||
+		  checkTileType == TILE_FLOOR_WIND_RUNE ||
+	      checkTileType == TILE_FLOOR_EARTH_RUNE ||
+		  checkTileType == TILE_DOOR);
 }
 
 function drawRoom() {

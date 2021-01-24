@@ -23,11 +23,17 @@ function gameObjectClass(whichObject) {
         if(this.myIdentity == 'fireRune'){
 			this.myBitmap = fireRunePic;
 			this.myName = "Fire Rune";
-		}
-        if (this.myIdentity == 'windRune'){
+		} else if (this.myIdentity == 'windRune'){
 			this.myBitmap = windRunePic;
 			this.myName = 'Wind Rune';
+        } else if (this.myIdentity == 'waterRune'){
+			this.myBitmap = waterRunePic;
+			this.myName = 'Water Rune';
+        } else if (this.myIdentity == 'earthRune'){
+			this.myBitmap = earthRunePic;
+			this.myName = 'Earth Rune';
         }
+		
 		
 		this.reset();
     }
@@ -36,7 +42,9 @@ function gameObjectClass(whichObject) {
         if (this.homeX == undefined) {
             for (var i = 0; i < roomGrid.length; i++) {
                 if (roomGrid[i] == TILE_FIRE_RUNE || 
-					roomGrid[i] == TILE_WIND_RUNE) {
+					roomGrid[i] == TILE_WIND_RUNE || 
+					roomGrid[i] == TILE_WATER_RUNE ||
+					roomGrid[i] == TILE_EARTH_RUNE) {
                     var tileRow = Math.floor(i / ROOM_COLS);
                     var tileCol = i % ROOM_COLS;
                     this.homeX = tileCol * TILE_W + 0.5 * TILE_W;

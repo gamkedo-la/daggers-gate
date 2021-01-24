@@ -2,6 +2,8 @@ var playerPic = document.createElement("img");
 var goblinPic = document.createElement("img");
 var fireRunePic = document.createElement("img");
 var windRunePic = document.createElement("img");
+var waterRunePic = document.createElement("img");
+var earthRunePic = document.createElement("img");
 
 var tilePics = [];
 
@@ -31,6 +33,8 @@ function loadImages() {
 	{varName:goblinPic, theFile:"goblin.png"},
 	{varName:fireRunePic, theFile:"fireRune.png"},
 	{varName:windRunePic, theFile:"windRune.png"},
+	{varName:waterRunePic, theFile:"waterRune.png"},
+	{varName:earthRunePic, theFile:"earthRune.png"},
 	
     {tileType:TILE_GROUND, theFile:"world_ground.png"},
     {tileType:TILE_WALL_1, theFile:"dungeonWall_1.png"},
@@ -51,7 +55,11 @@ function loadImages() {
     {tileType:TILE_GOAL, theFile:"world_goal.png"},
     {tileType:TILE_KEY, theFile:"world_key.png"},
     {tileType:TILE_DOOR_YELLOW_FRONT, theFile:"yellowDoor_Front.png"},	
-    {tileType:TILE_DOOR, theFile:"world_door.png"}
+    {tileType:TILE_DOOR, theFile:"world_door.png"},
+	{tileType:TILE_FLOOR_FIRE_RUNE, theFile:"floorTileForFireRune.png"},
+	{tileType:TILE_FLOOR_WATER_RUNE, theFile:"floorTileForWaterRune.png"},
+	{tileType:TILE_FLOOR_WIND_RUNE, theFile:"floorTileForWindRune.png"},
+	{tileType:TILE_FLOOR_EARTH_RUNE, theFile:"floorTileForEarthRune.png"}
     ];
 
   picsToLoad = imageList.length;

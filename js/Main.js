@@ -20,6 +20,12 @@ window.onload = function() {
 		if (roomGrid[i] == TILE_WIND_RUNE){
 			addObject('windRune');
 		}
+		if (roomGrid[i] == TILE_WATER_RUNE){
+			addObject('waterRune');
+		}
+		if (roomGrid[i] == TILE_EARTH_RUNE){
+			addObject('earthRune');
+		}
 	}
 }
 

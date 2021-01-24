@@ -15,7 +15,10 @@ window.onload = function() {
 			addEnemy();
 		} 
 		if (roomGrid[i] == TILE_FIRE_RUNE){
-			addObject();
+			addObject('fireRune');
+		}
+		if (roomGrid[i] == TILE_WIND_RUNE){
+			addObject('windRune');
 		}
 	}
 }
@@ -64,6 +67,8 @@ function moveEverything() {
 	for(var i = 0; i < gameObjectList.length; i++){
 		p1.checkCollisionAgainst(gameObjectList[i]);
 	}
+	
+	playerExploredRooms();
 }
 
 function drawEverything() {
@@ -78,4 +83,5 @@ function drawEverything() {
 	for(var i = 0; i < gameObjectList.length; i++){
 		gameObjectList[i].draw();
 	}
+	drawDungeonCeilings();
 }

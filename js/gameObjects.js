@@ -1,12 +1,12 @@
 // tuning constants
 var gameObjectList = [];
 
-function addObject() {
-    var tempObject = new gameObjectClass();
+function addObject(whichObject) {
+    var tempObject = new gameObjectClass(whichObject);
     gameObjectList.push(tempObject);
 }
 
-function gameObjectClass() {
+function gameObjectClass(whichObject) {
     // variables to keep track of position
     this.x;
     this.y;
@@ -17,17 +17,26 @@ function gameObjectClass() {
     this.colTopLeftX;
     this.colTopLeftY;
     this.myCollisionColor = "green";
+	this.myIdentity = whichObject
 
-    this.init = function(whichGraphic, whichName) {
-        this.myBitmap = whichGraphic;
-        this.myName = whichName;
-        this.reset();
+    this.init = function() {
+        if(this.myIdentity == 'fireRune'){
+			this.myBitmap = fireRunePic;
+			this.myName = "Fire Rune";
+		}
+        if (this.myIdentity == 'windRune'){
+			this.myBitmap = windRunePic;
+			this.myName = 'Wind Rune';
+        }
+		
+		this.reset();
     }
 
     this.reset = function() {
         if (this.homeX == undefined) {
             for (var i = 0; i < roomGrid.length; i++) {
-                if (roomGrid[i] == TILE_FIRE_RUNE) {
+                if (roomGrid[i] == TILE_FIRE_RUNE || 
+					roomGrid[i] == TILE_WIND_RUNE) {
                     var tileRow = Math.floor(i / ROOM_COLS);
                     var tileCol = i % ROOM_COLS;
                     this.homeX = tileCol * TILE_W + 0.5 * TILE_W;

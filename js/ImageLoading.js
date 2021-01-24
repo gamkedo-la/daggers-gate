@@ -1,6 +1,7 @@
 var playerPic = document.createElement("img");
 var goblinPic = document.createElement("img");
 var fireRunePic = document.createElement("img");
+var windRunePic = document.createElement("img");
 
 var tilePics = [];
 
@@ -29,6 +30,7 @@ function loadImages() {
     {varName:playerPic, theFile:"warrior.png"},
 	{varName:goblinPic, theFile:"goblin.png"},
 	{varName:fireRunePic, theFile:"fireRune.png"},
+	{varName:windRunePic, theFile:"windRune.png"},
 	
     {tileType:TILE_GROUND, theFile:"world_ground.png"},
     {tileType:TILE_WALL_1, theFile:"dungeonWall_1.png"},

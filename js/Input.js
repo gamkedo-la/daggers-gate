@@ -9,6 +9,7 @@ const KEY_LETTER_S = 83;
 const KEY_LETTER_D = 68;
 const KEY_NUMBER_1 = 49;
 const KEY_NUMBER_2 = 50;
+const KEY_NUMBER_3 = 51;
 
 var mouseX = 0;
 var mouseY = 0;
@@ -49,7 +50,10 @@ function keyPressed(evt) {
 	  pathFindingDisplay = !pathFindingDisplay;
   } else if (evt.keyCode == KEY_NUMBER_2){
 	  showCollisions = !showCollisions;
+  } else if (evt.keyCode == KEY_NUMBER_3){
+	  showRoomNumbers = !showRoomNumbers;
   }
+  
   evt.preventDefault(); // without this, arrow keys scroll the browser!
 }
 

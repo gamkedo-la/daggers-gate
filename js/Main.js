@@ -71,7 +71,10 @@ function moveEverything() {
 	playerExploredRooms();
 }
 
+var framesToDisplayMessage = 800;
+
 function drawEverything() {
+	
     drawRoom();
 	if(pathFindingDisplay){
 		drawPathingFindingTiles();
@@ -84,4 +87,21 @@ function drawEverything() {
 		gameObjectList[i].draw();
 	}
 	drawDungeonCeilings();
+	
+	if(framesToDisplayMessage-- > 600){
+		colorText("HELPER CODE", 500, 400, fillColor = "black", font = "26px Arial Black");
+		colorText("'1' : Toggles Pathfinding Display", 500, 450, fillColor = "black", font = "14px Arial Black");
+		colorText("'2' : Toggles Collision Boxes Display", 500, 500, fillColor = "black", font = "14px Arial Black");
+		colorText("'3' : Toggles Room Numbers Display", 500, 550, fillColor = "black", font = "14px Arial Black");		
+	} else if (framesToDisplayMessage < 600 && framesToDisplayMessage > 300){ 	
+		colorText("Player Movements", 500, 400, fillColor = "black", font = "26px Arial Black");
+		colorText("'W' : Move Up", 500, 450, fillColor = "black", font = "14px Arial Black");
+		colorText("'A' : Move Left", 500, 475, fillColor = "black", font = "14px Arial Black");
+		colorText("'S' : Move Down", 500, 500, fillColor = "black", font = "14px Arial Black");
+		colorText("'D' : Move Right", 500, 525, fillColor = "black", font = "14px Arial Black");		
+		colorText("'Left Click' : Player uses pathfinding", 500, 550, fillColor = "black", font = "14px Arial Black");
+		colorText("to that location", 500, 575, fillColor = "black", font = "14px Arial Black");		
+	} else if (framesToDisplayMessage < 250 && framesToDisplayMessage > 0){ 	
+		colorText("USE KEYS TO FIND THE TREASURE", 400, 400, fillColor = "black", font = "14px Arial Black");
+	}
 }

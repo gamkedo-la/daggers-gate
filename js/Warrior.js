@@ -23,7 +23,6 @@ function warriorClass() {
     this.controlKeyForWest = westKey;
   }
   
-  //collision box
   //collisions
   this.colHeight = 40;
   this.colWidth = 20;
@@ -38,7 +37,7 @@ function warriorClass() {
   }
   
   this.reset = function() {
-    this.keysHeld = 0;
+    this.keysHeld = 8;
     if(this.homeX == undefined) {
       for(var i=0; i<roomGrid.length; i++) {
         if( roomGrid[i] == TILE_PLAYER) {

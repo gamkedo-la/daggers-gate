@@ -74,7 +74,13 @@ function moveEverything() {
 		p1.checkCollisionAgainst(gameObjectList[i]);
 	}
 	
-	playerExploredRooms();
+	room_0.playerExploredRooms();
+	room_1.playerExploredRooms(); 
+	room_2.playerExploredRooms();
+	room_3.playerExploredRooms();
+	room_4.playerExploredRooms();
+	room_5.playerExploredRooms();
+	room_6.playerExploredRooms();
 }
 
 var framesToDisplayMessage = 800;
@@ -92,7 +98,13 @@ function drawEverything() {
 	for(var i = 0; i < gameObjectList.length; i++){
 		gameObjectList[i].draw();
 	}
-	drawDungeonCeilings();
+	room_0.draw();
+	room_1.draw(); 
+	room_2.draw();
+	room_3.draw();
+	room_4.draw();
+	room_5.draw();
+	room_6.draw();
 	
 	if(framesToDisplayMessage-- > 600){
 		colorText("HELPER CODE", 500, 400, fillColor = "black", font = "26px Arial Black");

@@ -11,6 +11,10 @@ const KEY_NUMBER_1 = 49;
 const KEY_NUMBER_2 = 50;
 const KEY_NUMBER_3 = 51;
 
+const KEY_NUMBER_9 = 57;
+const KEY_SPACE = 32;
+const KEY_SHIFT = 16;
+
 var mouseX = 0;
 var mouseY = 0;
 var tileOverIdx = -1;
@@ -59,12 +63,31 @@ function keyPressed(evt) {
 
 function keyReleased(evt) {
   setKeyHoldState(evt.keyCode, p1, false);
+
+  if(evt.keyCode == KEY_SPACE && titleScreen) {
+  titleScreen = false;
+  // loadLevel(roomTwo);
+  }
+  if(evt.keyCode == KEY_NUMBER_9 && titleScreen) {
+    console.log("what what!")
+    editorMode = true;
+    titleScreen = false;
+  }
 }
 
 function mouseclicked(evt) {
-	if(grid[tileOverIdx].elementType != WALL) {
-		startPath(tileOverIdx, p1); 
+  if(editorMode) {
+    var clickedIndex = getTileIndexAtPixelCoord(mouseX, mouseY);
+    console.log(freshMap[clickedIndex], storedTileValue);
+    cleanMap[getTileIndexAtPixelCoord(mouseX, mouseY)] = storedTileValue;
+
+  }else {
+
+  	if(grid[tileOverIdx].elementType != WALL) {
+  		startPath(tileOverIdx, p1); 
     }
+
+  }
 }
 
 function mousereleased(evt) {

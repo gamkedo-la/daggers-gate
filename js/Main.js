@@ -4,6 +4,10 @@ var canvas, canvasContext;
 var p1 = new warriorClass();
 var pathFindingDisplay = false;
 
+// Added to support Tile Editor Mode
+var titleScreen = true;
+var editorMode = false;
+
 window.onload = function() {
     canvas = document.getElementById('gameCanvas');
     canvasContext = canvas.getContext('2d');
@@ -44,82 +48,111 @@ function loadingDoneSoStartGame() {
 	for(var i = 0; i < gameObjectList.length; i++){
 		gameObjectList[i].init(fireRunePic, "red");
 	}
+
     initInput();
+
+
+    // Added to support Tile Editor Mode
+	setupTileButtons();
+	if(!titleScreen){loadLevel(freshMap);}
 }
 
 function moveEverything() {
-	//movement
-	p1.move();
-	for(var i = 0; i < enemyList.length; i++){
-		enemyList[i].move();
-	}
-	for(var i = 0; i < gameObjectList.length; i++){
-		gameObjectList[i].move();
-	}
 
-
-	//collisions
-	/*for(var i = 0; i < enemyList.length; i++){
-		for (var ii = i+1; ii < enemyList.length; i++){
-			enemyList[i].checkCollisionAgainst(enemyList[ii]);
+	if(titleScreen) {} 
+	else if(editorMode) {}
+	else
+	{
+		// Wrapped in IF/ELSE to support Tile Editor Mode	
+		//movement
+		p1.move();
+		for(var i = 0; i < enemyList.length; i++){
+			enemyList[i].move();
 		}
-	}*/
-	for(var i = 0; i < enemyList.length; i++){
-		enemyList[i].checkCollisionAgainst(p1);
+		for(var i = 0; i < gameObjectList.length; i++){
+			gameObjectList[i].move();
+		}
+
+
+		//collisions
+		/*for(var i = 0; i < enemyList.length; i++){
+			for (var ii = i+1; ii < enemyList.length; i++){
+				enemyList[i].checkCollisionAgainst(enemyList[ii]);
+			}
+		}*/
+		for(var i = 0; i < enemyList.length; i++){
+			enemyList[i].checkCollisionAgainst(p1);
+		}
+		for(var i = 0; i < enemyList.length; i++){
+			p1.checkCollisionAgainst(enemyList[i]);
+		}
+		for(var i = 0; i < gameObjectList.length; i++){
+			p1.checkCollisionAgainst(gameObjectList[i]);
+		}
+		
+		room_0.playerExploredRooms();
+		room_1.playerExploredRooms(); 
+		room_2.playerExploredRooms();
+		room_3.playerExploredRooms();
+		room_4.playerExploredRooms();
+		room_5.playerExploredRooms();
+		room_6.playerExploredRooms();
 	}
-	for(var i = 0; i < enemyList.length; i++){
-		p1.checkCollisionAgainst(enemyList[i]);
-	}
-	for(var i = 0; i < gameObjectList.length; i++){
-		p1.checkCollisionAgainst(gameObjectList[i]);
-	}
-	
-	room_0.playerExploredRooms();
-	room_1.playerExploredRooms(); 
-	room_2.playerExploredRooms();
-	room_3.playerExploredRooms();
-	room_4.playerExploredRooms();
-	room_5.playerExploredRooms();
-	room_6.playerExploredRooms();
 }
 
 var framesToDisplayMessage = 800;
 
 function drawEverything() {
-	
-    drawRoom();
-	if(pathFindingDisplay){
-		drawPathingFindingTiles();
-    }
-	p1.draw();
-	for(var i = 0; i < enemyList.length; i++){
-		enemyList[i].draw();
+
+
+	if(titleScreen) {
+		console.log("title screen")
+		drawTitleScreen("black");
+	} 
+	if(!titleScreen && editorMode) {
+		console.log("editor mode")
+		drawTitleScreen("blue");
+		// loadLevel(freshMap)
+		drawRoom(cleanMap);
 	}
-	for(var i = 0; i < gameObjectList.length; i++){
-		gameObjectList[i].draw();
-	}
-	room_0.draw();
-	room_1.draw(); 
-	room_2.draw();
-	room_3.draw();
-	room_4.draw();
-	room_5.draw();
-	room_6.draw();
-	
-	if(framesToDisplayMessage-- > 600){
-		colorText("HELPER CODE", 500, 400, fillColor = "black", font = "26px Arial Black");
-		colorText("'1' : Toggles Pathfinding Display", 500, 450, fillColor = "black", font = "14px Arial Black");
-		colorText("'2' : Toggles Collision Boxes Display", 500, 500, fillColor = "black", font = "14px Arial Black");
-		colorText("'3' : Toggles Room Numbers Display", 500, 550, fillColor = "black", font = "14px Arial Black");		
-	} else if (framesToDisplayMessage < 600 && framesToDisplayMessage > 300){ 	
-		colorText("Player Movements", 500, 400, fillColor = "black", font = "26px Arial Black");
-		colorText("'W' : Move Up", 500, 450, fillColor = "black", font = "14px Arial Black");
-		colorText("'A' : Move Left", 500, 475, fillColor = "black", font = "14px Arial Black");
-		colorText("'S' : Move Down", 500, 500, fillColor = "black", font = "14px Arial Black");
-		colorText("'D' : Move Right", 500, 525, fillColor = "black", font = "14px Arial Black");		
-		colorText("'Left Click' : Player uses pathfinding", 500, 550, fillColor = "black", font = "14px Arial Black");
-		colorText("to that location", 500, 575, fillColor = "black", font = "14px Arial Black");		
-	} else if (framesToDisplayMessage < 250 && framesToDisplayMessage > 0){ 	
-		colorText("USE KEYS TO FIND THE TREASURE", 400, 400, fillColor = "black", font = "14px Arial Black");
+	if(!titleScreen && !editorMode)
+	{
+		console.log("title screen OFF")
+		// Wrapped in IF/ELSE to support Tile Editor Mode	
+	    drawRoom(roomGrid);
+		if(pathFindingDisplay){
+			drawPathingFindingTiles();
+	    }
+		p1.draw();
+		for(var i = 0; i < enemyList.length; i++){
+			enemyList[i].draw();
+		}
+		for(var i = 0; i < gameObjectList.length; i++){
+			gameObjectList[i].draw();
+		}
+		room_0.draw();
+		room_1.draw(); 
+		room_2.draw();
+		room_3.draw();
+		room_4.draw();
+		room_5.draw();
+		room_6.draw();
+		
+		if(framesToDisplayMessage-- > 600){
+			colorText("HELPER CODE", 500, 400, fillColor = "black", font = "26px Arial Black");
+			colorText("'1' : Toggles Pathfinding Display", 500, 450, fillColor = "black", font = "14px Arial Black");
+			colorText("'2' : Toggles Collision Boxes Display", 500, 500, fillColor = "black", font = "14px Arial Black");
+			colorText("'3' : Toggles Room Numbers Display", 500, 550, fillColor = "black", font = "14px Arial Black");		
+		} else if (framesToDisplayMessage < 600 && framesToDisplayMessage > 300){ 	
+			colorText("Player Movements", 500, 400, fillColor = "black", font = "26px Arial Black");
+			colorText("'W' : Move Up", 500, 450, fillColor = "black", font = "14px Arial Black");
+			colorText("'A' : Move Left", 500, 475, fillColor = "black", font = "14px Arial Black");
+			colorText("'S' : Move Down", 500, 500, fillColor = "black", font = "14px Arial Black");
+			colorText("'D' : Move Right", 500, 525, fillColor = "black", font = "14px Arial Black");		
+			colorText("'Left Click' : Player uses pathfinding", 500, 550, fillColor = "black", font = "14px Arial Black");
+			colorText("to that location", 500, 575, fillColor = "black", font = "14px Arial Black");		
+		} else if (framesToDisplayMessage < 250 && framesToDisplayMessage > 0){ 	
+			colorText("USE KEYS TO FIND THE TREASURE", 400, 400, fillColor = "black", font = "14px Arial Black");
+		}
 	}
 }

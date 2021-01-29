@@ -21,6 +21,9 @@ function enemyClass() {
     this.init = function(whichGraphic,whichName) {
 		this.superInit(whichGraphic,whichName);
 		this.movingSpeed = ENEMY_MOVE_SPEED;
+		this.colHeight = 40;
+		this.colWidth = 20;
+		this.myCollisionColor = "green";
 	}
 
     this.superReset = this.reset;

@@ -1,19 +1,8 @@
 // tuning constants
 const PLAYER_MOVE_SPEED = 4.0;
 
+warriorClass.prototype = new characterClass();
 function warriorClass() {
-  // variables to keep track of position
-  this.x;
-  this.y;
-  this.tilePath = [];
-  this.pathfindingNow = false;
-  this.moving = false;
-
-  // keyboard hold state variables, to use keys more like buttons
-  this.move_North = false;
-  this.move_East = false;
-  this.move_South = false;
-  this.move_West = false;
 
   // key controls used for this
   this.setupControls = function(northKey,eastKey,southKey,westKey) {
@@ -22,19 +11,19 @@ function warriorClass() {
     this.controlKeyForSouth = southKey;
     this.controlKeyForWest = westKey;
   }
-  
-  //collisions
-  this.colHeight = 40;
-  this.colWidth = 20;
-  this.colTopLeftX;
-  this.colTopLeftY;
-  this.myCollisionColor = "blue";
+   
+  this.superInit = this.init;
+    this.init = function(whichGraphic,whichName) {
+		this.superInit(whichGraphic,whichName);
+		this.movingSpeed = PLAYER_MOVE_SPEED;
+		this.colHeight = 40;
+		this.colWidth = 20;
+		this.myCollisionColor = "blue";
 
-  this.init = function(whichGraphic,whichName) {
-    this.myBitmap = whichGraphic;
-    this.myName = whichName;
-    this.reset();
-  }
+
+	}
+
+  
   
   this.reset = function() {
     this.keysHeld = 8;
@@ -76,7 +65,6 @@ function warriorClass() {
 		var deltaY = Math.abs(targetY - this.y);
 		
 		this.move_East = this.move_West = this.move_North = this.move_South = false;
-		//console.log("DeltaX:" + deltaX + " DeltaY:" + deltaY + " Speed:" + PLAYER_MOVE_SPEED);
 		
 		if(deltaX <= PLAYER_MOVE_SPEED){
 			this.x = targetX;
@@ -197,30 +185,4 @@ function warriorClass() {
 	this.colTopLeftX = this.x - this.colWidth/2;
 	this.colTopLeftY = this.y - this.colHeight/2;
   }
-  
-  	this.isOverLapping = function(testX, testY){
-		if(	testX > this.colTopLeftX && testX < this.colTopLeftX + this.colWidth &&
-			testY > this.colTopLeftY && testY < this.colTopLeftY + this.colHeight){
-			return true;
-		} else {
-			return false;
-		}			
-	}
-	
-	this.checkCollisionAgainst = function(thisEntity){
-		if(this.isOverLapping(thisEntity.x,thisEntity.y)){
-			this.collisionColor = "red"; 
-		} else {
-			this.collisionColor = this.myCollisionColor;
-		}
-	}
-  
-  this.draw = function() {
-    drawBitmapCenteredAtLocationWithRotation( this.myBitmap, this.x, this.y, 0.0 );
-  	if(showCollisions){
-		colorRect(this.colTopLeftX, this.colTopLeftY, this.colWidth, this.colHeight, this.collisionColor);
-	}  
-	  
-  }
-
 } // end of class

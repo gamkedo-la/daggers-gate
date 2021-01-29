@@ -12,11 +12,11 @@ function characterClass() {
   this.move_West = false;
 
   //collisions
-  this.colHeight = 40;
-  this.colWidth = 20;
+  this.colHeight = 100;
+  this.colWidth = 100;
   this.colTopLeftX;
   this.colTopLeftY;
-  this.myCollisionColor = "green";
+  this.myCollisionColor = "black";
   
   this.init = function(whichGraphic,whichName) {
     this.myBitmap = whichGraphic;

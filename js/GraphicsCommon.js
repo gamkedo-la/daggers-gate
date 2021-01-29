@@ -32,3 +32,9 @@ function colorText(showWords, textX, textY, fillColor = "black", font = "14px Ar
   canvasContext.font = font;
   canvasContext.fillText(showWords, textX, textY);
 }
+
+function customText(showWords, textX,textY, fillColor, textSize, fontStyle) {
+  canvasContext.fillStyle = fillColor;
+  canvasContext.font = textSize + "px " + fontStyle;
+  canvasContext.fillText(showWords, textX, textY);
+}

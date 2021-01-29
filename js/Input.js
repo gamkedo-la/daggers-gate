@@ -30,16 +30,16 @@ function initInput() {
 
 function setKeyHoldState(thisKey, thisPlayer, setTo) {
   if(thisKey == thisPlayer.controlKeyForNorth) {
-    thisPlayer.keyHeld_North = setTo;
+    thisPlayer.move_North = setTo;
   }
   if(thisKey == thisPlayer.controlKeyForEast) {
-    thisPlayer.keyHeld_East = setTo;
+    thisPlayer.move_East = setTo;
   }
   if(thisKey == thisPlayer.controlKeyForSouth) {
-    thisPlayer.keyHeld_South = setTo;
+    thisPlayer.move_South = setTo;
   }
   if(thisKey == thisPlayer.controlKeyForWest) {
-    thisPlayer.keyHeld_West = setTo;
+    thisPlayer.move_West = setTo;
   }
 }
 

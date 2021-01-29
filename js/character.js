@@ -4,12 +4,7 @@ function characterClass() {
   this.y;
   this.tilePath = [];
   this.pathfindingNow = false;
-
-  this.moving = false;
-  this.patrolling = true;
-  this.resting = false;
-  this.trackPlayerRange = 250;
-
+  this.movingSpeed = 20; // should be overwritten by specific class.
   // move states
   this.move_North = false;
   this.move_East = false;
@@ -70,9 +65,9 @@ function characterClass() {
 		
 		this.move_East = this.move_West = this.move_North = this.move_South = false;
 		
-		if(deltaX <= ENEMY_MOVE_SPEED){
+		if(deltaX <= this.movingSpeed){
 			this.x = targetX;
-			if(deltaY <= ENEMY_MOVE_SPEED){
+			if(deltaY <= this.movingSpeed){
 				this.y = targetY;
 				this.tilePath.shift();
 			} else if(targetY < this.y){
@@ -80,9 +75,9 @@ function characterClass() {
 			} else {
 				this.move_South = true;
 			}
-		} else if(deltaY <= ENEMY_MOVE_SPEED){
+		} else if(deltaY <= this.movingSpeed){
 			this.y = targetY;
-			if(deltaX <= ENEMY_MOVE_SPEED){
+			if(deltaX <= this.movingSpeed){
 				this.x = targetX;
 				this.tilePath.shift();
 			} else if(targetX < this.x){
@@ -93,9 +88,9 @@ function characterClass() {
 		} else { // move towards center of closest tile
 			targetX = enemyCol * TILE_W + (TILE_W * 0.5);
 			targetY = enemyRow * TILE_H + (TILE_H * 0.5);
-			if(targetY < this.y - ENEMY_MOVE_SPEED){
+			if(targetY < this.y - this.movingSpeed){
 				this.move_North = true;
-			} else if (targetY > this.y + ENEMY_MOVE_SPEED) {
+			} else if (targetY > this.y + this.movingSpeed) {
 				this.move_South = true;
 			} else if(targetX < this.x){
 				this.move_West = true;
@@ -112,16 +107,16 @@ function characterClass() {
 	}
 	
     if(this.move_North) {
-      nextY -= ENEMY_MOVE_SPEED;
+      nextY -= this.movingSpeed;
     }
     if(this.move_East) {
-      nextX += ENEMY_MOVE_SPEED;
+      nextX += this.movingSpeed;
     }
     if(this.move_South) {
-      nextY += ENEMY_MOVE_SPEED;
+      nextY += this.movingSpeed;
     }
     if(this.move_West) {
-      nextX -= ENEMY_MOVE_SPEED;
+      nextX -= this.movingSpeed;
     }
         
     var walkIntoTileIndex = getTileIndexAtPixelCoord(nextX,nextY);

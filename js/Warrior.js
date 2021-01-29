@@ -10,10 +10,10 @@ function warriorClass() {
   this.moving = false;
 
   // keyboard hold state variables, to use keys more like buttons
-  this.keyHeld_North = false;
-  this.keyHeld_East = false;
-  this.keyHeld_South = false;
-  this.keyHeld_West = false;
+  this.move_North = false;
+  this.move_East = false;
+  this.move_South = false;
+  this.move_West = false;
 
   // key controls used for this
   this.setupControls = function(northKey,eastKey,southKey,westKey) {
@@ -75,7 +75,7 @@ function warriorClass() {
 		var deltaX = Math.abs(targetX - this.x);
 		var deltaY = Math.abs(targetY - this.y);
 		
-		this.keyHeld_East = this.keyHeld_West = this.keyHeld_North = this.keyHeld_South = false;
+		this.move_East = this.move_West = this.move_North = this.move_South = false;
 		//console.log("DeltaX:" + deltaX + " DeltaY:" + deltaY + " Speed:" + PLAYER_MOVE_SPEED);
 		
 		if(deltaX <= PLAYER_MOVE_SPEED){
@@ -84,9 +84,9 @@ function warriorClass() {
 				this.y = targetY;
 				this.tilePath.shift();
 			} else if(targetY < this.y){
-				this.keyHeld_North = true;
+				this.move_North = true;
 			} else {
-				this.keyHeld_South = true;
+				this.move_South = true;
 			}
 		} else if(deltaY <= PLAYER_MOVE_SPEED){
 			this.y = targetY;
@@ -94,21 +94,21 @@ function warriorClass() {
 				this.x = targetX;
 				this.tilePath.shift();
 			} else if(targetX < this.x){
-				this.keyHeld_West = true;
+				this.move_West = true;
 			} else {
-				this.keyHeld_East = true;
+				this.move_East = true;
 			}
 		} else { // move towards center of closest tile
 			targetX = playerCol * TILE_W + (TILE_W * 0.5);
 			targetY = playerRow * TILE_H + (TILE_H * 0.5);
 			if(targetY < this.y - PLAYER_MOVE_SPEED){
-				this.keyHeld_North = true;
+				this.move_North = true;
 			} else if (targetY > this.y + PLAYER_MOVE_SPEED) {
-				this.keyHeld_South = true;
+				this.move_South = true;
 			} else if(targetX < this.x){
-				this.keyHeld_West = true;
+				this.move_West = true;
 			} else {
-				this.keyHeld_East = true;
+				this.move_East = true;
 			}
 		}
 	} 
@@ -119,16 +119,16 @@ function warriorClass() {
 		this.moving = false;
 	}
 	
-    if(this.keyHeld_North) {
+    if(this.move_North) {
       nextY -= PLAYER_MOVE_SPEED;
     }
-    if(this.keyHeld_East) {
+    if(this.move_East) {
       nextX += PLAYER_MOVE_SPEED;
     }
-    if(this.keyHeld_South) {
+    if(this.move_South) {
       nextY += PLAYER_MOVE_SPEED;
     }
-    if(this.keyHeld_West) {
+    if(this.move_West) {
       nextX -= PLAYER_MOVE_SPEED;
     }
         

@@ -45,91 +45,9 @@ function warriorClass() {
 
   } // end of reset
   
-  this.move = function() {
-    var nextX = this.x;
-    var nextY = this.y;
-	
-	var playerCol = Math.floor(this.x/TILE_W);
-	var playerRow = Math.floor(this.y/TILE_H);
-	
-	var playersCurrentTileIndex = roomTileToIndex(playerCol, playerRow);
-	
-	if(this.tilePath.length > 0){
-		var targetIndex = this.tilePath[0];
-		//console.log(targetIndex);
-		var targetC = targetIndex % ROOM_COLS;
-		var targetR = Math.floor(targetIndex / ROOM_COLS);
-		var targetX = targetC * TILE_W + (TILE_W * 0.5);
-		var targetY = targetR * TILE_H + (TILE_H * 0.5);
-		var deltaX = Math.abs(targetX - this.x);
-		var deltaY = Math.abs(targetY - this.y);
-		
-		this.move_East = this.move_West = this.move_North = this.move_South = false;
-		
-		if(deltaX <= PLAYER_MOVE_SPEED){
-			this.x = targetX;
-			if(deltaY <= PLAYER_MOVE_SPEED){
-				this.y = targetY;
-				this.tilePath.shift();
-			} else if(targetY < this.y){
-				this.move_North = true;
-			} else {
-				this.move_South = true;
-			}
-		} else if(deltaY <= PLAYER_MOVE_SPEED){
-			this.y = targetY;
-			if(deltaX <= PLAYER_MOVE_SPEED){
-				this.x = targetX;
-				this.tilePath.shift();
-			} else if(targetX < this.x){
-				this.move_West = true;
-			} else {
-				this.move_East = true;
-			}
-		} else { // move towards center of closest tile
-			targetX = playerCol * TILE_W + (TILE_W * 0.5);
-			targetY = playerRow * TILE_H + (TILE_H * 0.5);
-			if(targetY < this.y - PLAYER_MOVE_SPEED){
-				this.move_North = true;
-			} else if (targetY > this.y + PLAYER_MOVE_SPEED) {
-				this.move_South = true;
-			} else if(targetX < this.x){
-				this.move_West = true;
-			} else {
-				this.move_East = true;
-			}
-		}
-	} 
-	
-	if(this.move_North || this.move_East || this.move_South || this.move_West){
-		this.moving = true;
-	} else {
-		this.moving = false;
-	}
-	
-    if(this.move_North) {
-      nextY -= PLAYER_MOVE_SPEED;
-    }
-    if(this.move_East) {
-      nextX += PLAYER_MOVE_SPEED;
-    }
-    if(this.move_South) {
-      nextY += PLAYER_MOVE_SPEED;
-    }
-    if(this.move_West) {
-      nextX -= PLAYER_MOVE_SPEED;
-    }
-        
-    var walkIntoTileIndex = getTileIndexAtPixelCoord(nextX,nextY);
-    var walkIntoTileType = TILE_WALL_7;
-    
-    if( walkIntoTileIndex != undefined) {
-      walkIntoTileType = roomGrid[walkIntoTileIndex];
-    }
-	
-	
-    
-    switch( walkIntoTileType ) {
+  //must override this function.  No super version
+  this.tileCollisionHandle = function(walkIntoTileIndex, walkIntoTileType, nextX, nextY){
+	 switch( walkIntoTileType ) {
       case TILE_GROUND:
 	  case TILE_FLOOR_FIRE_RUNE:
       case TILE_FLOOR_WATER_RUNE:
@@ -180,9 +98,9 @@ function warriorClass() {
       default:
         // any other tile type number was found... do nothing, for now
         break;
-    }
-		//updates to collision boxes
-	this.colTopLeftX = this.x - this.colWidth/2;
-	this.colTopLeftY = this.y - this.colHeight/2;
+    }   
   }
+  
+  
+  
 } // end of class

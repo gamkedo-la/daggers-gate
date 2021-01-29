@@ -31,6 +31,41 @@ function enemyClass() {
         this.superReset();
         console.log("Enemy Class Reset");
     }
+	
+	//must override this function.  No super version
+  this.tileCollisionHandle = function(walkIntoTileIndex, walkIntoTileType, nextX, nextY){
+	      switch( walkIntoTileType ) {
+			  case TILE_GROUND:
+			  case TILE_GOAL:
+			  case TILE_FLOOR_FIRE_RUNE:
+			  case TILE_FLOOR_WATER_RUNE:
+			  case TILE_FLOOR_WIND_RUNE:
+			  case TILE_FLOOR_EARTH_RUNE:
+			  case TILE_KEY:
+				this.x = nextX;
+				this.y = nextY;
+				break;
+			  case TILE_DOOR:
+			  case TILE_DOOR_YELLOW_FRONT:
+			  case TILE_WALL_1:
+			  case TILE_WALL_2:
+			  case TILE_WALL_3:
+			  case TILE_WALL_4:
+			  case TILE_WALL_5:
+			  case TILE_WALL_6:
+			  case TILE_WALL_7:	
+			  case TILE_WALL_8:
+			  case TILE_WALL_9:
+			  case TILE_WALL_10:
+			  case TILE_WALL_11:
+			  case TILE_WALL_12:
+			  case TILE_WALL_13:
+			  default:
+				// any other tile type number was found... do nothing, for now
+				break;
+			}
+	  
+	}
 
     this.superMove = this.move;
     this.move = function() {

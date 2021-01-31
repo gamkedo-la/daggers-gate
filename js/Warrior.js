@@ -11,7 +11,7 @@ function warriorClass() {
         this.controlKeyForEast = eastKey;
         this.controlKeyForSouth = southKey;
         this.controlKeyForWest = westKey;
-		this.interactWithObject = spaceKey;
+		this.controlKeyForinteractWithObject = spaceKey;
     }
 
     this.superInit = this.init;

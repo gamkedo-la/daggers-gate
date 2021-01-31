@@ -45,7 +45,7 @@ function setKeyHoldState(thisKey, thisPlayer, setTo) {
   if(thisKey == thisPlayer.controlKeyForWest) {
     thisPlayer.move_West = setTo;
   }
-  if(thisKey == thisPlayer.controlKeyForGrabbingObjects){
+  if(thisKey == thisPlayer.controlKeyForinteractWithObject){
 	thisPlayer.interactWithObject = setTo;
   }
 }

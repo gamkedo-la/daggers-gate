@@ -76,8 +76,11 @@ function gameObjectClass(whichObject) {
 				this.myCollisionColor = "green";
 			}
 		} else {
+			
 			this.myCollisionColor = "orange";
-			this.grabbedByPlayer = false;
+			if(this.grabbedByPlayer){
+				this.myCollisionColor = "green";
+			}
 		}
 	}
 	
@@ -87,6 +90,20 @@ function gameObjectClass(whichObject) {
         this.colTopLeftY = this.y - this.colHeight / 2;
 		//player to move this object
 		//player should grab this object, then the player can either pull or push the object.
+		if(this.grabbedByPlayer){
+			if (p1.move_North) {
+				this.y = p1.movingSpeed;
+			}
+			if (p1.move_East) {
+				this.x += p1.movingSpeed;
+			}
+			if (p1.move_South) {
+				this.y += p1.movingSpeed;
+			}
+			if (p1.move_West) {
+				this.x -= p1.movingSpeed;
+			}
+		}
 	}
 
 	this.draw = function() {

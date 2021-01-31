@@ -18,17 +18,11 @@ window.onload = function() {
 		if(roomGrid[i] == TILE_ENEMY){
 			addEnemy();
 		} 
-		if (roomGrid[i] == TILE_FIRE_RUNE){
-			addObject('fireRune');
-		}
-		if (roomGrid[i] == TILE_WIND_RUNE){
-			addObject('windRune');
-		}
-		if (roomGrid[i] == TILE_WATER_RUNE){
-			addObject('waterRune');
-		}
-		if (roomGrid[i] == TILE_EARTH_RUNE){
-			addObject('earthRune');
+		if (roomGrid[i] == TILE_FIRE_RUNE ||
+			roomGrid[i] == TILE_WIND_RUNE ||		
+			roomGrid[i] == TILE_WATER_RUNE ||
+			roomGrid[i] == TILE_EARTH_RUNE){
+				addObject();
 		}
 	}
 }
@@ -46,7 +40,8 @@ function loadingDoneSoStartGame() {
 		enemyList[i].init(goblinPic, "red");
 	}
 	for(var i = 0; i < gameObjectList.length; i++){
-		gameObjectList[i].init(fireRunePic, "red");
+		gameObjectList[i].init('fireRune');
+		console.log("Add Object");
 	}
 
     initInput();
@@ -87,7 +82,7 @@ function moveEverything() {
 			p1.checkCollisionAgainst(enemyList[i]);
 		}
 		for(var i = 0; i < gameObjectList.length; i++){
-			p1.checkCollisionAgainst(gameObjectList[i]);
+			gameObjectList[i].checkCollisionAgainst(p1);
 		}
 		
 		room_0.playerExploredRooms();
@@ -117,7 +112,6 @@ function drawEverything() {
 	}
 	if(!titleScreen && !editorMode)
 	{
-		console.log("title screen OFF")
 		// Wrapped in IF/ELSE to support Tile Editor Mode	
 	    drawRoom(roomGrid);
 		if(pathFindingDisplay){
@@ -145,10 +139,10 @@ function drawEverything() {
 			colorText("'3' : Toggles Room Numbers Display", 500, 550, fillColor = "black", font = "14px Arial Black");		
 		} else if (framesToDisplayMessage < 600 && framesToDisplayMessage > 300){ 	
 			colorText("Player Movements", 500, 400, fillColor = "black", font = "26px Arial Black");
-			colorText("'W' : Move Up", 500, 450, fillColor = "black", font = "14px Arial Black");
-			colorText("'A' : Move Left", 500, 475, fillColor = "black", font = "14px Arial Black");
-			colorText("'S' : Move Down", 500, 500, fillColor = "black", font = "14px Arial Black");
-			colorText("'D' : Move Right", 500, 525, fillColor = "black", font = "14px Arial Black");		
+			colorText("'Up Arrow' : Move Up", 500, 450, fillColor = "black", font = "14px Arial Black");
+			colorText("'Left Arrow' : Move Left", 500, 475, fillColor = "black", font = "14px Arial Black");
+			colorText("'Down Arrow' : Move Down", 500, 500, fillColor = "black", font = "14px Arial Black");
+			colorText("'Right Arrow' : Move Right", 500, 525, fillColor = "black", font = "14px Arial Black");		
 			colorText("'Left Click' : Player uses pathfinding", 500, 550, fillColor = "black", font = "14px Arial Black");
 			colorText("to that location", 500, 575, fillColor = "black", font = "14px Arial Black");		
 		} else if (framesToDisplayMessage < 250 && framesToDisplayMessage > 0){ 	

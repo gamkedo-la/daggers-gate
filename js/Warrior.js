@@ -6,11 +6,12 @@ warriorClass.prototype = new characterClass();
 function warriorClass() {
 
     // key controls used for this
-    this.setupControls = function(northKey, eastKey, southKey, westKey) {
+    this.setupControls = function(northKey, eastKey, southKey, westKey, spaceKey) {
         this.controlKeyForNorth = northKey;
         this.controlKeyForEast = eastKey;
         this.controlKeyForSouth = southKey;
         this.controlKeyForWest = westKey;
+		this.interactWithObject = spaceKey;
     }
 
     this.superInit = this.init;

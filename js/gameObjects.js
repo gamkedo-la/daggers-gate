@@ -12,28 +12,28 @@ function gameObjectClass(whichObject) {
     this.y;
 
     //collisions
-    this.colHeight = 40;
-    this.colWidth = 20;
+    this.colHeight = 50;
+    this.colWidth = 50;
     this.colTopLeftX;
     this.colTopLeftY;
-    this.myCollisionColor = "green";
+    this.myCollisionColor = "orange";
 	this.myIdentity = whichObject
+	this.grabbedByPlayer = false;
 
-    this.init = function() {
-        if(this.myIdentity == 'fireRune'){
+    this.init = function(name) {
+        if(name == 'fireRune'){
 			this.myBitmap = fireRunePic;
 			this.myName = "Fire Rune";
-		} else if (this.myIdentity == 'windRune'){
+		} else if (name == 'windRune'){
 			this.myBitmap = windRunePic;
 			this.myName = 'Wind Rune';
-        } else if (this.myIdentity == 'waterRune'){
+        } else if (name == 'waterRune'){
 			this.myBitmap = waterRunePic;
 			this.myName = 'Water Rune';
-        } else if (this.myIdentity == 'earthRune'){
+        } else if (name == 'earthRune'){
 			this.myBitmap = earthRunePic;
 			this.myName = 'Earth Rune';
         }
-		
 		
 		this.reset();
     }
@@ -70,22 +70,29 @@ function gameObjectClass(whichObject) {
 
 	this.checkCollisionAgainst = function(thisEntity) {
 		if (this.isOverLapping(thisEntity.x, thisEntity.y)) {
-			this.collisionColor = "red";
+			this.myCollisionColor = "yellow";
+			if(p1.interactWithObject){
+				this.grabbedByPlayer = true;
+				this.myCollisionColor = "green";
+			}
 		} else {
-			this.collisionColor = this.myCollisionColor;
+			this.myCollisionColor = "orange";
+			this.grabbedByPlayer = false;
 		}
 	}
 	
-	this.move = function(){
+	this.move = function(){	
+        //updates to collision boxes
+        this.colTopLeftX = this.x - this.colWidth / 2;
+        this.colTopLeftY = this.y - this.colHeight / 2;
 		//player to move this object
+		//player should grab this object, then the player can either pull or push the object.
 	}
 
 	this.draw = function() {
 		drawBitmapCenteredAtLocationWithRotation(this.myBitmap, this.x, this.y, 0.0);
 		if (showCollisions) {
-			colorRect(this.colTopLeftX, this.colTopLeftY, this.colWidth, this.colHeight, this.collisionColor);
+			 colorRect(this.colTopLeftX, this.colTopLeftY, this.colWidth, this.colHeight, this.myCollisionColor);
 		}
-	}
-
-
+	} //end of draw
 } // end of class

@@ -29,7 +29,7 @@ function initInput() {
   document.addEventListener("mousedown", mouseclicked);
   document.addEventListener("mouseup", mousereleased);
   
-  p1.setupControls(KEY_UP_ARROW,KEY_RIGHT_ARROW,KEY_DOWN_ARROW,KEY_LEFT_ARROW);
+  p1.setupControls(KEY_UP_ARROW,KEY_RIGHT_ARROW,KEY_DOWN_ARROW,KEY_LEFT_ARROW,KEY_SPACE);
 }
 
 function setKeyHoldState(thisKey, thisPlayer, setTo) {
@@ -44,6 +44,9 @@ function setKeyHoldState(thisKey, thisPlayer, setTo) {
   }
   if(thisKey == thisPlayer.controlKeyForWest) {
     thisPlayer.move_West = setTo;
+  }
+  if(thisKey == thisPlayer.controlKeyForGrabbingObjects){
+	thisPlayer.interactWithObject = setTo;
   }
 }
 

@@ -1,5 +1,6 @@
 // tuning constants
 var gameObjectList = [];
+var objectNameList = ['fireRune', 'windRune', 'waterRune', 'earthRune'];
 
 function addObject(whichObject) {
     var tempObject = new gameObjectClass(whichObject);

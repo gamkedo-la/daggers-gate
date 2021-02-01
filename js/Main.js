@@ -40,8 +40,8 @@ function loadingDoneSoStartGame() {
 		enemyList[i].init(goblinPic, "red");
 	}
 	for(var i = 0; i < gameObjectList.length; i++){
-		gameObjectList[i].init('fireRune');
-		console.log("Add Object");
+		var nameOfRune = objectNameList[i];
+		gameObjectList[i].init(nameOfRune);
 	}
 
     initInput();

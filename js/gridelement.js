@@ -98,7 +98,7 @@ function GridElement() {
 		updatedElementType == TILE_WALL_12 ||
 		updatedElementType == TILE_WALL_13 ||
 		updatedElementType == TILE_WALL_14 ||
-		updatedElementType == TILE_DOOR_YELLOW_FRONT
+		updatedElementType == TILE_DOOR_YELLOW_FRONT 
 		){
 			return WALL;		
     } else if (updatedElementType == TILE_PLAYER){
@@ -106,7 +106,11 @@ function GridElement() {
 	} else if (
 		updatedElementType == TILE_KEY ||
 		updatedElementType == TILE_GROUND ||
-		updatedElementType == TILE_WALL_15
+		updatedElementType == TILE_WALL_15 ||
+		updatedElementType == TILE_FLOOR_FIRE_RUNE ||
+        updatedElementType == TILE_FLOOR_WATER_RUNE ||
+        updatedElementType == TILE_FLOOR_WIND_RUNE ||
+        updatedElementType == TILE_FLOOR_EARTH_RUNE
 		){
 		return NOTHING;
 	} else {

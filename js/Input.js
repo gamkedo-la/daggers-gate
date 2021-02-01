@@ -81,8 +81,8 @@ function keyReleased(evt) {
 function mouseclicked(evt) {
   if(editorMode) {
     var clickedIndex = getTileIndexAtPixelCoord(mouseX, mouseY);
-    console.log(freshMap[clickedIndex], storedTileValue);
-    cleanMap[getTileIndexAtPixelCoord(mouseX, mouseY)] = storedTileValue;
+    // console.log(freshMap[clickedIndex], storedTileValue);
+    _newMap[getTileIndexAtPixelCoord(mouseX, mouseY)] = storedTileValue;
 
   }else {
 

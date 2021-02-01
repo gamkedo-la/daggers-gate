@@ -104,10 +104,9 @@ function drawEverything() {
 		drawTitleScreen("black");
 	} 
 	if(!titleScreen && editorMode) {
-		console.log("editor mode")
 		drawTitleScreen("blue");
-		// loadLevel(freshMap)
-		drawRoom(cleanMap);
+		// loadLevel(freshMap) 
+		drawRoom(_newMap);
 	}
 	if(!titleScreen && !editorMode)
 	{

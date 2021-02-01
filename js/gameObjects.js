@@ -1,4 +1,4 @@
-// tuning constants
+// tuning 
 var gameObjectList = [];
 var objectNameList = ['fireRune', 'windRune', 'waterRune', 'earthRune'];
 
@@ -7,45 +7,42 @@ function addObject(whichObject) {
     gameObjectList.push(tempObject);
 }
 
-function gameObjectClass(whichObject) {
-    // variables to keep track of position
-    this.x;
-    this.y;
+//gameObjects have similar code to Character class for movement.
+gameObjectClass.prototype = new characterClass();
 
+function gameObjectClass(whichObject) {
     //collisions
     this.colHeight = 50;
     this.colWidth = 50;
-    this.colTopLeftX;
-    this.colTopLeftY;
     this.myCollisionColor = "orange";
-	this.myIdentity = whichObject
-	this.grabbedByPlayer = false;
+    this.myIdentity = whichObject
+    this.grabbedByPlayer = false;
+	this.correctPuzzleLocation = false;
 
     this.init = function(name) {
-        if(name == 'fireRune'){
-			this.myBitmap = fireRunePic;
-			this.myName = "Fire Rune";
-		} else if (name == 'windRune'){
-			this.myBitmap = windRunePic;
-			this.myName = 'Wind Rune';
-        } else if (name == 'waterRune'){
-			this.myBitmap = waterRunePic;
-			this.myName = 'Water Rune';
-        } else if (name == 'earthRune'){
-			this.myBitmap = earthRunePic;
-			this.myName = 'Earth Rune';
+        if (name == 'fireRune') {
+            this.myBitmap = fireRunePic;
+            this.myName = "Fire Rune";
+        } else if (name == 'windRune') {
+            this.myBitmap = windRunePic;
+            this.myName = 'Wind Rune';
+        } else if (name == 'waterRune') {
+            this.myBitmap = waterRunePic;
+            this.myName = 'Water Rune';
+        } else if (name == 'earthRune') {
+            this.myBitmap = earthRunePic;
+            this.myName = 'Earth Rune';
         }
-		
-		this.reset();
+        this.reset();
     }
 
     this.reset = function() {
         if (this.homeX == undefined) {
             for (var i = 0; i < roomGrid.length; i++) {
-                if (roomGrid[i] == TILE_FIRE_RUNE || 
-					roomGrid[i] == TILE_WIND_RUNE || 
-					roomGrid[i] == TILE_WATER_RUNE ||
-					roomGrid[i] == TILE_EARTH_RUNE) {
+                if (roomGrid[i] == TILE_FIRE_RUNE ||
+                    roomGrid[i] == TILE_WIND_RUNE ||
+                    roomGrid[i] == TILE_WATER_RUNE ||
+                    roomGrid[i] == TILE_EARTH_RUNE) {
                     var tileRow = Math.floor(i / ROOM_COLS);
                     var tileCol = i % ROOM_COLS;
                     this.homeX = tileCol * TILE_W + 0.5 * TILE_W;
@@ -60,57 +57,104 @@ function gameObjectClass(whichObject) {
         this.y = this.homeY;
     } // end of reset
 
-	this.isOverLapping = function(testX, testY) {
-		if (testX > this.colTopLeftX && testX < this.colTopLeftX + this.colWidth &&
-			testY > this.colTopLeftY && testY < this.colTopLeftY + this.colHeight) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+    this.checkCollisionAgainst = function(thisEntity) {
+        if (this.isOverLapping(thisEntity.x, thisEntity.y)) {
+            this.myCollisionColor = "yellow";
+            if (p1.interactWithObject) {
+                this.grabbedByPlayer = !this.grabbedByPlayer;
+                this.myCollisionColor = "green";
+            }
+        } else {
 
-	this.checkCollisionAgainst = function(thisEntity) {
-		if (this.isOverLapping(thisEntity.x, thisEntity.y)) {
-			this.myCollisionColor = "yellow";
-			if(p1.interactWithObject){
-				this.grabbedByPlayer = true;
-				this.myCollisionColor = "green";
-			}
-		} else {
-			
-			this.myCollisionColor = "orange";
-			if(this.grabbedByPlayer){
-				this.myCollisionColor = "green";
-			}
-		}
-	}
-	
-	this.move = function(){	
-        //updates to collision boxes
-        this.colTopLeftX = this.x - this.colWidth / 2;
-        this.colTopLeftY = this.y - this.colHeight / 2;
-		//player to move this object
-		//player should grab this object, then the player can either pull or push the object.
-		if(this.grabbedByPlayer){
-			if (p1.move_North) {
-				this.y = p1.movingSpeed;
-			}
-			if (p1.move_East) {
-				this.x += p1.movingSpeed;
-			}
-			if (p1.move_South) {
-				this.y += p1.movingSpeed;
-			}
-			if (p1.move_West) {
-				this.x -= p1.movingSpeed;
-			}
-		}
-	}
+            this.myCollisionColor = "orange";
+            if (this.grabbedByPlayer) {
+                this.myCollisionColor = "green";
+                this.grabbedByPlayer = false;
+            }
+        }
+    }
 
-	this.draw = function() {
-		drawBitmapCenteredAtLocationWithRotation(this.myBitmap, this.x, this.y, 0.0);
-		if (showCollisions) {
-			 colorRect(this.colTopLeftX, this.colTopLeftY, this.colWidth, this.colHeight, this.myCollisionColor);
-		}
-	} //end of draw
+    this.superMove = this.move;
+    this.move = function() {
+        //player to move this object
+        //player should grab this object, then the player can either pull or push the object.
+        if (this.grabbedByPlayer) {
+            if (p1.move_North) {
+                this.y = p1.movingSpeed;
+            }
+            if (p1.move_East) {
+                this.x += p1.movingSpeed;
+            }
+            if (p1.move_South) {
+                this.y += p1.movingSpeed;
+            }
+            if (p1.move_West) {
+                this.x -= p1.movingSpeed;
+            }
+        }
+		this.superMove();
+    }
+
+    //must override this function.  No super version
+    this.tileCollisionHandle = function(walkIntoTileIndex, walkIntoTileType, nextX, nextY) {
+        switch (walkIntoTileType) {
+            case TILE_GROUND:
+            case TILE_GOAL:
+            case TILE_KEY:
+            case TILE_WALL_15: //OPEN DOOR
+                this.x = nextX;
+                this.y = nextY;
+                break;
+			case TILE_FLOOR_FIRE_RUNE:
+				if(this.myName == "Fire Rune"){
+					this.correctPuzzleLocation = true;
+				} else {
+					this.x = nextX;
+					this.y = nextY;
+				}
+				break;
+            case TILE_FLOOR_WATER_RUNE:
+				if(this.myName == "Water Rune"){
+					this.correctPuzzleLocation = true;
+				} else {
+					this.x = nextX;
+					this.y = nextY;
+				}
+				break;
+            case TILE_FLOOR_WIND_RUNE:
+            if(this.myName == "Wind Rune"){
+					this.correctPuzzleLocation = true;
+				} else {
+					this.x = nextX;
+					this.y = nextY;
+				}
+				break;
+			case TILE_FLOOR_EARTH_RUNE:
+				if(this.myName == "Earth Rune"){
+					this.correctPuzzleLocation = true;
+				} else {
+					this.x = nextX;
+					this.y = nextY;
+				}
+				break;
+            case TILE_DOOR:
+            case TILE_DOOR_YELLOW_FRONT:
+            case TILE_WALL_1:
+            case TILE_WALL_2:
+            case TILE_WALL_3:
+            case TILE_WALL_4:
+            case TILE_WALL_5:
+            case TILE_WALL_6:
+            case TILE_WALL_7:
+            case TILE_WALL_8:
+            case TILE_WALL_9:
+            case TILE_WALL_10:
+            case TILE_WALL_11:
+            case TILE_WALL_12:
+            case TILE_WALL_13:
+            default:
+                // any other tile type number was found... do nothing, for now
+                break;
+        }
+    }
 } // end of class

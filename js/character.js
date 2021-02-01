@@ -25,7 +25,6 @@ function characterClass() {
     }
 
     this.reset = function() {
-        console.log("Character Reset Reached");
         if (this.homeX == undefined) {
             for (var i = 0; i < roomGrid.length; i++) {
                 if (roomGrid[i] == TILE_ENEMY) {

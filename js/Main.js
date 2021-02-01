@@ -101,7 +101,6 @@ function drawEverything() {
 
 
 	if(titleScreen) {
-		console.log("title screen")
 		drawTitleScreen("black");
 	} 
 	if(!titleScreen && editorMode) {

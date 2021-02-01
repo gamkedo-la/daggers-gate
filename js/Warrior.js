@@ -21,8 +21,6 @@ function warriorClass() {
         this.colHeight = 40;
         this.colWidth = 20;
         this.myCollisionColor = "blue";
-
-
     }
 
     this.reset = function() {
@@ -97,7 +95,7 @@ function warriorClass() {
             case TILE_WALL_13:
             default:
                 // any other tile type number was found... do nothing, for now
-                break;
+            break;
         }
     }
 } // end of class

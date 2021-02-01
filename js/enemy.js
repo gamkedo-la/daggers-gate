@@ -29,7 +29,6 @@ function enemyClass() {
     this.superReset = this.reset;
     this.reset = function() {
         this.superReset();
-        console.log("Enemy Class Reset");
     }
 
     //must override this function.  No super version

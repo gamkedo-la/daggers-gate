@@ -8,12 +8,38 @@ var pathFindingDisplay = false;
 var titleScreen = true;
 var editorMode = false;
 
-window.onload = function() {
+var assets = new Assets({refs: daggerAssets});
+var loaders = [ 
+	assets,
+];
+var props;
+
+async function load() {
+	return new Promise( (resolve) => {
+		let promises = [];
+		let ctx = {};
+		for (const loader of loaders) {
+			let promise = loader.load(ctx);
+			promises.push(promise);
+		}
+		Promise.all(promises).then(() => {
+			console.log("game loaded...");
+			resolve();
+		})
+	});
+}
+
+window.onload = async function() {
     canvas = document.getElementById('gameCanvas');
     canvasContext = canvas.getContext('2d');
 
     SetupPathfindingGridData(p1);
-    loadImages();
+	await load();
+	props = new Props(assets);
+
+	loadImages();
+
+	
 	for(var i = 0; i < roomGrid.length; i++){
 		if(roomGrid[i] == TILE_ENEMY){
 			addEnemy();

@@ -28,7 +28,7 @@ class Sprite extends Sketch {
      * @param {int} y - y position to draw at
      */
     _render(renderCtx, x=0, y=0) {
-        renderCtx.drawImage(this._img, (pos) ? pos.x : 0, (pos) ? pos.y : 0);
+        renderCtx.drawImage(this._img, x, y);
     }
 
 }

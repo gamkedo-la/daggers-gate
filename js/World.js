@@ -73,17 +73,6 @@ function getTileIndexAtPixelCoord(pixelX,pixelY) {
   return tileIndex;
 }
 
-function tileTypeHasTransparency(checkTileType) {
-  return (checkTileType == TILE_GOAL ||
-          checkTileType == TILE_KEY ||
-		  checkTileType == TILE_DOOR_YELLOW_FRONT ||
-          checkTileType == TILE_FLOOR_FIRE_RUNE ||
-          checkTileType == TILE_FLOOR_WATER_RUNE ||
-		  checkTileType == TILE_FLOOR_WIND_RUNE ||
-	      checkTileType == TILE_FLOOR_EARTH_RUNE ||
-		  checkTileType == TILE_DOOR);
-}
-
 //Draws Black "Title Screen"
 function drawTitleScreen(color) {
   colorRect(0,0, canvas.width,canvas.height, color)
@@ -108,10 +97,13 @@ function drawRoom(whichRoom) {
     for(var eachCol=0; eachCol<ROOM_COLS; eachCol++) { // left to right in each row
 
       var tileTypeHere = whichRoom[ tileIndex ]; // getting the tile code for this index
-      if( tileTypeHasTransparency(tileTypeHere) ) {
-        canvasContext.drawImage(tilePics[TILE_GROUND], tileLeftEdgeX, tileTopEdgeY);
+      // handle transparency by drawing ground tile first
+      if (props.isTransparent(tileTypeHere)) {
+        let groundSprite = props.getImageByTag("ground");
+        if (groundSprite) groundSprite.render(canvasContext, tileLeftEdgeX, tileTopEdgeY);
       }
-      canvasContext.drawImage(tilePics[tileTypeHere], tileLeftEdgeX, tileTopEdgeY);
+      let sprite = props.getImage(tileTypeHere);
+      if (sprite) sprite.render(canvasContext, tileLeftEdgeX, tileTopEdgeY);
       
       tileIndex++; // increment which index we're going to next check for in the room
       tileLeftEdgeX += TILE_W; // jump horizontal draw position to next tile over by tile width

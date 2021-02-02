@@ -41,10 +41,19 @@ class Props {
         }
     }
 
+    /**
+     * Is the tile associated w/ the given id transparent?
+     * @param {*} id 
+     */
     isTransparent(id) {
         return this._transparency[id] || false;
     }
 
+    /**
+     * Retrieve the sketch (sprite/animation) associated w/ the given tile ID.
+     * @param {*} id 
+     */
     getImage(id) {
+        return this._tiles[id];
     }
 }

@@ -1,3 +1,6 @@
+//import { Fmt } from "../../../github/spark/src/js/common/fmt";
+
+const TILE = {};
 
 /** =======================================================================
  * Props implements a singleton store for all game asset properties, providing
@@ -19,8 +22,10 @@ class Props {
         let assets = spec.assets || Assets.instance;
         this._tiles = {};
         this._tags = {};
+        this._names = {};
         this._tilesByTag = {};
         this._transparency = {};
+        this.dbg = spec.dbg;
         // setup lookup tables
         this._setup(assets);
         return Props._instance;
@@ -30,6 +35,11 @@ class Props {
         for (const asset of assets) {
             let id = asset.id;
             if (id === undefined) continue;
+            // setup TILE.X variable
+            if (asset.tag && asset.hasOwnProperty("id")) {
+                TILE[asset.tag] = asset.id;
+                if (this.dbg) console.log("TILE." + asset.tag + ": " + asset.id);
+            }
             // lookup transparency
             if (asset.transparent) {
                 this._transparency[id] = true;
@@ -37,6 +47,12 @@ class Props {
             }
             // tag assignment
             this._tags[id] = asset.tag;
+            // name assignment
+            if (asset.name) {
+                this._names[id] = asset.name;
+            }
+            this._tags[id] = asset.tag;
+            // generate asset
             // generate asset
             if (asset.cls === "Sprite" || asset.cls === "Animation") {
                 this._tiles[id] = assets.generate(asset.tag);
@@ -75,6 +91,18 @@ class Props {
      * @param {*} id 
      */
     getTag(id) {
+        return this._tags[id];
+    }
+
+    /**
+     * Retrieve the nicely formatted name for the given ID.
+     * @param {*} id 
+     */
+    getName(id) {
+        if (this._names.hasOwnProperty(id)) {
+            return this._names[id];
+        }
+        // return tag if no name is found
         return this._tags[id];
     }
 

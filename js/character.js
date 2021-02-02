@@ -20,6 +20,7 @@ function characterClass() {
 
     this.init = function(whichGraphic, whichName) {
         this.myBitmap = whichGraphic;
+        console.log("assigning graphic: " + whichGraphic);
         this.myName = whichName;
         this.reset();
     }
@@ -32,7 +33,7 @@ function characterClass() {
                     var tileCol = i % ROOM_COLS;
                     this.homeX = tileCol * TILE_W + 0.5 * TILE_W;
                     this.homeY = tileRow * TILE_H + 0.5 * TILE_H;
-                    roomGrid[i] = TILE_GROUND;
+                    roomGrid[i] = TILE.GROUND;
                     break; // found it, so no need to keep searching 
                 } // end of if
             } // end of for

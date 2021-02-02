@@ -19,6 +19,7 @@ function enemyClass() {
 
     this.superInit = this.init;
     this.init = function(whichGraphic, whichName) {
+        console.log("assigning graphic: " + whichGraphic);
         this.superInit(whichGraphic, whichName);
         this.movingSpeed = ENEMY_MOVE_SPEED;
         this.colHeight = 40;

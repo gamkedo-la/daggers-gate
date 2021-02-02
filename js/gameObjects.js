@@ -12,13 +12,19 @@ gameObjectClass.prototype = new characterClass();
 
 function gameObjectClass(whichObject) {
     //collisions
+    this.id = whichObject;
     this.colHeight = 50;
     this.colWidth = 50;
     this.myCollisionColor = "orange";
     this.myIdentity = whichObject
     this.grabbedByPlayer = false;
-	this.correctPuzzleLocation = false;
+    this.correctPuzzleLocation = false;
+    
+    // setup sprite/name
+    this.myBitmap = props.getImage(this.id);
+    this.myName = props.getName(this.id);
 
+    /*
     this.init = function(name) {
         if (name == 'fireRune') {
             this.myBitmap = fireRunePic;
@@ -35,6 +41,7 @@ function gameObjectClass(whichObject) {
         }
         this.reset();
     }
+    */
 
     this.reset = function() {
         if (this.homeX == undefined) {

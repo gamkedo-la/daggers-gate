@@ -35,9 +35,12 @@ window.onload = async function() {
 
     SetupPathfindingGridData(p1);
 	await load();
-	props = new Props(assets);
+	props = new Props({
+		assets: assets,
+		//dbg: true,
+	});
 
-	loadImages();
+	//loadImages();
 
 	
 	for(var i = 0; i < roomGrid.length; i++){
@@ -48,9 +51,11 @@ window.onload = async function() {
 			roomGrid[i] == TILE_WIND_RUNE ||		
 			roomGrid[i] == TILE_WATER_RUNE ||
 			roomGrid[i] == TILE_EARTH_RUNE){
-				addObject();
+				addObject(roomGrid[i]);
 		}
 	}
+
+	loadingDoneSoStartGame();
 }
 
 function loadingDoneSoStartGame() {
@@ -61,14 +66,16 @@ function loadingDoneSoStartGame() {
         drawEverything();
     }, 1000 / framesPerSecond);
 
-    p1.init(playerPic, "Blue");
+    p1.init(props.getImage(TILE.PLAYER), "Blue");
 	for(var i = 0; i < enemyList.length; i++){
-		enemyList[i].init(goblinPic, "red");
+		enemyList[i].init(props.getImage(TILE.GOBLIN), "red");
 	}
+	/*
 	for(var i = 0; i < gameObjectList.length; i++){
 		var nameOfRune = objectNameList[i];
 		gameObjectList[i].init(nameOfRune);
 	}
+	*/
 
     initInput();
 

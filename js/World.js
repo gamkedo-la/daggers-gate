@@ -99,7 +99,7 @@ function drawRoom(whichRoom) {
       var tileTypeHere = whichRoom[ tileIndex ]; // getting the tile code for this index
       // handle transparency by drawing ground tile first
       if (props.isTransparent(tileTypeHere)) {
-        let groundSprite = props.getImageByTag("ground");
+        let groundSprite = props.getImage(TILE.GROUND);
         if (groundSprite) groundSprite.render(canvasContext, tileLeftEdgeX, tileTopEdgeY);
       }
       let sprite = props.getImage(tileTypeHere);

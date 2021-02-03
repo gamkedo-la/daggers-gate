@@ -20,7 +20,6 @@ function characterClass() {
 
     this.init = function(whichGraphic, whichName) {
         this.myBitmap = whichGraphic;
-        console.log("assigning graphic: " + whichGraphic);
         this.myName = whichName;
         this.reset();
     }

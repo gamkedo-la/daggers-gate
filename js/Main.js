@@ -8,7 +8,10 @@ var pathFindingDisplay = false;
 var titleScreen = true;
 var editorMode = false;
 
-var assets = new Assets({refs: daggerAssets});
+var assets = new Assets({
+	refs: daggerAssets,
+	dbg: true,
+});
 var loaders = [ 
 	assets,
 ];

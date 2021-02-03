@@ -29,7 +29,7 @@ class Assets {
         this._refs = Util.objKeyValue(spec, "refs", {});
         this._loaders = Util.objKeyValue(spec, "loaders", {
             "Image": new ImageLoader({assets: this}),
-            "Sheet": new SheetLoader({assets: this}),
+            "Sheet": new SheetLoader({assets: this, dbg: spec.dbg}),
             //"Audio": new AudioLoader({assets: this}),
         });
         this._generators = Util.objKeyValue(spec, "generators", {
@@ -38,6 +38,7 @@ class Assets {
             //"Audio": Audio,
         });
         this._items = new KeyedGroup((v)=>v.tag);
+        this.dbg = spec.dbg;
         return Assets._instance;
     }
 
@@ -111,6 +112,7 @@ class ImageLoader {
     static load(src, data={}) {
         return new Promise((resolve, reject) => {
             const img = new Image();
+            img.crossOrigin = 'Anonymous';
             img.addEventListener("load", () => resolve( Object.assign({}, {img: img}, data)));
             img.addEventListener("error", err => reject(err));
             img.src = src;
@@ -120,7 +122,6 @@ class ImageLoader {
     // METHODS -------------------------------------------------------------
     load(spec) {
         const src = Util.objKeyValue(spec, "src", "undefined");
-        const tag = Util.objKeyValue(spec, "tag", "undefined");
         return ImageLoader.load(src, spec).then( rec => {
             // build final Sprite spec
             const spec = Object.assign({}, rec, {cls: "Sprite"});
@@ -149,7 +150,7 @@ class SheetLoader {
         this._assets = Util.objKeyValue(spec, "assets", Assets.instance);
         this._buffer = document.createElement('canvas');
         this._ctx = this._buffer.getContext('2d');
-        //this.dbg = true;
+        this.dbg = spec.dbg;
     }
 
     async loadSprite(sheetImg, asset) {
@@ -159,16 +160,10 @@ class SheetLoader {
         this._ctx.clearRect(0, 0, this._buffer.width, this._buffer.height);
         this._ctx.drawImage(sheetImg, asset.xoffset, asset.yoffset, asset.width, asset.height, 0, 0, asset.width, asset.height);
         // load new image from data URL
-        let promise = ImageLoader.load(this._buffer.toDataURL());
+        let dataURL = this._buffer.toDataURL();
+        let promise = ImageLoader.load(dataURL, Object.assign({}, asset, {src: dataURL}));
         promise.then(rec => {
             // build final Sprite spec
-            /*
-            const spec = {
-                tag: asset.tag,
-                cls: "Sprite",
-                img: rec.img,
-            }
-            */
             const spec = Object.assign({}, rec, {cls: "Sprite"});
             if (this.dbg) console.log("SheetLoader loaded: " + Fmt.ofmt(spec));
             // add to assets

@@ -11,7 +11,7 @@
 
 let storedTileValue;
 
-let template_newMap = [ 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+let template_new_Map = [ 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
                         10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
                         10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
                         10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
@@ -23,7 +23,8 @@ let template_newMap = [ 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 
                         10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
                         10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
                         10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 ];
-let _newMap = template_newMap.slice();
+
+let blank_Map = template_new_Map.slice(); // formerly  blank_Map
 
 
 function setStoredTileValue(val) {
@@ -34,6 +35,8 @@ function setStoredTileValue(val) {
 }
 
 function setupTileButtons() {
+	let editButtonContainer = document.getElementById('edit-buttons');
+	
 	let tileButtonContainer = document.getElementById('editor-mode');
 	let htmlString = "";
 	let i;
@@ -45,36 +48,62 @@ function setupTileButtons() {
 
 	tileButtonContainer.innerHTML += htmlString;
 
-	// Creates the Generate Level Button
-	let btn = document.createElement('button');
-	btn.innerHTML = 'Generate Level Data';
-	btn.addEventListener('click', generateReadableMapData);
-	tileButtonContainer.appendChild(btn);
+	// Creates the -Generate Level- Button
+	let btn_Generate = document.createElement('button');
+	btn_Generate.innerHTML = 'Generate Level Data';
+	btn_Generate.addEventListener('click', generateReadableMapData);
+	editButtonContainer.appendChild(btn_Generate);
 
-	// Creates the Clear Map Button
-	let el_clearBtn = document.createElement('button');
-	el_clearBtn.innerHTML = 'Clear Map';
-	el_clearBtn.addEventListener('click', clearMapData);
-	tileButtonContainer.appendChild(el_clearBtn);
+	// Creates the -Clear Map- Button
+	let btn_Clear = document.createElement('button');
+	btn_Clear.innerHTML = 'Clear Map';
+	btn_Clear.addEventListener('click', clearMapData);
+	editButtonContainer.appendChild(btn_Clear);
+
+	// Creates the -Load Map- Button
+	let btn_Load = document.createElement('button');
+	btn_Load.innerHTML = 'Load Map';
+	btn_Load.addEventListener('click', generateLoadableMapButtons);
+	editButtonContainer.appendChild(btn_Load);
 
 }
 
 function generateReadableMapData() {
-	let mapString = _newMap+'';
+	let mapString = blank_Map+'';
 	let readableMapString ='[ ' + mapString.replace(/,/g , ", ") + ' ]';
 	
 	console.log(readableMapString)
 }
 
 function clearMapData() {
-	// let _newMap = template_newMap.slice();
+	// let blank_Map = template_new_Map.slice();
 	if (confirm("You REALLY want to clear all tiles from the map?")) {
-		_newMap = template_newMap.slice();
+		blank_Map = template_new_Map.slice();
 		console.log( "Map is CLEARED" )
 	} else {
 	return;
 	}
 }
 
+function generateLoadableMapButtons() {
+	let loadMapButtonsContainer = document.getElementById('load-maps');
+	let htmlString = "";
+	console.log("making map buttons..")
+
+	for(const map of allMaps) {
+		//htmlString += `<input id=${map.id} type="button" onClick="loadMap(${map.data})"></input> `;
+		let btn = document.createElement('button');
+		btn.innerHTML = `${map.name}`;
+		btn.addEventListener('click', function() { loadMap(map.data); });
+		loadMapButtonsContainer.appendChild(btn);
+	}
+	
+}
+
+function loadMap(whichMap) {
+	console.log("Loaded Map");
+	console.log(whichMap);
+	blank_Map = whichMap;
+}
 
 

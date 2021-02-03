@@ -82,7 +82,7 @@ function mouseclicked(evt) {
   if(editorMode) {
     var clickedIndex = getTileIndexAtPixelCoord(mouseX, mouseY);
     // console.log(freshMap[clickedIndex], storedTileValue);
-    _newMap[getTileIndexAtPixelCoord(mouseX, mouseY)] = storedTileValue;
+    blank_Map[getTileIndexAtPixelCoord(mouseX, mouseY)] = storedTileValue;
 
     mouseDragging = true;
 
@@ -125,7 +125,7 @@ function mousemoved(evt) {
     //
     if(mouseDragging) {
       tileUnderMouse = tileCoordToIndex(tileOverCol, tileOverRow);
-      _newMap[tileUnderMouse] = storedTileValue;
+      blank_Map[tileUnderMouse] = storedTileValue;
     }
 } 
 

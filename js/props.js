@@ -25,6 +25,7 @@ class Props {
         this._names = {};
         this._tilesByTag = {};
         this._transparency = {};
+        this._obstructs = {};
         this.dbg = spec.dbg;
         // setup lookup tables
         this._setup(assets);
@@ -44,6 +45,11 @@ class Props {
             if (asset.transparent) {
                 this._transparency[id] = true;
                 if (this.dbg) console.log("id: " + id + " tag: " + asset.tag + " is transparent");
+            }
+            // lookup transparency
+            if (asset.obstructs) {
+                this._obstructs[id] = true;
+                if (this.dbg) console.log("id: " + id + " tag: " + asset.tag + " obstructs");
             }
             // tag assignment
             this._tags[id] = asset.tag;
@@ -68,6 +74,14 @@ class Props {
      */
     isTransparent(id) {
         return this._transparency[id] || false;
+    }
+
+    /**
+     * Is the tile associated w/ the given id transparent?
+     * @param {*} id 
+     */
+    obstructs(id) {
+        return this._obstructs[id] || false;
     }
 
     /**

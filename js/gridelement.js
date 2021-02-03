@@ -83,34 +83,34 @@ function GridElement() {
   
   this.isNotPassible = function(elementType){
 	updatedElementType = elementType;
-	if(	updatedElementType == TILE_DOOR ||
-		updatedElementType == TILE_WALL_1 ||
-		updatedElementType == TILE_WALL_2 ||
-		updatedElementType == TILE_WALL_3 ||
-		updatedElementType == TILE_WALL_4 ||
-		updatedElementType == TILE_WALL_5 ||
-		updatedElementType == TILE_WALL_6 ||
-		updatedElementType == TILE_WALL_7 ||
-		updatedElementType == TILE_WALL_8 ||
-		updatedElementType == TILE_WALL_9 ||
-		updatedElementType == TILE_WALL_10 ||
-		updatedElementType == TILE_WALL_11 ||
-		updatedElementType == TILE_WALL_12 ||
-		updatedElementType == TILE_WALL_13 ||
-		updatedElementType == TILE_WALL_14 ||
-		updatedElementType == TILE_DOOR_YELLOW_FRONT 
+	if(	updatedElementType == TILE.DOOR ||
+		updatedElementType == TILE.WALL_1 ||
+		updatedElementType == TILE.WALL_2 ||
+		updatedElementType == TILE.WALL_3 ||
+		updatedElementType == TILE.WALL_4 ||
+		updatedElementType == TILE.WALL_5 ||
+		updatedElementType == TILE.WALL_6 ||
+		updatedElementType == TILE.WALL_7 ||
+		updatedElementType == TILE.WALL_8 ||
+		updatedElementType == TILE.WALL_9 ||
+		updatedElementType == TILE.WALL_10 ||
+		updatedElementType == TILE.WALL_11 ||
+		updatedElementType == TILE.WALL_12 ||
+		updatedElementType == TILE.WALL_13 ||
+		updatedElementType == TILE.WALL_14 ||
+		updatedElementType == TILE.DOOR_YELLOW_FRONT 
 		){
 			return WALL;		
-    } else if (updatedElementType == TILE_PLAYER){
+    } else if (updatedElementType == TILE.PLAYER){
 		return SOURCE;
 	} else if (
-		updatedElementType == TILE_KEY ||
-		updatedElementType == TILE_GROUND ||
-		updatedElementType == TILE_WALL_15 ||
-		updatedElementType == TILE_FLOOR_FIRE_RUNE ||
-        updatedElementType == TILE_FLOOR_WATER_RUNE ||
-        updatedElementType == TILE_FLOOR_WIND_RUNE ||
-        updatedElementType == TILE_FLOOR_EARTH_RUNE
+		updatedElementType == TILE.KEY ||
+		updatedElementType == TILE.GROUND ||
+		updatedElementType == TILE.WALL_15 ||
+		updatedElementType == TILE.FLOOR_FIRE_RUNE ||
+        updatedElementType == TILE.FLOOR_WATER_RUNE ||
+        updatedElementType == TILE.FLOOR_WIND_RUNE ||
+        updatedElementType == TILE.FLOOR_EARTH_RUNE
 		){
 		return NOTHING;
 	} else {

@@ -10,7 +10,7 @@ var editorMode = false;
 
 var assets = new Assets({
 	refs: daggerAssets,
-	dbg: true,
+	//dbg: true,
 });
 var loaders = [ 
 	assets,
@@ -42,18 +42,15 @@ window.onload = async function() {
 		assets: assets,
 		//dbg: true,
 	});
-
-	//loadImages();
-
 	
 	for(var i = 0; i < roomGrid.length; i++){
-		if(roomGrid[i] == TILE_ENEMY){
+		if(roomGrid[i] == TILE.GOBLIN){
 			addEnemy();
 		} 
-		if (roomGrid[i] == TILE_FIRE_RUNE ||
-			roomGrid[i] == TILE_WIND_RUNE ||		
-			roomGrid[i] == TILE_WATER_RUNE ||
-			roomGrid[i] == TILE_EARTH_RUNE){
+		if (roomGrid[i] == TILE.FIRE_RUNE ||
+			roomGrid[i] == TILE.WIND_RUNE ||		
+			roomGrid[i] == TILE.WATER_RUNE ||
+			roomGrid[i] == TILE.EARTH_RUNE){
 				addObject(roomGrid[i]);
 		}
 	}
@@ -73,12 +70,6 @@ function loadingDoneSoStartGame() {
 	for(var i = 0; i < enemyList.length; i++){
 		enemyList[i].init(props.getImage(TILE.GOBLIN), "red");
 	}
-	/*
-	for(var i = 0; i < gameObjectList.length; i++){
-		var nameOfRune = objectNameList[i];
-		gameObjectList[i].init(nameOfRune);
-	}
-	*/
 
     initInput();
 

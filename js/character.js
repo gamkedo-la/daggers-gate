@@ -27,7 +27,7 @@ function characterClass() {
     this.reset = function() {
         if (this.homeX == undefined) {
             for (var i = 0; i < roomGrid.length; i++) {
-                if (roomGrid[i] == TILE_ENEMY) {
+                if (roomGrid[i] == TILE.GOBLIN) {
                     var tileRow = Math.floor(i / ROOM_COLS);
                     var tileCol = i % ROOM_COLS;
                     this.homeX = tileCol * TILE_W + 0.5 * TILE_W;
@@ -120,7 +120,7 @@ function characterClass() {
         }
 
         var walkIntoTileIndex = getTileIndexAtPixelCoord(nextX, nextY);
-        var walkIntoTileType = TILE_WALL_7;
+        var walkIntoTileType = TILE.WALL_7;
 
         if (walkIntoTileIndex != undefined) {
             walkIntoTileType = roomGrid[walkIntoTileIndex];

@@ -27,12 +27,12 @@ function warriorClass() {
         this.keysHeld = 8;
         if (this.homeX == undefined) {
             for (var i = 0; i < roomGrid.length; i++) {
-                if (roomGrid[i] == TILE_PLAYER) {
+                if (roomGrid[i] == TILE.PLAYER) {
                     var tileRow = Math.floor(i / ROOM_COLS);
                     var tileCol = i % ROOM_COLS;
                     this.homeX = tileCol * TILE_W + 0.5 * TILE_W;
                     this.homeY = tileRow * TILE_H + 0.5 * TILE_H;
-                    roomGrid[i] = TILE_GROUND;
+                    roomGrid[i] = TILE.GROUND;
                     break; // found it, so no need to keep searching 
                 } // end of if
             } // end of for
@@ -46,53 +46,53 @@ function warriorClass() {
     //must override this function.  No super version
     this.tileCollisionHandle = function(walkIntoTileIndex, walkIntoTileType, nextX, nextY) {
         switch (walkIntoTileType) {
-            case TILE_GROUND:
-            case TILE_FLOOR_FIRE_RUNE:
-            case TILE_FLOOR_WATER_RUNE:
-            case TILE_FLOOR_WIND_RUNE:
-            case TILE_FLOOR_EARTH_RUNE:
-            case TILE_WALL_15: //OPEN DOOR
+            case TILE.GROUND:
+            case TILE.FLOOR_FIRE_RUNE:
+            case TILE.FLOOR_WATER_RUNE:
+            case TILE.FLOOR_WIND_RUNE:
+            case TILE.FLOOR_EARTH_RUNE:
+            case TILE.WALL_15: //OPEN DOOR
                 this.x = nextX;
                 this.y = nextY;
                 break;
-            case TILE_GOAL:
+            case TILE.GOAL:
                 this.reset();
                 break;
-            case TILE_DOOR:
+            case TILE.DOOR:
                 if (this.keysHeld > 0) {
                     this.keysHeld--; // one less key
                     document.getElementById("debugText").innerHTML = "Keys: " + this.keysHeld;
-                    roomGrid[walkIntoTileIndex] = TILE_WALL_15; // remove door
+                    roomGrid[walkIntoTileIndex] = TILE.WALL_15; // remove door
                     SetupPathfindingGridData(p1);
                 }
                 break;
-            case TILE_DOOR_YELLOW_FRONT:
+            case TILE.DOOR_YELLOW_FRONT:
                 if (this.keysHeld > 0) {
                     this.keysHeld--; // one less key
                     document.getElementById("debugText").innerHTML = "Keys: " + this.keysHeld;
-                    roomGrid[walkIntoTileIndex] = TILE_GROUND; // remove door
+                    roomGrid[walkIntoTileIndex] = TILE.GROUND; // remove door
                     SetupPathfindingGridData(p1);
                 }
                 break;
-            case TILE_KEY:
+            case TILE.KEY:
                 this.keysHeld++; // gain key
                 document.getElementById("debugText").innerHTML = "Keys: " + this.keysHeld;
-                roomGrid[walkIntoTileIndex] = TILE_GROUND; // remove key
+                roomGrid[walkIntoTileIndex] = TILE.GROUND; // remove key
                 SetupPathfindingGridData(p1);
                 break;
-            case TILE_WALL_1:
-            case TILE_WALL_2:
-            case TILE_WALL_3:
-            case TILE_WALL_4:
-            case TILE_WALL_5:
-            case TILE_WALL_6:
-            case TILE_WALL_7:
-            case TILE_WALL_8:
-            case TILE_WALL_9:
-            case TILE_WALL_10:
-            case TILE_WALL_11:
-            case TILE_WALL_12:
-            case TILE_WALL_13:
+            case TILE.WALL_1:
+            case TILE.WALL_2:
+            case TILE.WALL_3:
+            case TILE.WALL_4:
+            case TILE.WALL_5:
+            case TILE.WALL_6:
+            case TILE.WALL_7:
+            case TILE.WALL_8:
+            case TILE.WALL_9:
+            case TILE.WALL_10:
+            case TILE.WALL_11:
+            case TILE.WALL_12:
+            case TILE.WALL_13:
             default:
                 // any other tile type number was found... do nothing, for now
             break;

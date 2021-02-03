@@ -36,7 +36,7 @@ function SetupPathfindingGridData(whichPathfinder) {
             grid[idxHere].setup(eachCol, eachRow, idxHere, roomGrid[idxHere], pathfinder);
 
             //if(grid[idxHere].elementType == DEST) { ///// found end!
-			if(grid[idxHere].elementType == TILE_GOAL) { ///// found end!
+			if(grid[idxHere].elementType == TILE.GOAL) { ///// found end!
                 endR = eachRow; ///// save tile coords for use with
                 endC = eachCol; ///// computing h value of each tiles
             } /////

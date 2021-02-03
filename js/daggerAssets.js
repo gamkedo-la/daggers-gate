@@ -2,7 +2,7 @@
 
 const daggerAssets = [
     { id: 0, src: "images/world_ground.png", cls: "Image", tag: "GROUND", },
-    { id: 1, src: "images/dungeonWall_8.png", cls: "Image", tag: "WALL_8", },
+    { id: 1, src: "images/dungeonWall_8.png", cls: "Image", tag: "WALL_8", obstructs: true },
     { id: 2, src: "images/basicPlayerSprite-25.png", cls: "Image", tag: "PLAYER", },
     { id: 3, src: "images/world_goal.png", cls: "Image", tag: "GOAL", transparent: true },
     { id: 4, src: "images/world_key.png", cls: "Image", tag: "KEY", transparent: true },
@@ -23,17 +23,17 @@ const daggerAssets = [
     { id: 19, src: "images/yellowDoor_front.png", cls: "Image", tag: "DOOR_YELLOW_FRONT", transparent: true },
     { id: 20, src: "images/dungeonWall_14.png", cls: "Image", tag: "WALL_14", },
 
+    { id: 30, src: "images/goblin.png", cls: "Image", tag: "GOBLIN", transparent: true },
     { id: 31, src: "images/dungeonWall_15.png", cls: "Image", tag: "WALL_15", },
-    { id: 32, src: "images/fireRune.png", cls: "Image", tag: "FIRE_RUNE", name: "Fire Rune" },
-    { id: 33, src: "images/windRune.png", cls: "Image", tag: "WIND_RUNE", name: "Wind Rune" },
-    { id: 34, src: "images/waterRune.png", cls: "Image", tag: "WATER_RUNE", name: "Water Rune" },
-    { id: 35, src: "images/earthRune.png", cls: "Image", tag: "EARTH_RUNE", name: "Earth Rune" },
+    { id: 32, src: "images/fireRune.png", cls: "Image", tag: "FIRE_RUNE", name: "Fire Rune", transparent: true },
+    { id: 33, src: "images/windRune.png", cls: "Image", tag: "WIND_RUNE", name: "Wind Rune", transparent: true },
+    { id: 34, src: "images/waterRune.png", cls: "Image", tag: "WATER_RUNE", name: "Water Rune", transparent: true },
+    { id: 35, src: "images/earthRune.png", cls: "Image", tag: "EARTH_RUNE", name: "Earth Rune", transparent: true },
     { id: 36, src: "images/floorTileForFireRune.png", cls: "Image", tag: "FLOOR_FIRE_RUNE", transparent: true },
     { id: 37, src: "images/floorTileForWaterRune.png", cls: "Image", tag: "FLOOR_WATER_RUNE", transparent: true },
     { id: 38, src: "images/floorTileForWindRune.png", cls: "Image", tag: "FLOOR_WIND_RUNE", transparent: true },
     { id: 39, src: "images/floorTileForEarthRune.png", cls: "Image", tag: "FLOOR_EARTH_RUNE", transparent: true },
 
-    { id: 101, src: "images/goblin.png", cls: "Image", tag: "GOBLIN", id: 101 },
     { src: "images/spritesheet_Dungeon_01.png", cls: "Sheet", assets: [
         { id: 102, tag: "GREEN_GEM", cls: "Sprite",  width: 50, height: 50, xoffset: 50*4, yoffset: 50*2 },
         { id: 103, tag: "BLUE_GEM", cls: "Sprite",  width: 50, height: 50, xoffset: 50*5, yoffset: 50*2 },

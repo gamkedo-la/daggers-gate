@@ -19,37 +19,6 @@ var roomGrid =
 const TILE_W = 50;
 const TILE_H = 50;
 
-const TILE_GROUND = 0;
-const TILE_PLAYER = 2;
-const TILE_GOAL = 3;
-const TILE_DOOR = 5;
-const TILE_WALL_1 = 6;
-const TILE_WALL_2 = 7;
-const TILE_WALL_3 = 8;
-const TILE_WALL_4 = 9;
-const TILE_WALL_5 = 10;
-const TILE_WALL_6 = 11;
-const TILE_WALL_7 = 12;
-const TILE_WALL_8 = 1;
-const TILE_WALL_9 = 14;
-const TILE_WALL_10 = 15;
-const TILE_WALL_11 = 16;
-const TILE_WALL_12 = 17;
-const TILE_WALL_13 = 18;
-const TILE_WALL_14 = 20;
-const TILE_KEY = 4;
-const TILE_DOOR_YELLOW_FRONT = 19;
-const TILE_ENEMY = 30;
-const TILE_WALL_15 = 31;
-const TILE_FIRE_RUNE = 32;
-const TILE_WIND_RUNE = 33;
-const TILE_WATER_RUNE = 34;
-const TILE_EARTH_RUNE = 35;
-const TILE_FLOOR_FIRE_RUNE = 36;
-const TILE_FLOOR_WIND_RUNE = 37;
-const TILE_FLOOR_WATER_RUNE = 38;
-const TILE_FLOOR_EARTH_RUNE = 39;
-
 function roomTileToIndex(tileCol, tileRow) {
   return (tileCol + ROOM_COLS*tileRow);
 }

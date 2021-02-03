@@ -46,15 +46,15 @@ function gameObjectClass(whichObject) {
     this.reset = function() {
         if (this.homeX == undefined) {
             for (var i = 0; i < roomGrid.length; i++) {
-                if (roomGrid[i] == TILE_FIRE_RUNE ||
-                    roomGrid[i] == TILE_WIND_RUNE ||
-                    roomGrid[i] == TILE_WATER_RUNE ||
-                    roomGrid[i] == TILE_EARTH_RUNE) {
+                if (roomGrid[i] == TILE.FIRE_RUNE ||
+                    roomGrid[i] == TILE.WIND_RUNE ||
+                    roomGrid[i] == TILE.WATER_RUNE ||
+                    roomGrid[i] == TILE.EARTH_RUNE) {
                     var tileRow = Math.floor(i / ROOM_COLS);
                     var tileCol = i % ROOM_COLS;
                     this.homeX = tileCol * TILE_W + 0.5 * TILE_W;
                     this.homeY = tileRow * TILE_H + 0.5 * TILE_H;
-                    roomGrid[i] = TILE_GROUND;
+                    roomGrid[i] = TILE.GROUND;
                     break; // found it, so no need to keep searching 
                 } // end of if
             } // end of for
@@ -105,14 +105,14 @@ function gameObjectClass(whichObject) {
     //must override this function.  No super version
     this.tileCollisionHandle = function(walkIntoTileIndex, walkIntoTileType, nextX, nextY) {
         switch (walkIntoTileType) {
-            case TILE_GROUND:
-            case TILE_GOAL:
-            case TILE_KEY:
-            case TILE_WALL_15: //OPEN DOOR
+            case TILE.GROUND:
+            case TILE.GOAL:
+            case TILE.KEY:
+            case TILE.WALL_15: //OPEN DOOR
                 this.x = nextX;
                 this.y = nextY;
                 break;
-			case TILE_FLOOR_FIRE_RUNE:
+			case TILE.FLOOR_FIRE_RUNE:
 				if(this.myName == "Fire Rune"){
 					this.correctPuzzleLocation = true;
 				} else {
@@ -120,7 +120,7 @@ function gameObjectClass(whichObject) {
 					this.y = nextY;
 				}
 				break;
-            case TILE_FLOOR_WATER_RUNE:
+            case TILE.FLOOR_WATER_RUNE:
 				if(this.myName == "Water Rune"){
 					this.correctPuzzleLocation = true;
 				} else {
@@ -128,7 +128,7 @@ function gameObjectClass(whichObject) {
 					this.y = nextY;
 				}
 				break;
-            case TILE_FLOOR_WIND_RUNE:
+            case TILE.FLOOR_WIND_RUNE:
             if(this.myName == "Wind Rune"){
 					this.correctPuzzleLocation = true;
 				} else {
@@ -136,7 +136,7 @@ function gameObjectClass(whichObject) {
 					this.y = nextY;
 				}
 				break;
-			case TILE_FLOOR_EARTH_RUNE:
+			case TILE.FLOOR_EARTH_RUNE:
 				if(this.myName == "Earth Rune"){
 					this.correctPuzzleLocation = true;
 				} else {
@@ -144,21 +144,21 @@ function gameObjectClass(whichObject) {
 					this.y = nextY;
 				}
 				break;
-            case TILE_DOOR:
-            case TILE_DOOR_YELLOW_FRONT:
-            case TILE_WALL_1:
-            case TILE_WALL_2:
-            case TILE_WALL_3:
-            case TILE_WALL_4:
-            case TILE_WALL_5:
-            case TILE_WALL_6:
-            case TILE_WALL_7:
-            case TILE_WALL_8:
-            case TILE_WALL_9:
-            case TILE_WALL_10:
-            case TILE_WALL_11:
-            case TILE_WALL_12:
-            case TILE_WALL_13:
+            case TILE.DOOR:
+            case TILE.DOOR_YELLOW_FRONT:
+            case TILE.WALL_1:
+            case TILE.WALL_2:
+            case TILE.WALL_3:
+            case TILE.WALL_4:
+            case TILE.WALL_5:
+            case TILE.WALL_6:
+            case TILE.WALL_7:
+            case TILE.WALL_8:
+            case TILE.WALL_9:
+            case TILE.WALL_10:
+            case TILE.WALL_11:
+            case TILE.WALL_12:
+            case TILE.WALL_13:
             default:
                 // any other tile type number was found... do nothing, for now
                 break;

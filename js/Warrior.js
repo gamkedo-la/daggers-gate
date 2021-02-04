@@ -20,6 +20,7 @@ class warriorClass extends characterClass {
 
     reset() {
         this.keysHeld = 8;
+        this.gold = 0;
         super.reset();
     } // end of reset
 
@@ -85,6 +86,14 @@ class warriorClass extends characterClass {
                 //roomGrid[walkIntoTileIndex] = TILE.GROUND; // remove key
                 currentLevel.setfgi(walkIntoTileIndex, 0);
                 SetupPathfindingGridData(p1);
+                break;
+            case TILE.CHEST1_CLOSE:
+                    this.keysHeld--; // use key
+                    document.getElementById("debugText").innerHTML = "Keys: " + this.keysHeld + " Gold:" + this.gold;
+                    //roomGrid[walkIntoTileIndex] = TILE.GROUND; // remove key
+                    currentLevel.setfgi(walkIntoTileIndex, 33);
+                    this.gold = 10;
+
                 break;
             case TILE.WALL_1:
             case TILE.WALL_2:

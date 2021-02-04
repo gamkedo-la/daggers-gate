@@ -8,32 +8,25 @@ function addEnemy() {
     enemyList.push(tempEnemy);
 }
 
-enemyClass.prototype = new characterClass();
-
-function enemyClass() {
-    this.framesBeforeReThink = AI_FRAME_THINK_TIME;
-    this.moving = false;
-    this.patrolling = true;
-    this.resting = false;
-    this.trackPlayerRange = 250;
-
-    this.superInit = this.init;
-    this.init = function(whichGraphic, whichName) {
-        this.superInit(whichGraphic, whichName);
+class enemyClass extends characterClass {
+    constructor(spec={}) {
+        spec.collisionColor = spec.collisionColor || "green";
+        super(spec);
+        this.framesBeforeReThink = AI_FRAME_THINK_TIME;
+        this.moving = false;
+        this.patrolling = true;
+        this.resting = false;
+        this.trackPlayerRange = 250;
         this.movingSpeed = ENEMY_MOVE_SPEED;
         this.colHeight = 40;
         this.colWidth = 20;
         this.myCollisionColor = "green";
     }
 
-    this.superReset = this.reset;
-    this.reset = function() {
-        this.superReset();
-    }
-
     //must override this function.  No super version
-    this.tileCollisionHandle = function(walkIntoTileIndex, walkIntoTileType, nextX, nextY) {
+    tileCollisionHandle(walkIntoTileIndex, walkIntoTileType, nextX, nextY) {
         switch (walkIntoTileType) {
+            case 0:
             case TILE.GROUND:
             case TILE.GOAL:
             case TILE.FLOOR_FIRE_RUNE:
@@ -65,13 +58,13 @@ function enemyClass() {
         }
     }
 
-    this.superMove = this.move;
-    this.move = function() {
+    move() {
         //pathfinding
         if (this.framesBeforeReThink-- < 0) {
             this.framesBeforeReThink = AI_FRAME_THINK_TIME;
             //check if within range of the player
             var playerDistance = dist(p1.x, p1.y, this.x, this.y);
+            console.log("playerdistance: " + playerDistance);
 
             this.resting = this.patrolling = false;
 
@@ -96,6 +89,7 @@ function enemyClass() {
                 startPath(playerIdx, this);
             }
         } // end of Rethink Delay
-        this.superMove();
+        super.move();
     } //end of move function
+
 } // end of class

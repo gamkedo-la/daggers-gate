@@ -33,7 +33,8 @@ function SetupPathfindingGridData(whichPathfinder) {
 			grid[idxHere].pathfinder = pathfinder;
             unvisitedList.push( grid[idxHere] );
 
-            grid[idxHere].setup(eachCol, eachRow, idxHere, roomGrid[idxHere], pathfinder);
+            //grid[idxHere].setup(eachCol, eachRow, idxHere, roomGrid[idxHere], pathfinder);
+            grid[idxHere].setup(eachCol, eachRow, idxHere, currentLevel.fgi(idxHere), pathfinder);
 
             //if(grid[idxHere].elementType == DEST) { ///// found end!
 			if(grid[idxHere].elementType == TILE.GOAL) { ///// found end!
@@ -69,7 +70,8 @@ function hValCal(atColumn,atRow, toColumn,toRow, multWeight, geometric) { /////
 
 function startPath(toTile, pathFor){
 	
-    if (toTile< 0 || toTile >= roomGrid.length) { // invalid or off board
+    //if (toTile< 0 || toTile >= roomGrid.length) { // invalid or off board
+    if (toTile< 0 || toTile >= currentLevel.nentries) { // invalid or off board
         console.log("Not a valid location");
 		return;
     }

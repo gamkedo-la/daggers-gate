@@ -1,8 +1,7 @@
 //export { daggerAssets };
 
 const daggerAssets = [
-    { id: 0, src: "images/world_ground.png", cls: "Image", tag: "GROUND", },
-    { id: 1, src: "images/dungeonWall_8.png", cls: "Image", tag: "WALL_8", obstructs: true },
+    { id: 1, src: "images/world_ground.png", cls: "Image", tag: "GROUND", },
     { id: 2, src: "images/basicPlayerSprite-25.png", cls: "Image", tag: "PLAYER", },
     { id: 3, src: "images/world_goal.png", cls: "Image", tag: "GOAL", transparent: true },
     { id: 4, src: "images/world_key.png", cls: "Image", tag: "KEY", transparent: true },
@@ -15,6 +14,8 @@ const daggerAssets = [
     { id: 11, src: "images/dungeonWall_6.png", cls: "Image", tag: "WALL_6", },
     { id: 12, src: "images/dungeonWall_7.png", cls: "Image", tag: "WALL_7", },
 
+    { id: 13, src: "images/dungeonWall_8.png", cls: "Image", tag: "WALL_8", obstructs: true },
+
     { id: 14, src: "images/dungeonWall_9.png", cls: "Image", tag: "WALL_9", },
     { id: 15, src: "images/dungeonWall_10.png", cls: "Image", tag: "WALL_10", },
     { id: 16, src: "images/dungeonWall_11.png", cls: "Image", tag: "WALL_11", },
@@ -23,7 +24,7 @@ const daggerAssets = [
     { id: 19, src: "images/yellowDoor_front.png", cls: "Image", tag: "DOOR_YELLOW_FRONT", transparent: true },
     { id: 20, src: "images/dungeonWall_14.png", cls: "Image", tag: "WALL_14", },
 
-    { id: 30, src: "images/goblin.png", cls: "Image", tag: "GOBLIN", transparent: true },
+    { id: 30, src: "images/goblin.png", cls: "Image", tag: "GOBLIN", transparent: true, enemy: true },
     { id: 31, src: "images/dungeonWall_15.png", cls: "Image", tag: "WALL_15", },
     { id: 32, src: "images/fireRune.png", cls: "Image", tag: "FIRE_RUNE", name: "Fire Rune", transparent: true },
     { id: 33, src: "images/windRune.png", cls: "Image", tag: "WIND_RUNE", name: "Wind Rune", transparent: true },

@@ -1,7 +1,8 @@
 // save the canvas for dimensions, and its 2d context for drawing to it
 var canvas, canvasContext;
 
-var p1 = new warriorClass();
+//var p1 = new warriorClass();
+var p1;
 var pathFindingDisplay = false;
 
 // Added to support Tile Editor Mode
@@ -32,17 +33,19 @@ async function load() {
 	});
 }
 
+var currentLevel;
+
 window.onload = async function() {
     canvas = document.getElementById('gameCanvas');
     canvasContext = canvas.getContext('2d');
 
-    SetupPathfindingGridData(p1);
 	await load();
 	props = new Props({
 		assets: assets,
 		//dbg: true,
 	});
-	
+
+	/*
 	for(var i = 0; i < roomGrid.length; i++){
 		if(roomGrid[i] == TILE.GOBLIN){
 			addEnemy();
@@ -54,11 +57,29 @@ window.onload = async function() {
 				addObject(roomGrid[i]);
 		}
 	}
+	*/
 
 	loadingDoneSoStartGame();
 }
 
 function loadingDoneSoStartGame() {
+	currentLevel = new Level(lvl1Spec);
+	let pos = currentLevel.findIdPos(TILE.PLAYER) || {x: 0, y: 0};
+	p1 = new warriorClass({
+		sketch: props.getImage(TILE.PLAYER), 
+		x: pos.x,
+		y: pos.y,
+		name: "Player",
+	});
+	// FIXME
+	let ij = currentLevel.findId(TILE.PLAYER);
+	if (ij) {
+		let idx = ij.j * currentLevel.width + ij.i;
+		//roomGrid[idx] = TILE.GROUND;
+		currentLevel.setfg(ij.i, ij.j, TILE.GROUND);
+	}
+
+    SetupPathfindingGridData(p1);
     // these next few lines set up our game logic and render to happen 30 times per second
     var framesPerSecond = 30;
     setInterval(function() {
@@ -66,10 +87,12 @@ function loadingDoneSoStartGame() {
         drawEverything();
     }, 1000 / framesPerSecond);
 
-    p1.init(props.getImage(TILE.PLAYER), "Blue");
+	//p1.init(props.getImage(TILE.PLAYER), "Blue");
+	/*
 	for(var i = 0; i < enemyList.length; i++){
 		enemyList[i].init(props.getImage(TILE.GOBLIN), "red");
 	}
+	*/
 
     initInput();
 
@@ -88,12 +111,15 @@ function moveEverything() {
 		// Wrapped in IF/ELSE to support Tile Editor Mode	
 		//movement
 		p1.move();
+		currentLevel.update({});
+		/*
 		for(var i = 0; i < enemyList.length; i++){
 			enemyList[i].move();
 		}
 		for(var i = 0; i < gameObjectList.length; i++){
 			gameObjectList[i].move();
 		}
+		*/
 
 
 		//collisions
@@ -102,6 +128,7 @@ function moveEverything() {
 				enemyList[i].checkCollisionAgainst(enemyList[ii]);
 			}
 		}*/
+		/*
 		for(var i = 0; i < enemyList.length; i++){
 			enemyList[i].checkCollisionAgainst(p1);
 		}
@@ -111,6 +138,7 @@ function moveEverything() {
 		for(var i = 0; i < gameObjectList.length; i++){
 			gameObjectList[i].checkCollisionAgainst(p1);
 		}
+		*/
 		
 		room_0.playerExploredRooms();
 		room_1.playerExploredRooms(); 
@@ -138,7 +166,8 @@ function drawEverything() {
 	if(!titleScreen && !editorMode)
 	{
 		// Wrapped in IF/ELSE to support Tile Editor Mode	
-	    drawRoom(roomGrid);
+		//drawRoom(roomGrid);
+		currentLevel.render(canvasContext);
 		if(pathFindingDisplay){
 			drawPathingFindingTiles();
 	    }

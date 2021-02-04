@@ -8,63 +8,19 @@ function addObject(whichObject) {
 }
 
 //gameObjects have similar code to Character class for movement.
-gameObjectClass.prototype = new characterClass();
-
-function gameObjectClass(whichObject) {
-    //collisions
-    this.id = whichObject;
-    this.colHeight = 50;
-    this.colWidth = 50;
-    this.myCollisionColor = "orange";
-    this.myIdentity = whichObject
-    this.grabbedByPlayer = false;
-    this.correctPuzzleLocation = false;
-    
-    // setup sprite/name
-    this.myBitmap = props.getImage(this.id);
-    this.myName = props.getName(this.id);
-
-    /*
-    this.init = function(name) {
-        if (name == 'fireRune') {
-            this.myBitmap = fireRunePic;
-            this.myName = "Fire Rune";
-        } else if (name == 'windRune') {
-            this.myBitmap = windRunePic;
-            this.myName = 'Wind Rune';
-        } else if (name == 'waterRune') {
-            this.myBitmap = waterRunePic;
-            this.myName = 'Water Rune';
-        } else if (name == 'earthRune') {
-            this.myBitmap = earthRunePic;
-            this.myName = 'Earth Rune';
-        }
-        this.reset();
+class gameObjectClass extends characterClass {
+    constructor(spec={}) {
+        spec.collisionColor = spec.collisionColor || "orange";
+        super(spec);
+        //collisions
+        this.colHeight = 50;
+        this.colWidth = 50;
+        this.myIdentity = spec.tileid || 0;
+        this.grabbedByPlayer = false;
+        this.correctPuzzleLocation = false;
     }
-    */
 
-    this.reset = function() {
-        if (this.homeX == undefined) {
-            for (var i = 0; i < roomGrid.length; i++) {
-                if (roomGrid[i] == TILE.FIRE_RUNE ||
-                    roomGrid[i] == TILE.WIND_RUNE ||
-                    roomGrid[i] == TILE.WATER_RUNE ||
-                    roomGrid[i] == TILE.EARTH_RUNE) {
-                    var tileRow = Math.floor(i / ROOM_COLS);
-                    var tileCol = i % ROOM_COLS;
-                    this.homeX = tileCol * TILE_W + 0.5 * TILE_W;
-                    this.homeY = tileRow * TILE_H + 0.5 * TILE_H;
-                    roomGrid[i] = TILE.GROUND;
-                    break; // found it, so no need to keep searching 
-                } // end of if
-            } // end of for
-        } // end of if position not saved yet
-
-        this.x = this.homeX;
-        this.y = this.homeY;
-    } // end of reset
-
-    this.checkCollisionAgainst = function(thisEntity) {
+    checkCollisionAgainst(thisEntity) {
         if (this.isOverLapping(thisEntity.x, thisEntity.y)) {
             this.myCollisionColor = "yellow";
             if (p1.interactWithObject) {
@@ -81,8 +37,7 @@ function gameObjectClass(whichObject) {
         }
     }
 
-    this.superMove = this.move;
-    this.move = function() {
+    move() {
         //player to move this object
         //player should grab this object, then the player can either pull or push the object.
         if (this.grabbedByPlayer) {
@@ -99,11 +54,11 @@ function gameObjectClass(whichObject) {
                 this.x -= p1.movingSpeed;
             }
         }
-		this.superMove();
+		super.move();
     }
 
     //must override this function.  No super version
-    this.tileCollisionHandle = function(walkIntoTileIndex, walkIntoTileType, nextX, nextY) {
+    tileCollisionHandle(walkIntoTileIndex, walkIntoTileType, nextX, nextY) {
         switch (walkIntoTileType) {
             case TILE.GROUND:
             case TILE.GOAL:

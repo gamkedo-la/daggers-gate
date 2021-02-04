@@ -95,6 +95,13 @@ class Assets {
         return new gen(spec);
     }
 
+    generateFromSpec(spec) {
+        // pull asset generator
+        let gen = this._generators[spec.cls];
+        if (!gen) return undefined;
+        return new gen(spec);
+    }
+
 }
 
 /**

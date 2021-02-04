@@ -1,54 +1,41 @@
-function characterClass() {
-    // variables to keep track of position
-    this.x;
-    this.y;
-    this.tilePath = [];
-    this.pathfindingNow = false;
-    this.movingSpeed = 20; // should be overwritten by specific class.
-    // move states
-    this.move_North = false;
-    this.move_East = false;
-    this.move_South = false;
-    this.move_West = false;
-
-    //collisions
-    this.colHeight = 100;
-    this.colWidth = 100;
-    this.colTopLeftX;
-    this.colTopLeftY;
-    this.myCollisionColor = "black";
-
-    this.init = function(whichGraphic, whichName) {
-        this.myBitmap = whichGraphic;
-        this.myName = whichName;
+class characterClass {
+    constructor(spec={}) {
+        this.tileid = spec.tileid || 0;
+        this.sketch = spec.sketch || Sketch.zero;
+        this.myName = spec.name || this.constructor.name;
+        this.myCollisionColor = spec.collisionColor || "black";
+        this.homeX = spec.x || 0;
+        this.homeY = spec.y || 0;
+        // variables to keep track of position
+        this.x;
+        this.y;
+        this.tilePath = [];
+        this.pathfindingNow = false;
+        this.movingSpeed = 20; // should be overwritten by specific class.
+        // move states
+        this.move_North = false;
+        this.move_East = false;
+        this.move_South = false;
+        this.move_West = false;
+        //collisions
+        this.colHeight = 100;
+        this.colWidth = 100;
+        this.colTopLeftX;
+        this.colTopLeftY;
         this.reset();
     }
 
-    this.reset = function() {
-        if (this.homeX == undefined) {
-            for (var i = 0; i < roomGrid.length; i++) {
-                if (roomGrid[i] == TILE.GOBLIN) {
-                    var tileRow = Math.floor(i / ROOM_COLS);
-                    var tileCol = i % ROOM_COLS;
-                    this.homeX = tileCol * TILE_W + 0.5 * TILE_W;
-                    this.homeY = tileRow * TILE_H + 0.5 * TILE_H;
-                    roomGrid[i] = TILE.GROUND;
-                    break; // found it, so no need to keep searching 
-                } // end of if
-            } // end of for
-        } // end of if position not saved yet
-
+    reset() {
         this.x = this.homeX;
         this.y = this.homeY;
-
+        console.log("char: " + this.myName + " x: " + this.x + " y: " + this.y);
     } // end of reset
 
-    this.tileCollisionHandle = function(walkIntoTileIndex, walkIntoTileType, nextX, nextY) {
+    tileCollisionHandle(walkIntoTileIndex, walkIntoTileType, nextX, nextY) {
         console.log("UNDEFINED FOR THIS SUBCLASS");
-
     }
 
-    this.move = function() {
+    move() {
         var nextX = this.x;
         var nextY = this.y;
         var charCol = Math.floor(this.x / TILE_W);
@@ -123,7 +110,8 @@ function characterClass() {
         var walkIntoTileType = TILE.WALL_7;
 
         if (walkIntoTileIndex != undefined) {
-            walkIntoTileType = roomGrid[walkIntoTileIndex];
+            //walkIntoTileType = roomGrid[walkIntoTileIndex];
+            walkIntoTileType = currentLevel.fgi(walkIntoTileIndex);
         }
 
         this.tileCollisionHandle(walkIntoTileIndex, walkIntoTileType, nextX, nextY);
@@ -134,7 +122,7 @@ function characterClass() {
         this.colTopLeftY = this.y - this.colHeight / 2;
     }
 
-    this.isOverLapping = function(testX, testY) {
+    isOverLapping(testX, testY) {
         if (testX > this.colTopLeftX && testX < this.colTopLeftX + this.colWidth &&
             testY > this.colTopLeftY && testY < this.colTopLeftY + this.colHeight) {
             return true;
@@ -143,7 +131,7 @@ function characterClass() {
         }
     }
 
-    this.checkCollisionAgainst = function(thisEntity) {
+    checkCollisionAgainst(thisEntity) {
         if (this.isOverLapping(thisEntity.x, thisEntity.y)) {
             this.collisionColor = "red";
         } else {
@@ -151,8 +139,8 @@ function characterClass() {
         }
     }
 
-    this.draw = function() {
-        drawBitmapCenteredAtLocationWithRotation(this.myBitmap, this.x, this.y, 0.0);
+    draw() {
+        drawBitmapCenteredAtLocationWithRotation(this.sketch, this.x, this.y, 0.0);
         if (showCollisions) {
             colorRect(this.colTopLeftX, this.colTopLeftY, this.colWidth, this.colHeight, this.collisionColor);
         }

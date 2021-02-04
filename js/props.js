@@ -25,6 +25,7 @@ class Props {
         this._names = {};
         this._tilesByTag = {};
         this._transparency = {};
+        this._enemies = {};
         this._obstructs = {};
         this.dbg = spec.dbg;
         // setup lookup tables
@@ -45,6 +46,11 @@ class Props {
             if (asset.transparent) {
                 this._transparency[id] = true;
                 if (this.dbg) console.log("id: " + id + " tag: " + asset.tag + " is transparent");
+            }
+            // lookup enemies
+            if (asset.enemy) {
+                this._enemies[id] = true;
+                if (this.dbg) console.log("id: " + id + " tag: " + asset.tag + " is enemy");
             }
             // lookup transparency
             if (asset.obstructs) {
@@ -74,6 +80,14 @@ class Props {
      */
     isTransparent(id) {
         return this._transparency[id] || false;
+    }
+
+    /**
+     * Is the tile associated w/ the given id an enemy?
+     * @param {*} id 
+     */
+    isEnemy(id) {
+        return this._enemies[id] || false;
     }
 
     /**

@@ -16,14 +16,43 @@ class Level {
         this.bgsketches = new Array(this.nentries);
         this.enemies = [];
         this.objects = [];
+        this.rooms = unexploredRoomClass.fromGrid(spec.rooms || []);
         this.init();
     }
     
-    ifromidx(i) {
-        return i % this.width;
+    ifromidx(idx) {
+        return idx % this.width;
     }
-    jfromidx(i) {
-        return Math.floor(i/this.width);
+    jfromidx(idx) {
+        return Math.floor(idx/this.width);
+    }
+
+    xfromidx(idx) {
+        return (idx % this.width) * this.sketchWidth;
+    }
+    yfromidx(idx) {
+        return Math.floor(idx/this.width) * this.sketchHeight;
+    }
+
+    contains(x,y) {
+        if (x>0 && x<this.width*this.sketchWidth && y>0 && y<this.height*this.sketchHeight) return true;
+        return false;
+    }
+
+    idxFromXY(x,y) {
+        let i = Math.floor(x/this.sketchWidth);
+        let j = Math.floor(y/this.sketchHeight);
+        if (i < 0) i = 0;
+        if (j < 0) j = 0;
+        if (i >= this.width) i = this.width-1;
+        if (j >= this.height) j = this.height-1;
+        return i + this.width*j;
+    }
+
+    idxFromIJ(i,j) {
+        if (i >= this.width) i = this.width-1;
+        if (j >= this.height) j = this.height-1;
+        return i + this.width*j;
     }
 
     init() {
@@ -164,7 +193,11 @@ class Level {
 		}
 		for(let i=0; i<this.objects.length; i++){
 			this.objects[i].checkCollisionAgainst(p1);
-		}
+        }
+        // check for player entering rooms
+        for (let i=0; i<this.rooms.length; i++) {
+            this.rooms[i].playerExploredRooms(p1);
+        }
     }
 
     render(ctx) {
@@ -189,5 +222,10 @@ class Level {
 		for(var i=0; i<this.objects.length; i++){
 			this.objects[i].draw();
 		}
+        // render rooms
+		for(var i=0; i<this.rooms.length; i++){
+			this.rooms[i].draw();
+		}
     }
+
 }

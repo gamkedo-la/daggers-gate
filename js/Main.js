@@ -140,6 +140,7 @@ function moveEverything() {
 		}
 		*/
 		
+		/*
 		room_0.playerExploredRooms();
 		room_1.playerExploredRooms(); 
 		room_2.playerExploredRooms();
@@ -147,6 +148,7 @@ function moveEverything() {
 		room_4.playerExploredRooms();
 		room_5.playerExploredRooms();
 		room_6.playerExploredRooms();
+		*/
 	}
 }
 
@@ -177,6 +179,7 @@ function drawEverything() {
 		for(var i = 0; i < gameObjectList.length; i++){
 			gameObjectList[i].draw();
 		}
+		/*
 		room_0.draw();
 		room_1.draw(); 
 		room_2.draw();
@@ -184,6 +187,7 @@ function drawEverything() {
 		room_4.draw();
 		room_5.draw();
 		room_6.draw();
+		*/
 		
 		if(framesToDisplayMessage-- > 600){
 			colorText("HELPER CODE", 500, 400, fillColor = "black", font = "26px Arial Black");

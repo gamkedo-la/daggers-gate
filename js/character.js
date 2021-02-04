@@ -22,6 +22,10 @@ class characterClass {
         this.colWidth = 100;
         this.colTopLeftX;
         this.colTopLeftY;
+        this.colTLIdx = 0;
+        this.colTRIdx = 0;
+        this.colBLIdx = 0;
+        this.colBRIdx = 0;
         this.reset();
     }
 
@@ -120,6 +124,10 @@ class characterClass {
         //updates to collision boxes
         this.colTopLeftX = this.x - this.colWidth / 2;
         this.colTopLeftY = this.y - this.colHeight / 2;
+        this.colTLIdx = currentLevel.idxFromXY(this.colTopLeftX, this.colTopLeftY);
+        this.colTRIdx = currentLevel.idxFromXY(this.colTopLeftX+this.colWidth, this.colTopLeftY);
+        this.colBLIdx = currentLevel.idxFromXY(this.colTopLeftX, this.colTopLeftY+this.colHeight);
+        this.colBRIdx = currentLevel.idxFromXY(this.colTopLeftX+this.colWidth, this.colTopLeftY+this.colHeight);
     }
 
     isOverLapping(testX, testY) {

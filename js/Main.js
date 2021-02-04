@@ -109,7 +109,7 @@ function moveEverything() {
 	else
 	{
 		// Wrapped in IF/ELSE to support Tile Editor Mode	
-		//movement
+		// movement
 		p1.move();
 		currentLevel.update({});
 		/*
@@ -159,9 +159,8 @@ function drawEverything() {
 		drawTitleScreen("black");
 	} 
 	if(!titleScreen && editorMode) {
-		drawTitleScreen("blue");
-		// loadLevel(freshMap) 
-		drawRoom(_newMap);
+		drawTitleScreen("blue"); 
+		drawRoom(blank_Map);
 	}
 	if(!titleScreen && !editorMode)
 	{

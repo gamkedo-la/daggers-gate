@@ -82,7 +82,9 @@ function mouseclicked(evt) {
   if(editorMode) {
     var clickedIndex = getTileIndexAtPixelCoord(mouseX, mouseY);
     // console.log(freshMap[clickedIndex], storedTileValue);
-    _newMap[getTileIndexAtPixelCoord(mouseX, mouseY)] = storedTileValue;
+    blank_Map[getTileIndexAtPixelCoord(mouseX, mouseY)] = storedTileValue;
+
+    mouseDragging = true;
 
   }else {
 
@@ -98,8 +100,10 @@ function mousereleased(evt) {
 }
 
 function mousemoved(evt) {
+
     var rect = canvas.getBoundingClientRect();
     var root = document.documentElement;
+    var tileUnderMouse;
 
     // account for the margins, canvas position on page, scroll amount, etc.
     mouseX = evt.clientX - rect.left - root.scrollLeft;
@@ -118,4 +122,23 @@ function mousemoved(evt) {
     if(mouseDragging && tileOverIdx != -1) { /////
 
     } /////
+    //
+    if(mouseDragging) {
+      tileUnderMouse = tileCoordToIndex(tileOverCol, tileOverRow);
+      blank_Map[tileUnderMouse] = storedTileValue;
+    }
+} 
+
+function findMouseTileXY(evt) {
+      var rect = canvas.getBoundingClientRect();
+      var root = document.documentElement;
+
+      // account for the margins, canvas position on page, scroll amount, etc.
+      mouseX = evt.clientX - rect.left - root.scrollLeft;
+      mouseY = evt.clientY - rect.top - root.scrollTop;
+
+      var tileOverCol = Math.floor(mouseX / TILE_W);
+      var tileOverRow = Math.floor(mouseY / TILE_H);
+
+      return [tileOverCol, tileOverRow];
 }

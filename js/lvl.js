@@ -55,6 +55,19 @@ class Level {
         return i + this.width*j;
     }
 
+    upFromIdx(idx) {
+        return (idx > this.width) ? idx-this.width : idx;
+    }
+    downFromIdx(idx) {
+        return (idx < this.nentries-this.width) ? idx+this.width : idx;
+    }
+    leftFromIdx(idx) {
+        return (idx%this.width > 0) ? idx-1 : idx;
+    }
+    rightFromIdx(idx) {
+        return (idx%this.width < this.width) ? idx+1 : idx;
+    }
+
     init() {
         // iterate through level data
         for (let i=0; i<this.nentries; i++) {
@@ -74,6 +87,7 @@ class Level {
                 this.enemies.push(enemy);
             }
             // lookup objects
+            // FIXME
             // lookup sprites
             this.bgsketches[i] = this.genSketch(this.bg[i]);
             this.fgsketches[i] = this.genSketch(this.fg[i]);

@@ -38,17 +38,32 @@ class Assets {
             //"Audio": Audio,
         });
         this._items = new KeyedGroup((v)=>v.tag);
+        this._idmap = {};
         this.dbg = spec.dbg;
         return Assets._instance;
     }
 
     // METHODS -------------------------------------------------------------
     add(obj) {
-        if (obj) this._items.add(obj)
+        if (obj) {
+            this._items.add(obj)
+            if (obj.id) this._idmap[obj.id] = obj.tag;
+        }
     }
 
     get(tag) {
         return this._items.find(tag);
+    }
+    getId(tag) {
+        let asset = this._items.find(tag);
+        return (asset) ? asset.id : 0;
+    }
+
+    getById(id) {
+        return this._items.find(this._idmap[id])
+    }
+    getTag(id) {
+        return this._idmap[id];
     }
 
     find(filter) {

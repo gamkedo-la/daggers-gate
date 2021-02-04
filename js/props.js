@@ -26,7 +26,10 @@ class Props {
         this._tilesByTag = {};
         this._transparency = {};
         this._enemies = {};
-        this._obstructs = {};
+        this._objects = {};
+        this._doors = {};
+        this._passable = {};
+        this._swaps = {};
         this.dbg = spec.dbg;
         // setup lookup tables
         this._setup(assets);
@@ -37,25 +40,41 @@ class Props {
         for (const asset of assets) {
             let id = asset.id;
             if (id === undefined) continue;
+            if (this.dbg) console.log("parsing id: " + id + " tag: " + asset.tag);
             // setup TILE.X variable
             if (asset.tag && asset.hasOwnProperty("id")) {
                 TILE[asset.tag] = asset.id;
-                if (this.dbg) console.log("TILE." + asset.tag + ": " + asset.id);
+                if (this.dbg) console.log(" -- assigned TILE." + asset.tag);
             }
             // lookup transparency
             if (asset.transparent) {
                 this._transparency[id] = true;
-                if (this.dbg) console.log("id: " + id + " tag: " + asset.tag + " is transparent");
+                if (this.dbg) console.log(" -- is transparent");
             }
             // lookup enemies
             if (asset.enemy) {
                 this._enemies[id] = true;
-                if (this.dbg) console.log("id: " + id + " tag: " + asset.tag + " is enemy");
+                if (this.dbg) console.log(" -- is enemy");
+            }
+            // lookup objects
+            if (asset.object) {
+                this._objects[id] = true;
+                if (this.dbg) console.log(" -- is object");
+            }
+            // lookup doors
+            if (asset.door) {
+                this._doors[id] = true;
+                if (this.dbg) console.log(" -- is door");
+            }
+            // lookup swappable
+            if (asset.swap) {
+                this._swaps[id] = asset.swap;
+                if (this.dbg) console.log(" -- is swappable with: " + asset.swap);
             }
             // lookup transparency
-            if (asset.obstructs) {
-                this._obstructs[id] = true;
-                if (this.dbg) console.log("id: " + id + " tag: " + asset.tag + " obstructs");
+            if (asset.passable) {
+                this._passable[id] = true;
+                if (this.dbg) console.log(" -- passable");
             }
             // tag assignment
             this._tags[id] = asset.tag;
@@ -65,11 +84,10 @@ class Props {
             }
             this._tags[id] = asset.tag;
             // generate asset
-            // generate asset
             if (asset.cls === "Sprite" || asset.cls === "Animation") {
                 this._tiles[id] = assets.generate(asset.tag);
                 this._tilesByTag[asset.tag] = this._tiles[id];
-                if (this.dbg) console.log("generated: " + this._tiles[id]);
+                if (this.dbg) console.log(" -- generated: " + this._tiles[id]);
             }
         }
     }
@@ -91,11 +109,38 @@ class Props {
     }
 
     /**
+     * Is the tile associated w/ the given id an object?
+     * @param {*} id 
+     */
+    isObject(id) {
+        return this._objects[id] || false;
+    }
+
+    /**
+     * Is the tile associated w/ the given id a door?
+     * @param {*} id
+     */
+    isDoor(id) {
+        return this._doors[id] || false;
+    }
+
+    /**
+     * Is the tile associated w/ the given id swappable?
+     * @param {*} id
+     */
+    swappable(id) {
+        // swaps hold tag, convert tag to id
+        let swaptag = this._swaps[id];
+        if (!swaptag) return 0;
+        return assets.getId(swaptag);
+    }
+
+    /**
      * Is the tile associated w/ the given id transparent?
      * @param {*} id 
      */
-    obstructs(id) {
-        return this._obstructs[id] || false;
+    passable(id) {
+        return this._passable[id] || false;
     }
 
     /**

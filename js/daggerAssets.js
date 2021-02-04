@@ -44,8 +44,8 @@ const daggerAssets = [
     { src: "images/spritesheet_Dungeon_01.png", cls: "Sheet", assets: [
         
         {tag: "GROUND",                 id: 10, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 0 },
-        {tag: "GROUND_SPIKES_DOWN",     id: 11, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 0 },
-        {tag: "GROUND_SPIKES_UP",       id: 12, cls: "Sprite", width: 50, height: 50, xoffset: 100, yoffset: 0 },
+        {tag: "GROUND_SPIKES_DOWN",     id: 11, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 0, passable: true },
+        {tag: "GROUND_SPIKES_UP",       id: 12, cls: "Sprite", width: 50, height: 50, xoffset: 100, yoffset: 0, passable: true },
         {tag: "WALL_BOTTOM",            id: 13, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 0 },
         {tag: "WALL_TOP",               id: 14, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 0 },
         {tag: "WALL_FLAG_BOTTOM",       id: 15, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 0 },
@@ -60,13 +60,13 @@ const daggerAssets = [
         {tag: "CEIL_LEFT_RIGHT_TOP",    id: 23, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 50 },
         {tag: "CEIL_TOP_BOTTOM",        id: 24, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 50 },
         {tag: "CEIL_EMPTY",             id: 25, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 50 },
-        {tag: "DOOR_OPEN_TOP",          id: 26, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 50 },
-        {tag: "DOOR_OPEN_BOTTOM",       id: 27, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 50 },
-        {tag: "DOOR_CLOSE_TOP",         id: 28, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 50 },
-        {tag: "DOOR_CLOSE_BOTTOM",      id: 29, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 50 },
+        {tag: "DOOR_OPEN_TOP",          id: 26, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 50, passable: true },
+        {tag: "DOOR_OPEN_BOTTOM",       id: 27, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 50, passable: true },
+        {tag: "DOOR_CLOSE_TOP",         id: 28, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 50, swap: "DOOR_OPEN_TOP" },
+        {tag: "DOOR_CLOSE_BOTTOM",      id: 29, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 50, swap: "DOOR_OPEN_BOTTOM", door: true },
 
-        {tag: "DOOR_RIGHTSIDE_TOP",     id: 30, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 100 },
-        {tag: "DOOR_RIGHTSIDE_BOTTOM",  id: 31, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 100, transparent: true },
+        {tag: "DOOR_RIGHTSIDE_TOP",     id: 30, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 100, swap: "WALL_BOTTOM" },
+        {tag: "DOOR_RIGHTSIDE_BOTTOM",  id: 31, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 100, door: true },
         {tag: "CHEST1_CLOSE",           id: 32, cls: "Sprite", width: 50, height: 50, xoffset: 100, yoffset: 100, transparent: true},
         {tag: "CHEST1_OPEN",            id: 33, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 100, transparent: true },
         {tag: "CHEST2_CLOSE",           id: 34, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 100, transparent: true },
@@ -83,9 +83,11 @@ const daggerAssets = [
         {tag: "ALTAR_GEM_WATER",        id: 44, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 150 },
         {tag: "ALTAR_GEM_FIRE",         id: 45, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 150 },
         {tag: "ALTAR_GEM_EARTH",        id: 46, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 150 },
-        {tag: "DEADBONES",              id: 47, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 150, transparent: true },
+        {tag: "DEADBONES",              id: 47, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 150, passable: true },
         {tag: "EMPTY2",                 id: 48, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 150 },
-        {tag: "EMPTY3",                 id: 49, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 150 }
+        {tag: "EMPTY3",                 id: 49, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 150 },
+
+        {tag: "CEIL_UPPER_DOOR",        id: 50, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 0, passable: true },
     ]}
 
 

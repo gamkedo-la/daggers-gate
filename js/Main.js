@@ -42,7 +42,7 @@ window.onload = async function() {
 	await load();
 	props = new Props({
 		assets: assets,
-		//dbg: true,
+		dbg: true,
 	});
 
 	/*

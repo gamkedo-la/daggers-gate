@@ -25,6 +25,28 @@ class warriorClass extends characterClass {
 
     //must override this function.  No super version
     tileCollisionHandle(walkIntoTileIndex, walkIntoTileType, nextX, nextY) {
+        if (props.isDoor(walkIntoTileType)) {
+            if (this.keysHeld > 0) {
+                this.keysHeld--; // one less key
+                document.getElementById("debugText").innerHTML = "Keys: " + this.keysHeld;
+                let swapid = props.swappable(walkIntoTileType);
+                console.log("swapid: " + swapid);
+                currentLevel.setfgi(walkIntoTileIndex, swapid || 0);
+                // check for double-height door
+                let aboveIdx = currentLevel.upFromIdx(walkIntoTileIndex);
+                console.log("aboveIdx: " + aboveIdx + " from: " + walkIntoTileIndex);
+                if (aboveIdx !== walkIntoTileIndex) {
+                    let aboveSwapId = props.swappable(currentLevel.fgi(aboveIdx));
+                    console.log("aboveSwapId: " + aboveSwapId);
+                    if (aboveSwapId) currentLevel.setfgi(aboveIdx, aboveSwapId);
+                }
+            }
+            return;  // FIXME: remove after switch statement cleanup?
+        } else if (props.passable(walkIntoTileType)) {
+            this.x = nextX;
+            this.y = nextY;
+            return;  // FIXME: remove after switch statement cleanup?
+        }
         switch (walkIntoTileType) {
             case 0:
             case TILE.GROUND:

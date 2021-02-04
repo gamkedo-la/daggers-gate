@@ -21,7 +21,6 @@ class unexploredRoomClass {
 				if (!areas.hasOwnProperty(id)) areas[id] = [];
 				let idxs = areas[id];
 				idxs.push(idx);
-				console.log("pushing index: " + idx);
 			}
 		}
 		for (const [id, idxs] of Object.entries(areas)) {

@@ -8,9 +8,9 @@ function SetupPathfindingGridData(whichPathfinder) {
 	var pathfinder = whichPathfinder;
 
     if(grid.length > 0) { // non-zero, copy over player set walls into tileGrid for reset
-        for (var eachCol = 0; eachCol < ROOM_COLS; eachCol++) {
-            for (var eachRow = 0; eachRow < ROOM_ROWS; eachRow++) {
-                var idxHere = tileCoordToIndex(eachCol, eachRow);
+        for (var eachCol = 0; eachCol < currentLevel.width; eachCol++) {
+            for (var eachRow = 0; eachRow < currentLevel.height; eachRow++) {
+                var idxHere = currentLevel.idxfromij(eachCol, eachRow);
                 if(grid[idxHere].elementType == VISITED ||
                     grid[idxHere].elementType == PATH) {
                    // tileGrid[idxHere] = NOTHING;
@@ -23,9 +23,9 @@ function SetupPathfindingGridData(whichPathfinder) {
 
     grid = [];
 
-    for (var eachCol = 0; eachCol < ROOM_COLS; eachCol++) {
-        for (var eachRow = 0; eachRow < ROOM_ROWS; eachRow++) {
-            var idxHere = tileCoordToIndex(eachCol, eachRow);
+    for (var eachCol = 0; eachCol < currentLevel.width; eachCol++) {
+        for (var eachRow = 0; eachRow < currentLevel.height; eachRow++) {
+            var idxHere = currentLevel.idxfromij(eachCol, eachRow);
 
             grid[idxHere] = new GridElement();
 			grid[idxHere].name = "" + eachCol + "," + eachRow;
@@ -46,9 +46,9 @@ function SetupPathfindingGridData(whichPathfinder) {
 	
      ///// different pass now that endR and endC are set, find h
 
-    for (var eachCol = 0; eachCol < ROOM_COLS; eachCol++) { /////
-        for (var eachRow = 0; eachRow < ROOM_ROWS; eachRow++) { /////
-            var idxHere = tileCoordToIndex(eachCol, eachRow); /////
+    for (var eachCol = 0; eachCol < currentLevel.width; eachCol++) { /////
+        for (var eachRow = 0; eachRow < currentLevel.height; eachRow++) { /////
+            var idxHere = currentLevel.idxfromij(eachCol, eachRow); /////
 
             grid[idxHere].hVal =  /////
               hValCal(eachCol, eachRow, endC,endR, 3, true); /////

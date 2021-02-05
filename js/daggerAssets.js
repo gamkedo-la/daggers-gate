@@ -55,36 +55,8 @@ const daggerAssets = [
         {tag: "EMPTY3",                 id: 49, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 150 },
 
         {tag: "CEIL_UPPER_DOOR",        id: 50, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 0, passable: true },
-    ]}
-
-
-    //{ src: "src/audio/hover.mp3", cls: "Audio", tag: "hover" },
-    /*
-    { src: "src/img/human.png", cls: "Sheet", assets: [
-        {tag: "human1", cls: "Sprite", width: 32, height: 32, xoffset: 32, yoffset: 32 },
-        {tag: "human2", cls: "Sprite", width: 32, height: 32, xoffset: 32*6, yoffset: 32 },
-        {tag: "human.walkf", cls: "Animation", cels: [
-            { xoffset: 32*0, yoffset: 32*1, width: 32, height: 32, duration: 80 },
-            { xoffset: 32*1, yoffset: 32*1, width: 32, height: 32, duration: 80 },
-            { xoffset: 32*2, yoffset: 32*1, width: 32, height: 32, duration: 80 },
-            { xoffset: 32*3, yoffset: 32*1, width: 32, height: 32, duration: 80 },
-            { xoffset: 32*4, yoffset: 32*1, width: 32, height: 32, duration: 80 },
-            { xoffset: 32*5, yoffset: 32*1, width: 32, height: 32, duration: 80 },
-            { xoffset: 32*6, yoffset: 32*1, width: 32, height: 32, duration: 80 },
-            { xoffset: 32*7, yoffset: 32*1, width: 32, height: 32, duration: 80 },
-        ]},
     ]},
-    { src: "src/img/bonfire.png", cls: "Sheet", assets: [
-        {tag: "bonfire", cls: "Animation", cels: [
-            { xoffset: 50*0, yoffset: 0, width: 50, height: 50, duration: 80 },
-            { xoffset: 50*1, yoffset: 0, width: 50, height: 50, duration: 80 },
-            { xoffset: 50*2, yoffset: 0, width: 50, height: 50, duration: 80 },
-            { xoffset: 50*3, yoffset: 0, width: 50, height: 50, duration: 80 },
-            { xoffset: 50*4, yoffset: 0, width: 50, height: 50, duration: 80 },
-            { xoffset: 50*5, yoffset: 0, width: 50, height: 50, duration: 80 },
-            { xoffset: 50*6, yoffset: 0, width: 50, height: 50, duration: 80 },
-            { xoffset: 50*7, yoffset: 0, width: 50, height: 50, duration: 80 },
-        ]},
-    ]},
-    */
+
+    { id: 100, src: "images/basicPlayerSprite-25.png", cls: "Image", tag: "TESTENEMY", enemy: true },
+
 ];

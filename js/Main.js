@@ -17,6 +17,10 @@ var loaders = [
 	assets,
 ];
 var props;
+var currentLevel;
+var queuedExit;
+var framesToDisplayMessage = 800;
+var levelLoader = new LevelLoader({lvls: allLevels});
 
 async function load() {
 	return new Promise( (resolve) => {
@@ -33,8 +37,6 @@ async function load() {
 	});
 }
 
-var currentLevel;
-
 window.onload = async function() {
     canvas = document.getElementById('gameCanvas');
     canvasContext = canvas.getContext('2d');
@@ -42,42 +44,23 @@ window.onload = async function() {
 	await load();
 	props = new Props({
 		assets: assets,
-		dbg: true,
+		//dbg: true,
 	});
-
-	/*
-	for(var i = 0; i < roomGrid.length; i++){
-		if(roomGrid[i] == TILE.GOBLIN){
-			addEnemy();
-		} 
-		if (roomGrid[i] == TILE.FIRE_RUNE ||
-			roomGrid[i] == TILE.WIND_RUNE ||		
-			roomGrid[i] == TILE.WATER_RUNE ||
-			roomGrid[i] == TILE.EARTH_RUNE){
-				addObject(roomGrid[i]);
-		}
-	}
-	*/
 
 	loadingDoneSoStartGame();
 }
 
 function loadingDoneSoStartGame() {
-	currentLevel = new Level(lvl1Spec);
-	let pos = currentLevel.findIdPos(TILE.PLAYER) || {x: 0, y: 0};
+	// load starting level
+	levelLoader.load(startingLevel);
+
+	// instantiate player
 	p1 = new warriorClass({
 		sketch: props.getImage(TILE.PLAYER), 
-		x: pos.x,
-		y: pos.y,
 		name: "Player",
 	});
-	// FIXME
-	let ij = currentLevel.findId(TILE.PLAYER);
-	if (ij) {
-		let idx = ij.j * currentLevel.width + ij.i;
-		//roomGrid[idx] = TILE.GROUND;
-		currentLevel.setfg(ij.i, ij.j, TILE.GROUND);
-	}
+	// relocate player to spawn point
+	currentLevel.placeCharacter(p1, startingSpawn);
 
     SetupPathfindingGridData(p1);
     // these next few lines set up our game logic and render to happen 30 times per second
@@ -86,13 +69,6 @@ function loadingDoneSoStartGame() {
         moveEverything();
         drawEverything();
     }, 1000 / framesPerSecond);
-
-	//p1.init(props.getImage(TILE.PLAYER), "Blue");
-	/*
-	for(var i = 0; i < enemyList.length; i++){
-		enemyList[i].init(props.getImage(TILE.GOBLIN), "red");
-	}
-	*/
 
     initInput();
 
@@ -108,40 +84,23 @@ function moveEverything() {
 	else if(editorMode) {}
 	else
 	{
+		// handle level exit
+		if (queuedExit) {
+			// load queued level
+			levelLoader.load(queuedExit.lvl);
+			// respawn player
+			currentLevel.placeCharacter(p1, queuedExit.spawn);
+			queuedExit = undefined;
+			SetupPathfindingGridData(p1);
+		}
 		// Wrapped in IF/ELSE to support Tile Editor Mode	
 		// movement
 		p1.move();
 		currentLevel.update({});
-		/*
-		for(var i = 0; i < enemyList.length; i++){
-			enemyList[i].move();
-		}
-		for(var i = 0; i < gameObjectList.length; i++){
-			gameObjectList[i].move();
-		}
-		*/
 
-		//collisions
-		/*for(var i = 0; i < enemyList.length; i++){
-			for (var ii = i+1; ii < enemyList.length; i++){
-				enemyList[i].checkCollisionAgainst(enemyList[ii]);
-			}
-		}*/
-		/*
-		for(var i = 0; i < enemyList.length; i++){
-			enemyList[i].checkCollisionAgainst(p1);
-		}
-		for(var i = 0; i < enemyList.length; i++){
-			p1.checkCollisionAgainst(enemyList[i]);
-		}
-		for(var i = 0; i < gameObjectList.length; i++){
-			gameObjectList[i].checkCollisionAgainst(p1);
-		}
-		*/
 	}
 }
 
-var framesToDisplayMessage = 800;
 
 function drawEverything() {
 
@@ -151,12 +110,11 @@ function drawEverything() {
 	} 
 	if(!titleScreen && editorMode) {
 		drawTitleScreen("blue"); 
-		drawRoom(blank_Map);
+		if (editorLvl) editorLvl.render(canvasContext);
 	}
 	if(!titleScreen && !editorMode)
 	{
 		// Wrapped in IF/ELSE to support Tile Editor Mode	
-		//drawRoom(roomGrid);
 		currentLevel.render(canvasContext);
 		if(pathFindingDisplay){
 			drawPathingFindingTiles();

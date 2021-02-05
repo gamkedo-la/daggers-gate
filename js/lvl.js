@@ -10,16 +10,61 @@ class Level {
         this.fg = spec.fg || new Array(this.nentries);
         this.sketchWidth = spec.sketchWidth || 50;
         this.sketchHeight = spec.sketchHeight || 50;
+        this.maxx = this.sketchWidth * this.width;
+        this.maxy = this.sketchHeight * this.height;
         this.halfWidth = this.sketchWidth * .5;
         this.halfHeight = this.sketchHeight * .5;
         this.fgsketches = new Array(this.nentries);
         this.bgsketches = new Array(this.nentries);
         this.enemies = [];
         this.objects = [];
+        this.exits = {};
+        this.spawns = {};
         this.rooms = unexploredRoomClass.fromGrid(spec.rooms || []);
-        this.init();
+        let exits = spec.exits || [];
+        let spawns = spec.spawns || {};
+        this.init(exits, spawns);
     }
-    
+
+    init(exitSpecs, spawnSpecs) {
+        // setup level exits
+        for (const exitSpec of exitSpecs) {
+            let x = this.sketchWidth * (exitSpec.x || 0);
+            let y = this.sketchHeight * (exitSpec.y || 0);
+            let idx = this.idxfromij(exitSpec.x, exitSpec.y);
+            this.exits[idx] = Object.assign({}, exitSpec, {x: x, y:y});
+        }
+        // setup level spawn points
+        for (const [name, spec] of Object.entries(spawnSpecs)) {
+            let x = this.sketchWidth * (spec.x || 0) + this.halfWidth;
+            let y = this.sketchHeight * (spec.y || 0) + this.halfHeight;
+            this.spawns[name] = Object.assign({}, spec, {x: x, y:y});
+        }
+        // iterate through level data
+        for (let i=0; i<this.nentries; i++) {
+            // lookup enemies
+            if (props.isEnemy(this.fg[i])) {
+                // don't draw sketch as level data
+                let id = this.fg[i];
+                this.fg[i] = 0;
+                // instantiate enemy
+                let enemy = new enemyClass({
+                    sketch: props.getImage(id), 
+                    collider: "red",
+                    name: props.getName(id),
+                    x: this.xfromidx(i, true),
+                    y: this.yfromidx(i, true),
+                });
+                this.enemies.push(enemy);
+            }
+            // lookup objects
+            // FIXME
+            // lookup sprites
+            this.bgsketches[i] = this.genSketch(this.bg[i]);
+            this.fgsketches[i] = this.genSketch(this.fg[i]);
+        }
+    }
+
     ifromidx(idx) {
         return idx % this.width;
     }
@@ -27,19 +72,18 @@ class Level {
         return Math.floor(idx/this.width);
     }
 
-    xfromidx(idx) {
-        return (idx % this.width) * this.sketchWidth;
+    xfromidx(idx, center=false) {
+        return (((idx % this.width) * this.sketchWidth) + ((center) ? this.halfWidth : 0));
     }
-    yfromidx(idx) {
-        return Math.floor(idx/this.width) * this.sketchHeight;
-    }
-
-    contains(x,y) {
-        if (x>0 && x<this.width*this.sketchWidth && y>0 && y<this.height*this.sketchHeight) return true;
-        return false;
+    yfromidx(idx, center=false) {
+        return ((Math.floor(idx/this.width) * this.sketchHeight) + ((center) ? this.halfHeight : 0));
     }
 
-    idxFromXY(x,y) {
+    containsPoint(x,y) {
+        return (x>=0 && x<=this.maxx && y>=0 && y<=this.maxy) 
+    }
+
+    idxfromxy(x,y) {
         let i = Math.floor(x/this.sketchWidth);
         let j = Math.floor(y/this.sketchHeight);
         if (i < 0) i = 0;
@@ -49,7 +93,7 @@ class Level {
         return i + this.width*j;
     }
 
-    idxFromIJ(i,j) {
+    idxfromij(i,j) {
         if (i >= this.width) i = this.width-1;
         if (j >= this.height) j = this.height-1;
         return i + this.width*j;
@@ -68,32 +112,6 @@ class Level {
         return (idx%this.width < this.width) ? idx+1 : idx;
     }
 
-    init() {
-        // iterate through level data
-        for (let i=0; i<this.nentries; i++) {
-            // lookup enemies
-            if (props.isEnemy(this.fg[i])) {
-                // don't draw sketch as level data
-                let id = this.fg[i];
-                this.fg[i] = 0;
-                // instantiate enemy
-                let enemy = new enemyClass({
-                    sketch: props.getImage(id), 
-                    collider: "red",
-                    name: props.getName(id),
-                    x: this.ifromidx(i) * this.sketchWidth + this.halfWidth,
-                    y: this.jfromidx(i) * this.sketchHeight + this.halfHeight,
-                });
-                this.enemies.push(enemy);
-            }
-            // lookup objects
-            // FIXME
-            // lookup sprites
-            this.bgsketches[i] = this.genSketch(this.bg[i]);
-            this.fgsketches[i] = this.genSketch(this.fg[i]);
-        }
-    }
-
     findId(id) {
         for (let i=0; i<this.nentries; i++) {
             if (this.fg[i] === id) {
@@ -105,7 +123,7 @@ class Level {
     findIdPos(id) {
         for (let i=0; i<this.nentries; i++) {
             if (this.fg[i] === id) {
-                return {x: this.ifromidx(i)*this.sketchWidth + this.halfWidth, y: this.jfromidx(i) * this.sketchHeight + this.halfHeight};
+                return {x: this.xfromidx(i, true), y: this.yfromidx(i, true)};
             }
         }
         return undefined;
@@ -184,6 +202,18 @@ class Level {
         return assets.generateFromSpec(spriteSpec);
     }
 
+    placeCharacter(chr,  spawn) {
+        // find named spawn
+        let sp = this.spawns[spawn];
+        if (!sp) {
+            console.error("can't spawn: " + chr + ", spawn point: " + spawn + " does not exist in current level");
+            return;
+        }
+        chr.x = sp.x;
+        chr.y = sp.y;
+        if (this.dbg) console.log("placed character: " + chr + " at: " + x + "," + y);
+    }
+
     update(ctx) {
         // update tiles
         for (let i=0; i<this.nentries; i++) {
@@ -240,6 +270,39 @@ class Level {
 		for(var i=0; i<this.rooms.length; i++){
 			this.rooms[i].draw();
 		}
+    }
+
+}
+
+/** ========================================================================
+ * class to load levels and cache instantiated levels
+ */
+class LevelLoader {
+    constructor(spec={}) {
+        this._cache = {};
+        this._specs = spec.lvls || {};
+        this.dbg = spec.dbg || false;
+    }
+
+    load(name) {
+        let lvl;
+        // level exists in cache?
+        if (name in this._cache) {
+            lvl = this._cache[name];
+        // otherwise, need to instantiate new level
+        } else {
+            // level exists in specs?
+            let spec = this._specs[name];
+            if (!spec) {
+                console.error("spec for level: " + name + " does not exist!");
+                return undefined
+            }
+            lvl = new Level(spec);
+            this._cache[name] = lvl;
+        }
+        // assign current level
+        currentLevel = lvl;
+        if (this.dbg) console.log("finished loading level: " + name);
     }
 
 }

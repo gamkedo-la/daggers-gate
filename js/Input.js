@@ -75,16 +75,19 @@ function keyReleased(evt) {
     console.log("what what!")
     editorMode = true;
     titleScreen = false;
+    startEditor();
   }
 }
 
 function mouseclicked(evt) {
   if(editorMode) {
-    var clickedIndex = getTileIndexAtPixelCoord(mouseX, mouseY);
-    // console.log(freshMap[clickedIndex], storedTileValue);
-    blank_Map[getTileIndexAtPixelCoord(mouseX, mouseY)] = storedTileValue;
-
-    mouseDragging = true;
+    if (currentLevel.containsPoint(mouseX, mouseY)) {
+      let idx = currentLevel.idxfromxy(mouseX, mouseY);
+      // console.log(freshMap[clickedIndex], storedTileValue);
+      editorLvl.setfgi(idx, storedTileValue);
+      //blank_Map[idx] = storedTileValue;
+      mouseDragging = true;
+    }
 
   }else {
 
@@ -100,23 +103,17 @@ function mousereleased(evt) {
 }
 
 function mousemoved(evt) {
-
     var rect = canvas.getBoundingClientRect();
     var root = document.documentElement;
-    var tileUnderMouse;
 
     // account for the margins, canvas position on page, scroll amount, etc.
     mouseX = evt.clientX - rect.left - root.scrollLeft;
     mouseY = evt.clientY - rect.top - root.scrollTop;
 
-    var tileOverCol = Math.floor(mouseX / TILE_W);
-    var tileOverRow = Math.floor(mouseY / TILE_H);
-
-    mouseOverSidebar = (tileOverCol >= ROOM_COLS);
-    if(mouseOverSidebar) {
-        tileOverIdx = -1;
+    if (currentLevel.containsPoint(mouseX, mouseY)) {
+        tileOverIdx = currentLevel.idxfromxy(mouseX, mouseY);
     } else {
-        tileOverIdx = tileCoordToIndex(tileOverCol, tileOverRow);
+        tileOverIdx = -1;
     }
 
     if(mouseDragging && tileOverIdx != -1) { /////
@@ -124,8 +121,8 @@ function mousemoved(evt) {
     } /////
     //
     if(mouseDragging) {
-      tileUnderMouse = tileCoordToIndex(tileOverCol, tileOverRow);
-      blank_Map[tileUnderMouse] = storedTileValue;
+      //blank_Map[tileOverIdx] = storedTileValue;
+      editorLvl.setfgi(tileOverIdx, storedTileValue);
     }
 } 
 

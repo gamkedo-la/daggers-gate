@@ -19,7 +19,7 @@ function GridElement() {
 	this.elementType = this.isNotPassible(elementTypeConsideration);
 	var pathFinderX = whichPathFinder.x;
 	var pathFinderY = whichPathFinder.y;
-	var playersLocation = getTileIndexAtPixelCoord(pathFinderX,pathFinderY);
+	var playersLocation = currentLevel.idxfromxy(pathFinderX,pathFinderY);
 	if(this.tilIdx == playersLocation){
 		this.elementType = SOURCE;
 		this.setDistIfLess(0,null);
@@ -147,7 +147,7 @@ function GridElement() {
   }
 
   function GetGridAtCR(atC,atR) {
-    return grid[atC + atR * ROOM_COLS];
+    return grid[currentLevel.idxfromij(atC, atR)];
   }
   
   this.myUnvisitedNeighbors = function() {

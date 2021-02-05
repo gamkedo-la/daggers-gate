@@ -26,6 +26,13 @@ class warriorClass extends characterClass {
 
     //must override this function.  No super version
     tileCollisionHandle(walkIntoTileIndex, walkIntoTileType, nextX, nextY) {
+        // check for level exit
+        if (walkIntoTileIndex in currentLevel.exits) {
+            if (!queuedExit) {
+                console.log("hit exit: " + Fmt.ofmt(currentLevel.exits[walkIntoTileIndex]));
+                queuedExit = currentLevel.exits[walkIntoTileIndex];
+            }
+        }
         if (props.isDoor(walkIntoTileType)) {
             if (this.keysHeld > 0) {
                 this.keysHeld--; // one less key

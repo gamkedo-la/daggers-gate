@@ -38,7 +38,7 @@ class gameObjectClass extends characterClass {
     }
 
     draw() {
-        console.log("Object: " + this.colTopLeftX + this.colTopLeftY + this.colWidth + this.colHeight + this.collisionColor)
+
         if (showCollisions) {
             colorRect(this.colTopLeftX, this.colTopLeftY, this.colWidth, this.colHeight, this.collisionColor);
         }

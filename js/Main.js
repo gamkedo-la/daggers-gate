@@ -1,7 +1,6 @@
 // save the canvas for dimensions, and its 2d context for drawing to it
 var canvas, canvasContext;
 
-//var p1 = new warriorClass();
 var p1;
 var pathFindingDisplay = false;
 
@@ -185,5 +184,10 @@ function drawEverything() {
 		} else if (framesToDisplayMessage < 250 && framesToDisplayMessage > 0){ 	
 			colorText("USE KEYS TO FIND THE TREASURE", 400, 400, fillColor = "black", font = "14px Arial Black");
 		}
+
+		//console.log(props.getImage(TILE.HEART))
+
+		drawBitmapCenteredAtLocationWithRotation(props.getImage(TILE.HEART), 40, 40, 0.0);
+		
 	}
 }

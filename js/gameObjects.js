@@ -37,6 +37,13 @@ class gameObjectClass extends characterClass {
         }
     }
 
+    draw() {
+        console.log("Object: " + this.colTopLeftX + this.colTopLeftY + this.colWidth + this.colHeight + this.collisionColor)
+        if (showCollisions) {
+            colorRect(this.colTopLeftX, this.colTopLeftY, this.colWidth, this.colHeight, this.collisionColor);
+        }
+    }
+
     move() {
         //player to move this object
         //player should grab this object, then the player can either pull or push the object.

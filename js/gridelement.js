@@ -82,6 +82,32 @@ function GridElement() {
   }
   
   this.isNotPassible = function(elementType){
+  for(var i = 0; i < daggerAssets.length; i++){
+    if(daggerAssets[i].id == elementType){
+      console.log("Found Math for: " + elementType)
+      if(daggerAssets[i].pathFindingWalkable == true){
+        return NOTHING;
+      } else {
+        return WALL;
+      }
+    } else {
+      if(daggerAssets[i].assets != undefined){
+        for(var ii = 0; ii < daggerAssets[i].assets.length; ii++){
+          if(daggerAssets[i].assets[ii].id == elementType){
+            console.log("Found Math for: " + elementType, daggerAssets[i].assets[ii].pathFindingWalkable);
+            if(daggerAssets[i].assets[ii].pathFindingWalkable == true){ //checking for true incase maybe undefined
+              return NOTHING;
+            } else {
+              return WALL;
+            } 
+          } 
+        }
+      } 
+    }
+  }  
+  console.log("No Match Found" + elementType)
+  return NOTHING;
+  /*
 	updatedElementType = elementType;
 	if(	updatedElementType == TILE.DOOR ||
 		updatedElementType == TILE.WALL_1 ||
@@ -108,14 +134,15 @@ function GridElement() {
 		updatedElementType == TILE.GROUND ||
 		updatedElementType == TILE.WALL_15 ||
 		updatedElementType == TILE.FLOOR_FIRE_RUNE ||
-        updatedElementType == TILE.FLOOR_WATER_RUNE ||
-        updatedElementType == TILE.FLOOR_WIND_RUNE ||
-        updatedElementType == TILE.FLOOR_EARTH_RUNE
+    updatedElementType == TILE.FLOOR_WATER_RUNE ||
+    updatedElementType == TILE.FLOOR_WIND_RUNE ||
+    updatedElementType == TILE.FLOOR_EARTH_RUNE
 		){
 		return NOTHING;
 	} else {
+    console.log("No Match found in element type " + updatedElementType)
 		return elementType;
-	}
+	} */
   }
   
   this.setTile = function(toType) {

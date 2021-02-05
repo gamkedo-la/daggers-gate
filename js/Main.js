@@ -168,15 +168,6 @@ function drawEverything() {
 		for(var i = 0; i < gameObjectList.length; i++){
 			gameObjectList[i].draw();
 		}
-		/*
-		room_0.draw();
-		room_1.draw(); 
-		room_2.draw();
-		room_3.draw();
-		room_4.draw();
-		room_5.draw();
-		room_6.draw();
-		*/
 		
 		if(framesToDisplayMessage-- > 600){
 			colorText("HELPER CODE", 500, 400, fillColor = "black", font = "26px Arial Black");

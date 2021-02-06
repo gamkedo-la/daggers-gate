@@ -20,6 +20,10 @@ class characterClass {
         //collisions
         this.colHeight = 100;
         this.colWidth = 100;
+        this.colXOff = 0;        // collider x/y offsets from origin x,y
+        this.colYOff = 0;
+        this.xOff = 0;          // x/y offsets for drawing sprite from origin x,y
+        this.yOff = 0;
         this.colTopLeftX;
         this.colTopLeftY;
         this.colTLIdx = 0;
@@ -121,8 +125,8 @@ class characterClass {
 
 
         //updates to collision boxes
-        this.colTopLeftX = this.x - this.colWidth / 2;
-        this.colTopLeftY = this.y - this.colHeight / 2;
+        this.colTopLeftX = this.x - this.colWidth / 2 + this.colXOff;
+        this.colTopLeftY = this.y - this.colHeight / 2 + this.colYOff;
         this.colTLIdx = currentLevel.idxfromxy(this.colTopLeftX, this.colTopLeftY);
         this.colTRIdx = currentLevel.idxfromxy(this.colTopLeftX+this.colWidth, this.colTopLeftY);
         this.colBLIdx = currentLevel.idxfromxy(this.colTopLeftX, this.colTopLeftY+this.colHeight);
@@ -147,9 +151,10 @@ class characterClass {
     }
 
     draw() {
-        drawBitmapCenteredAtLocationWithRotation(this.sketch, this.x, this.y, 0.0);
+        drawBitmapCenteredAtLocationWithRotation(this.sketch, this.x+this.xOff, this.y+this.yOff, 0.0);
         if (showCollisions) {
             colorRect(this.colTopLeftX, this.colTopLeftY, this.colWidth, this.colHeight, this.collisionColor);
+            colorRect(this.x-4, this.y-4, 8, 8, "black");
         }
     }
 } 

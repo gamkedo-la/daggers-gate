@@ -2,7 +2,11 @@
 
 const daggerAssets = [
 
-     { id: 1, src: "images/heart.png", cls: "Image", width: 10, height: 50, xoffset: 25, yoffset: 0, tag: "HEART"}, 
+    { src: "images/heart.png", cls: "Sheet", assets: [
+        {tag: "HEART",                 id:  1, cls: "Sprite", width: 37, height: 34, xoffset: 0, yoffset: 0 },
+        {tag: "HEART_HALF",            id:  2, cls: "Sprite", width: 37, height: 34, xoffset: 37, yoffset: 0 },
+    ]},
+
      //{ id: 2, src: "images/basicPlayerSprite-25.png", cls: "Image", tag: "PLAYER", pathFindingWalkable: true },
      { id: 3, src: "images/world_goal.png", cls: "Image", tag: "GOAL", transparent: true, pathFindingWalkable: true},
      { id: 4, src: "images/world_key.png", cls: "Image", tag: "KEY", transparent: true, pathFindingWalkable: true },

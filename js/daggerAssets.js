@@ -3,10 +3,9 @@
 const daggerAssets = [
 
      { id: 1, src: "images/heart.png", cls: "Image", width: 10, height: 50, xoffset: 25, yoffset: 0, tag: "HEART"}, 
-     { id: 2, src: "images/basicPlayerSprite-25.png", cls: "Image", tag: "PLAYER", pathFindingWalkable: true },
+     //{ id: 2, src: "images/basicPlayerSprite-25.png", cls: "Image", tag: "PLAYER", pathFindingWalkable: true },
      { id: 3, src: "images/world_goal.png", cls: "Image", tag: "GOAL", transparent: true, pathFindingWalkable: true},
      { id: 4, src: "images/world_key.png", cls: "Image", tag: "KEY", transparent: true, pathFindingWalkable: true },
-
 
     { src: "images/spritesheet_Dungeon_01.png", cls: "Sheet", assets: [
         
@@ -55,6 +54,13 @@ const daggerAssets = [
         {tag: "EMPTY3",                 id: 49, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 150 },
 
         {tag: "CEIL_UPPER_DOOR",        id: 50, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 0, passable: true },
+    ]},
+
+    { src: "images/player.png", cls: "Sheet", assets: [
+        {tag: "PLAYER",                 id: 60, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 0 },
+        {tag: "PLAYER_BACK",            id: 61, cls: "Sprite", width: 50, height: 100, xoffset: 50, yoffset: 0 },
+        {tag: "PLAYER_LEFT",            id: 62, cls: "Sprite", width: 50, height: 100, xoffset: 100, yoffset: 0 },
+        {tag: "PLAYER_RIGHT",           id: 63, cls: "Sprite", width: 50, height: 100, xoffset: 150, yoffset: 0 },
     ]},
 
     { id: 100, src: "images/basicPlayerSprite-25.png", cls: "Image", tag: "TESTENEMY", enemy: true },

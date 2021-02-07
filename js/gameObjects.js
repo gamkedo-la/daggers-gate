@@ -44,7 +44,7 @@ class gameObjectClass extends characterClass {
         }
     }
 
-    move() {
+    move(updateCtx) {
         //player to move this object
         //player should grab this object, then the player can either pull or push the object.
         if (this.grabbedByPlayer) {
@@ -61,7 +61,7 @@ class gameObjectClass extends characterClass {
                 this.x -= p1.movingSpeed;
             }
         }
-		super.move();
+		super.move(updateCtx);
     }
 
     //must override this function.  No super version

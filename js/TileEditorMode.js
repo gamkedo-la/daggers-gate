@@ -11,7 +11,9 @@
 
 let storedTileValue;
 
-let template_new_Map = [ 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+let template_width = 16;
+let template_height = 12;
+let template_bg_Map = [ 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
                         10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
                         10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
                         10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
@@ -22,10 +24,20 @@ let template_new_Map = [ 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
                         10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
                         10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
                         10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
-                        10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 ];
+						10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 ];
 
-let blank_Map = template_new_Map.slice(); // formerly  blank_Map
+let template_fg_Map = new Array(template_width * template_height);
+let blank_Map = template_fg_Map.slice(); // formerly  blank_Map
+let editorLvl;
 
+function startEditor() {
+	editorLvl = new Level({
+		bg: template_bg_Map.slice(),
+		fg: blank_Map,
+		width: template_width,
+		height: template_height,
+	});
+}
 
 function setStoredTileValue(val) {
 	storedTileValue = val;
@@ -76,9 +88,8 @@ function generateReadableMapData() {
 }
 
 function clearMapData() {
-	// let blank_Map = template_new_Map.slice();
 	if (confirm("You REALLY want to clear all tiles from the map?")) {
-		blank_Map = template_new_Map.slice();
+		blank_Map = template_fg_Map.slice();
 		console.log( "Map is CLEARED" )
 	} else {
 	return;

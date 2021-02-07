@@ -1,5 +1,5 @@
 // tuning constants
-const PLAYER_MOVE_SPEED = 4.0;
+const PLAYER_MOVE_SPEED = 5.0;
 
 class warriorClass extends characterClass {
     constructor(spec={}) {
@@ -14,8 +14,9 @@ class warriorClass extends characterClass {
             this.controlKeyForinteractWithObject = spaceKey;
         }
         this.movingSpeed = PLAYER_MOVE_SPEED;
-        this.colHeight = 40;
+        this.colHeight = 30;
         this.colWidth = 20;
+        this.yOff = -25;
     }
 
     reset() {
@@ -26,6 +27,13 @@ class warriorClass extends characterClass {
 
     //must override this function.  No super version
     tileCollisionHandle(walkIntoTileIndex, walkIntoTileType, nextX, nextY) {
+        // check for level exit
+        if (walkIntoTileIndex in currentLevel.exits) {
+            if (!queuedExit) {
+                console.log("hit exit: " + Fmt.ofmt(currentLevel.exits[walkIntoTileIndex]));
+                queuedExit = currentLevel.exits[walkIntoTileIndex];
+            }
+        }
         if (props.isDoor(walkIntoTileType)) {
             if (this.keysHeld > 0) {
                 this.keysHeld--; // one less key

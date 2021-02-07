@@ -58,7 +58,7 @@ class enemyClass extends characterClass {
         }
     }
 
-    move() {
+    move(updateCtx) {
         //pathfinding
         if (this.framesBeforeReThink-- < 0) {
             this.framesBeforeReThink = AI_FRAME_THINK_TIME;
@@ -79,17 +79,17 @@ class enemyClass extends characterClass {
             if (this.patrolling) { //patrolling
                 var patrolLocationX = randomIntFromInterval(0, 800);
                 var patrolLocationY = randomIntFromInterval(0, 600);
-                var patrolToLocation = pixCoordToIndex(patrolLocationX, patrolLocationY);
+                var patrolToLocation = currentLevel.idxfromxy(patrolLocationX, patrolLocationY);
                 startPath(patrolToLocation, this);
 
             } else if (this.resting) {
                 this.move_East = this.move_West = this.move_North = this.move_South = false;
             } else { // tracking player
-                var playerIdx = pixCoordToIndex(p1.x, p1.y);
+                var playerIdx = currentLevel.idxfromxy(p1.x, p1.y);
                 startPath(playerIdx, this);
             }
         } // end of Rethink Delay
-        super.move();
+        super.move(updateCtx);
     } //end of move function
 
 } // end of class

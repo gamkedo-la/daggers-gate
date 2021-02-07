@@ -246,11 +246,17 @@ class Level {
 
     render(ctx) {
         // render tiles
-        let y = 0;
-        let idx = 0;
-        for (let j=0; j<this.height; j++) {
-            let x = 0;
-            for (let i=0; i<this.width; i++) {
+        // -- compute visible range from camera
+        let mini = Math.floor(camera.x/this.sketchWidth);
+        let minj = Math.floor(camera.y/this.sketchWidth);
+        let maxi = Math.min(this.width, Math.floor(camera.maxx/this.sketchWidth)+1);
+        let maxj = Math.min(this.height, Math.floor(camera.maxy/this.sketchHeight)+1);
+        //if (mini !== 0 || minj !== 0 || maxi !== this.width || maxj !== this.height) console.log("saved x: " + (this.width - (maxi-mini)) + " y: " + (this.height - (maxj-minj)));
+        let y = minj * this.sketchHeight;
+        for (let j=minj; j<maxj; j++) {
+            let idx = this.idxfromij(mini, j);
+            let x = mini * this.sketchWidth;
+            for (let i=mini; i<maxi; i++) {
                 if (this.bgsketches[idx]) this.bgsketches[idx].render(ctx, x, y);
                 if (this.fgsketches[idx]) this.fgsketches[idx].render(ctx, x, y);
                 x += this.sketchWidth;
@@ -260,15 +266,21 @@ class Level {
         }
         // render enemies
 		for(let i=0; i<this.enemies.length; i++){
-			this.enemies[i].draw();
+            let enemy = this.enemies[i];
+            if (camera.containsRect(enemy.x, enemy.y, this.sketchWidth, this.sketchHeight)) {
+                enemy.draw();
+            }
 		}
         // render objects
 		for(var i=0; i<this.objects.length; i++){
-			this.objects[i].draw();
+            let obj = this.objects[i];
+            if (camera.containsRect(obj.x, obj.y, this.sketchWidth, this.sketchHeight)) {
+                obj.draw();
+            }
 		}
         // render rooms
 		for(var i=0; i<this.rooms.length; i++){
-			this.rooms[i].draw();
+            this.rooms[i].draw();
 		}
     }
 

@@ -31,6 +31,8 @@ class characterClass {
         this.colTRIdx = 0;
         this.colBLIdx = 0;
         this.colBRIdx = 0;
+        // variables for held objects
+        this.grabbedObj;
         this.reset();
     }
 
@@ -159,6 +161,31 @@ class characterClass {
 
         // update animation state
         this.sketch.update(Object.assign({state: this.getAnimState()}, updateCtx));
+
+        // update position of grabbed object, based on current player position and facing direction
+        if (this.grabbedObj) {
+            let xoff, yoff;
+            switch (this.facing) {
+            case Animator.idleNorth:
+                xoff = 0;
+                yoff = -15;
+                break;
+            case Animator.idleWest:
+                xoff = -15;
+                yoff = 0;
+                break;
+            case Animator.idleEast:
+                xoff = 15;
+                yoff = 0;
+                break;
+            default: // south
+                xoff = 0;
+                yoff = 15;
+                break;
+            }
+            this.grabbedObj.x = this.x + this.xoff + xoff;
+            this.grabbedObj.y = this.y + this.yoff + yoff;
+        }
     }
 
     isOverLapping(testX, testY) {
@@ -179,10 +206,18 @@ class characterClass {
     }
 
     draw() {
+        // handle grabbed object behind player
+        if (this.grabbedObj && this.facing === Animator.idleNorth) {
+            this.grabbedObj.draw();
+        }
         drawBitmapCenteredAtLocationWithRotation(this.sketch, this.x+this.xOff, this.y+this.yOff, 0.0);
         if (showCollisions) {
             colorRect(this.colTopLeftX, this.colTopLeftY, this.colWidth, this.colHeight, this.collisionColor);
             colorRect(this.x-4, this.y-4, 8, 8, "black");
+        }
+        // handle grabbed object in front or side of player
+        if (this.grabbedObj && this.facing !== Animator.idleNorth) {
+            this.grabbedObj.draw();
         }
     }
 } 

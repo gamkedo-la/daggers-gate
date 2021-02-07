@@ -25,6 +25,10 @@ var deltaTime = 1000/framesPerSecond;
 var updateCtx = {
 	deltaTime: deltaTime,
 }
+var camera = new Camera({
+	width: 800,
+	height: 600,
+});
 
 async function load() {
 	return new Promise( (resolve) => {
@@ -66,6 +70,8 @@ function loadingDoneSoStartGame() {
 	});
 	// relocate player to spawn point
 	currentLevel.placeCharacter(p1, startingSpawn);
+	// camera follows player
+	camera.follow(p1);
 
     SetupPathfindingGridData(p1);
     // these next few lines set up our game logic and render to happen 30 times per second
@@ -97,6 +103,8 @@ function moveEverything() {
 			queuedExit = undefined;
 			SetupPathfindingGridData(p1);
 		}
+		// camera movement
+		camera.update(updateCtx);
 		// Wrapped in IF/ELSE to support Tile Editor Mode	
 		// movement
 		p1.move(updateCtx);
@@ -119,6 +127,7 @@ function drawEverything() {
 	if(!titleScreen && !editorMode)
 	{
 		// Wrapped in IF/ELSE to support Tile Editor Mode	
+		canvasContext.translate(-camera.x, -camera.y);
 		currentLevel.render(canvasContext);
 		if(pathFindingDisplay){
 			drawPathingFindingTiles();
@@ -130,6 +139,7 @@ function drawEverything() {
 		for(var i = 0; i < gameObjectList.length; i++){
 			gameObjectList[i].draw();
 		}
+		canvasContext.translate(camera.x, camera.y);
 		
 		if(framesToDisplayMessage-- > 600){
 			colorText("HELPER CODE", 500, 400, fillColor = "black", font = "26px Arial Black");

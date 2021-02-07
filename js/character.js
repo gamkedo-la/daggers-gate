@@ -17,6 +17,7 @@ class characterClass {
         this.move_East = false;
         this.move_South = false;
         this.move_West = false;
+        this.facing = Animator.idleSouth;
         //collisions
         this.colHeight = 100;
         this.colWidth = 100;
@@ -53,7 +54,7 @@ class characterClass {
         } else if (this.move_South) {
             return Animator.walkSouth;
         }
-        return Animator.idle;
+        return this.facing;
     }
 
     move(updateCtx) {
@@ -106,6 +107,17 @@ class characterClass {
                     this.move_East = true;
                 }
             }
+        }
+
+        // determine facing direction
+        if (this.move_East) {
+            this.facing = Animator.idleEast;
+        } else if (this.move_West) {
+            this.facing = Animator.idleWest;
+        } else if (this.move_North) {
+            this.facing = Animator.idleNorth;
+        } else if (this.move_South) {
+            this.facing = Animator.idleSouth;
         }
 
         if (this.move_North || this.move_East || this.move_South || this.move_West) {

@@ -4,6 +4,10 @@ const animators = {
     "PLAYER": {
         animations: {
             [Animator.idle]: "PLAYER",
+            [Animator.idleSouth]: "PLAYER",
+            [Animator.idleNorth]: "PLAYER_BACK",
+            [Animator.idleWest]: "PLAYER_LEFT",
+            [Animator.idleEast]: "PLAYER_RIGHT",
             [Animator.walkSouth]: "PLAYER",
             [Animator.walkNorth]: "PLAYER_BACK",
             [Animator.walkWest]: "PLAYER_LEFT",

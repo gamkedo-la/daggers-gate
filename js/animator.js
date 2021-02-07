@@ -3,11 +3,15 @@
  * An animator is responsible for setting up the animation for a character based on current state.
  */
 class Animator {
-    static idle = 0;
-    static walkWest = 1;
-    static walkEast = 2;
-    static walkNorth = 3;
-    static walkSouth = 4;
+    static idle =           0;
+    static idleWest =       1;
+    static idleEast =       2;
+    static idleNorth =      3;
+    static idleSouth =      4;
+    static walkWest =       11;
+    static walkEast =       12;
+    static walkNorth =      13;
+    static walkSouth =      14;
 
     // PROPERTIES ----------------------------------------------------------
     get width() {

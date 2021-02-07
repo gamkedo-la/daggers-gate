@@ -121,7 +121,6 @@ function moveEverything() {
 		}
 		*/
 
-
 		//collisions
 		/*for(var i = 0; i < enemyList.length; i++){
 			for (var ii = i+1; ii < enemyList.length; i++){
@@ -138,16 +137,6 @@ function moveEverything() {
 		for(var i = 0; i < gameObjectList.length; i++){
 			gameObjectList[i].checkCollisionAgainst(p1);
 		}
-		*/
-		
-		/*
-		room_0.playerExploredRooms();
-		room_1.playerExploredRooms(); 
-		room_2.playerExploredRooms();
-		room_3.playerExploredRooms();
-		room_4.playerExploredRooms();
-		room_5.playerExploredRooms();
-		room_6.playerExploredRooms();
 		*/
 	}
 }

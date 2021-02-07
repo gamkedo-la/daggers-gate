@@ -20,6 +20,11 @@ var currentLevel;
 var queuedExit;
 var framesToDisplayMessage = 800;
 var levelLoader = new LevelLoader({lvls: allLevels});
+var framesPerSecond = 30;
+var deltaTime = 1000/framesPerSecond;
+var updateCtx = {
+	deltaTime: deltaTime,
+}
 
 async function load() {
 	return new Promise( (resolve) => {
@@ -55,7 +60,8 @@ function loadingDoneSoStartGame() {
 
 	// instantiate player
 	p1 = new warriorClass({
-		sketch: props.getImage(TILE.PLAYER), 
+		sketch: new Animator(animators["PLAYER"]),
+		//sketch: props.getImage(TILE.PLAYER), 
 		name: "Player",
 	});
 	// relocate player to spawn point
@@ -63,11 +69,10 @@ function loadingDoneSoStartGame() {
 
     SetupPathfindingGridData(p1);
     // these next few lines set up our game logic and render to happen 30 times per second
-    var framesPerSecond = 30;
     setInterval(function() {
         moveEverything();
         drawEverything();
-    }, 1000 / framesPerSecond);
+    }, deltaTime);
 
     initInput();
 
@@ -94,8 +99,8 @@ function moveEverything() {
 		}
 		// Wrapped in IF/ELSE to support Tile Editor Mode	
 		// movement
-		p1.move();
-		currentLevel.update({});
+		p1.move(updateCtx);
+		currentLevel.update(updateCtx);
 
 	}
 }

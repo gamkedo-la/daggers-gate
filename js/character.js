@@ -42,7 +42,21 @@ class characterClass {
         console.log("UNDEFINED FOR THIS SUBCLASS");
     }
 
-    move() {
+    getAnimState() {
+        // handle moving states
+        if (this.move_West) {
+            return Animator.walkWest;
+        } else if (this.move_East) {
+            return Animator.walkEast;
+        } else if (this.move_North) {
+            return Animator.walkNorth;
+        } else if (this.move_South) {
+            return Animator.walkSouth;
+        }
+        return Animator.idle;
+    }
+
+    move(updateCtx) {
         var nextX = this.x;
         var nextY = this.y;
         var charCol = Math.floor(this.x / TILE_W);
@@ -123,7 +137,6 @@ class characterClass {
 
         this.tileCollisionHandle(walkIntoTileIndex, walkIntoTileType, nextX, nextY);
 
-
         //updates to collision boxes
         this.colTopLeftX = this.x - this.colWidth / 2 + this.colXOff;
         this.colTopLeftY = this.y - this.colHeight / 2 + this.colYOff;
@@ -131,6 +144,9 @@ class characterClass {
         this.colTRIdx = currentLevel.idxfromxy(this.colTopLeftX+this.colWidth, this.colTopLeftY);
         this.colBLIdx = currentLevel.idxfromxy(this.colTopLeftX, this.colTopLeftY+this.colHeight);
         this.colBRIdx = currentLevel.idxfromxy(this.colTopLeftX+this.colWidth, this.colTopLeftY+this.colHeight);
+
+        // update animation state
+        this.sketch.update(Object.assign({state: this.getAnimState()}, updateCtx));
     }
 
     isOverLapping(testX, testY) {

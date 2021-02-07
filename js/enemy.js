@@ -58,7 +58,7 @@ class enemyClass extends characterClass {
         }
     }
 
-    move() {
+    move(updateCtx) {
         //pathfinding
         if (this.framesBeforeReThink-- < 0) {
             this.framesBeforeReThink = AI_FRAME_THINK_TIME;
@@ -89,7 +89,7 @@ class enemyClass extends characterClass {
                 startPath(playerIdx, this);
             }
         } // end of Rethink Delay
-        super.move();
+        super.move(updateCtx);
     } //end of move function
 
 } // end of class

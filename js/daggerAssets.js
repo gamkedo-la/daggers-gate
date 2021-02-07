@@ -1,5 +1,17 @@
 //export { daggerAssets };
 
+const animators = {
+    "PLAYER": {
+        animations: {
+            [Animator.idle]: "PLAYER",
+            [Animator.walkSouth]: "PLAYER",
+            [Animator.walkNorth]: "PLAYER_BACK",
+            [Animator.walkWest]: "PLAYER_LEFT",
+            [Animator.walkEast]: "PLAYER_RIGHT",
+        },
+    },
+}
+
 const daggerAssets = [
 
     { src: "images/heart.png", cls: "Sheet", assets: [

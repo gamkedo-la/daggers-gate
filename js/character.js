@@ -31,6 +31,8 @@ class characterClass {
         this.colTRIdx = 0;
         this.colBLIdx = 0;
         this.colBRIdx = 0;
+        // character attributes
+        this.health = 1;
         // variables for held objects
         this.grabbedObj;
         this.reset();

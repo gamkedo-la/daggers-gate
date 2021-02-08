@@ -158,9 +158,9 @@ function drawEverything() {
 			colorText("USE KEYS TO FIND THE TREASURE", 400, 400, fillColor = "black", font = "14px Arial Black");
 		}
 
-		//console.log(props.getImage(TILE.HEART))
-
-		drawBitmapCenteredAtLocationWithRotation(props.getImage(TILE.HEART), 40, 40, 0.0);
-		
+		for(var i = 0; i < p1.health; i++){
+			var heartSpacing = 20;
+			drawBitmapCenteredAtLocationWithRotation(props.getImage(TILE.HEART), 20 + (i*heartSpacing), 40, 0.0);
+		}		
 	}
 }

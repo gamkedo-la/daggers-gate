@@ -133,12 +133,6 @@ function drawEverything() {
 			drawPathingFindingTiles();
 	    }
 		p1.draw();
-		for(var i = 0; i < enemyList.length; i++){
-			enemyList[i].draw();
-		}
-		for(var i = 0; i < gameObjectList.length; i++){
-			gameObjectList[i].draw();
-		}
 		canvasContext.translate(camera.x, camera.y);
 		
 		if(framesToDisplayMessage-- > 600){

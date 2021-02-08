@@ -1,26 +1,71 @@
 // tuning 
-var gameObjectList = [];
 var objectNameList = ['fireRune', 'windRune', 'waterRune', 'earthRune'];
-
-function addObject(whichObject) {
-    var tempObject = new gameObjectClass(whichObject);
-    gameObjectList.push(tempObject);
-}
 
 //gameObjects have similar code to Character class for movement.
 class gameObjectClass extends characterClass {
     constructor(spec={}) {
+        // set spec defaults
         spec.collisionColor = spec.collisionColor || "orange";
         super(spec);
-        //collisions
-        this.colHeight = 50;
-        this.colWidth = 50;
-        this.myIdentity = spec.tileid || 0;
+        this.kind = spec.kind || "object";
+        this.openSketch = assets.generate(spec.openTag) || Sketch.zero;
         this.grabbedByPlayer = false;
         this.correctPuzzleLocation = false;
     }
 
+    interface(character) {
+        if (this.kind === "door" && !this.open) {
+            if (character.keysHeld > 0) {
+                character.keysHeld--; // one less key
+                document.getElementById("debugText").innerHTML = "Keys: " + this.keysHeld;
+                //let swapid = props.swappable(walkIntoTileType);
+                //console.log("swapid: " + swapid);
+                //currentLevel.setfgi(walkIntoTileIndex, swapid || 0);
+                this.sketch = this.openSketch;
+                this.open = true;
+                this.active = false;
+                /*
+                // check for double-height door
+                let aboveIdx = currentLevel.upFromIdx(walkIntoTileIndex);
+                console.log("aboveIdx: " + aboveIdx + " from: " + walkIntoTileIndex);
+                if (aboveIdx !== walkIntoTileIndex) {
+                    let aboveSwapId = props.swappable(currentLevel.fgi(aboveIdx));
+                    console.log("aboveSwapId: " + aboveSwapId);
+                    if (aboveSwapId) currentLevel.setfgi(aboveIdx, aboveSwapId);
+                }
+                */
+            }
+        }
+    }
+
+    /**
+     * What to do when another character has collided with us
+     * @param {*} thisEntity 
+     */
     checkCollisionAgainst(thisEntity) {
+
+        /*
+        if (props.isDoor(walkIntoTileType)) {
+            if (p1.interactWithObject) {
+                if (this.keysHeld > 0) {
+                    this.keysHeld--; // one less key
+                    document.getElementById("debugText").innerHTML = "Keys: " + this.keysHeld;
+                    let swapid = props.swappable(walkIntoTileType);
+                    console.log("swapid: " + swapid);
+                    currentLevel.setfgi(walkIntoTileIndex, swapid || 0);
+                    // check for double-height door
+                    let aboveIdx = currentLevel.upFromIdx(walkIntoTileIndex);
+                    console.log("aboveIdx: " + aboveIdx + " from: " + walkIntoTileIndex);
+                    if (aboveIdx !== walkIntoTileIndex) {
+                        let aboveSwapId = props.swappable(currentLevel.fgi(aboveIdx));
+                        console.log("aboveSwapId: " + aboveSwapId);
+                        if (aboveSwapId) currentLevel.setfgi(aboveIdx, aboveSwapId);
+                    }
+                }
+            }
+        }
+        */
+
         if (this.isOverLapping(thisEntity.x, thisEntity.y)) {
             this.myCollisionColor = "yellow";
             if (p1.interactWithObject) {
@@ -28,19 +73,11 @@ class gameObjectClass extends characterClass {
                 this.myCollisionColor = "green";
             }
         } else {
-
             this.myCollisionColor = "orange";
             if (this.grabbedByPlayer) {
                 this.myCollisionColor = "green";
                 this.grabbedByPlayer = false;
             }
-        }
-    }
-
-    draw() {
-
-        if (showCollisions) {
-            colorRect(this.colTopLeftX, this.colTopLeftY, this.colWidth, this.colHeight, this.collisionColor);
         }
     }
 

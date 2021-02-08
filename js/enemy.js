@@ -1,26 +1,22 @@
 // tuning constants
 const ENEMY_MOVE_SPEED = 2.0;
 const AI_FRAME_THINK_TIME = 60;
-var enemyList = [];
-
-function addEnemy() {
-    var tempEnemy = new enemyClass();
-    enemyList.push(tempEnemy);
-}
 
 class enemyClass extends characterClass {
     constructor(spec={}) {
-        spec.collisionColor = spec.collisionColor || "green";
+        // set spec defaults
+        spec.collider = Object.assign({
+            color: "green", 
+            width: 20, 
+            height: 40, 
+        }, spec.collider);
+        spec.movingSpeed = spec.movingSpeed || ENEMY_MOVE_SPEED;
         super(spec);
         this.framesBeforeReThink = AI_FRAME_THINK_TIME;
         this.moving = false;
         this.patrolling = true;
         this.resting = false;
         this.trackPlayerRange = 250;
-        this.movingSpeed = ENEMY_MOVE_SPEED;
-        this.colHeight = 40;
-        this.colWidth = 20;
-        this.myCollisionColor = "green";
     }
 
     //must override this function.  No super version
@@ -64,7 +60,7 @@ class enemyClass extends characterClass {
             this.framesBeforeReThink = AI_FRAME_THINK_TIME;
             //check if within range of the player
             var playerDistance = dist(p1.x, p1.y, this.x, this.y);
-            console.log("playerdistance: " + playerDistance);
+            //console.log("playerdistance: " + playerDistance);
 
             this.resting = this.patrolling = false;
 

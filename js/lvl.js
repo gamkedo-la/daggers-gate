@@ -58,6 +58,20 @@ class Level {
                 this.enemies.push(enemy);
             }
             // lookup objects
+            if (props.isObject(this.fg[i])) {
+                // don't draw as lvl data
+                let id = this.fg[i];
+                this.fg[i] = 0;
+                let spec = Object.assign({
+                    sketch: props.getImage(id),
+                    name: props.getName(id),
+                    x: this.xfromidx(i, true),
+                    y: this.yfromidx(i, true),
+
+                }, props.getSpec(id));
+                let obj = new gameObjectClass(spec);
+                this.objects.push(obj);
+            }
             // FIXME
             // lookup sprites
             this.bgsketches[i] = this.genSketch(this.bg[i]);
@@ -222,11 +236,11 @@ class Level {
         }
         // move enemies
         for(let i=0; i<this.enemies.length; i++){
-            this.enemies[i].move();
+            this.enemies[i].move(ctx);
         }
         // move game objects
         for(let i=0; i<this.objects.length; i++){
-            this.objects[i].move();
+            this.objects[i].move(ctx);
         }
         // check collisions
 		for(let i=0; i<this.enemies.length; i++){

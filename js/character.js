@@ -1,9 +1,13 @@
 class characterClass {
     constructor(spec={}) {
         this.tileid = spec.tileid || 0;
-        this.sketch = spec.sketch || Sketch.zero;
+         // x/y offsets for drawing sprite from origin x,y      
         this.myName = spec.name || this.constructor.name;
-        this.myCollisionColor = spec.collisionColor || "black";
+        this.sketch = spec.sketch || Sketch.zero;
+        this.xOff = spec.xOff || 0;          
+        this.yOff = spec.yOff || 0;
+ 
+ 
         this.homeX = spec.x || 0;
         this.homeY = spec.y || 0;
         // variables to keep track of position
@@ -11,23 +15,18 @@ class characterClass {
         this.y;
         this.tilePath = [];
         this.pathfindingNow = false;
-        this.movingSpeed = 20; // should be overwritten by specific class.
+		this.movingSpeed = spec.movingSpeed || 4.0; // should be overwritten by specific class.
         // move states
         this.move_North = false;
         this.move_East = false;
         this.move_South = false;
         this.move_West = false;
         this.facing = Animator.idleSouth;
-        //collisions
-        this.colHeight = 100;
-        this.colWidth = 100;
-        this.colXOff = 0;        // collider x/y offsets from origin x,y
-        this.colYOff = 0;
-        this.xOff = 0;          // x/y offsets for drawing sprite from origin x,y
-        this.yOff = 0;
-        this.colTopLeftX;
-        this.colTopLeftY;
-        this.colTLIdx = 0;
+       +        // collisions
+        this.active = true;
+        this.collider = new Collider(Object.assign({}, spec.collider, {x: this.x, y:this.y}));
+        this.nextCollider = this.collider.copy();
+        this.interact = (spec.interact) ? new Collider(Object.assign({}, spec.interact, {x: this.x, y:this.y})) : undefined;
         this.colTRIdx = 0;
         this.colBLIdx = 0;
         this.colBRIdx = 0;
@@ -144,14 +143,22 @@ class characterClass {
         }
 
         var walkIntoTileIndex = currentLevel.idxfromxy(nextX, nextY);
-        var walkIntoTileType = TILE.WALL_7;
+        var walkIntoTileType = currentLevel.fgi(walkIntoTileIndex);
 
-        if (walkIntoTileIndex != undefined) {
-            //walkIntoTileType = roomGrid[walkIntoTileIndex];
-            walkIntoTileType = currentLevel.fgi(walkIntoTileIndex);
-        }
-
+		// update next collider
+        this.nextCollider.update(nextX, nextY, currentLevel.idxfromxy.bind(currentLevel));
+  
+		// handle collisions
         this.tileCollisionHandle(walkIntoTileIndex, walkIntoTileType, nextX, nextY);
+
+        // FIXME
+        let tmp = this.collider;
+        this.collider = this.nextCollider;
+        this.nextCollider = tmp;
+        if (this.interact) this.interact.update(this.x, this.y, currentLevel.idxfromxy.bind(currentLevel));
+
+        //updates to collision boxes
+        /*
 
         //updates to collision boxes
         this.colTopLeftX = this.x - this.colWidth / 2 + this.colXOff;
@@ -160,7 +167,8 @@ class characterClass {
         this.colTRIdx = currentLevel.idxfromxy(this.colTopLeftX+this.colWidth, this.colTopLeftY);
         this.colBLIdx = currentLevel.idxfromxy(this.colTopLeftX, this.colTopLeftY+this.colHeight);
         this.colBRIdx = currentLevel.idxfromxy(this.colTopLeftX+this.colWidth, this.colTopLeftY+this.colHeight);
-
+		*/
+		
         // update animation state
         this.sketch.update(Object.assign({state: this.getAnimState()}, updateCtx));
 

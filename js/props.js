@@ -30,6 +30,7 @@ class Props {
         this._doors = {};
         this._passable = {};
         this._swaps = {};
+        this._specs = {};
         this.dbg = spec.dbg;
         // setup lookup tables
         this._setup(assets);
@@ -60,6 +61,11 @@ class Props {
             if (asset.object) {
                 this._objects[id] = true;
                 if (this.dbg) console.log(" -- is object");
+            }
+            // lookup objects
+            if (asset.spec) {
+                this._specs[id] = asset.spec;
+                if (this.dbg) console.log(" -- has spec: " + Fmt.ofmt(asset.spec));
             }
             // lookup doors
             if (asset.door) {
@@ -114,6 +120,14 @@ class Props {
      */
     isObject(id) {
         return this._objects[id] || false;
+    }
+
+    /**
+     * Is the tile associated w/ the given id an object?
+     * @param {*} id 
+     */
+    getSpec(id) {
+        return this._specs[id] || {};
     }
 
     /**

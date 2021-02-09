@@ -22,7 +22,7 @@ class characterClass {
         this.move_South = false;
         this.move_West = false;
         this.facing = Animator.idleSouth;
-       +        // collisions
+        // collisions
         this.active = true;
         this.collider = new Collider(Object.assign({}, spec.collider, {x: this.x, y:this.y}));
         this.nextCollider = this.collider.copy();

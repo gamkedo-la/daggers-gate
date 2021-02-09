@@ -3,15 +3,18 @@
  * An animator is responsible for setting up the animation for a character based on current state.
  */
 class Animator {
-    static idle =           0;
-    static idleWest =       1;
-    static idleEast =       2;
-    static idleNorth =      3;
-    static idleSouth =      4;
+    static none =           0;
+    static idle =           1;
+    static idleWest =       2;
+    static idleEast =       3;
+    static idleNorth =      4;
+    static idleSouth =      5;
     static walkWest =       11;
     static walkEast =       12;
     static walkNorth =      13;
     static walkSouth =      14;
+    static open =           20;
+    static closed =         21;
 
     // PROPERTIES ----------------------------------------------------------
     get width() {
@@ -25,28 +28,52 @@ class Animator {
 
     // CONSTRUCTOR ---------------------------------------------------------
     constructor(spec={}) {
-        // lookup animations
-        this._anims = {};
-        for (const [id, tag] of Object.entries(spec.animations || {})) {
-            let sketch = assets.generate(tag);
-            if (sketch) {
-                this._anims[id] = sketch;
-            } else {
-                console.error("missing sketch for animation: " + tag);
-            }
-        }
-        this._state = Animator.idle;
+        // animations/transition state mappings
+        this._animations = spec.animations || {};
+        this._trans = spec.trans || [];
+        // sketch cache
+        this._sketches = {};
+        this._state = Animator.none;
         this._pendingState;
-        this._anim = this.getAnim(this._state);
+        this._anim = Sketch.zero;
     }
 
     // METHODS -------------------------------------------------------------
-    getAnim(state) {
-        return this._anims[state];
+    getSketch(tag) {
+        // lookup sketch in cache
+        let sketch = this._sketches[tag];
+        if (sketch) return sketch;
+        // special case... "none" tag always renders as Sketch.zero (a dummy/blank sketch)
+        if (tag === "none") {
+            sketch = Sketch.zero;
+            this._sketches[tag] = sketch;
+            return sketch;
+        }
+        // otherwise... attempt to generate asset for sketch tag
+        sketch = assets.generate(tag);
+        if (sketch) {
+            this._sketches[tag] = sketch;
+        } else {
+            console.error("missing sketch for animation: " + tag);
+            sketch = Sketch.zero;
+        }
+        return sketch;
     }
 
-    getTransition(from, want) {
-        // FIXME: need to pass/parse transitions before we can look them up.
+    getAnim(state) {
+        // lookup sketch tag for given state
+        let tag = this._animations[state];
+        return this.getSketch(tag);
+    }
+
+    getTransition(from, to) {
+        // lookup to determine state transition
+        for (const tran of this._trans) {
+            if (trans.from === from && trans.to === to) {
+                let tag = tran.tag;
+                return this.getSketch(tag);
+            }
+        }
         return undefined;
     }
 
@@ -87,6 +114,10 @@ class Animator {
 
     render(ctx, x=0, y=0) {
         if (this._anim) this._anim.render(ctx, x, y);
+    }
+
+    toString() {
+        return Fmt.toString(this.constructor.name, this._state, Fmt.ofmt(this._animations));
     }
 
 }

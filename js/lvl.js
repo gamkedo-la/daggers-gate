@@ -58,17 +58,18 @@ class Level {
                 this.enemies.push(enemy);
             }
             // lookup objects
-            if (props.isObject(this.fg[i])) {
+            let spec = props.getObjectSpec(this.fg[i]);
+            if (spec) {
                 // don't draw as lvl data
                 let id = this.fg[i];
                 this.fg[i] = 0;
-                let spec = Object.assign({
+                spec = Object.assign({
                     sketch: props.getImage(id),
                     name: props.getName(id),
                     x: this.xfromidx(i, true),
                     y: this.yfromidx(i, true),
 
-                }, props.getSpec(id));
+                }, spec);
                 let obj = new gameObjectClass(spec);
                 this.objects.push(obj);
             }
@@ -139,6 +140,12 @@ class Level {
             if (this.fg[i] === id) {
                 return {x: this.xfromidx(i, true), y: this.yfromidx(i, true)};
             }
+        }
+        return undefined;
+    }
+    findObject(filter) {
+        for (const obj of this.objects) {
+            if (filter(obj)) return obj;
         }
         return undefined;
     }

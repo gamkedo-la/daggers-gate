@@ -6,10 +6,11 @@ class characterClass {
         this.sketch = spec.sketch || Sketch.zero;
         this.xOff = spec.xOff || 0;          
         this.yOff = spec.yOff || 0;
- 
- 
         this.homeX = spec.x || 0;
         this.homeY = spec.y || 0;
+        this.kind = spec.kind || "character";
+        this.sketchTags = spec.sketchTags || {};
+        this.stateSketches = {};
         // variables to keep track of position
         this.x;
         this.y;
@@ -23,18 +24,86 @@ class characterClass {
         this.move_West = false;
         this.facing = Animator.idleSouth;
         // collisions
-        this.active = true;
         this.collider = new Collider(Object.assign({}, spec.collider, {x: this.x, y:this.y}));
         this.nextCollider = this.collider.copy();
-        this.interact = (spec.interact) ? new Collider(Object.assign({}, spec.interact, {x: this.x, y:this.y})) : undefined;
-        this.colTRIdx = 0;
-        this.colBLIdx = 0;
-        this.colBRIdx = 0;
+        this.interactCollider = (spec.interactCollider) ? new Collider(Object.assign({}, spec.interactCollider, {x: this.x, y:this.y})) : undefined;
         // character attributes
         this.health = 1;
         // variables for held objects
         this.grabbedObj;
+        // linking of objects (used to handle double doors, where each part of the door is a separate object)
+        this.wantLink = spec.link;
+        this.linkVars = (spec.link && spec.link.vars) ? spec.link.vars : ["state", "active"];
+        this.links = [];
+        // -- linked variables (dependent on linkVars setting)
+        this._state = "dflt";
+        this._active = true;
         this.reset();
+    }
+
+    get state() {
+        return this._state;
+    }
+
+    set state(v) {
+        if (v !== this._state) {
+            console.log("setting state: " + v);
+            this._state = v;
+            if (this.linkVars.includes("state")) for (const link of this.links) { console.log("passing along state"); link._state = v; };
+        }
+    }
+
+    get active() {
+        return this._active;
+    }
+
+    set active(v) {
+        if (v !== this._active) {
+            console.log("setting active: " + v);
+            this._active = v;
+            if (this.linkVars.includes("active")) for (const link of this.links) link._active = v;
+        }
+    }
+
+    /**
+     * lookup sketch for current state...
+     * defaults to this._sketch if state is not registered w/ sketch or sketch cannot be found
+     */
+    /* FIXME: integrate into animator state handling
+    get sketch() {
+        // lookup state sketch cache
+        let sketch = this.stateSketches[this.state];
+        if (sketch) return sketch;
+        // lookup sketch tag for current state
+        let sketchTag = this.sketchTags[this.state];
+        if (!sketchTag) return this._sketch;
+        // -- special case... "none"
+        let stateSketch;
+        if (sketchTag === "none") {
+            stateSketch = Sketch.zero;
+            this.stateSketches[this.state] = stateSketch;
+        }
+        // attempt to generate new sketch for tag
+        stateSketch = assets.generate(sketchTag);
+        if (stateSketch) {
+            this.stateSketches[this.state] = stateSketch;
+        }
+        // remove sketch tag to avoid spinning on asset lookups for failed sketches
+        delete this.sketchTags[sketchTag];
+        return (stateSketch) ? stateSketch : this._sketch;
+    }
+    */
+
+    link(other) {
+        if (!this.links.includes(other)) this.links.push(other);
+        if (!other.links.includes(this)) other.links.push(this);
+    }
+
+    unlink(other) {
+        let idx = this.links.indexOf(other);
+        if (idx !== -1) this.links.splice(idx, 1);
+        idx = other.links.indexOf(this);
+        if (idx !== -1) other.links.splice(idx, 1);
     }
 
     reset() {
@@ -151,26 +220,12 @@ class characterClass {
 		// handle collisions
         this.tileCollisionHandle(walkIntoTileIndex, walkIntoTileType, nextX, nextY);
 
-        // FIXME
+        // updates to collision boxes
+        // FIXME... assign new collider within tileCollisionHandle???
         let tmp = this.collider;
         this.collider = this.nextCollider;
         this.nextCollider = tmp;
-        if (this.interact) this.interact.update(this.x, this.y, currentLevel.idxfromxy.bind(currentLevel));
-
-        //updates to collision boxes
-        /*
-
-        //updates to collision boxes
-        this.colTopLeftX = this.x - this.colWidth / 2 + this.colXOff;
-        this.colTopLeftY = this.y - this.colHeight / 2 + this.colYOff;
-        this.colTLIdx = currentLevel.idxfromxy(this.colTopLeftX, this.colTopLeftY);
-        this.colTRIdx = currentLevel.idxfromxy(this.colTopLeftX+this.colWidth, this.colTopLeftY);
-        this.colBLIdx = currentLevel.idxfromxy(this.colTopLeftX, this.colTopLeftY+this.colHeight);
-        this.colBRIdx = currentLevel.idxfromxy(this.colTopLeftX+this.colWidth, this.colTopLeftY+this.colHeight);
-		*/
-		
-        // update animation state
-        this.sketch.update(Object.assign({state: this.getAnimState()}, updateCtx));
+        if (this.interactCollider) this.interactCollider.update(this.x, this.y, currentLevel.idxfromxy.bind(currentLevel));
 
         // update position of grabbed object, based on current player position and facing direction
         if (this.grabbedObj) {
@@ -222,8 +277,8 @@ class characterClass {
         }
         drawBitmapCenteredAtLocationWithRotation(this.sketch, this.x+this.xOff, this.y+this.yOff, 0.0);
         if (showCollisions) {
-            colorRect(this.colTopLeftX, this.colTopLeftY, this.colWidth, this.colHeight, this.collisionColor);
-            colorRect(this.x-4, this.y-4, 8, 8, "black");
+            if (this.interactCollider) this.interactCollider.draw(canvasContext);
+            this.collider.draw(canvasContext);
         }
         // handle grabbed object in front or side of player
         if (this.grabbedObj && this.facing !== Animator.idleNorth) {

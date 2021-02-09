@@ -9,7 +9,7 @@ class warriorClass extends characterClass {
             width: 20, 
             height: 30, 
         }, spec.collider);
-        spec.interact = Object.assign({
+        spec.interactCollider = Object.assign({
             color: "rgba(255,255,0,.25)", 
             width: 50, 
             height: 50, 
@@ -58,10 +58,9 @@ class warriorClass extends characterClass {
         // check for interaction collisions
         if (this.interactWithObject) {
             for (const obj of currentLevel.objects) {
-                if (obj.collider.overlaps(this.interact)) {
+                if (obj.collider.overlaps(this.interactCollider)) {
                     console.log("interact object collider");
-                    obj.interface(this);
-                    return;
+                    obj.interact(this);
                 }
             }
         }
@@ -81,7 +80,6 @@ class warriorClass extends characterClass {
         }
 
         // check for tile collisions
-        //console.log("walkIntoTileIndex: " + walkIntoTileIndex);
         // check for level exit
         if (walkIntoTileIndex in currentLevel.exits) {
             if (!queuedExit) {
@@ -90,30 +88,14 @@ class warriorClass extends characterClass {
             }
         }
 
-        if (props.isDoor(walkIntoTileType)) {
-            console.log("walked into door...");
-            if (this.keysHeld > 0) {
-                this.keysHeld--; // one less key
-                document.getElementById("debugText").innerHTML = "Keys: " + this.keysHeld;
-                let swapid = props.swappable(walkIntoTileType);
-                console.log("swapid: " + swapid);
-                currentLevel.setfgi(walkIntoTileIndex, swapid || 0);
-                // check for double-height door
-                let aboveIdx = currentLevel.upFromIdx(walkIntoTileIndex);
-                console.log("aboveIdx: " + aboveIdx + " from: " + walkIntoTileIndex);
-                if (aboveIdx !== walkIntoTileIndex) {
-                    let aboveSwapId = props.swappable(currentLevel.fgi(aboveIdx));
-                    console.log("aboveSwapId: " + aboveSwapId);
-                    if (aboveSwapId) currentLevel.setfgi(aboveIdx, aboveSwapId);
-                }
-            }
-            return;  // FIXME: remove after switch statement cleanup?
-
-        } else if (props.passable(walkIntoTileType)) {
+        // we walked into a fg tile that is empty or is passable... keep walking
+        if (0 === walkIntoTileType || props.passable(walkIntoTileType)) {
             this.x = nextX;
             this.y = nextY;
             return;  // FIXME: remove after switch statement cleanup?
         }
+
+        // otherwise
         switch (walkIntoTileType) {
             case 0:
             case TILE.GROUND:
@@ -149,6 +131,7 @@ class warriorClass extends characterClass {
                     SetupPathfindingGridData(p1);
                 }
                 break;
+
             case TILE.KEY:
                 this.keysHeld++; // gain key
                 document.getElementById("debugText").innerHTML = "Keys: " + this.keysHeld;

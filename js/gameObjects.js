@@ -4,36 +4,52 @@ var objectNameList = ['fireRune', 'windRune', 'waterRune', 'earthRune'];
 //gameObjects have similar code to Character class for movement.
 class gameObjectClass extends characterClass {
     constructor(spec={}) {
+        spec.collider = Object.assign({
+            color: "rgba(245,133,73,.5)", 
+        }, spec.collider);
         // set spec defaults
-        spec.collisionColor = spec.collisionColor || "orange";
+        spec.kind = spec.kind || "object";
         super(spec);
-        this.kind = spec.kind || "object";
-        this.openSketch = assets.generate(spec.openTag) || Sketch.zero;
         this.grabbedByPlayer = false;
         this.correctPuzzleLocation = false;
     }
 
-    interface(character) {
-        if (this.kind === "door" && !this.open) {
+    /**
+     * lookup sketch for current state...
+     * defaults to this.sketch if unassigned
+     */
+    get stateSketch() {
+        // lookup state sketch cache
+        let sketch = this.stateSketches[this.state];
+        if (sketch) return sketch;
+        // lookup sketch tag for current state
+        let sketchTag = this.sketchTags[this.state];
+        if (!sketchTag) return this.sketch;
+        // -- special case... "none"
+        let stateSketch;
+        if (sketchTag === "none") {
+            stateSketch = Sketch.zero;
+            this.stateSketches[this.state] = stateSketch;
+        }
+        // attempt to generate new sketch for tag
+        stateSketch = assets.generate(sketchTag);
+        if (stateSketch) {
+            this.stateSketches[this.state] = stateSketch;
+        }
+        // remove sketch tag to avoid spinning on asset lookups for failed sketches
+        delete this.sketchTags[sketchTag];
+        return (stateSketch) ? stateSketch : this.sketch;
+    }
+
+
+    interact(character) {
+        //console.log("interact... kind is: " + this.kind + " state: " + this.state);
+        if (this.kind === "door" && this.state !== "open") {
             if (character.keysHeld > 0) {
                 character.keysHeld--; // one less key
-                document.getElementById("debugText").innerHTML = "Keys: " + this.keysHeld;
-                //let swapid = props.swappable(walkIntoTileType);
-                //console.log("swapid: " + swapid);
-                //currentLevel.setfgi(walkIntoTileIndex, swapid || 0);
-                this.sketch = this.openSketch;
-                this.open = true;
+                document.getElementById("debugText").innerHTML = "Keys: " + character.keysHeld;
+                this.state = "open";
                 this.active = false;
-                /*
-                // check for double-height door
-                let aboveIdx = currentLevel.upFromIdx(walkIntoTileIndex);
-                console.log("aboveIdx: " + aboveIdx + " from: " + walkIntoTileIndex);
-                if (aboveIdx !== walkIntoTileIndex) {
-                    let aboveSwapId = props.swappable(currentLevel.fgi(aboveIdx));
-                    console.log("aboveSwapId: " + aboveSwapId);
-                    if (aboveSwapId) currentLevel.setfgi(aboveIdx, aboveSwapId);
-                }
-                */
             }
         }
     }
@@ -43,28 +59,6 @@ class gameObjectClass extends characterClass {
      * @param {*} thisEntity 
      */
     checkCollisionAgainst(thisEntity) {
-
-        /*
-        if (props.isDoor(walkIntoTileType)) {
-            if (p1.interactWithObject) {
-                if (this.keysHeld > 0) {
-                    this.keysHeld--; // one less key
-                    document.getElementById("debugText").innerHTML = "Keys: " + this.keysHeld;
-                    let swapid = props.swappable(walkIntoTileType);
-                    console.log("swapid: " + swapid);
-                    currentLevel.setfgi(walkIntoTileIndex, swapid || 0);
-                    // check for double-height door
-                    let aboveIdx = currentLevel.upFromIdx(walkIntoTileIndex);
-                    console.log("aboveIdx: " + aboveIdx + " from: " + walkIntoTileIndex);
-                    if (aboveIdx !== walkIntoTileIndex) {
-                        let aboveSwapId = props.swappable(currentLevel.fgi(aboveIdx));
-                        console.log("aboveSwapId: " + aboveSwapId);
-                        if (aboveSwapId) currentLevel.setfgi(aboveIdx, aboveSwapId);
-                    }
-                }
-            }
-        }
-        */
 
         if (this.isOverLapping(thisEntity.x, thisEntity.y)) {
             this.myCollisionColor = "yellow";
@@ -82,6 +76,21 @@ class gameObjectClass extends characterClass {
     }
 
     move(updateCtx) {
+        // resolve link during move/update of object
+        if (this.wantLink) {
+            for (const target of this.wantLink.targets || []) {
+                if (target === "left") {
+                    let linkObj = currentLevel.findObject((v) => v.x === this.x-currentLevel.sketchWidth && v.y === this.y);
+                    console.log("linkObj: " + linkObj);
+                    this.link(linkObj);
+                } else if (target === "up") {
+                    let linkObj = currentLevel.findObject((v) => v.x === this.x && v.y === this.y-currentLevel.sketchHeight);
+                    this.link(linkObj);
+                    console.log("linkObj: " + linkObj);
+                }
+            }
+            this.wantLink = undefined;
+        }
         //player to move this object
         //player should grab this object, then the player can either pull or push the object.
         if (this.grabbedByPlayer) {
@@ -163,4 +172,12 @@ class gameObjectClass extends characterClass {
                 break;
         }
     }
+
+    draw() {
+        drawBitmapCenteredAtLocationWithRotation(this.stateSketch, this.x+this.xOff, this.y+this.yOff, 0.0);
+        if (showCollisions) {
+            this.collider.draw(canvasContext);
+        }
+    }
+
 } // end of class

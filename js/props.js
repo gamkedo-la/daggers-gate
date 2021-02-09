@@ -24,13 +24,9 @@ class Props {
         this._tags = {};
         this._names = {};
         this._tilesByTag = {};
-        this._transparency = {};
         this._enemies = {};
         this._objects = {};
-        this._doors = {};
         this._passable = {};
-        this._swaps = {};
-        this._specs = {};
         this.dbg = spec.dbg;
         // setup lookup tables
         this._setup(assets);
@@ -47,11 +43,6 @@ class Props {
                 TILE[asset.tag] = asset.id;
                 if (this.dbg) console.log(" -- assigned TILE." + asset.tag);
             }
-            // lookup transparency
-            if (asset.transparent) {
-                this._transparency[id] = true;
-                if (this.dbg) console.log(" -- is transparent");
-            }
             // lookup enemies
             if (asset.enemy) {
                 this._enemies[id] = true;
@@ -59,25 +50,10 @@ class Props {
             }
             // lookup objects
             if (asset.object) {
-                this._objects[id] = true;
-                if (this.dbg) console.log(" -- is object");
+                this._objects[id] = asset.object;
+                if (this.dbg) console.log(" -- is object w spec: " + Fmt.ofmt(asset.object));
             }
-            // lookup objects
-            if (asset.spec) {
-                this._specs[id] = asset.spec;
-                if (this.dbg) console.log(" -- has spec: " + Fmt.ofmt(asset.spec));
-            }
-            // lookup doors
-            if (asset.door) {
-                this._doors[id] = true;
-                if (this.dbg) console.log(" -- is door");
-            }
-            // lookup swappable
-            if (asset.swap) {
-                this._swaps[id] = asset.swap;
-                if (this.dbg) console.log(" -- is swappable with: " + asset.swap);
-            }
-            // lookup transparency
+            // lookup passable
             if (asset.passable) {
                 this._passable[id] = true;
                 if (this.dbg) console.log(" -- passable");
@@ -99,14 +75,6 @@ class Props {
     }
 
     /**
-     * Is the tile associated w/ the given id transparent?
-     * @param {*} id 
-     */
-    isTransparent(id) {
-        return this._transparency[id] || false;
-    }
-
-    /**
      * Is the tile associated w/ the given id an enemy?
      * @param {*} id 
      */
@@ -115,42 +83,15 @@ class Props {
     }
 
     /**
-     * Is the tile associated w/ the given id an object?
+     * Is the tile associated w/ the given id an object, if so, return object spec...
      * @param {*} id 
      */
-    isObject(id) {
+    getObjectSpec(id) {
         return this._objects[id] || false;
     }
 
     /**
-     * Is the tile associated w/ the given id an object?
-     * @param {*} id 
-     */
-    getSpec(id) {
-        return this._specs[id] || {};
-    }
-
-    /**
-     * Is the tile associated w/ the given id a door?
-     * @param {*} id
-     */
-    isDoor(id) {
-        return this._doors[id] || false;
-    }
-
-    /**
-     * Is the tile associated w/ the given id swappable?
-     * @param {*} id
-     */
-    swappable(id) {
-        // swaps hold tag, convert tag to id
-        let swaptag = this._swaps[id];
-        if (!swaptag) return 0;
-        return assets.getId(swaptag);
-    }
-
-    /**
-     * Is the tile associated w/ the given id transparent?
+     * Is the tile associated w/ the given id passable?
      * @param {*} id 
      */
     passable(id) {

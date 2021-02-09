@@ -28,7 +28,7 @@ const daggerAssets = [
      { id: 4, src: "images/world_key.png", cls: "Image", tag: "KEY", transparent: true, pathFindingWalkable: true },
 
     { src: "images/spritesheet_Dungeon_01.png", cls: "Sheet", assets: [
-        
+        //ROW 1
         {tag: "GROUND",                 id: 10, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 0, pathFindingWalkable: true },
         {tag: "GROUND_SPIKES_DOWN",     id: 11, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 0, passable: true, pathFindingWalkable: true },
         {tag: "GROUND_SPIKES_UP",       id: 12, cls: "Sprite", width: 50, height: 50, xoffset: 100, yoffset: 0, passable: true, pathFindingWalkable: true },
@@ -39,7 +39,7 @@ const daggerAssets = [
         {tag: "CEIL_UPPER_LEFT",        id: 17, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 0 },
         {tag: "CEIL_UPPER_MID",         id: 18, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 0 },
         {tag: "CEIL_UPPER_RIGHT",       id: 19, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 0 },
-
+        //row 2
         {tag: "CEIL_LEFT",              id: 20, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 50 },
         {tag: "CEIL_RIGHT",             id: 21, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 50 },
         {tag: "CEIL_LEFT_RIGHT",        id: 22, cls: "Sprite", width: 50, height: 50, xoffset: 100, yoffset: 50 },
@@ -61,6 +61,7 @@ const daggerAssets = [
                 yoff: -8, 
             }, 
         }},
+        //ROW 3
         {tag: "DOOR_RIGHTSIDE_TOP",     id: 30, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 100, object: {
             kind: "link",
             sketchTags: { open: "WALL_BOTTOM", },
@@ -72,25 +73,23 @@ const daggerAssets = [
         }},
         {tag: "CHEST1_CLOSE",           id: 32, cls: "Sprite", width: 50, height: 50, xoffset: 100, yoffset: 100, transparent: true},
         {tag: "CHEST1_OPEN",            id: 33, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 100, transparent: true },
-        {tag: "CHEST2_CLOSE",           id: 34, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 100, transparent: true },
-        {tag: "GEM_WIND",               id: 35, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 100, transparent: true, pathFindingWalkable: true },
-        {tag: "GEM_WATER",              id: 36, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 100, transparent: true, pathFindingWalkable: true },
-        {tag: "GEM_FIRE",               id: 37, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 100, transparent: true, pathFindingWalkable: true },
-        {tag: "GEM_EARTH",              id: 38, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 100, transparent: true, pathFindingWalkable: true },
-        {tag: "ALTAR_WIND",             id: 39, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 100 },
-
-        {tag: "ALTAR_WATER",            id: 40, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 150 },
-        {tag: "ALTAR_FIRE",             id: 41, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 150 },
-        {tag: "ALTAR_EARTH",            id: 42, cls: "Sprite", width: 50, height: 50, xoffset: 100, yoffset: 150 },
-        {tag: "ALTAR_GEM_WIND",         id: 43, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 150 },
-        {tag: "ALTAR_GEM_WATER",        id: 44, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 150 },
-        {tag: "ALTAR_GEM_FIRE",         id: 45, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 150 },
-        {tag: "ALTAR_GEM_EARTH",        id: 46, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 150 },
-        {tag: "DEADBONES",              id: 47, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 150, passable: true },
-        {tag: "HEART_TILE",             id: 48, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 150, transparent: true, passable: true, pathFindingWalkable: true },
-        {tag: "EMPTY3",                 id: 49, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 150 },
-
-        {tag: "CEIL_UPPER_DOOR",        id: 50, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 0, passable: true },
+        {tag: "GEM_WIND",               id: 34, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 100, transparent: true, pathFindingWalkable: true },
+        {tag: "GEM_WATER",              id: 35, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 100, transparent: true, pathFindingWalkable: true },
+        {tag: "GEM_FIRE",               id: 36, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 100, transparent: true, pathFindingWalkable: true },
+        {tag: "GEM_EARTH",              id: 37, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 100, transparent: true, pathFindingWalkable: true },
+        {tag: "ALTAR_WIND",             id: 38, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 100 },
+        {tag: "ALTAR_WATER",            id: 39, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 150 },
+        //ROW 4
+        {tag: "ALTAR_FIRE",             id: 40, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 150 },
+        {tag: "ALTAR_EARTH",            id: 41, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 150 },
+        {tag: "ALTAR_GEM_WIND",         id: 42, cls: "Sprite", width: 50, height: 50, xoffset: 100, yoffset: 150 },
+        {tag: "ALTAR_GEM_WATER",        id: 43, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 150 },
+        {tag: "ALTAR_GEM_FIRE",         id: 44, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 150 },
+        {tag: "ALTAR_GEM_EARTH",        id: 45, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 150 },
+        {tag: "DEADBONES",              id: 46, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 150, transparent: true, passable: true },
+        {tag: "HEART_TILE",             id: 47, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 150, transparent: true, pathFindingWalkable: true },
+        {tag: "EMPTY3",                 id: 48, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 150 },
+        {tag: "CEIL_UPPER_DOOR",        id: 50, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 0, passable: true },
     ]},
 
     { src: "images/player.png", cls: "Sheet", assets: [

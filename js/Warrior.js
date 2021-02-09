@@ -138,6 +138,7 @@ class warriorClass extends characterClass {
                 //roomGrid[walkIntoTileIndex] = TILE.GROUND; // remove key
                 currentLevel.setfgi(walkIntoTileIndex, 0);
                 SetupPathfindingGridData(p1);
+                console.log("key")
                 break;
             case TILE.CHEST1_CLOSE:
                     this.keysHeld--; // use key
@@ -146,6 +147,12 @@ class warriorClass extends characterClass {
                     currentLevel.setfgi(walkIntoTileIndex, 33);
                     this.gold = 10;
 
+                break;
+            case TILE.HEART_TILE:
+                    this.health++;; // use key
+                    currentLevel.setfgi(walkIntoTileIndex, 0);
+                    SetupPathfindingGridData(p1);
+                    console.log("Heart");
                 break;
             case TILE.WALL_1:
             case TILE.WALL_2:

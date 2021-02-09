@@ -14,41 +14,13 @@ class gameObjectClass extends characterClass {
         this.correctPuzzleLocation = false;
     }
 
-    /**
-     * lookup sketch for current state...
-     * defaults to this.sketch if unassigned
-     */
-    get stateSketch() {
-        // lookup state sketch cache
-        let sketch = this.stateSketches[this.state];
-        if (sketch) return sketch;
-        // lookup sketch tag for current state
-        let sketchTag = this.sketchTags[this.state];
-        if (!sketchTag) return this.sketch;
-        // -- special case... "none"
-        let stateSketch;
-        if (sketchTag === "none") {
-            stateSketch = Sketch.zero;
-            this.stateSketches[this.state] = stateSketch;
-        }
-        // attempt to generate new sketch for tag
-        stateSketch = assets.generate(sketchTag);
-        if (stateSketch) {
-            this.stateSketches[this.state] = stateSketch;
-        }
-        // remove sketch tag to avoid spinning on asset lookups for failed sketches
-        delete this.sketchTags[sketchTag];
-        return (stateSketch) ? stateSketch : this.sketch;
-    }
-
-
     interact(character) {
-        //console.log("interact... kind is: " + this.kind + " state: " + this.state);
-        if (this.kind === "door" && this.state !== "open") {
+        console.log("==> interact... kind is: " + this.kind + " state: " + this.state);
+        if (this.kind === "door" && this.state !== Animator.open) {
             if (character.keysHeld > 0) {
                 character.keysHeld--; // one less key
                 document.getElementById("debugText").innerHTML = "Keys: " + character.keysHeld;
-                this.state = "open";
+                this.state = Animator.open;
                 this.active = false;
             }
         }
@@ -76,21 +48,7 @@ class gameObjectClass extends characterClass {
     }
 
     move(updateCtx) {
-        // resolve link during move/update of object
-        if (this.wantLink) {
-            for (const target of this.wantLink.targets || []) {
-                if (target === "left") {
-                    let linkObj = currentLevel.findObject((v) => v.x === this.x-currentLevel.sketchWidth && v.y === this.y);
-                    console.log("linkObj: " + linkObj);
-                    this.link(linkObj);
-                } else if (target === "up") {
-                    let linkObj = currentLevel.findObject((v) => v.x === this.x && v.y === this.y-currentLevel.sketchHeight);
-                    this.link(linkObj);
-                    console.log("linkObj: " + linkObj);
-                }
-            }
-            this.wantLink = undefined;
-        }
+
         //player to move this object
         //player should grab this object, then the player can either pull or push the object.
         if (this.grabbedByPlayer) {
@@ -173,11 +131,13 @@ class gameObjectClass extends characterClass {
         }
     }
 
+    /*
     draw() {
         drawBitmapCenteredAtLocationWithRotation(this.stateSketch, this.x+this.xOff, this.y+this.yOff, 0.0);
         if (showCollisions) {
             this.collider.draw(canvasContext);
         }
     }
+    */
 
 } // end of class

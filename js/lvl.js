@@ -47,9 +47,10 @@ class Level {
                 // don't draw sketch as level data
                 let id = this.fg[i];
                 this.fg[i] = 0;
+                let tag = props.getTag(id);
                 // instantiate enemy
                 let enemy = new enemyClass({
-                    sketch: props.getImage(id), 
+                    sketch: assets.get(tag), 
                     collider: "red",
                     name: props.getName(id),
                     x: this.xfromidx(i, true),
@@ -63,8 +64,9 @@ class Level {
                 // don't draw as lvl data
                 let id = this.fg[i];
                 this.fg[i] = 0;
+                let tag = props.getTag(id);
                 spec = Object.assign({
-                    sketch: props.getImage(id),
+                    sketch: assets.get(tag),
                     name: props.getName(id),
                     x: this.xfromidx(i, true),
                     y: this.yfromidx(i, true),

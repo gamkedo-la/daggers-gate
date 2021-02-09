@@ -3,14 +3,13 @@ class characterClass {
         this.tileid = spec.tileid || 0;
          // x/y offsets for drawing sprite from origin x,y      
         this.myName = spec.name || this.constructor.name;
-        this.sketch = spec.sketch || Sketch.zero;
+        this.sketch = assets.generateFromSpec(spec.sketch) || Sketch.zero;
         this.xOff = spec.xOff || 0;          
         this.yOff = spec.yOff || 0;
         this.homeX = spec.x || 0;
         this.homeY = spec.y || 0;
         this.kind = spec.kind || "character";
-        this.sketchTags = spec.sketchTags || {};
-        this.stateSketches = {};
+        this._updateCtx = {};
         // variables to keep track of position
         this.x;
         this.y;
@@ -22,7 +21,6 @@ class characterClass {
         this.move_East = false;
         this.move_South = false;
         this.move_West = false;
-        this.facing = Animator.idleSouth;
         // collisions
         this.collider = new Collider(Object.assign({}, spec.collider, {x: this.x, y:this.y}));
         this.nextCollider = this.collider.copy();
@@ -36,20 +34,30 @@ class characterClass {
         this.linkVars = (spec.link && spec.link.vars) ? spec.link.vars : ["state", "active"];
         this.links = [];
         // -- linked variables (dependent on linkVars setting)
-        this._state = "dflt";
+        this._state = Animator.idle;
         this._active = true;
         this.reset();
     }
 
     get state() {
+        // handle moving states
+        if (this.move_West) {
+            return Animator.walkWest;
+        } else if (this.move_East) {
+            return Animator.walkEast;
+        } else if (this.move_North) {
+            return Animator.walkNorth;
+        } else if (this.move_South) {
+            return Animator.walkSouth;
+        }
+        // handle idle state
         return this._state;
     }
 
     set state(v) {
         if (v !== this._state) {
-            console.log("setting state: " + v);
             this._state = v;
-            if (this.linkVars.includes("state")) for (const link of this.links) { console.log("passing along state"); link._state = v; };
+            if (this.linkVars.includes("state")) for (const link of this.links) link._state = v;
         }
     }
 
@@ -64,35 +72,6 @@ class characterClass {
             if (this.linkVars.includes("active")) for (const link of this.links) link._active = v;
         }
     }
-
-    /**
-     * lookup sketch for current state...
-     * defaults to this._sketch if state is not registered w/ sketch or sketch cannot be found
-     */
-    /* FIXME: integrate into animator state handling
-    get sketch() {
-        // lookup state sketch cache
-        let sketch = this.stateSketches[this.state];
-        if (sketch) return sketch;
-        // lookup sketch tag for current state
-        let sketchTag = this.sketchTags[this.state];
-        if (!sketchTag) return this._sketch;
-        // -- special case... "none"
-        let stateSketch;
-        if (sketchTag === "none") {
-            stateSketch = Sketch.zero;
-            this.stateSketches[this.state] = stateSketch;
-        }
-        // attempt to generate new sketch for tag
-        stateSketch = assets.generate(sketchTag);
-        if (stateSketch) {
-            this.stateSketches[this.state] = stateSketch;
-        }
-        // remove sketch tag to avoid spinning on asset lookups for failed sketches
-        delete this.sketchTags[sketchTag];
-        return (stateSketch) ? stateSketch : this._sketch;
-    }
-    */
 
     link(other) {
         if (!this.links.includes(other)) this.links.push(other);
@@ -116,26 +95,32 @@ class characterClass {
     }
 
     getAnimState() {
-        // handle moving states
-        if (this.move_West) {
-            return Animator.walkWest;
-        } else if (this.move_East) {
-            return Animator.walkEast;
-        } else if (this.move_North) {
-            return Animator.walkNorth;
-        } else if (this.move_South) {
-            return Animator.walkSouth;
-        }
-        return this.facing;
+
     }
 
     move(updateCtx) {
+
+        // resolve link during move/update of object
+        if (this.wantLink) {
+            for (const target of this.wantLink.targets || []) {
+                if (target === "left") {
+                    let linkObj = currentLevel.findObject((v) => v.x === this.x-currentLevel.sketchWidth && v.y === this.y);
+                    if (linkObj) this.link(linkObj);
+                } else if (target === "up") {
+                    let linkObj = currentLevel.findObject((v) => v.x === this.x && v.y === this.y-currentLevel.sketchHeight);
+                    if (linkObj) this.link(linkObj);
+                }
+            }
+            this.wantLink = undefined;
+        }
+
         var nextX = this.x;
         var nextY = this.y;
         var charCol = Math.floor(this.x / TILE_W);
         var charRow = Math.floor(this.y / TILE_H);
 
         if (this.tilePath.length > 0) {
+            console.error("pathfinding wtf");
             var targetIndex = this.tilePath[0];
             var targetC = currentLevel.ifromidx(targetIndex);
             var targetR = currentLevel.jfromidx(targetIndex);
@@ -183,13 +168,13 @@ class characterClass {
 
         // determine facing direction
         if (this.move_East) {
-            this.facing = Animator.idleEast;
+            this.state = Animator.idleEast;
         } else if (this.move_West) {
-            this.facing = Animator.idleWest;
+            this.state = Animator.idleWest;
         } else if (this.move_North) {
-            this.facing = Animator.idleNorth;
+            this.state = Animator.idleNorth;
         } else if (this.move_South) {
-            this.facing = Animator.idleSouth;
+            this.state = Animator.idleSouth;
         }
 
         if (this.move_North || this.move_East || this.move_South || this.move_West) {
@@ -230,7 +215,7 @@ class characterClass {
         // update position of grabbed object, based on current player position and facing direction
         if (this.grabbedObj) {
             let xoff, yoff;
-            switch (this.facing) {
+            switch (this.state) {
             case Animator.idleNorth:
                 xoff = 0;
                 yoff = -15;
@@ -251,6 +236,11 @@ class characterClass {
             this.grabbedObj.x = this.x + this.xoff + xoff;
             this.grabbedObj.y = this.y + this.yoff + yoff;
         }
+
+        // update sketch
+        this._updateCtx.deltaTime = updateCtx.deltaTime;
+        this._updateCtx.state = this.state;
+        this.sketch.update(this._updateCtx);
     }
 
     isOverLapping(testX, testY) {
@@ -272,7 +262,7 @@ class characterClass {
 
     draw() {
         // handle grabbed object behind player
-        if (this.grabbedObj && this.facing === Animator.idleNorth) {
+        if (this.grabbedObj && this.state === Animator.idleNorth) {
             this.grabbedObj.draw();
         }
         drawBitmapCenteredAtLocationWithRotation(this.sketch, this.x+this.xOff, this.y+this.yOff, 0.0);
@@ -281,7 +271,7 @@ class characterClass {
             this.collider.draw(canvasContext);
         }
         // handle grabbed object in front or side of player
-        if (this.grabbedObj && this.facing !== Animator.idleNorth) {
+        if (this.grabbedObj && this.state !== Animator.idleNorth) {
             this.grabbedObj.draw();
         }
     }

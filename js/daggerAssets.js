@@ -2,6 +2,7 @@
 
 const animators = {
     "PLAYER": {
+        cls: "Animator",
         animations: {
             [Animator.idle]: "PLAYER",
             [Animator.idleSouth]: "PLAYER",
@@ -50,12 +51,24 @@ const daggerAssets = [
         {tag: "DOOR_OPEN_BOTTOM",       id: 27, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 50, passable: true, pathFindingWalkable: true },
         {tag: "DOOR_CLOSE_TOP",         id: 28, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 50, object: {
             kind: "link",
-            sketchTags: { open: "DOOR_OPEN_TOP", },
+            sketch: { 
+                cls: "Animator",
+                animations: {
+                    [Animator.idle]: "DOOR_CLOSE_TOP",
+                    [Animator.open]: "DOOR_OPEN_TOP",
+                }
+            },
         }},
         {tag: "DOOR_CLOSE_BOTTOM",      id: 29, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 50, object: {
             kind: "door",
             link: { targets: ["up"] },
-            sketchTags: { open: "DOOR_OPEN_BOTTOM", },
+            sketch: {
+                cls: "Animator",
+                animations: {
+                    [Animator.idle]: "DOOR_CLOSE_BOTTOM",
+                    [Animator.open]: "DOOR_OPEN_BOTTOM",
+                }
+            },
             collider: {
                 height: 36, 
                 yoff: -8, 
@@ -63,12 +76,22 @@ const daggerAssets = [
         }},
         {tag: "DOOR_RIGHTSIDE_TOP",     id: 30, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 100, object: {
             kind: "link",
-            sketchTags: { open: "WALL_BOTTOM", },
+            sketch: { 
+                cls: "Animator",
+                animations: {
+                    [Animator.idle]: "DOOR_RIGHTSIDE_TOP",
+                    [Animator.open]: "WALL_BOTTOM",
+            }},
         }},
         {tag: "DOOR_RIGHTSIDE_BOTTOM",  id: 31, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 100, object: {
             kind: "door",
             link: { targets: ["up"], vars: ["state"] },
-            sketchTags: { open: "none", },
+            sketch: { 
+                cls: "Animator",
+                animations: {
+                    [Animator.idle]: "DOOR_RIGHTSIDE_BOTTOM",
+                    [Animator.open]: "none",
+            }},
         }},
         {tag: "CHEST1_CLOSE",           id: 32, cls: "Sprite", width: 50, height: 50, xoffset: 100, yoffset: 100, transparent: true},
         {tag: "CHEST1_OPEN",            id: 33, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 100, transparent: true },

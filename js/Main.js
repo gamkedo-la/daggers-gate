@@ -64,8 +64,7 @@ function loadingDoneSoStartGame() {
 
 	// instantiate player
 	p1 = new warriorClass({
-		sketch: new Animator(animators["PLAYER"]),
-		//sketch: props.getImage(TILE.PLAYER), 
+		sketch: animators["PLAYER"],
 		name: "Player",
 	});
 	// relocate player to spawn point

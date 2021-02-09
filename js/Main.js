@@ -64,7 +64,8 @@ function loadingDoneSoStartGame() {
 
 	// instantiate player
 	p1 = new warriorClass({
-		sketch: animators["PLAYER"],
+		sketch: new Animator(animators["PLAYER"]),
+		//sketch: props.getImage(TILE.PLAYER), 
 		name: "Player",
 	});
 	// relocate player to spawn point
@@ -132,6 +133,12 @@ function drawEverything() {
 			drawPathingFindingTiles();
 	    }
 		p1.draw();
+		for(var i = 0; i < enemyList.length; i++){
+			enemyList[i].draw();
+		}
+		for(var i = 0; i < gameObjectList.length; i++){
+			gameObjectList[i].draw();
+		}
 		canvasContext.translate(camera.x, camera.y);
 		
 		if(framesToDisplayMessage-- > 600){
@@ -151,9 +158,9 @@ function drawEverything() {
 			colorText("USE KEYS TO FIND THE TREASURE", 400, 400, fillColor = "black", font = "14px Arial Black");
 		}
 
-		for(var i = 0; i < p1.health; i++){
-			var heartSpacing = 20;
-			drawBitmapCenteredAtLocationWithRotation(props.getImage(TILE.HEART), 20 + (i*heartSpacing), 40, 0.0);
-		}		
+		//console.log(props.getImage(TILE.HEART))
+
+		drawBitmapCenteredAtLocationWithRotation(props.getImage(TILE.HEART), 40, 40, 0.0);
+		
 	}
 }

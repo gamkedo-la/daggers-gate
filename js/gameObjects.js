@@ -1,37 +1,26 @@
 // tuning 
+var gameObjectList = [];
 var objectNameList = ['fireRune', 'windRune', 'waterRune', 'earthRune'];
+
+function addObject(whichObject) {
+    var tempObject = new gameObjectClass(whichObject);
+    gameObjectList.push(tempObject);
+}
 
 //gameObjects have similar code to Character class for movement.
 class gameObjectClass extends characterClass {
     constructor(spec={}) {
-        spec.collider = Object.assign({
-            color: "rgba(245,133,73,.5)", 
-        }, spec.collider);
-        // set spec defaults
-        spec.kind = spec.kind || "object";
+        spec.collisionColor = spec.collisionColor || "orange";
         super(spec);
+        //collisions
+        this.colHeight = 50;
+        this.colWidth = 50;
+        this.myIdentity = spec.tileid || 0;
         this.grabbedByPlayer = false;
         this.correctPuzzleLocation = false;
     }
 
-    interact(character) {
-        console.log("==> interact... kind is: " + this.kind + " state: " + this.state);
-        if (this.kind === "door" && this.state !== Animator.open) {
-            if (character.keysHeld > 0) {
-                character.keysHeld--; // one less key
-                document.getElementById("debugText").innerHTML = "Keys: " + character.keysHeld;
-                this.state = Animator.open;
-                this.active = false;
-            }
-        }
-    }
-
-    /**
-     * What to do when another character has collided with us
-     * @param {*} thisEntity 
-     */
     checkCollisionAgainst(thisEntity) {
-
         if (this.isOverLapping(thisEntity.x, thisEntity.y)) {
             this.myCollisionColor = "yellow";
             if (p1.interactWithObject) {
@@ -39,6 +28,7 @@ class gameObjectClass extends characterClass {
                 this.myCollisionColor = "green";
             }
         } else {
+
             this.myCollisionColor = "orange";
             if (this.grabbedByPlayer) {
                 this.myCollisionColor = "green";
@@ -47,8 +37,14 @@ class gameObjectClass extends characterClass {
         }
     }
 
-    move(updateCtx) {
+    draw() {
 
+        if (showCollisions) {
+            colorRect(this.colTopLeftX, this.colTopLeftY, this.colWidth, this.colHeight, this.collisionColor);
+        }
+    }
+
+    move(updateCtx) {
         //player to move this object
         //player should grab this object, then the player can either pull or push the object.
         if (this.grabbedByPlayer) {
@@ -130,14 +126,4 @@ class gameObjectClass extends characterClass {
                 break;
         }
     }
-
-    /*
-    draw() {
-        drawBitmapCenteredAtLocationWithRotation(this.stateSketch, this.x+this.xOff, this.y+this.yOff, 0.0);
-        if (showCollisions) {
-            this.collider.draw(canvasContext);
-        }
-    }
-    */
-
 } // end of class

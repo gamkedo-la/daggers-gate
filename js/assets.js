@@ -35,7 +35,6 @@ class Assets {
         this._generators = Util.objKeyValue(spec, "generators", {
             "Sprite": Sprite,
             "Animation": Animation,
-            "Animator": Animator,
             //"Audio": Audio,
         });
         this._items = new KeyedGroup((v)=>v.tag);

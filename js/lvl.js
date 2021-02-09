@@ -47,10 +47,9 @@ class Level {
                 // don't draw sketch as level data
                 let id = this.fg[i];
                 this.fg[i] = 0;
-                let tag = props.getTag(id);
                 // instantiate enemy
                 let enemy = new enemyClass({
-                    sketch: assets.get(tag), 
+                    sketch: props.getImage(id), 
                     collider: "red",
                     name: props.getName(id),
                     x: this.xfromidx(i, true),
@@ -59,22 +58,6 @@ class Level {
                 this.enemies.push(enemy);
             }
             // lookup objects
-            let spec = props.getObjectSpec(this.fg[i]);
-            if (spec) {
-                // don't draw as lvl data
-                let id = this.fg[i];
-                this.fg[i] = 0;
-                let tag = props.getTag(id);
-                spec = Object.assign({
-                    sketch: assets.get(tag),
-                    name: props.getName(id),
-                    x: this.xfromidx(i, true),
-                    y: this.yfromidx(i, true),
-
-                }, spec);
-                let obj = new gameObjectClass(spec);
-                this.objects.push(obj);
-            }
             // FIXME
             // lookup sprites
             this.bgsketches[i] = this.genSketch(this.bg[i]);
@@ -142,12 +125,6 @@ class Level {
             if (this.fg[i] === id) {
                 return {x: this.xfromidx(i, true), y: this.yfromidx(i, true)};
             }
-        }
-        return undefined;
-    }
-    findObject(filter) {
-        for (const obj of this.objects) {
-            if (filter(obj)) return obj;
         }
         return undefined;
     }
@@ -245,11 +222,11 @@ class Level {
         }
         // move enemies
         for(let i=0; i<this.enemies.length; i++){
-            this.enemies[i].move(ctx);
+            this.enemies[i].move();
         }
         // move game objects
         for(let i=0; i<this.objects.length; i++){
-            this.objects[i].move(ctx);
+            this.objects[i].move();
         }
         // check collisions
 		for(let i=0; i<this.enemies.length; i++){

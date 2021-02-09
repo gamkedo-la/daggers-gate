@@ -10,7 +10,6 @@ const KEY_LETTER_D = 68;
 const KEY_NUMBER_1 = 49;
 const KEY_NUMBER_2 = 50;
 const KEY_NUMBER_3 = 51;
-const KEY_LETTER_F = 70;
 
 const KEY_NUMBER_9 = 57;
 const KEY_SPACE = 32;

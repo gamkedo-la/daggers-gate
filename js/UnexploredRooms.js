@@ -36,16 +36,31 @@ class unexploredRoomClass {
 		this.idxs = spec.idxs || [];
 		this.roomNumber = spec.id || 1;
 		this.unexploredRoom = true;
+		console.log("setup room: " + this.roomNumber + " idxs: " + this.idxs);
 	}
 		
 	playerExploredRooms(player) {
 		if (!this.unexploredRoom) return;
 		// test corners of collider against room idxs
-		for(const idx of player.collider.tileIndices) {
-			if (-1 != this.idxs.indexOf(idx)) {
-				this.unexploredRoom = false;
-				return;
-			}
+		if (-1 != this.idxs.indexOf(player.colTLIdx)) {
+			console.log("explored room: " + this.roomNumber);
+			this.unexploredRoom = false;
+			return;
+		}
+		if (-1 != this.idxs.indexOf(player.colTRIdx)) {
+			console.log("explored room: " + this.roomNumber);
+			this.unexploredRoom = false;
+			return;
+		}
+		if (-1 != this.idxs.indexOf(player.colBLIdx)) {
+			console.log("explored room: " + this.roomNumber);
+			this.unexploredRoom = false;
+			return;
+		}
+		if (-1 != this.idxs.indexOf(player.colBRIdx)) {
+			console.log("explored room: " + this.roomNumber);
+			this.unexploredRoom = false;
+			return;
 		}
 	}	
 	

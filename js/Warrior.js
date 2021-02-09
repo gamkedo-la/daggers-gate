@@ -31,6 +31,7 @@ class warriorClass extends characterClass {
     reset() {
         this.keysHeld = 8;
         this.gold = 0;
+        this.haveBow = false;
         super.reset();
     } // end of reset
 
@@ -154,6 +155,11 @@ class warriorClass extends characterClass {
                     SetupPathfindingGridData(p1);
                     console.log("Heart");
                 break;
+            case TILE.BOW:
+                this.haveBow = true; // use key
+                currentLevel.setfgi(walkIntoTileIndex, 0);
+                SetupPathfindingGridData(p1);
+                console.log("Bow: " + this.haveBow);
             case TILE.WALL_1:
             case TILE.WALL_2:
             case TILE.WALL_3:

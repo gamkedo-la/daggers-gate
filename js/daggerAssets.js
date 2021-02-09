@@ -111,7 +111,7 @@ const daggerAssets = [
         {tag: "ALTAR_GEM_EARTH",        id: 45, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 150 },
         {tag: "DEADBONES",              id: 46, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 150, transparent: true, passable: true },
         {tag: "HEART_TILE",             id: 47, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 150, transparent: true, pathFindingWalkable: true },
-        {tag: "EMPTY3",                 id: 48, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 150 },
+        {tag: "BOW",                    id: 48, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 150, transparent: true, pathFindingWalkable: true },
         {tag: "CEIL_UPPER_DOOR",        id: 50, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 0, passable: true },
     ]},
 

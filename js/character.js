@@ -41,6 +41,7 @@ class characterClass {
         this._active = true;
         this.reset();
         this.waitForInteraction = 0;
+        this.immuneToDamageCounter = 100;
     }
 
     get idleState() {
@@ -106,6 +107,9 @@ class characterClass {
 
     move(updateCtx) {
 
+        // character immunity timer
+        this.immuneToDamageCounter--;
+        
         // resolve link during move/update of object
         if (this.wantLink) {
             for (const target of this.wantLink.targets || []) {
@@ -271,6 +275,14 @@ class characterClass {
             this.collisionColor = "red";
         } else {
             this.collisionColor = this.myCollisionColor;
+        }
+    }
+
+    takeDamage(amount){
+        if(this.immuneToDamageCounter <= 0){
+            var damageAmount = amount;
+            this.health = this.health - damageAmount;
+            this.immuneToDamageCounter = 300;
         }
     }
 

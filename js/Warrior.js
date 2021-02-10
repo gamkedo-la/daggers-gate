@@ -170,6 +170,12 @@ class warriorClass extends characterClass {
                 currentLevel.setfgi(walkIntoTileIndex, 0);
                 SetupPathfindingGridData(p1);
                 console.log("Bow: " + this.haveBow);
+                break;
+            case TILE.GROUND_SPIKES_UP:
+                this.takeDamage(1);
+                SetupPathfindingGridData(p1);
+                console.log("Take Damage from Spike");
+                break;
             case TILE.WALL_1:
             case TILE.WALL_2:
             case TILE.WALL_3:

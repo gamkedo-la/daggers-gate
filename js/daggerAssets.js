@@ -179,7 +179,7 @@ const daggerObjects = {
             },
         },
     },
-    GROUND_SPIKES_DOWN: {
+    GROUND_SPIKES_UP: {
         kind: "trap",
         trap: {
             activeTTL: 1500,

@@ -10,7 +10,7 @@ class gameObjectClass extends characterClass {
         // set spec defaults
         spec.kind = spec.kind || "object";
         super(spec);
-        this.trap = Object.assign({}, spec.trap);
+        this.trap = (spec.trap) ? Object.assign({}, spec.trap) : undefined;
         if (this.trap) {
             // pick random ttl, so that traps do not go off at the same time
             let ttl = Math.floor(Math.random() * this.trap.idleTTL);

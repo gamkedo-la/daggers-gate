@@ -59,7 +59,6 @@ class warriorClass extends characterClass {
         // check for interaction collisions
         if (this.interactWithObject) {
             let heldObject = this.grabbedObj;
-            console.log("heldObject is: " + heldObject);
             for (const obj of currentLevel.objects) {
                 if (obj.collider.overlaps(this.interactCollider)) {
                     console.log("interact object collider");

@@ -135,6 +135,50 @@ const daggerObjects = {
             },
         },
     },
+    ALTAR_WIND: {
+        kind: "altar",
+        want: "GEM_WIND",
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "ALTAR_WIND",
+                [Animator.solved]: "ALTAR_GEM_WIND",
+            },
+        },
+    },
+    ALTAR_WATER: {
+        kind: "altar",
+        want: "GEM_WATER",
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "ALTAR_WATER",
+                [Animator.solved]: "ALTAR_GEM_WATER",
+            },
+        },
+    },
+    ALTAR_FIRE: {
+        kind: "altar",
+        want: "GEM_FIRE",
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "ALTAR_FIRE",
+                [Animator.solved]: "ALTAR_GEM_FIRE",
+            },
+        },
+    },
+    ALTAR_EARTH: {
+        kind: "altar",
+        want: "GEM_EARTH",
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "ALTAR_EARTH",
+                [Animator.solved]: "ALTAR_GEM_EARTH",
+            },
+        },
+    },
 
 };
 
@@ -184,7 +228,7 @@ const daggerAssets = [
         {tag: "ALTAR_WIND",             id: 38, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 100 },
         {tag: "ALTAR_WATER",            id: 39, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 100 },
         //ROW 4
-                {tag: "ALTAR_FIRE",             id: 40, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 150 },
+        {tag: "ALTAR_FIRE",             id: 40, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 150 },
         {tag: "ALTAR_EARTH",            id: 41, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 150 },
         {tag: "ALTAR_GEM_WIND",         id: 42, cls: "Sprite", width: 50, height: 50, xoffset: 100, yoffset: 150 },
         {tag: "ALTAR_GEM_WATER",        id: 43, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 150 },

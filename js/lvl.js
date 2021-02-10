@@ -51,6 +51,7 @@ class Level {
                 // instantiate enemy
                 let enemy = new enemyClass({
                     tileid: id,
+                    tag: tag,
                     sketch: assets.get(tag), 
                     collider: "red",
                     name: props.getName(id),
@@ -68,6 +69,7 @@ class Level {
                 let tag = props.getTag(id);
                 spec = Object.assign({
                     tileid: id,
+                    tag: tag,
                     sketch: assets.get(tag),
                     name: props.getName(id),
                     x: this.xfromidx(i, true),
@@ -237,6 +239,16 @@ class Level {
         chr.x = sp.x;
         chr.y = sp.y;
         if (this.dbg) console.log("placed character: " + chr + " at: " + x + "," + y);
+    }
+
+    destroyObject(item) {
+        let idx = this.objects.indexOf(item);
+        if (idx != -1) this.objects.splice(idx, 1);
+    }
+
+    destroyEnemy(item) {
+        let idx = this.enemies.indexOf(item);
+        if (idx != -1) this.enemies.splice(idx, 1);
     }
 
     update(ctx) {

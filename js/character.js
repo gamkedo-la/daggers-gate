@@ -2,6 +2,7 @@ const interactionWaitIterations = 3;
 class characterClass {
     constructor(spec={}) {
         this.tileid = spec.tileid || 0;
+        this.tag = spec.tag || "notag";
          // x/y offsets for drawing sprite from origin x,y      
         this.myName = spec.name || this.constructor.name;
         this.sketch = assets.generateFromSpec(spec.sketch) || Sketch.zero;

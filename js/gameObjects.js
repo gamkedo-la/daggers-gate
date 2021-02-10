@@ -12,10 +12,12 @@ class gameObjectClass extends characterClass {
         super(spec);
         this.grabbedByPlayer = false;
         this.correctPuzzleLocation = false;
+        this.want = spec.want || undefined;
         console.log("created gameobject: " + this);
     }
 
     interact(character) {
+        console.log("game object kind: " + this.kind);
         switch (this.kind) {
         case "door":
             if (this.state !== Animator.open) {
@@ -44,6 +46,18 @@ class gameObjectClass extends characterClass {
                 character.grabbedObj = this;
                 this.visible = false; // object is drawn during player render, don't draw during lvl render
                 console.log("picked up: " + this);
+            }
+            break;
+        case "altar":
+            if (character.grabbedObj && character.grabbedObj.tag === this.want) {
+                console.log("placing gem on altar...");
+                // character drops object
+                let obj = character.grabbedObj;
+                character.grabbedObj = undefined;
+                // change altar state
+                this.state = Animator.solved;
+                // destroy dropped object
+                currentLevel.destroyObject(obj);
             }
             break;
         }

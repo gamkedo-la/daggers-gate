@@ -15,6 +15,7 @@ class Animator {
     static walkSouth =      14;
     static open =           20;
     static closed =         21;
+    static solved =         22;
 
     // PROPERTIES ----------------------------------------------------------
     get width() {

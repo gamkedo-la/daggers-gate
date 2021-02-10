@@ -17,6 +17,55 @@ const animators = {
     },
 }
 
+const daggerObjects = {
+    DOOR_CLOSE_TOP: {
+        kind: "link",
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "DOOR_CLOSE_TOP",
+                [Animator.open]: "DOOR_OPEN_TOP",
+            }
+        },
+    },
+    DOOR_CLOSE_BOTTOM: {
+        kind: "door",
+        link: { targets: ["up"] },
+        sketch: {
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "DOOR_CLOSE_BOTTOM",
+                [Animator.open]: "DOOR_OPEN_BOTTOM",
+            }
+        },
+        collider: {
+            height: 36, 
+            yoff: -8, 
+        }, 
+    },
+    DOOR_RIGHTSIDE_TOP: {
+        kind: "link",
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "DOOR_RIGHTSIDE_TOP",
+                [Animator.open]: "WALL_BOTTOM",
+            },
+        },
+    },
+    DOOR_RIGHTSIDE_BOTTOM: {
+        kind: "door",
+        link: { targets: ["up"], vars: ["state"] },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "DOOR_RIGHTSIDE_BOTTOM",
+                [Animator.open]: "none",
+            },
+        },
+    },
+};
+
 const daggerAssets = [
 
     { src: "images/heart.png", cls: "Sheet", assets: [
@@ -49,51 +98,11 @@ const daggerAssets = [
         {tag: "CEIL_EMPTY",             id: 25, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 50 },
         {tag: "DOOR_OPEN_TOP",          id: 26, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 50, passable: true, pathFindingWalkable: true },
         {tag: "DOOR_OPEN_BOTTOM",       id: 27, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 50, passable: true, pathFindingWalkable: true },
-        {tag: "DOOR_CLOSE_TOP",         id: 28, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 50, object: {
-            kind: "link",
-            sketch: { 
-                cls: "Animator",
-                animations: {
-                    [Animator.idle]: "DOOR_CLOSE_TOP",
-                    [Animator.open]: "DOOR_OPEN_TOP",
-                }
-            },
-        }},
-        {tag: "DOOR_CLOSE_BOTTOM",      id: 29, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 50, object: {
-            kind: "door",
-            link: { targets: ["up"] },
-            sketch: {
-                cls: "Animator",
-                animations: {
-                    [Animator.idle]: "DOOR_CLOSE_BOTTOM",
-                    [Animator.open]: "DOOR_OPEN_BOTTOM",
-                }
-            },
-            collider: {
-                height: 36, 
-                yoff: -8, 
-            }, 
-        }},
+        {tag: "DOOR_CLOSE_TOP",         id: 28, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 50, object: daggerObjects["DOOR_CLOSE_TOP"]},
+        {tag: "DOOR_CLOSE_BOTTOM",      id: 29, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 50, object: daggerObjects["DOOR_CLOSE_BOTTOM"]},
         //ROW 3
-        {tag: "DOOR_RIGHTSIDE_TOP",     id: 30, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 100, object: {
-            kind: "link",
-            sketch: { 
-                cls: "Animator",
-                animations: {
-                    [Animator.idle]: "DOOR_RIGHTSIDE_TOP",
-                    [Animator.open]: "WALL_BOTTOM",
-            }},
-        }},
-        {tag: "DOOR_RIGHTSIDE_BOTTOM",  id: 31, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 100, object: {
-            kind: "door",
-            link: { targets: ["up"], vars: ["state"] },
-            sketch: { 
-                cls: "Animator",
-                animations: {
-                    [Animator.idle]: "DOOR_RIGHTSIDE_BOTTOM",
-                    [Animator.open]: "none",
-            }},
-        }},
+        {tag: "DOOR_RIGHTSIDE_TOP",     id: 30, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 100, object: daggerObjects["DOOR_RIGHTSIDE_TOP"]},
+        {tag: "DOOR_RIGHTSIDE_BOTTOM",  id: 31, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 100, object: daggerObjects["DOOR_RIGHTSIDE_BOTTOM"]},
         {tag: "CHEST1_CLOSE",           id: 32, cls: "Sprite", width: 50, height: 50, xoffset: 100, yoffset: 100, transparent: true},
         {tag: "CHEST1_OPEN",            id: 33, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 100, transparent: true },
         {tag: "GEM_WIND",               id: 34, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 100, transparent: true },

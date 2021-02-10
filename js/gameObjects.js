@@ -15,14 +15,19 @@ class gameObjectClass extends characterClass {
     }
 
     interact(character) {
-        console.log("==> interact... kind is: " + this.kind + " state: " + this.state);
-        if (this.kind === "door" && this.state !== Animator.open) {
-            if (character.keysHeld > 0) {
-                character.keysHeld--; // one less key
-                document.getElementById("debugText").innerHTML = "Keys: " + character.keysHeld;
-                this.state = Animator.open;
-                this.active = false;
+        switch (this.kind) {
+        case "door":
+            if (this.state !== Animator.open) {
+                if (character.keysHeld > 0) {
+                    character.keysHeld--; // one less key
+                    document.getElementById("debugText").innerHTML = "Keys: " + character.keysHeld;
+                    this.state = Animator.open;
+                    this.active = false;
+                }
             }
+            break;
+        default:
+            break;
         }
     }
 

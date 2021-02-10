@@ -2,14 +2,13 @@ class Collider {
     constructor(spec={}) {
         this.color = spec.color || "green";
         this.collisionColor = spec.collisionColor || "red";
-
         this.width = spec.width || 50;
         this.height = spec.height || 50;
         this.halfWidth = this.width * .5;
         this.halfHeight = this.height * .5;
         this.xoff = spec.xoff || 0;
         this.yoff = spec.yoff || 0;
-
+        this.blocking = spec.hasOwnProperty("blocking") ? spec.blocking : true;
         this.update(spec.x || 0, spec.y || 0, (v) => 0);
     }
 
@@ -31,6 +30,7 @@ class Collider {
             y: this.y,
             xoff: this.xoff,
             yoff: this.yoff,
+            blocking: this.blocking,
         });
         c.tlIdx = this.tlIdx;
         c.trIdx = this.trIdx;

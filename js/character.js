@@ -1,3 +1,4 @@
+const interactionWaitIterations = 3;
 class characterClass {
     constructor(spec={}) {
         this.tileid = spec.tileid || 0;
@@ -10,6 +11,7 @@ class characterClass {
         this.homeY = spec.y || 0;
         this.kind = spec.kind || "character";
         this._updateCtx = {};
+        this.visible = true;
         // variables to keep track of position
         this.x;
         this.y;
@@ -37,8 +39,12 @@ class characterClass {
         this._state = Animator.idle;
         this._active = true;
         this.reset();
+        this.waitForInteraction = 0;
     }
 
+    get idleState() {
+        return this._state;
+    }
     get state() {
         // handle moving states
         if (this.move_West) {
@@ -114,13 +120,20 @@ class characterClass {
             this.wantLink = undefined;
         }
 
+        // handle pause between interactions (so we don't pick stuff up and immediately drop it because the key is still down)
+        if (this.waitForInteraction > 0) {
+            this.waitForInteraction--;
+            this.interactWithObject = false;
+        } else if (this.interactWithObject) {
+            this.waitForInteraction = interactionWaitIterations;
+        }
+
         var nextX = this.x;
         var nextY = this.y;
         var charCol = Math.floor(this.x / TILE_W);
         var charRow = Math.floor(this.y / TILE_H);
 
         if (this.tilePath.length > 0) {
-            console.error("pathfinding wtf");
             var targetIndex = this.tilePath[0];
             var targetC = currentLevel.ifromidx(targetIndex);
             var targetR = currentLevel.jfromidx(targetIndex);
@@ -215,26 +228,27 @@ class characterClass {
         // update position of grabbed object, based on current player position and facing direction
         if (this.grabbedObj) {
             let xoff, yoff;
-            switch (this.state) {
+            switch (this.idleState) {
             case Animator.idleNorth:
                 xoff = 0;
                 yoff = -15;
                 break;
             case Animator.idleWest:
-                xoff = -15;
-                yoff = 0;
+                xoff = -25;
+                yoff = 15;
                 break;
             case Animator.idleEast:
-                xoff = 15;
-                yoff = 0;
+                xoff = 25;
+                yoff = 15;
                 break;
             default: // south
                 xoff = 0;
-                yoff = 15;
+                yoff = 20;
                 break;
             }
-            this.grabbedObj.x = this.x + this.xoff + xoff;
-            this.grabbedObj.y = this.y + this.yoff + yoff;
+            //console.log("setting grabbed obj pos this.x: " + this.x + " this.xoff: " + this.xOff + " xoff: " + xoff);
+            this.grabbedObj.x = this.x + this.xOff + xoff;
+            this.grabbedObj.y = this.y + this.yOff + yoff;
         }
 
         // update sketch
@@ -262,7 +276,7 @@ class characterClass {
 
     draw() {
         // handle grabbed object behind player
-        if (this.grabbedObj && this.state === Animator.idleNorth) {
+        if (this.grabbedObj && this.idleState === Animator.idleNorth) {
             this.grabbedObj.draw();
         }
         drawBitmapCenteredAtLocationWithRotation(this.sketch, this.x+this.xOff, this.y+this.yOff, 0.0);
@@ -271,8 +285,12 @@ class characterClass {
             this.collider.draw(canvasContext);
         }
         // handle grabbed object in front or side of player
-        if (this.grabbedObj && this.state !== Animator.idleNorth) {
+        if (this.grabbedObj && this.idleState !== Animator.idleNorth) {
             this.grabbedObj.draw();
         }
+    }
+
+    toString() {
+        return Fmt.toString(this.constructor.name, this.myName, this.tileid);
     }
 } 

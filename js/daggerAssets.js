@@ -79,6 +79,62 @@ const daggerObjects = {
             },
         },
     },
+    GEM_WIND: {
+        kind: "pickup",
+        collider: {
+            height: 20, 
+            width: 8, 
+            blocking: false,
+        }, 
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "GEM_WIND",
+            },
+        },
+    },
+    GEM_WATER: {
+        kind: "pickup",
+        collider: {
+            height: 20, 
+            width: 8, 
+            blocking: false,
+        }, 
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "GEM_WATER",
+            },
+        },
+    },
+    GEM_FIRE: {
+        kind: "pickup",
+        collider: {
+            height: 20, 
+            width: 8, 
+            blocking: false,
+        }, 
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "GEM_FIRE",
+            },
+        },
+    },
+    GEM_EARTH: {
+        kind: "pickup",
+        collider: {
+            height: 20, 
+            width: 8, 
+            blocking: false,
+        }, 
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "GEM_EARTH",
+            },
+        },
+    },
 
 };
 

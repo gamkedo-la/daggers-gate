@@ -12,6 +12,7 @@ class gameObjectClass extends characterClass {
         super(spec);
         this.grabbedByPlayer = false;
         this.correctPuzzleLocation = false;
+        console.log("created gameobject: " + this);
     }
 
     interact(character) {
@@ -38,7 +39,12 @@ class gameObjectClass extends characterClass {
                 }
             }
             break;
-        default:
+        case "pickup":
+            if (!character.grabbedObj) {
+                character.grabbedObj = this;
+                this.visible = false; // object is drawn during player render, don't draw during lvl render
+                console.log("picked up: " + this);
+            }
             break;
         }
     }

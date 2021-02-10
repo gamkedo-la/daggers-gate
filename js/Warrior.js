@@ -58,23 +58,34 @@ class warriorClass extends characterClass {
     tileCollisionHandle(walkIntoTileIndex, walkIntoTileType, nextX, nextY) {
         // check for interaction collisions
         if (this.interactWithObject) {
+            let heldObject = this.grabbedObj;
+            console.log("heldObject is: " + heldObject);
             for (const obj of currentLevel.objects) {
                 if (obj.collider.overlaps(this.interactCollider)) {
                     console.log("interact object collider");
                     obj.interact(this);
                 }
             }
+
+            // we had an object before interacting w/ object colliders and we still have an object...
+            // handle dropping of object
+            if (heldObject && this.grabbedObj) {
+                console.log("dropping object: " + this.grabbedObj);
+                this.grabbedObj.y += 15;
+                this.grabbedObj.visible = true;
+                this.grabbedObj = undefined;
+            }
         }
 
         // check for collider collisions
         for (const obj of currentLevel.objects) {
-            if (obj.active && obj.collider.overlaps(this.nextCollider)) {
+            if (obj.active && obj.collider.blocking && obj.collider.overlaps(this.nextCollider)) {
                 console.log("hit object collider");
                 return;
             }
         }
         for (const obj of currentLevel.enemies) {
-            if (obj.collider.overlaps(this.nextCollider)) {
+            if (obj.collider.blocking && obj.collider.overlaps(this.nextCollider)) {
                 console.log("hit enemy collider");
                 return;
             }

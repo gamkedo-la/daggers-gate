@@ -50,6 +50,7 @@ class Level {
                 let tag = props.getTag(id);
                 // instantiate enemy
                 let enemy = new enemyClass({
+                    tileid: id,
                     sketch: assets.get(tag), 
                     collider: "red",
                     name: props.getName(id),
@@ -66,6 +67,7 @@ class Level {
                 this.fg[i] = 0;
                 let tag = props.getTag(id);
                 spec = Object.assign({
+                    tileid: id,
                     sketch: assets.get(tag),
                     name: props.getName(id),
                     x: this.xfromidx(i, true),
@@ -290,6 +292,7 @@ class Level {
         // render enemies
 		for(let i=0; i<this.enemies.length; i++){
             let enemy = this.enemies[i];
+            if (!enemy.visible) continue;
             if (camera.containsRect(enemy.x, enemy.y, this.sketchWidth, this.sketchHeight)) {
                 enemy.draw();
             }
@@ -297,6 +300,7 @@ class Level {
         // render objects
 		for(var i=0; i<this.objects.length; i++){
             let obj = this.objects[i];
+            if (!obj.visible) continue;
             if (camera.containsRect(obj.x, obj.y, this.sketchWidth, this.sketchHeight)) {
                 obj.draw();
             }

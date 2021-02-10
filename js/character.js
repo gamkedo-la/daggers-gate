@@ -74,7 +74,6 @@ class characterClass {
 
     set active(v) {
         if (v !== this._active) {
-            console.log("setting active: " + v);
             this._active = v;
             if (this.linkVars.includes("active")) for (const link of this.links) link._active = v;
         }

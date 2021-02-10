@@ -49,8 +49,8 @@ class Props {
                 if (this.dbg) console.log(" -- is enemy");
             }
             // lookup objects
-            if (asset.object) {
-                this._objects[id] = asset.object;
+            if (asset.tag in daggerObjects) {
+                this._objects[id] = daggerObjects[asset.tag];
                 if (this.dbg) console.log(" -- is object w spec: " + Fmt.ofmt(asset.object));
             }
             // lookup passable

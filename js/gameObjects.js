@@ -26,6 +26,18 @@ class gameObjectClass extends characterClass {
                 }
             }
             break;
+        case "chest":
+            if (this.state !== Animator.open) {
+                if (character.keysHeld > 0) {
+                    character.keysHeld--; // one less key
+                    document.getElementById("debugText").innerHTML = "Keys: " + character.keysHeld;
+                    this.state = Animator.open;
+                    // FIXME: add loot tables to object definition?
+                    // FIXME: add animation for loot spilling out of chest, then being collected?
+                    character.gold += 10;
+                }
+            }
+            break;
         default:
             break;
         }

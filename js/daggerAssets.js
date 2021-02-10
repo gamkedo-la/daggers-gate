@@ -64,6 +64,22 @@ const daggerObjects = {
             },
         },
     },
+    CHEST1_CLOSE: {
+        kind: "chest",
+        collider: {
+            height: 30, 
+            width: 36, 
+            yoff: -6, 
+        }, 
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "CHEST1_CLOSE",
+                [Animator.open]: "CHEST1_OPEN",
+            },
+        },
+    },
+
 };
 
 const daggerAssets = [
@@ -103,7 +119,7 @@ const daggerAssets = [
         //ROW 3
         {tag: "DOOR_RIGHTSIDE_TOP",     id: 30, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 100, object: daggerObjects["DOOR_RIGHTSIDE_TOP"]},
         {tag: "DOOR_RIGHTSIDE_BOTTOM",  id: 31, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 100, object: daggerObjects["DOOR_RIGHTSIDE_BOTTOM"]},
-        {tag: "CHEST1_CLOSE",           id: 32, cls: "Sprite", width: 50, height: 50, xoffset: 100, yoffset: 100, transparent: true},
+        {tag: "CHEST1_CLOSE",           id: 32, cls: "Sprite", width: 50, height: 50, xoffset: 100, yoffset: 100, },
         {tag: "CHEST1_OPEN",            id: 33, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 100, transparent: true },
         {tag: "GEM_WIND",               id: 34, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 100, transparent: true },
         {tag: "GEM_WATER",              id: 35, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 100, transparent: true },

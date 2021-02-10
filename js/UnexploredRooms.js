@@ -41,7 +41,7 @@ class unexploredRoomClass {
 	playerExploredRooms(player) {
 		if (!this.unexploredRoom) return;
 		// test corners of collider against room idxs
-		for(const idx of player.collider.tileIndices) {
+		for(const idx of player.interactCollider.tileIndices) {
 			if (-1 != this.idxs.indexOf(idx)) {
 				this.unexploredRoom = false;
 				return;

@@ -22,17 +22,15 @@ const animators = {
             [Animator.idleNorth]: "GOBLIN_IDLE_NORTH",
             [Animator.idleWest]: "GOBLIN_IDLE_WEST",
             [Animator.idleEast]: "GOBLIN_IDLE_EAST",
-            [Animator.walkSouth]: "GOBLIN_STEP1_SOUTH",
-            [Animator.walkSouth]: "GOBLIN_STEP2_SOUTH",
-            [Animator.walkNorth]: "GOBLIN_STEP1_NORTH",
-            [Animator.walkNorth]: "GOBLIN_STEP2_NORTH",
-            [Animator.walkWest]: "GOBLIN_STEP1_WEST",
-            [Animator.walkWest]: "GOBLIN_STEP2_WEST",
-            [Animator.walkEast]: "GOBLIN_STEP1_EAST",
-            [Animator.walkEast]: "GOBLIN_STEP2_EAST",
+            [Animator.walkSouth]: "GOBLIN_WALK_SOUTH",
+            [Animator.walkNorth]: "GOBLIN_WALK_NORTH",
+            [Animator.walkWest]: "GOBLIN_WALK_WEST",
+            [Animator.walkEast]: "GOBLIN_WALK_EAST",
+           
         }
     }
-}
+};
+
 
 const daggerObjects = {
     DOOR_CLOSE_TOP: {
@@ -220,7 +218,7 @@ const daggerAssets = [
         {tag: "HEART_HALF",            id:  2, cls: "Sprite", width: 37, height: 34, xoffset: 37, yoffset: 0 },
     ]},
 
-     //{ id: 2, src: "images/basicPlayerSprite-25.png", cls: "Image", tag: "PLAYER", pathFindingWalkable: true },
+     { id: 2, src: "images/basicPlayerSprite-25.png", cls: "Image", tag: "PLAYER", pathFindingWalkable: true },
      { id: 3, src: "images/world_goal.png", cls: "Image", tag: "GOAL", pathFindingWalkable: true},
      { id: 4, src: "images/world_key.png", cls: "Image", tag: "KEY", pathFindingWalkable: true },
 
@@ -266,10 +264,13 @@ const daggerAssets = [
         {tag: "ALTAR_GEM_FIRE",         id: 44, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 150 },
         {tag: "ALTAR_GEM_EARTH",        id: 45, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 150 },
         {tag: "DEADBONES",              id: 46, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 150 },
-        {tag: "EMPTY1",                 id: 47, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 150, passable: true },
         {tag: "HEART_TILE",             id: 47, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 150, pathFindingWalkable: true },
-        {tag: "BOW",                    id: 48, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 150, pathFindingWalkable: true },
-        {tag: "CEIL_UPPER_DOOR",        id: 50, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 0, passable: true },
+        {tag: "HEART_PIECE1",           id: 48, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 150, pathFindingWalkable: true },
+        {tag: "HEART_PIECE2",           id: 49, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 150, pathFindingWalkable: true },
+        
+        //ROW 5
+        {tag: "BOW",                    id: 50, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 200, pathFindingWalkable: true },
+        {tag: "CEIL_UPPER_DOOR",        id: 51, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 200, passable: true },
     ]},
 
     { src: "images/player.png", cls: "Sheet", assets: [
@@ -279,26 +280,38 @@ const daggerAssets = [
         {tag: "PLAYER_RIGHT",           id: 63, cls: "Sprite", width: 50, height: 100, xoffset: 150, yoffset: 0 },
     ]},
 
-
-      
-
     { src: "images/enemies.png", cls: "Sheet", assets: [
         // ---- GOBLIN ----
-        {tag: "GOBLIN_IDLE_NORTH",              id: 90, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 0 },
-        {tag: "GOBLIN_STEP1_NORTH",             id: 91, cls: "Sprite", width: 50, height: 100, xoffset: 50, yoffset: 0 },
-        {tag: "GOBLIN_STEP2_NORTH",             id: 92, cls: "Sprite", width: 50, height: 100, xoffset: 100, yoffset: 0 },
+        {tag: "GOBLIN_IDLE_NORTH",              id: 90, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 0, enemy: true },
+        {tag: "GOBLIN_WALK_NORTH",             id: 91, cls: "Animation", cels: [
+            { xoffset: 50*1, yoffset: 100*0, width: 50, height: 100, duration: 80 },
+            { xoffset: 50*2, yoffset: 100*0, width: 50, height: 100, duration: 80 },
+        ]},
+        
 
-        {tag: "GOBLIN_IDLE_EAST",               id: 93, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 100 },
-        {tag: "GOBLIN_STEP1_EAST",              id: 94, cls: "Sprite", width: 50, height: 100, xoffset: 50, yoffset: 100 },
-        {tag: "GOBLIN_STEP2_EAST",              id: 95, cls: "Sprite", width: 50, height: 100, xoffset: 100, yoffset: 100 },
+        {tag: "GOBLIN_IDLE_EAST",               id: 92, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 100, enemy: true},
+        {tag: "GOBLIN_WALK_EAST",             id: 93, cls: "Animation", cels: [
+            { xoffset: 50*1, yoffset: 100*1, width: 50, height: 100, duration: 80 },
+            { xoffset: 50*2, yoffset: 100*1, width: 50, height: 100, duration: 80 },
+        ]},
+       
+        {tag: "GOBLIN_IDLE_SOUTH",              id: 94, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 200, enemy: true },
+        {tag: "GOBLIN_WALK_SOUTH",             id: 95, cls: "Animation", cels: [
+            { xoffset: 50*1, yoffset: 100*2, width: 50, height: 100, duration: 80 },
+            { xoffset: 50*2, yoffset: 100*2, width: 50, height: 100, duration: 80 },
+        ]},
 
-        {tag: "GOBLIN_IDLE_WEST",               id: 96, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 200 },
-        {tag: "GOBLIN_STEP2_WEST",              id: 97, cls: "Sprite", width: 50, height: 100, xoffset: 50, yoffset: 200 },
-        {tag: "GOBLIN_STEP2_WEST",              id: 98, cls: "Sprite", width: 50, height: 100, xoffset: 100, yoffset: 200 },
 
-        {tag: "GOBLIN_IDLE_SOUTH",              id: 99, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 300 },
-        {tag: "GOBLIN_STEP2_SOUTH",             id: 100, cls: "Sprite", width: 50, height: 100, xoffset: 50, yoffset: 300 },
-        {tag: "GOBLIN_STEP2_SOUTH",             id: 101, cls: "Sprite", width: 50, height: 100, xoffset: 100, yoffset: 300 }, 
+        {tag: "GOBLIN_IDLE_WEST",               id: 96, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 300, enemy: true },
+        {tag: "GOBLIN_WALK_WEST",             id: 97, cls: "Animation", cels: [
+            { xoffset: 50*1, yoffset: 100*3, width: 50, height: 100, duration: 80 },
+            { xoffset: 50*2, yoffset: 100*3, width: 50, height: 100, duration: 80 },
+        ]},
+       
+
+        
     ]},
+
+
 
 ];

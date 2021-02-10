@@ -10,14 +10,20 @@ class gameObjectClass extends characterClass {
         // set spec defaults
         spec.kind = spec.kind || "object";
         super(spec);
-        this.grabbedByPlayer = false;
+        this.trap = Object.assign({}, spec.trap);
+        if (this.trap) {
+            // pick random ttl, so that traps do not go off at the same time
+            let ttl = Math.floor(Math.random() * this.trap.idleTTL);
+            this.trap.ttl = ttl;
+            this.active = false;
+        }
         this.correctPuzzleLocation = false;
         this.want = spec.want || undefined;
-        console.log("created gameobject: " + this);
+        //console.log("created gameobject: " + this);
     }
 
     interact(character) {
-        console.log("game object kind: " + this.kind);
+        //console.log("game object kind: " + this.kind);
         switch (this.kind) {
         case "door":
             if (this.state !== Animator.open) {
@@ -68,40 +74,24 @@ class gameObjectClass extends characterClass {
      * @param {*} thisEntity 
      */
     checkCollisionAgainst(thisEntity) {
+        // FIXME: handling damage by player running into spikes goes here...
 
-        if (this.isOverLapping(thisEntity.x, thisEntity.y)) {
-            this.myCollisionColor = "yellow";
-            if (p1.interactWithObject) {
-                this.grabbedByPlayer = !this.grabbedByPlayer;
-                this.myCollisionColor = "green";
-            }
-        } else {
-            this.myCollisionColor = "orange";
-            if (this.grabbedByPlayer) {
-                this.myCollisionColor = "green";
-                this.grabbedByPlayer = false;
-            }
-        }
     }
 
     move(updateCtx) {
-
-        //player to move this object
-        //player should grab this object, then the player can either pull or push the object.
-        if (this.grabbedByPlayer) {
-            if (p1.move_North) {
-                this.y = p1.movingSpeed;
-            }
-            if (p1.move_East) {
-                this.x += p1.movingSpeed;
-            }
-            if (p1.move_South) {
-                this.y += p1.movingSpeed;
-            }
-            if (p1.move_West) {
-                this.x -= p1.movingSpeed;
+        // handle trap updates
+        if (this.trap) {
+            let duration = (this.state === Animator.idle) ? this.trap.idleTTL : this.trap.activeTTL;
+            this.trap.ttl += updateCtx.deltaTime;
+            //console.log("this.trap.ttl: " + this.trap.ttl);
+            // swap states once we have reached state TTL
+            if (this.trap.ttl > duration) {
+                this.trap.ttl = 0;
+                this.state = (this.state === Animator.idle) ? Animator.active : Animator.idle;
+                this.active = (this.state === Animator.active);
             }
         }
+
 		super.move(updateCtx);
     }
 

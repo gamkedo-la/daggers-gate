@@ -179,6 +179,20 @@ const daggerObjects = {
             },
         },
     },
+    GROUND_SPIKES_DOWN: {
+        kind: "trap",
+        trap: {
+            activeTTL: 1500,
+            idleTTL: 3500,
+        },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "GROUND_SPIKES_DOWN",
+                [Animator.active]: "GROUND_SPIKES_UP",
+            },
+        },
+    },
 
 };
 

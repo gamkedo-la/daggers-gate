@@ -16,6 +16,7 @@ class Animator {
     static open =           20;
     static closed =         21;
     static solved =         22;
+    static active =         23;
 
     // PROPERTIES ----------------------------------------------------------
     get width() {

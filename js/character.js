@@ -1,5 +1,4 @@
 const interactionWaitIterations = 3;
-const IMMUNINITY_WAIT_ITERATIONS = 3;
 class characterClass {
     constructor(spec={}) {
         this.tileid = spec.tileid || 0;
@@ -107,7 +106,10 @@ class characterClass {
     }
 
     move(updateCtx) {
-    
+
+        // character immunity timer
+        this.immuneToDamageCounter--;
+        
         // resolve link during move/update of object
         if (this.wantLink) {
             for (const target of this.wantLink.targets || []) {
@@ -128,14 +130,6 @@ class characterClass {
             this.interactWithObject = false;
         } else if (this.interactWithObject) {
             this.waitForInteraction = interactionWaitIterations;
-        }
-
-        // character immunity timer
-        if (this.immuneToDamageCounter > 0){
-            this.immuneToDamageCounter--;
-            this.immuneToDamage = false;
-        } else if (this.immuneToDamage){
-            this.immuneToDamageCounter = IMMUNINITY_WAIT_ITERATIONS;
         }
 
         var nextX = this.x;

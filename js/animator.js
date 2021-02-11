@@ -80,6 +80,8 @@ class Animator {
     }
 
     update(ctx) {
+        // update the current animation state
+        if (this._anim) this._anim.update(ctx);
         // compare desired state to current state (pending or actual)
         let wantState = ctx.state || Animator.idle;
         let fromState = (this._pendingState) ? this._pendingState : this._state;

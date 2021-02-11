@@ -18,18 +18,23 @@ const animators = {
     "GOBLIN": {
         cls: "Animator",
         animations: {
-            [Animator.idleSouth]: "GOBLIN_IDLE_SOUTH",
+            [Animator.idleSouth]: "GOBLIN",
             [Animator.idleNorth]: "GOBLIN_IDLE_NORTH",
             [Animator.idleWest]: "GOBLIN_IDLE_WEST",
             [Animator.idleEast]: "GOBLIN_IDLE_EAST",
-            [Animator.walkSouth]: "GOBLIN_STEP1_SOUTH",
-            [Animator.walkSouth]: "GOBLIN_STEP2_SOUTH",
-            [Animator.walkNorth]: "GOBLIN_STEP1_NORTH",
-            [Animator.walkNorth]: "GOBLIN_STEP2_NORTH",
-            [Animator.walkWest]: "GOBLIN_STEP1_WEST",
-            [Animator.walkWest]: "GOBLIN_STEP2_WEST",
-            [Animator.walkEast]: "GOBLIN_STEP1_EAST",
-            [Animator.walkEast]: "GOBLIN_STEP2_EAST",
+            [Animator.walkSouth]: "GOBLIN_WALK_SOUTH",
+            [Animator.walkNorth]: "GOBLIN_WALK_NORTH",
+            [Animator.walkWest]: "GOBLIN_WALK_WEST",
+            [Animator.walkEast]: "GOBLIN_WALK_EAST",
+        }
+    }
+}
+
+const daggerEnemies = {
+    GOBLIN: {
+        sketch: animators["GOBLIN"],
+        collider: {
+            blocking: false,
         }
     }
 }
@@ -281,24 +286,35 @@ const daggerAssets = [
 
 
       
-
     { src: "images/enemies.png", cls: "Sheet", assets: [
         // ---- GOBLIN ----
         {tag: "GOBLIN_IDLE_NORTH",              id: 90, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 0 },
-        {tag: "GOBLIN_STEP1_NORTH",             id: 91, cls: "Sprite", width: 50, height: 100, xoffset: 50, yoffset: 0 },
-        {tag: "GOBLIN_STEP2_NORTH",             id: 92, cls: "Sprite", width: 50, height: 100, xoffset: 100, yoffset: 0 },
+        {tag: "GOBLIN_WALK_NORTH",              cls: "Animation", cels: [
+            { xoffset: 0, yoffset: 0, width: 50, height: 100, duration: 200 },
+            { xoffset: 50, yoffset: 0, width: 50, height: 100, duration: 200 },
+            { xoffset: 100, yoffset: 0, width: 50, height: 100, duration: 200 },
+        ]},
 
         {tag: "GOBLIN_IDLE_EAST",               id: 93, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 100 },
-        {tag: "GOBLIN_STEP1_EAST",              id: 94, cls: "Sprite", width: 50, height: 100, xoffset: 50, yoffset: 100 },
-        {tag: "GOBLIN_STEP2_EAST",              id: 95, cls: "Sprite", width: 50, height: 100, xoffset: 100, yoffset: 100 },
+        {tag: "GOBLIN_WALK_EAST",              cls: "Animation", cels: [
+            { xoffset: 0, yoffset: 100, width: 50, height: 100, duration: 200 },
+            { xoffset: 50, yoffset: 100, width: 50, height: 100, duration: 200 },
+            { xoffset: 100, yoffset: 100, width: 50, height: 100, duration: 200 },
+        ]},
 
         {tag: "GOBLIN_IDLE_WEST",               id: 96, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 200 },
-        {tag: "GOBLIN_STEP2_WEST",              id: 97, cls: "Sprite", width: 50, height: 100, xoffset: 50, yoffset: 200 },
-        {tag: "GOBLIN_STEP2_WEST",              id: 98, cls: "Sprite", width: 50, height: 100, xoffset: 100, yoffset: 200 },
+        {tag: "GOBLIN_WALK_WEST",              cls: "Animation", cels: [
+            { xoffset: 0, yoffset: 300, width: 50, height: 100, duration: 200 },
+            { xoffset: 50, yoffset: 300, width: 50, height: 100, duration: 200 },
+            { xoffset: 100, yoffset: 300, width: 50, height: 100, duration: 200 },
+        ]},
 
-        {tag: "GOBLIN_IDLE_SOUTH",              id: 99, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 300 },
-        {tag: "GOBLIN_STEP2_SOUTH",             id: 100, cls: "Sprite", width: 50, height: 100, xoffset: 50, yoffset: 300 },
-        {tag: "GOBLIN_STEP2_SOUTH",             id: 101, cls: "Sprite", width: 50, height: 100, xoffset: 100, yoffset: 300 }, 
+        {tag: "GOBLIN",                         id: 99, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 300 },
+        {tag: "GOBLIN_WALK_SOUTH",              cls: "Animation", cels: [
+            { xoffset: 0, yoffset: 200, width: 50, height: 100, duration: 200 },
+            { xoffset: 50, yoffset: 200, width: 50, height: 100, duration: 200 },
+            { xoffset: 100, yoffset: 200, width: 50, height: 100, duration: 200 },
+        ]},
     ]},
 
 ];

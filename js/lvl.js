@@ -43,25 +43,27 @@ class Level {
         // iterate through level data
         for (let i=0; i<this.nentries; i++) {
             // lookup enemies
-            if (props.isEnemy(this.fg[i])) {
+            let spec = props.getEnemySpec(this.fg[i]);
+            if (spec) {
                 // don't draw sketch as level data
                 let id = this.fg[i];
                 this.fg[i] = 0;
                 let tag = props.getTag(id);
-                // instantiate enemy
-                let enemy = new enemyClass({
+                spec = Object.assign({
                     tileid: id,
                     tag: tag,
-                    sketch: assets.get(tag), 
-                    collider: "red",
+                    sketch: assets.get(tag),
                     name: props.getName(id),
                     x: this.xfromidx(i, true),
                     y: this.yfromidx(i, true),
-                });
+                }, spec);
+                console.log("creating enemy: " + Fmt.ofmt(spec));
+                // instantiate enemy
+                let enemy = new enemyClass(spec);
                 this.enemies.push(enemy);
             }
             // lookup objects
-            let spec = props.getObjectSpec(this.fg[i]);
+            spec = props.getObjectSpec(this.fg[i]);
             if (spec) {
                 // don't draw as lvl data
                 let id = this.fg[i];
@@ -74,7 +76,6 @@ class Level {
                     name: props.getName(id),
                     x: this.xfromidx(i, true),
                     y: this.yfromidx(i, true),
-
                 }, spec);
                 let obj = new gameObjectClass(spec);
                 this.objects.push(obj);

@@ -5,11 +5,12 @@ const AI_FRAME_THINK_TIME = 60;
 class enemyClass extends characterClass {
     constructor(spec={}) {
         // set spec defaults
-        spec.collider = Object.assign({
+        spec.collider = Object.assign({}, {
             color: "green", 
             width: 20, 
             height: 40, 
         }, spec.collider);
+        console.log("enemy collider spec: " + Fmt.ofmt(spec.collider));
         spec.movingSpeed = spec.movingSpeed || ENEMY_MOVE_SPEED;
         super(spec);
         this.framesBeforeReThink = AI_FRAME_THINK_TIME;

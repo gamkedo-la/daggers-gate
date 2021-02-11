@@ -44,14 +44,20 @@ class Props {
                 if (this.dbg) console.log(" -- assigned TILE." + asset.tag);
             }
             // lookup enemies
-            if (asset.enemy) {
-                this._enemies[id] = true;
-                if (this.dbg) console.log(" -- is enemy");
+            if (asset.tag in daggerEnemies) {
+                let spec = daggerEnemies[asset.tag];
+                if (spec) {
+                    this._enemies[id] = spec;
+                    if (this.dbg) console.log(" -- is enemy w/ spec: " + Fmt.ofmt(spec));
+                }
             }
             // lookup objects
             if (asset.tag in daggerObjects) {
-                this._objects[id] = daggerObjects[asset.tag];
-                if (this.dbg) console.log(" -- is object w spec: " + Fmt.ofmt(asset.object));
+                let spec = daggerObjects[asset.tag];
+                if (spec) {
+                    this._objects[id] = spec;
+                    if (this.dbg) console.log(" -- is object w spec: " + Fmt.ofmt(spec));
+                }
             }
             // lookup passable
             if (asset.passable) {
@@ -79,6 +85,14 @@ class Props {
      * @param {*} id 
      */
     isEnemy(id) {
+        return this._enemies[id] !== undefined;
+    }
+
+    /**
+     * Is the tile associated w/ the given id an enemy?
+     * @param {*} id 
+     */
+    getEnemySpec(id) {
         return this._enemies[id] || false;
     }
 

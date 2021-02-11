@@ -10,7 +10,7 @@
 */
 
 let storedTileValue;
-
+let editing_level = "BG"
 let template_width = 16;
 let template_height = 12;
 let template_bg_Map = [ 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
@@ -26,8 +26,37 @@ let template_bg_Map = [ 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 
                         10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
 						10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 ];
 
+let template_fg_Map = [  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+						 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+						 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+						 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+						 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+						 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+						 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+						 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+						 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+						 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+						 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+						 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, ];
+
+
+let template_room_Map = [	 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+							 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+							 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+							 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+							 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+							 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+							 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+							 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+							 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+							 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+							 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+							 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, ];
+
 let template_fg_Map = new Array(template_width * template_height);
-let blank_Map = template_fg_Map.slice(); // formerly  blank_Map
+let empty_bg_Map = template_bg_Map.slice();
+let empty_fg_Map = template_fg_Map.slice(); // formerly  blank_Map
+let empty_room_Map = template_room_Map.slice();
 let editorLvl;
 
 function startEditor() {
@@ -48,8 +77,8 @@ function setStoredTileValue(val) {
 
 function setupTileButtons() {
 	let editButtonContainer = document.getElementById('edit-buttons');
-	
-	let tileButtonContainer = document.getElementById('editor-mode');
+	let levelButtonContainer = document.getElementById('level-buttons')
+	let tileButtonContainer = document.getElementById('tile-buttons');
 	let htmlString = "";
 	let i;
 	for (const asset of assets) {
@@ -78,6 +107,24 @@ function setupTileButtons() {
 	btn_Load.addEventListener('click', generateLoadableMapButtons);
 	editButtonContainer.appendChild(btn_Load);
 
+
+	// Creates the -BG Level- Button
+	let btn_edit_bg = document.createElement('button');
+	btn_edit_bg.innerHTML = 'BG Level';
+	btn_edit_bg.addEventListener('click', function() { setEditingLevel("BG") });
+	editButtonContainer.appendChild(btn_edit_bg);
+
+	// Creates the -FG Level- Button
+	let btn_edit_fg = document.createElement('button');
+	btn_edit_fg.innerHTML = 'FG Level';
+	btn_edit_fg.addEventListener('click', function() { setEditingLevel("FG") });
+	editButtonContainer.appendChild(btn_edit_fg);
+
+	// Creates the -Room Level- Button
+	let btn_edit_room = document.createElement('button');
+	btn_edit_room.innerHTML = 'Room Level';
+	btn_edit_room.addEventListener('click', function() { setEditingLevel("ROOM") });
+	editButtonContainer.appendChild(btn_edit_room);
 }
 
 function generateReadableMapData() {
@@ -94,6 +141,12 @@ function clearMapData() {
 	} else {
 	return;
 	}
+}
+
+function setEditingLevel(whichLevel) {
+	console.log(whichLevel);
+
+	editing_level = whichLevel;
 }
 
 function generateLoadableMapButtons() {

@@ -160,6 +160,8 @@ class warriorClass extends characterClass {
 
                 break;
             case TILE.HEART_TILE:
+            case TILE.HEART_PIECE1:
+            case TILE.HEART_PIECE2:
                     this.health++;; // use key
                     currentLevel.setfgi(walkIntoTileIndex, 0);
                     SetupPathfindingGridData(p1);

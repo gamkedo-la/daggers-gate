@@ -35,25 +35,6 @@ class warriorClass extends characterClass {
         super.reset();
     } // end of reset
 
-    // handle collisions of player w/ objects
-    /*
-    checkCollisionAgainst(other) {
-        if (this.isOverLapping(other.x, other.y)) {
-            this.myCollisionColor = "yellow";
-            if (p1.interactWithObject) {
-                this.grabbedByPlayer = !this.grabbedByPlayer;
-                this.myCollisionColor = "green";
-            }
-        } else {
-            this.myCollisionColor = "orange";
-            if (this.grabbedByPlayer) {
-                this.myCollisionColor = "green";
-                this.grabbedByPlayer = false;
-            }
-        }
-    }
-    */
-
     //must override this function.  No super version
     tileCollisionHandle(walkIntoTileIndex, walkIntoTileType, nextX, nextY) {
         // check for interaction collisions
@@ -79,7 +60,11 @@ class warriorClass extends characterClass {
         // check for collider collisions
         for (const obj of currentLevel.objects) {
             if (obj.active && obj.collider.blocking && obj.collider.overlaps(this.nextCollider)) {
-                console.log("hit object collider");
+                console.log("hit object collider " + walkIntoTileType);
+                if(walkIntoTileType == TILE.GROUND_SPIKES_DOWN){ //Need to investigate why it's down not up?
+                    this.takeDamage(1);
+                    warriorOuch.play();
+                }
                 return;
             }
         }

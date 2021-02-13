@@ -3,6 +3,7 @@ var canvas, canvasContext;
 
 var p1;
 var pathFindingDisplay = false;
+var cheatSeeThroughCeiling = true;
 
 // Added to support Tile Editor Mode
 var titleScreen = true;

@@ -36,6 +36,8 @@ class enemyClass extends characterClass {
                 break;
             case TILE.DOOR:
             case TILE.DOOR_YELLOW_FRONT:
+            case TILE.DOOR_RIGHTSIDE_TOP:
+            case TILE.DOOR_RIGHTSIDE_BOTTOM:
             case TILE.WALL_1:
             case TILE.WALL_2:
             case TILE.WALL_3:

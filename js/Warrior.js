@@ -112,8 +112,7 @@ class warriorClass extends characterClass {
                     if (this.keysHeld > 0) {
                         this.keysHeld--; // one less key
                         document.getElementById("debugText").innerHTML = "Keys: " + this.keysHeld;
-                        currentLevel.setfgi(walkIntoTileIndex, TILE.WALL_15);
-                        //roomGrid[walkIntoTileIndex] = TILE.WALL_15; // remove door
+                        currentLevel.setfgi(walkIntoTileIndex, TILE.WALL_15); //remove door
                         SetupPathfindingGridData(p1);
                     }
                 }
@@ -122,8 +121,7 @@ class warriorClass extends characterClass {
                 if (this.keysHeld > 0) {
                     this.keysHeld--; // one less key
                     document.getElementById("debugText").innerHTML = "Keys: " + this.keysHeld;
-                    //roomGrid[walkIntoTileIndex] = TILE.GROUND; // remove door
-                    currentLevel.setfgi(walkIntoTileIndex, 0);
+                    currentLevel.setfgi(walkIntoTileIndex, 0); //remove door
                     SetupPathfindingGridData(p1);
                 }
                 break;
@@ -131,30 +129,27 @@ class warriorClass extends characterClass {
             case TILE.KEY:
                 this.keysHeld++; // gain key
                 document.getElementById("debugText").innerHTML = "Keys: " + this.keysHeld;
-                //roomGrid[walkIntoTileIndex] = TILE.GROUND; // remove key
-                currentLevel.setfgi(walkIntoTileIndex, 0);
+                currentLevel.setfgi(walkIntoTileIndex, 0); //remove key
                 SetupPathfindingGridData(p1);
                 console.log("key")
                 break;
             case TILE.CHEST1_CLOSE:
                     this.keysHeld--; // use key
                     document.getElementById("debugText").innerHTML = "Keys: " + this.keysHeld + " Gold:" + this.gold;
-                    //roomGrid[walkIntoTileIndex] = TILE.GROUND; // remove key
-                    currentLevel.setfgi(walkIntoTileIndex, 33);
+                    currentLevel.setfgi(walkIntoTileIndex, 33); //open chest
                     this.gold = 10;
-
                 break;
             case TILE.HEART_TILE:
             case TILE.HEART_PIECE1:
             case TILE.HEART_PIECE2:
-                    this.health++;; // use key
-                    currentLevel.setfgi(walkIntoTileIndex, 0);
+                    this.health++;; 
+                    currentLevel.setfgi(walkIntoTileIndex, 0); //remove heart
                     SetupPathfindingGridData(p1);
                     console.log("Heart");
                 break;
             case TILE.BOW:
                 this.haveBow = true; // use key
-                currentLevel.setfgi(walkIntoTileIndex, 0);
+                currentLevel.setfgi(walkIntoTileIndex, 0); //remove bow
                 SetupPathfindingGridData(p1);
                 console.log("Bow: " + this.haveBow);
                 break;

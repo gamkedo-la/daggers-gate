@@ -50,7 +50,7 @@ class unexploredRoomClass {
 	}	
 	
 	draw() {
-		if(this.unexploredRoom){
+		if(this.unexploredRoom && cheatSeeThroughCeiling == false){
 			for (const idx of this.idxs) {
 				let x = currentLevel.xfromidx(idx);
 				let y = currentLevel.yfromidx(idx);

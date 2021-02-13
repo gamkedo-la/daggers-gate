@@ -92,6 +92,7 @@ class warriorClass extends characterClass {
         }
 
         // otherwise
+        console.log("Tile Type: " + walkIntoTileType);
         switch (walkIntoTileType) {
             case 0:
             case TILE.GROUND:

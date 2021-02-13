@@ -85,6 +85,7 @@ class enemyClass extends characterClass {
                 this.move_East = this.move_West = this.move_North = this.move_South = false;
             } else { // tracking player
                 var playerIdx = currentLevel.idxfromxy(p1.x, p1.y);
+              //  console.log(currentLevel.fg)
                 startPath(playerIdx, this);
             }
         } // end of Rethink Delay

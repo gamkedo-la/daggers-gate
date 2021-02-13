@@ -85,7 +85,7 @@ function loadingDoneSoStartGame() {
 
     // Added to support Tile Editor Mode
 	setupTileButtons();
-	if(!titleScreen){loadLevel(freshMap);}
+	if(!titleScreen){loadLevel(freshMap);} //can't find loadLevel used 
 }
 
 function moveEverything() {

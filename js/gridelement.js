@@ -15,15 +15,21 @@ function GridElement() {
     this.tilR=myR;
     this.tilIdx=myIdx;
     this.elementType = myElement;
-	var elementTypeConsideration = this.elementType;
-	this.elementType = this.isNotPassible(elementTypeConsideration);
-	var pathFinderX = whichPathFinder.x;
-	var pathFinderY = whichPathFinder.y;
-	var playersLocation = currentLevel.idxfromxy(pathFinderX,pathFinderY);
-	if(this.tilIdx == playersLocation){
-		this.elementType = SOURCE;
-		this.setDistIfLess(0,null);
-	}
+    var elementTypeConsideration = this.elementType;
+    this.elementType = this.isNotPassible(elementTypeConsideration);
+    var pathFinderX = whichPathFinder.x;
+    var pathFinderY = whichPathFinder.y;
+    var playersLocation = currentLevel.idxfromxy(pathFinderX,pathFinderY);
+    if(this.tilIdx == playersLocation){
+      this.elementType = SOURCE;
+      this.setDistIfLess(0,null);
+    }
+  }
+
+  this.changeElement = function(newElement){
+    this.elementType = newElement;
+    var elementTypeConsideration = this.elementType;
+    this.elementType = this.isNotPassible(elementTypeConsideration);
   }
 
   this.reset = function() {

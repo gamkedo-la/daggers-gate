@@ -1,12 +1,7 @@
  /*
-	-draw the a blank tiled map
-	-create image-buttons for each different tile
-	-image-button stores Tile_id
-	-click on blank map tiles to store value of tile at map-index
-	-refresh map
-	-when done editing a map, click --"CREATE MAP DATA"-- to display "text version" of Map data.
-	-create more
-	-when done editing, click --"Return To Title Screen"-- to leave Editor Mode
+	- add 2 inputs for map dimensions
+	- add button to create map based on inputs
+	- 
 */
 
 let storedTileValue;
@@ -62,7 +57,7 @@ let editorLvl;
 function startEditor() {
 	editorLvl = new Level({
 		bg: template_bg_Map.slice(),
-		fg: blank_Map,
+		fg: empty_fg_Map,
 		width: template_width,
 		height: template_height,
 	});
@@ -83,8 +78,8 @@ function setupTileButtons() {
 	let i;
 	for (const asset of assets) {
 		// skip non-image assets
-		if (!asset.img || !asset.hasOwnProperty("id")) continue;
-		htmlString += `<input id=${asset.id} type='image' src=${asset.src} onClick="setStoredTileValue(${asset.id})"></input> `;
+		if (!asset.img || !asset.hasOwnProperty("tileset")) continue;
+		htmlString += `<img id=${asset.id} src=${asset.src} onClick="setStoredTileValue(${asset.id})"></input> `;
 	}
 
 	tileButtonContainer.innerHTML += htmlString;

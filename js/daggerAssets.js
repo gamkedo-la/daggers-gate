@@ -282,6 +282,22 @@ const daggerAssets = [
         {tag: "CEIL_UPPER_DOOR",        id: 51, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 200, passable: true },
     ]},
 
+      { src: "images/window_tiles.png", cls: "Sheet", assets: [
+
+        // T = TOP,  M = MIDDLE,  B = BOTTOM,  L = LEFT,  R = RIGHT
+        {tag: "WINDOW_BORDER_TL",       id: 500, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*0 },
+        {tag: "WINDOW_BORDER_TM",       id: 501, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*0 },
+        {tag: "WINDOW_BORDER_TR",       id: 502, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*0 },
+
+        {tag: "WINDOW_BORDER_ML",       id: 503, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*1 },
+        {tag: "WINDOW_INSIDE",          id: 504, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*1 },
+        {tag: "WINDOW_BORDER_MR",       id: 505, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*1 },
+
+        {tag: "WINDOW_BORDER_BL",       id: 506, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*2 },
+        {tag: "WINDOW_BORDER_BM",       id: 507, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*2 },
+        {tag: "WINDOW_BORDER_BR",       id: 508, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*2 }
+    ]},
+
     { src: "images/playerAnim.png", cls: "Sheet", assets: [
         {tag: "PLAYER",                 id: 60, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 0 },
         {tag: "PLAYER_IDLE_NORTH",      cls: "Sprite", width: 50, height: 100, xoffset: 50, yoffset: 0 },

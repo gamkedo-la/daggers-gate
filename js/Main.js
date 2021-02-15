@@ -60,6 +60,8 @@ window.onload = async function() {
 }
 
 function loadingDoneSoStartGame() {
+	// initialize constructor registry
+	Registry.init();
 	// load starting level
 	levelLoader.load(startingLevel);
 

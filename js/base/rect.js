@@ -16,15 +16,6 @@ class Rect extends Sketch {
         this._color = Util.objKeyValue(spec, "color", Color.zero);
     }
 
-    // PROPERTIES ----------------------------------------------------------
-    get width() {
-        return this._width;
-    }
-
-    get height() {
-        return this._height;
-    }
-
     // METHODS -------------------------------------------------------------
     _render(renderCtx, x=0, y=0) {
         renderCtx.fillStyle = this._color;

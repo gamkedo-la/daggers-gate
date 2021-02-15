@@ -1,6 +1,9 @@
 //export { Sketch };
+//import { Vect } from "./common/vect.js";
 //import { Fmt } from "./common/fmt.js";
 //import { Util } from "./common/util.js";
+//import { Fitter } from "./fitter.js";
+//import { getCode as evtCode } from './event.js';
 
 /**
  * A sketch is the base abstract data object that represents something that can be drawn to the screen... 
@@ -41,6 +44,7 @@ class Sketch {
         this._tag = Util.objKeyValue(spec, "tag", "tag");
         this._width = Util.objKeyValue(spec, "width", 0);
         this._height = Util.objKeyValue(spec, "height", 0);
+        this._fitter = (spec.xfitter) ? Fitter.generate(Object.assign({target: this}, spec.xfitter)) : undefined;
     }
 
     // PROPERTIES ----------------------------------------------------------
@@ -56,11 +60,24 @@ class Sketch {
     }
 
     get width() {
+        if (this._fitter) return this._fitter.width;
         return this._width;
     }
 
     get height() {
+        if (this._fitter) return this._fitter.height;
         return this._height;
+    }
+
+    get minx() {
+        return (this._fitter) ? this._fitter.x : 0;
+    }
+    get miny() {
+        return (this._fitter) ? this._fitter.y : 0;
+    }
+
+    get size() {
+        return new Vect(this.width, this.height);
     }
 
     // METHODS -------------------------------------------------------------
@@ -81,15 +98,17 @@ class Sketch {
     /**
      * A sketch can be rendered...
      * @param {canvasContext} renderCtx - canvas context on which to draw
-     * @param {int} x - x position to draw at
-     * @param {int} y - y position to draw at
+     * @param {Vect} pos - position to draw at
      */
     render(renderCtx, x=0, y=0) {
+        // local adjustments based on fitter
+        x += this.minx;
+        y += this.miny;
         // sketch-specific render
         this._render(renderCtx, x, y);
     }
 
-    _render(renderCtx, x=0, y=0) {
+    _render(renderCtx, pos) {
     }
 
     /**

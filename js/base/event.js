@@ -84,9 +84,9 @@ class Channel {
 
     trigger(data) {
         // cascade data
-        let evtData = {}
-        Util.mixin(evtData, this._data);                 // channel data
-        Util.mixin(evtData, data);                       // trigger data
+        // - channel data (this._data)
+        // - trigger data (_data)
+        let evtData = Object.assign({}, this._data, data);
         let evt = new Event(this._id, evtData)
         let listeners = this._listeners.slice(0);
         for (let i=0; i<listeners.length; i++) {

@@ -17,7 +17,7 @@ class UxPanel extends UxView {
         // bind event handlers
         Util.bind(this, "onSketchUpdate");
         //this._sketch.evtUpdated
-        if (this._sketch) this._sketch.evtUpdated.listen(this.onSketchUpdate);
+        //if (this._sketch) this._sketch.evtUpdated.listen(this.onSketchUpdate);
     }
 
     // PROPERTIES ----------------------------------------------------------

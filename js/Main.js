@@ -31,6 +31,9 @@ var camera = new Camera({
 	height: 600,
 });
 
+var viewMgr;
+var viewSys;
+
 async function load() {
 	return new Promise( (resolve) => {
 		let promises = [];
@@ -62,8 +65,50 @@ window.onload = async function() {
 function loadingDoneSoStartGame() {
 	// initialize constructor registry
 	Registry.init();
+	// initialize view manager and view system
+	// - view manager will track all "views" from the game and is responsible for updating/rendering all views
+	// - view system is the "glue" that watches the global object store for new views (or deleted ones) and informs view manager of changes
+	viewMgr = new ViewMgr();
+	viewSys = new ViewSystem({vmgr: viewMgr});
 	// load starting level
 	levelLoader.load(startingLevel);
+
+	// test canvas/panel
+	/*
+	let view = UxView.generate({
+		cls: "UxCanvas",
+		cvsid: "gameCanvas",
+		tag: "cvs.1",
+		xchild: [
+			{
+				cls: "UxPanel",
+				tag: "panel.1",
+				dbg: true,
+				xxform: { border: .1 },
+				xsketch: {
+					cls: 'Rect',
+					borderWidth: 5,
+					color: new Color(255,255,255,.25),
+					borderColor: new Color(0,127,127,1),
+					xfitter: { cls: "FitToParent" },
+				},
+				xchild: [{
+					cls: "UxPanel",
+					tag: "panel.2",
+					dbg: true,
+					xxform: { border: .2, scalex: 2 },
+					xsketch: {
+						cls: 'Rect',
+						borderWidth: 5,
+						color: new Color(255,255,255,.25),
+						borderColor: new Color(255,0,0,1),
+						xfitter: { cls: "FitToParent" },
+					},
+				}],
+			},
+		],
+	});
+	*/
 
 	// instantiate player
 	p1 = new warriorClass({
@@ -112,6 +157,10 @@ function moveEverything() {
 		p1.move(updateCtx);
 		currentLevel.update(updateCtx);
 
+		// update views
+		viewSys.update(updateCtx);
+		viewMgr.update(updateCtx);
+
 	}
 }
 
@@ -158,5 +207,7 @@ function drawEverything() {
 			var heartSpacing = 20;
 			drawBitmapCenteredAtLocationWithRotation(props.getImage(TILE.HEART), 20 + (i*heartSpacing), 40, 0.0);
 		}		
+		// render views
+		viewMgr.render();
 	}
 }

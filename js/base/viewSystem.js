@@ -1,10 +1,8 @@
 //import { Util }  from "../common/util.js";
+//export { ViewSystem };
 
-export { ViewSystem };
-
-class ViewSystem extends System {
+class ViewSystem {
     constructor(spec={}) {
-        super(spec);
         this._vmgr = Util.objKeyValue(spec, "vmgr", ViewMgr.instance);
         this._tracked = {};
     }
@@ -15,9 +13,9 @@ class ViewSystem extends System {
         for (const obj of Store.instance) {
             // is object a view?
             if (obj.__cat === "View") {
-                current[e.id] = e;
-                if (!this._tracked[e.id]) {
-                    if (this._vmgr) this._vmgr.add(e);
+                current[obj.id] = obj;
+                if (!this._tracked[obj.id]) {
+                    if (this._vmgr) this._vmgr.add(obj);
                 }
             }
         }
@@ -25,8 +23,8 @@ class ViewSystem extends System {
         // iterate through current tracked objects
         for (const id of Object.keys(this._tracked)) {
             if (!current[id]) {
-                const e = this._tracked[id];
-                if (this._vmgr) this._vmgr.remove(e);
+                const obj = this._tracked[id];
+                if (this._vmgr) this._vmgr.remove(obj);
             }
         }
         this._tracked = current;

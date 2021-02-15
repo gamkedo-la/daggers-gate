@@ -1,8 +1,6 @@
-export { ViewMgr };
-
-import { Util } from "./common/util.js";
-import { Fmt } from "./common/fmt.js";
-import { SortedGroup } from "./group.js";
+//export { ViewMgr };
+//import { Util } from "./common/util.js";
+//import { SortedGroup } from "./group.js";
 
 // all views under specific layer/depth
 class Layer {
@@ -49,6 +47,7 @@ class ViewMgr {
         this._layers = new SortedGroup(this.layerCmp);
         this._views = [];
         this._maxDepth = Util.objKeyValue(spec, "maxDepth", 100);
+        this.dbg = spec.dbg;
         return ViewMgr._instance;
     }
 
@@ -110,8 +109,8 @@ class ViewMgr {
 
     render() {
         // clear current context
-        this.dfltRenderCtx.fillStyle = 'black';
-        this.dfltRenderCtx.fillRect(0, 0, this.dfltCanvas.width, this.dfltCanvas.height);
+        //this.dfltRenderCtx.fillStyle = 'black';
+        //this.dfltRenderCtx.fillRect(0, 0, this.dfltCanvas.width, this.dfltCanvas.height);
         // render in layer/depth sorted order
         for (const layer of this._layers) {
             layer.render(this.dfltRenderCtx);
@@ -119,6 +118,7 @@ class ViewMgr {
     }
 
     add(view) {
+        if (this.dbg) console.log("view manager adding view: " + view);
         // get layer for view
         const layer = this.getLayer(view.layer, view.depth);
         // add view to layer, stamp w/ layer index
@@ -127,6 +127,7 @@ class ViewMgr {
     }
 
     remove(view) {
+        if (this.dbg) console.log("view manager removing view: " + view);
         // lookup layer view for view
         const layer = this.getLayer(view.layer, view.depth);
         // remove view to layer view

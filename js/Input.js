@@ -34,7 +34,6 @@ function initInput() {
 }
 
 function setKeyHoldState(thisKey, thisPlayer, setTo) {
-  console.log("set key hold... " + thisKey);
   if(thisKey == thisPlayer.controlKeyForNorth) {
     thisPlayer.move_North = setTo;
   }

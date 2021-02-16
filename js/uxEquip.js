@@ -22,12 +22,7 @@ class UxEquipCtrl extends UxCtrl {
                     {
                         cls: "UxPanel",
                         tag: "playerPanel",
-                        xsketch: {
-                            cls: 'Rect',
-                            color: new Color(200,200,200,.25),
-                            xfitter: { cls: "FitToParent" },
-                        },
-                        xxform: { left: .1, right: .55, top: .1, bottom: .65 },
+                        xxform: { left: .1, right: .525, top: .1, bottom: .65 },
                         xchild: [
                             {
                                 cls: "UxText",
@@ -38,7 +33,6 @@ class UxEquipCtrl extends UxCtrl {
                                     text: "Apollo",
                                 },
                             },
-
                             {
                                 cls: "UxPanel",
                                 tag: "portraitPanel",
@@ -52,21 +46,11 @@ class UxEquipCtrl extends UxCtrl {
                             {
                                 cls: "UxPanel",
                                 tag: "heartsPanel",
-                                xsketch: {
-                                    cls: 'Rect',
-                                    color: new Color(200,200,200,.25),
-                                    xfitter: { cls: "FitToParent" },
-                                },
                                 xxform: { left: .5, right: .1, top: .1, bottom: .55 },
                             },
                             {
                                 cls: "UxPanel",
                                 tag: "manaPanel",
-                                xsketch: {
-                                    cls: 'Rect',
-                                    color: new Color(200,200,200,.25),
-                                    xfitter: { cls: "FitToParent" },
-                                },
                                 xxform: { left: .5, right: .1, top: .55, bottom: .1 },
                             },
                         ]
@@ -77,24 +61,89 @@ class UxEquipCtrl extends UxCtrl {
                     {
                         cls: "UxPanel",
                         tag: "equipPanel",
-                        xsketch: {
-                            cls: 'Rect',
-                            color: new Color(200,200,200,.25),
-                            xfitter: { cls: "FitToParent" },
-                        },
-                        xxform: { left: .55, right: .1, top: .1, bottom: .65 },
+                        xxform: { left: .525, right: .1, top: .1, bottom: .65 },
                         xchild: [
                             {
                                 cls: "UxText",
                                 tag: "equipText",
-                                xxform: { left: .5, right:.5, top: 0, bottom: .7, width:100, height:80 },
+                                xxform: { left: .5, right:.5, top: 0, bottom: .7, width: 150 },
                                 xtext: {
                                     color: new Color(0,0,200,.75),
                                     text: "Equipment",
                                 },
                             },
 
+                            {
+                                cls: "UxPanel",
+                                tag: "equipButtonPanel",
+                                xxform: { top: .3, bottom: .1 },
+                                xsketch: {},
+                                xchild: [
+                                    {
+                                        cls: "UxPanel",
+                                        tag: "equipButton1",
+                                        xxform: { left: .125, right:.875, top: .5, bottom: .5, width:65, height:65 },
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        tag: "equipButton2",
+                                        xxform: { left: .375, right:.625, top: .5, bottom: .5, width:65, height:65 },
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        tag: "equipButton3",
+                                        xxform: { left: .625, right:.375, top: .5, bottom: .5, width:65, height:65 },
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        tag: "equipButton3",
+                                        xxform: { left: .875, right:.125, top: .5, bottom: .5, width:65, height:65 },
+                                    },
+
+                                ],
+                            },
+
                         ],
+                    },
+
+                    // ACTIVE -------------------------------------------------
+                    {
+                        cls: "UxPanel",
+                        tag: "activePanel",
+                        xxform: { left: .1, right: .1, top: .4, bottom: .45 },
+                        /*
+                        xchild: [
+                            {
+                                cls: "UxText",
+                                tag: "equipText",
+                                xxform: { left: .5, right:.5, top: 0, bottom: .7, width: 150 },
+                                xtext: {
+                                    color: new Color(0,0,200,.75),
+                                    text: "Equipment",
+                                },
+                            },
+                        ],
+                        */
+                    },
+
+                    // AVAILABLE ----------------------------------------------
+                    {
+                        cls: "UxPanel",
+                        tag: "activePanel",
+                        xxform: { left: .2, right: .2, top: .6, bottom: .1 },
+                        /*
+                        xchild: [
+                            {
+                                cls: "UxText",
+                                tag: "equipText",
+                                xxform: { left: .5, right:.5, top: 0, bottom: .7, width: 150 },
+                                xtext: {
+                                    color: new Color(0,0,200,.75),
+                                    text: "Equipment",
+                                },
+                            },
+                        ],
+                        */
                     },
 
                 ],

@@ -95,10 +95,10 @@ class XForm {
 
     // is transform stretched in given direction?
     get stretchx() {
-        return this.parent && ((1-this.right) !== this.left);
+        return this.parent && !this.feq(1-this.right, this.left);
     }
     get stretchy() {
-        return this.parent && ((1-this.bottom) !== this.top);
+        return this.parent && !this.feq(1-this.bottom, this.top);
     }
 
     // inverse scale of transform
@@ -166,6 +166,11 @@ class XForm {
     }
 
     // METHODS -------------------------------------------------------------
+
+    // floating point equality for use in xform
+    feq(v1, v2) {
+        return Math.abs(v1-v2) < .00001;
+    }
 
     // apply local coords, then scale, rotation, translation
     apply(ctx) {

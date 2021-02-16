@@ -4,12 +4,17 @@ class UxTitleView extends UxPanel {
     }
 
     render(ctx) {
+        //ctx.save();
         super.render(ctx);
+        //ctx.restore();
         customText("Dagger's", 200, 200, 'white', 100, 'Garamond')
         customText("Gate", 250, 280, 'white', 100, 'Garamond')
         customText("© HomeTeam Gamedev 2021", 300, 550, 'white', 12, 'monospace')
         customText("Press the -SPACEBAR- to Begin", 270, 450, 'yellow', 12, 'monospace')
         customText("Press  -9-  to go into EDITOR MODE", 270, 480, 'yellow', 12, 'monospace')
+        //this.xform.render(ctx);
+        //let b = this.find((v) => v.tag === "b1");
+        //if (b) b.xform.render(ctx);
     }
 
 }
@@ -34,6 +39,7 @@ class UxTitleCtrl {
                 }
             ],
         });
+        //this.tp = this.view.find((v) => v.tag === "titlePanel");
     }
 
     keyPressed(key) {
@@ -44,15 +50,15 @@ class UxTitleCtrl {
         //console.log("keyReleased: " + key);
         if (key === KEY_SPACE) {
             this.onStart();
-        } else if (key === KEY_NUMBER_9) {
-            this.onEditor();
+        //} else if (key === KEY_NUMBER_9) {
+            //this.onEditor();
         }
     }
 
     onStart() {
         // build out next controller
-        let ctrl = new UxPlayCtrl();
-        //let ctrl = new UxMainCtrl();
+        //let ctrl = new UxPlayCtrl();
+        let ctrl = new UxMainCtrl();
         currentCtrl = ctrl;
         // tear down my view
         this.view.destroy();

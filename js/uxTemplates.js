@@ -14,22 +14,21 @@ class UxTemplates {
                 borderWidth: 3,
                 color: new Color(255,255,255,.25),
                 borderColor: new Color(0,127,127,1),
-                xfitter: { cls: "FitToParent" },
             },
             xhighlight: {
-                cls: 'Rect',
+                cls: "Rect",
                 borderWidth: 3,
                 color: new Color(255,255,255,.5),
-                borderColor: new Color(0,127,127,1),
-                xfitter: { cls: "FitToParent" },
+                borderColor: new Color(0,200,200,1),
             },
             xpressed: {
                 cls: 'Rect',
                 borderWidth: 3,
                 color: new Color(255,255,255,.75),
-                borderColor: new Color(0,127,127,1),
-                xfitter: { cls: "FitToParent" },
+                borderColor: new Color(0,255,255,1),
             },
         }
+        console.log("button: " + Fmt.ofmt(this.button));
+        console.log("button.xhighlight: " + Fmt.ofmt(this.button.xhighlight));
     }
 }

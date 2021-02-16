@@ -15,47 +15,60 @@ class UxMainCtrl {
                         color: new Color(20,20,20,1),
                         xfitter: { cls: "FitToParent" },
                     },
-                    xxform: { top: .1, bottom: .1, left: .25, right: .25 },
                     xchild: [
                         {
-                            cls: "UxText",
-                            tag: "titleText",
-                            xxform: { top: .05, bottom: .875},
-                            xtext: {
-                                color: new Color(255,0,0,.75),
-                                text: "Daggers Gate",
-                            },
-                        },
-                        {
                             cls: "UxPanel",
-                            tag: "buttonPanel",
-                            xxform: { top: .15, bottom: .05, left: .15, right: .15},
+                            dbg: true,
+                            tag: "menuPanel",
+                            xsketch: {
+                                cls: 'Rect',
+                                color: new Color(20,20,20,1),
+                                xfitter: { cls: "FitToParent" },
+                            },
+                            xxform: { top: .1, bottom: .1, left: .25, right: .25 },
                             xchild: [
-                                Object.assign({}, UxTemplates.button, {
-                                    tag: "startButton",
-                                    xxform: { left: .2, top:.15, bottom: .75, right: .2},
-                                    xtext: { text: "Start" },
-                                }), 
-                                Object.assign({}, UxTemplates.button, {
-                                    tag: "editorButton",
-                                    xxform: { left: .2, top:.35, bottom: .55, right: .2},
-                                    xtext: { text: "Editor" },
-                                }),
-                                Object.assign({}, UxTemplates.button, {
-                                    tag: "creditsButton",
-                                    xxform: { left: .2, top:.55, bottom: .35, right: .2},
-                                    xtext: { text: "Credits" },
-                                }),
-                                Object.assign({}, UxTemplates.button, {
-                                    tag: "quitButton",
-                                    xxform: { left: .2, top:.75, bottom: .15, right: .2},
-                                    xtext: { text: "Quit" },
-                                }),
+                                {
+                                    cls: "UxText",
+                                    tag: "titleText",
+                                    xxform: { top: .05, bottom: .875},
+                                    xtext: {
+                                        color: new Color(255,0,0,.75),
+                                        text: "Daggers Gate",
+                                    },
+                                },
+                                {
+                                    cls: "UxPanel",
+                                    tag: "buttonPanel",
+                                    xxform: { top: .15, bottom: .05, left: .15, right: .15},
+                                    xchild: [
+                                        Object.assign({}, UxTemplates.button, {
+                                            tag: "startButton",
+                                            cls: "UxButton",
+                                            xxform: { left: .2, top:.15, bottom: .75, right: .2},
+                                            xtext: { text: "Start" },
+                                        }), 
+                                        Object.assign({}, UxTemplates.button, {
+                                            tag: "editorButton",
+                                            xxform: { left: .2, top:.35, bottom: .55, right: .2},
+                                            xtext: { text: "Editor" },
+                                        }),
+                                        Object.assign({}, UxTemplates.button, {
+                                            tag: "creditsButton",
+                                            xxform: { left: .2, top:.55, bottom: .35, right: .2},
+                                            xtext: { text: "Credits" },
+                                        }),
+                                        Object.assign({}, UxTemplates.button, {
+                                            tag: "quitButton",
+                                            xxform: { left: .2, top:.75, bottom: .15, right: .2},
+                                            xtext: { text: "Quit" },
+                                        }),
+                                    ],
+                                },
                             ],
                         },
                     ],
                 },
-            ]
+            ],
         });
         this.setup();
     }
@@ -75,10 +88,21 @@ class UxMainCtrl {
 
     onStart(evt) {
         console.log("onStart");
+        // build out next controller
+        let ctrl = new UxPlayCtrl();
+        currentCtrl = ctrl;
+        // tear down my view
+        this.view.destroy();
     }
 
     onEditor(evt) {
-        console.log("onEditor");
+        // build out next controller
+        let ctrl = new UxEditorCtrl();
+        currentCtrl = ctrl;
+        // tear down my view
+        this.view.destroy();
+        // FIXME: remove global???
+        titleScreen = false;
     }
 
     onCredits(evt) {

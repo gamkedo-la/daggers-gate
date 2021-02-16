@@ -163,6 +163,9 @@ function moveEverything() {
 		currentLevel.update(updateCtx);
 	}
 
+	// update mouse
+	UxMouse.instance.update(updateCtx);
+
 	// update views
 	viewSys.update(updateCtx);
 	viewMgr.update(updateCtx);

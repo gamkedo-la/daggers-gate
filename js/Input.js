@@ -34,6 +34,7 @@ function initInput() {
 }
 
 function setKeyHoldState(thisKey, thisPlayer, setTo) {
+  console.log("set key hold... " + thisKey);
   if(thisKey == thisPlayer.controlKeyForNorth) {
     thisPlayer.move_North = setTo;
   }
@@ -52,6 +53,8 @@ function setKeyHoldState(thisKey, thisPlayer, setTo) {
 }
 
 function keyPressed(evt) {
+  if (currentCtrl) currentCtrl.keyPressed(evt.keyCode);
+  /*
   setKeyHoldState(evt.keyCode, p1, true);
   //console.log(evt.keyCode);
   if(evt.keyCode == KEY_NUMBER_1){
@@ -61,11 +64,14 @@ function keyPressed(evt) {
   } else if (evt.keyCode == KEY_NUMBER_3){
 	  showRoomNumbers = !showRoomNumbers;
   }
+  */
   
   evt.preventDefault(); // without this, arrow keys scroll the browser!
 }
 
 function keyReleased(evt) {
+  if (currentCtrl) currentCtrl.keyReleased(evt.keyCode);
+  /*
   setKeyHoldState(evt.keyCode, p1, false);
 
   if(evt.keyCode == KEY_SPACE && titleScreen) {
@@ -78,6 +84,7 @@ function keyReleased(evt) {
     titleScreen = false;
     startEditor();
   }
+  */
 }
 
 function mouseclicked(evt) {

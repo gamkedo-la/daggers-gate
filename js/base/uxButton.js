@@ -11,6 +11,8 @@ class UxButton extends UxView {
     // CONSTRUCTOR ---------------------------------------------------------
     constructor(spec) {
         super(spec);
+        console.log("create button: " + Fmt.ofmt(spec));
+        console.log("create button.xpressed: " + Fmt.ofmt(spec.xpressed));
         const xtext = Object.assign( {xfitter: {cls: "Fitter", ref: this, top: .15, bottom: .1}}, Util.objKeyValue(spec, "xtext", {})); 
         this._textSketch = new Text(xtext);
         const xunpressed = Object.assign( {cls: "Rect", xfitter: {cls: "Fitter", ref: this}, color: new Color(255,255,255,.25)}, Util.objKeyValue(spec, "xunpressed", {})); 
@@ -27,10 +29,10 @@ class UxButton extends UxView {
         this._mouseClickedFcn = this.onMouseClick.bind(this);
         this.mouse.evtClicked.listen(this._mouseClickedFcn);
         // listen for sketch updates
-        if (this._textSketch) this._textSketch.evtUpdated.listen(this.onSketchUpdate);
-        if (this._unpressedSketch) this._unpressedSketch.evtUpdated.listen(this.onSketchUpdate);
-        if (this._pressedSketch) this._pressedSketch.evtUpdated.listen(this.onSketchUpdate);
-        if (this._highlightSketch) this._highlightSketch.evtUpdated.listen(this.onSketchUpdate);
+        //if (this._textSketch) this._textSketch.evtUpdated.listen(this.onSketchUpdate);
+        //if (this._unpressedSketch) this._unpressedSketch.evtUpdated.listen(this.onSketchUpdate);
+        //if (this._pressedSketch) this._pressedSketch.evtUpdated.listen(this.onSketchUpdate);
+        //if (this._highlightSketch) this._highlightSketch.evtUpdated.listen(this.onSketchUpdate);
         // events
         this.__evtClicked = new Channel(evtCode("clicked"), {actor: this, mouse:this.mouse});
     }

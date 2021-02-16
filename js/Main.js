@@ -18,6 +18,7 @@ var loaders = [
 ];
 var props;
 var currentLevel;
+var currentCtrl;
 var queuedExit;
 var framesToDisplayMessage = 800;
 var levelLoader = new LevelLoader({lvls: allLevels});
@@ -63,8 +64,9 @@ window.onload = async function() {
 }
 
 function loadingDoneSoStartGame() {
-	// initialize constructor registry
+	// initialize constructor registry/ui templates
 	Registry.init();
+	UxTemplates.init();
 	// initialize view manager and view system
 	// - view manager will track all "views" from the game and is responsible for updating/rendering all views
 	// - view system is the "glue" that watches the global object store for new views (or deleted ones) and informs view manager of changes
@@ -109,6 +111,9 @@ function loadingDoneSoStartGame() {
 		],
 	});
 	*/
+
+	// setup ux controller
+	currentCtrl = new UxTitleCtrl();
 
 	// instantiate player
 	p1 = new warriorClass({
@@ -156,18 +161,18 @@ function moveEverything() {
 		// movement
 		p1.move(updateCtx);
 		currentLevel.update(updateCtx);
-
-		// update views
-		viewSys.update(updateCtx);
-		viewMgr.update(updateCtx);
-
 	}
+
+	// update views
+	viewSys.update(updateCtx);
+	viewMgr.update(updateCtx);
 }
 
 
 function drawEverything() {
 
 
+	/*
 	if(titleScreen) {
 		drawTitleScreen("black");
 	} 
@@ -207,7 +212,9 @@ function drawEverything() {
 			var heartSpacing = 20;
 			drawBitmapCenteredAtLocationWithRotation(props.getImage(TILE.HEART), 20 + (i*heartSpacing), 40, 0.0);
 		}		
-		// render views
-		viewMgr.render();
 	}
+	*/
+
+	// render views
+	viewMgr.render();
 }

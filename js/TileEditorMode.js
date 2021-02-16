@@ -62,7 +62,7 @@ let editorLvl;
 function startEditor() {
 	editorLvl = new Level({
 		bg: template_bg_Map.slice(),
-		fg: blank_Map,
+		fg: empty_fg_Map,
 		width: template_width,
 		height: template_height,
 	});
@@ -128,7 +128,7 @@ function setupTileButtons() {
 }
 
 function generateReadableMapData() {
-	let mapString = blank_Map+'';
+	let mapString = empty_fg_Map+'';
 	let readableMapString ='[ ' + mapString.replace(/,/g , ", ") + ' ]';
 	
 	console.log(readableMapString)
@@ -136,7 +136,7 @@ function generateReadableMapData() {
 
 function clearMapData() {
 	if (confirm("You REALLY want to clear all tiles from the map?")) {
-		blank_Map = template_fg_Map.slice();
+		empty_fg_Map = template_fg_Map.slice();
 		console.log( "Map is CLEARED" )
 	} else {
 	return;
@@ -167,7 +167,7 @@ function generateLoadableMapButtons() {
 function loadMap(whichMap) {
 	console.log("Loaded Map");
 	console.log(whichMap);
-	blank_Map = whichMap;
+	empty_fg_Map = whichMap;
 }
 
 

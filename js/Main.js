@@ -142,6 +142,8 @@ function loadingDoneSoStartGame() {
 
 function moveEverything() {
 
+	currentCtrl.update(updateCtx);
+	/*
 	if(titleScreen) {} 
 	else if(editorMode) {}
 	else
@@ -162,6 +164,7 @@ function moveEverything() {
 		p1.move(updateCtx);
 		currentLevel.update(updateCtx);
 	}
+	*/
 
 	// update mouse
 	UxMouse.instance.update(updateCtx);

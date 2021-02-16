@@ -17,4 +17,10 @@ class UxCtrl {
     keyReleased(key) {
     }
 
+    mouseClicked(x, y) {
+    }
+
+    mouseMoved(x, y) {
+    }
+
 }

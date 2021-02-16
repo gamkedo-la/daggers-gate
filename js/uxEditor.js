@@ -37,4 +37,42 @@ class UxEditorCtrl extends UxCtrl {
         startEditor();
     }
 
+    mouseClicked(mouseX, mouseY) {
+        if(editing_level = "BG") {
+            if (currentLevel.containsPoint(mouseX, mouseY)) {
+                let idx = currentLevel.idxfromxy(mouseX, mouseY);
+                // console.log(freshMap[clickedIndex], storedTileValue);
+                editorLvl.setbgi(idx, storedTileValue);
+                //blank_Map[idx] = storedTileValue;
+                mouseDragging = true;
+            }
+        }
+        if(editing_level = "FG") {
+            if (currentLevel.containsPoint(mouseX, mouseY)) {
+                let idx = currentLevel.idxfromxy(mouseX, mouseY);
+                // console.log(freshMap[clickedIndex], storedTileValue);
+                editorLvl.setfgi(idx, storedTileValue);
+                //blank_Map[idx] = storedTileValue;
+                mouseDragging = true;
+            }
+        }
+        
+        // Doesn't edit Rooms currently --need to learn how
+        if(editing_level = "ROOM") {
+            if (currentLevel.containsPoint(mouseX, mouseY)) {
+                let idx = currentLevel.idxfromxy(mouseX, mouseY);
+                // console.log(freshMap[clickedIndex], storedTileValue);
+                editorLvl.setbgi(idx, storedTileValue);
+                //blank_Map[idx] = storedTileValue;
+                mouseDragging = true;
+            }
+        }
+    }
+
+    mouseMoved(mouseX, mouseY) {
+        if(mouseDragging) {
+            editorLvl.setfgi(tileOverIdx, storedTileValue);
+        }
+    }
+
 }

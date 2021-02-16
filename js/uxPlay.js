@@ -73,4 +73,30 @@ class UxPlayCtrl extends UxCtrl {
     keyReleased(key) {
         setKeyHoldState(key, p1, false);
     }
+
+    update(updateCtx) {
+		// handle level exit
+		if (queuedExit) {
+			// load queued level
+			levelLoader.load(queuedExit.lvl);
+			// respawn player
+			currentLevel.placeCharacter(p1, queuedExit.spawn);
+			queuedExit = undefined;
+			SetupPathfindingGridData(p1);
+		}
+		// camera movement
+		camera.update(updateCtx);
+		// Wrapped in IF/ELSE to support Tile Editor Mode	
+		// movement
+		p1.move(updateCtx);
+		currentLevel.update(updateCtx);
+    }
+
+    mouseClicked(x, y) {
+        // pathfinding
+        if(grid[tileOverIdx].elementType != WALL) {
+            startPath(tileOverIdx, p1); 
+        }
+    }
+
 }

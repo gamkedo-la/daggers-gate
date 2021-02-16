@@ -87,6 +87,8 @@ function keyReleased(evt) {
 }
 
 function mouseclicked(evt) {
+  currentCtrl.mouseClicked(mouseX, mouseY);
+  /*
   if(editorMode) {
     if(editing_level = "BG") {
       if (currentLevel.containsPoint(mouseX, mouseY)) {
@@ -123,8 +125,9 @@ function mouseclicked(evt) {
   	if(grid[tileOverIdx].elementType != WALL) {
   		startPath(tileOverIdx, p1); 
     }
-
   }
+  */
+
 }
 
 function mousereleased(evt) {
@@ -145,6 +148,10 @@ function mousemoved(evt) {
         tileOverIdx = -1;
     }
 
+    // update controller
+    currentCtrl.mouseMoved(mouseX, mouseY);
+
+    /*
     if(mouseDragging && tileOverIdx != -1) { /////
 
     } /////
@@ -153,6 +160,7 @@ function mousemoved(evt) {
       //blank_Map[tileOverIdx] = storedTileValue;
       editorLvl.setfgi(tileOverIdx, storedTileValue);
     }
+    */
 } 
 
 function findMouseTileXY(evt) {

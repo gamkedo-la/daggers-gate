@@ -41,8 +41,9 @@ class UxPlayView extends UxView {
 }
 
 
-class UxPlayCtrl {
+class UxPlayCtrl extends UxCtrl {
     constructor(spec={}) {
+        super(spec);
         // construct the UI elements
         this.view = UxView.generate({
             cls: "UxCanvas",

@@ -11,8 +11,9 @@ class UxEditorView extends UxPanel {
 }
 
 
-class UxEditorCtrl {
+class UxEditorCtrl extends UxCtrl {
     constructor(spec={}) {
+        super(spec);
         // construct the UI elements
         this.view = UxView.generate({
             cls: "UxCanvas",
@@ -36,10 +37,4 @@ class UxEditorCtrl {
         startEditor();
     }
 
-    keyPressed(key) {
-        console.log("editor key pressed");
-    }
-
-    keyReleased(key) {
-    }
 }

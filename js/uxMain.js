@@ -1,5 +1,6 @@
-class UxMainCtrl {
+class UxMainCtrl extends UxCtrl {
     constructor(spec={}) {
+        super(spec);
         // construct the UI elements
         this.view = UxView.generate({
             cls: "UxCanvas",
@@ -120,10 +121,5 @@ class UxMainCtrl {
         console.log("onQuit");
     }
 
-    keyPressed(key) {
-    }
-
-    keyReleased(key) {
-    }
 
 }

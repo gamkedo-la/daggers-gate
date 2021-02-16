@@ -72,6 +72,9 @@ class UxPlayCtrl extends UxCtrl {
 
     keyReleased(key) {
         setKeyHoldState(key, p1, false);
+        if (key === KEY_ESCAPE) {
+            this.onEquipMenu();
+        }
     }
 
     update(updateCtx) {
@@ -98,5 +101,16 @@ class UxPlayCtrl extends UxCtrl {
             startPath(tileOverIdx, p1); 
         }
     }
+
+    // EVENT CALLBACKS -----------------------------------------------------
+    onEquipMenu() {
+        console.log("onEquipMenu");
+        // create new controller for equip menu
+        let ctrl = new UxEquipCtrl();
+        // activate new controller, move play controller to last
+        lastCtrl = this;
+        currentCtrl = ctrl;
+    }
+
 
 }

@@ -48,7 +48,7 @@ class UxView extends Gizmo {
         // child specs
         for (const childSpec of (spec.xchild || [])) { 
             childSpec.dfltDepth = Util.objKeyValue(spec, "dfltDepth", 1) + 1;
-            childSpec.dfltLayer = Util.objKeyValue(spec, "dfltLayer", this._layer);
+            childSpec.dfltLayer = this._layer;
             childSpec.parent = this;
             childSpec.xxform = Object.assign({parent: this.xform}, childSpec.xxform);
             const childView = UxView.generate(childSpec);
@@ -99,7 +99,6 @@ class UxView extends Gizmo {
     }
 
     get layer() {
-        if (this.model && this.model.view) return this.model.view.layer;
         return this._layer;
     }
     set layer(v) {
@@ -107,7 +106,6 @@ class UxView extends Gizmo {
     }
 
     get depth() {
-        if (this.model && this.model.view) return this.model.view.depth;
         return this._depth;
     }
     set depth(v) {

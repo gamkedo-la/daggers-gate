@@ -19,6 +19,7 @@ var loaders = [
 var props;
 var currentLevel;
 var currentCtrl;
+var lastCtrl;
 var queuedExit;
 var framesToDisplayMessage = 800;
 var levelLoader = new LevelLoader({lvls: allLevels});
@@ -114,6 +115,7 @@ function loadingDoneSoStartGame() {
 
 	// setup ux controller
 	currentCtrl = new UxTitleCtrl();
+	//currentCtrl = new UxEquipCtrl();
 
 	// instantiate player
 	p1 = new warriorClass({

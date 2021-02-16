@@ -9,7 +9,6 @@ class UxMainCtrl extends UxCtrl {
             xchild: [
                 {
                     cls: "UxPanel",
-                    dbg: true,
                     tag: "menuPanel",
                     xsketch: {
                         cls: 'Rect',
@@ -19,7 +18,6 @@ class UxMainCtrl extends UxCtrl {
                     xchild: [
                         {
                             cls: "UxPanel",
-                            dbg: true,
                             tag: "menuPanel",
                             xsketch: {
                                 cls: 'Rect',

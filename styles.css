@@ -1,0 +1,8 @@
+#tile-buttons {
+	display: flex;
+	flex-wrap: wrap;
+	/*grid-template-columns: repeat(30, 1fr);
+	grid-template-rows: repeat(8, 5vw);
+	grid-gap: 0px;*/
+}
+

@@ -33,6 +33,30 @@ var camera = new Camera({
 	height: 600,
 });
 
+// FIXME: remove
+/*
+var sword = new Shape({
+	fill: false,
+	verts: [
+		{x:4, y:0},
+		{x:8, y:0},
+		{x:8, y:4},
+		{x:28, y:4},
+		{x:30, y:6},
+		{x:28, y:8},
+		{x:8, y:8},
+		{x:8, y:12},
+		{x:4, y:12},
+		{x:4, y:8},
+		{x:0, y:8},
+		{x:0, y:4},
+		{x:4, y:4},
+	],
+	borderWidth: 1,
+	borderColor: "rgba(200,200,0,1)",
+});
+*/
+
 var viewMgr;
 var viewSys;
 

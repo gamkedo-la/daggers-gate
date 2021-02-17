@@ -1,3 +1,26 @@
+// FIXME: remove when we have real sword
+const sword = new Shape({
+    cls: "Shape",
+	fill: false,
+	verts: [
+		{x:4, y:0},
+		{x:8, y:0},
+		{x:8, y:4},
+		{x:28, y:4},
+		{x:30, y:6},
+		{x:28, y:8},
+		{x:8, y:8},
+		{x:8, y:12},
+		{x:4, y:12},
+		{x:4, y:8},
+		{x:0, y:8},
+		{x:0, y:4},
+		{x:4, y:4},
+	],
+	borderWidth: 1,
+	borderColor: "rgba(200,200,0,1)",
+});
+
 const interactionWaitIterations = 3;
 class characterClass {
     constructor(spec={}) {
@@ -19,15 +42,35 @@ class characterClass {
         this.tilePath = [];
         this.pathfindingNow = false;
 		this.movingSpeed = spec.movingSpeed || 4.0; // should be overwritten by specific class.
-        // move states
+        // input states
         this.move_North = false;
         this.move_East = false;
         this.move_South = false;
         this.move_West = false;
+        this.wantAttack = false;
         // collisions
         this.collider = new Collider(Object.assign({}, spec.collider, {x: this.x, y:this.y}));
         this.nextCollider = this.collider.copy();
         this.interactCollider = (spec.interactCollider) ? new Collider(Object.assign({}, spec.interactCollider, {x: this.x, y:this.y})) : undefined;
+        // melee attack
+        // -- spec for attack
+        this.xattack = {
+            sketch: sword,
+            collider: {
+                color: "red",
+                width: 25,
+                height: 25,
+            },
+        }
+        // -- attack offsets
+        this.attackOffsets = {
+            [Animator.idleSouth]: {x:0, y:20},
+            [Animator.idleNorth]: {x:0, y:-15},
+            [Animator.idleWest]: {x:-25, y:15},
+            [Animator.idleEast]: {x:25, y:15},
+        }
+        // -- current attack
+        this.currentAttack;
         // character attributes
         this.health = 1;
         // variables for held objects
@@ -102,7 +145,42 @@ class characterClass {
     }
 
     getAnimState() {
+    }
 
+    // update character based on current state and inputs
+    update(updateCtx) {
+        // check interaction/attack inputs
+        switch (this.state) {
+        case [Animator.attackEast]:
+        case [Animator.attackWest]:
+        case [Animator.attackSouth]:
+        case [Animator.attackNorth]:
+            // check if attack is done
+            if (!this.currentAttack.active) {
+                this.currentAttack = undefined;
+                // transition back to idle state (based on attack direction)
+                if (this.state === Animator.attackEast) {
+                    this.state = Animator.idleEast;
+                } else if (this.state === Animator.attackWest) {
+                    this.state = Animator.idleWest;
+                } else if (this.state === Animator.attackNorth) {
+                    this.state = Animator.idleNorth;
+                } else {
+                    this.state = Animator.idleSouth;
+                }
+            // otherwise, attack is still active...
+            } else {
+                this.currentAttack.update(updateCtx);
+            }
+            break;
+        }
+
+        // check for wanting to attack
+        if (this.wantAttack) {
+        }
+
+        // fall into movement
+        this.move(updateCtx);
     }
 
     move(updateCtx) {
@@ -299,6 +377,10 @@ class characterClass {
         // handle grabbed object in front or side of player
         if (this.grabbedObj && this.idleState !== Animator.idleNorth) {
             this.grabbedObj.draw();
+        }
+        // render attack
+        if (this.currentAttack) {
+            this.currentAttack.render(canvasContext);
         }
     }
 

@@ -17,6 +17,10 @@ class Animator {
     static closed =         21;
     static solved =         22;
     static active =         23;
+    static attackWest =     31;
+    static attackEast =     32;
+    static attackNorth =    33;
+    static attackSouth =    34;
 
     // PROPERTIES ----------------------------------------------------------
     get width() {

@@ -20,12 +20,13 @@ class warriorClass extends characterClass {
     }
 
     // key controls used for this
-    setupControls(northKey, eastKey, southKey, westKey, spaceKey) {
+    setupControls(northKey, eastKey, southKey, westKey, spaceKey, attackKey) {
         this.controlKeyForNorth = northKey;
         this.controlKeyForEast = eastKey;
         this.controlKeyForSouth = southKey;
         this.controlKeyForWest = westKey;
         this.controlKeyForinteractWithObject = spaceKey;
+        this.controlKeyForAttack = attackKey;
     }
 
     reset() {

@@ -28,5 +28,6 @@ class Registry {
         Sketch._genreg(Rect);
         Sketch._genreg(Sprite);
         Sketch._genreg(Text);
+        Sketch._genreg(Shape);
     }
 }

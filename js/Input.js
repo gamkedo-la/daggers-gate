@@ -11,6 +11,7 @@ const KEY_NUMBER_1 = 49;
 const KEY_NUMBER_2 = 50;
 const KEY_NUMBER_3 = 51;
 const KEY_LETTER_F = 70;
+const KEY_LETTER_Z = 90;
 const KEY_ESCAPE = 27;
 
 const KEY_NUMBER_9 = 57;
@@ -31,7 +32,7 @@ function initInput() {
   document.addEventListener("mousedown", mouseclicked);
   document.addEventListener("mouseup", mousereleased);
   
-  p1.setupControls(KEY_UP_ARROW,KEY_RIGHT_ARROW,KEY_DOWN_ARROW,KEY_LEFT_ARROW,KEY_SPACE);
+  p1.setupControls(KEY_UP_ARROW,KEY_RIGHT_ARROW,KEY_DOWN_ARROW,KEY_LEFT_ARROW,KEY_SPACE,KEY_LETTER_Z);
 }
 
 function setKeyHoldState(thisKey, thisPlayer, setTo) {
@@ -48,7 +49,10 @@ function setKeyHoldState(thisKey, thisPlayer, setTo) {
     thisPlayer.move_West = setTo;
   }
   if(thisKey == thisPlayer.controlKeyForinteractWithObject){
-	thisPlayer.interactWithObject = setTo;
+	  thisPlayer.interactWithObject = setTo;
+  }
+  if(thisKey == thisPlayer.controlKeyForAttack){
+	  thisPlayer.wantAttack = setTo;
   }
 }
 

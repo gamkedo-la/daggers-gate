@@ -91,7 +91,8 @@ class UxPlayCtrl extends UxCtrl {
 		camera.update(updateCtx);
 		// Wrapped in IF/ELSE to support Tile Editor Mode	
 		// movement
-		p1.move(updateCtx);
+		//p1.move(updateCtx);
+		p1.update(updateCtx);
 		currentLevel.update(updateCtx);
     }
 

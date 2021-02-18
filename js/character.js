@@ -53,22 +53,65 @@ class characterClass {
         this.nextCollider = this.collider.copy();
         this.interactCollider = (spec.interactCollider) ? new Collider(Object.assign({}, spec.interactCollider, {x: this.x, y:this.y})) : undefined;
         // melee attack
-        // -- spec for attack
-        this.xattack = {
-            sketch: sword,
-            collider: {
-                color: "red",
-                width: 25,
-                height: 25,
+        // -- specs for attack
+        this.xattacks = {
+            [Animator.idleSouth]: {
+                state: Animator.attackSouth,
+                sketch: sword,
+                collider: {
+                    color: "red",
+                    width: 35,
+                    height: 25,
+                    xoff:0, 
+                    yoff:20,
+                },
+                startAngle: Math.PI*.25,
+                endAngle: Math.PI*.75,
             },
-        }
-        // -- attack offsets
-        this.attackOffsets = {
-            [Animator.idleSouth]: {x:0, y:20},
-            [Animator.idleNorth]: {x:0, y:-15},
-            [Animator.idleWest]: {x:-25, y:15},
-            [Animator.idleEast]: {x:25, y:15},
-        }
+            [Animator.idleNorth]: {
+                state: Animator.attackNorth,
+                sketch: sword,
+                collider: {
+                    color: "red",
+                    width: 35,
+                    height: 25,
+                    xoff:0, 
+                    yoff:-25,
+                },
+                startAngle: Math.PI*1.25,
+                endAngle: Math.PI*1.75,
+                reach: -.5,
+            },
+            [Animator.idleWest]: {
+                state: Animator.attackWest,
+                sketch: sword,
+                collider: {
+                    color: "red",
+                    width: 25,
+                    height: 35,
+                    xoff:-25, 
+                    yoff:0,
+                },
+                startAngle: Math.PI*1.25,
+                endAngle: Math.PI*.75,
+            },
+            [Animator.idleEast]: {
+                state: Animator.attackEast,
+                sketch: sword,
+                collider: {
+                    color: "red",
+                    width: 25,
+                    height: 35,
+                    xoff:25, 
+                    yoff:0,
+                },
+                startAngle: -Math.PI*.25,
+                endAngle: Math.PI*.25,
+            },
+        };
+        this.delayBetweenAttacks = 200;
+        this.attackDelayTTL = 0;
+        this.xattacks[Animator.idle] = this.xattacks[Animator.idleSouth];
         // -- current attack
         this.currentAttack;
         // character attributes
@@ -103,6 +146,21 @@ class characterClass {
         }
         // handle idle state
         return this._state;
+    }
+
+    get facing() {
+        switch (this._state) {
+        case Animator.idleEast:
+        case Animator.attackEast:
+            return Animator.idleEast;
+        case Animator.idleWest:
+        case Animator.attackWest:
+            return Animator.idleWest;
+        case Animator.idleNorth:
+        case Animator.attackNorth:
+            return Animator.idleNorth;
+        }
+        return Animator.idleSouth;
     }
 
     set state(v) {
@@ -150,24 +208,21 @@ class characterClass {
     // update character based on current state and inputs
     update(updateCtx) {
         // check interaction/attack inputs
-        switch (this.state) {
-        case [Animator.attackEast]:
-        case [Animator.attackWest]:
-        case [Animator.attackSouth]:
-        case [Animator.attackNorth]:
+        switch (this.idleState) {
+        case Animator.attackEast:
+        case Animator.attackWest:
+        case Animator.attackNorth:
+        case Animator.attackSouth:
+            //console.log("we are attacking...");
             // check if attack is done
             if (!this.currentAttack.active) {
+                //console.log("attack is done");
+                let lastAttack = this.currentAttack;
                 this.currentAttack = undefined;
                 // transition back to idle state (based on attack direction)
-                if (this.state === Animator.attackEast) {
-                    this.state = Animator.idleEast;
-                } else if (this.state === Animator.attackWest) {
-                    this.state = Animator.idleWest;
-                } else if (this.state === Animator.attackNorth) {
-                    this.state = Animator.idleNorth;
-                } else {
-                    this.state = Animator.idleSouth;
-                }
+                this.state = lastAttack.idleState;
+                this.attackDelayTTL = this.delayBetweenAttacks;
+
             // otherwise, attack is still active...
             } else {
                 this.currentAttack.update(updateCtx);
@@ -175,9 +230,22 @@ class characterClass {
             break;
         }
 
+        // update idle TTLS
+        if (this.attackDelayTTL > 0) this.attackDelayTTL -= updateCtx.deltaTime;
+
         // check for wanting to attack
-        if (this.wantAttack) {
+        if (this.wantAttack && !this.currentAttack && this.attackDelayTTL <= 0) {
+            //console.log("creating attack");
+            // instantiate new attack
+            let xattack = Object.assign({}, this.xattacks[this.idleState], {actor: this, idleState: this.idleState});
+            xattack.collider = Object.assign({}, xattack.collider, {x:this.x, y:this.y});
+            this.currentAttack = new Attack(xattack);
+            // transition to attack state (based on idle direction)
+            this.state = xattack.state;
         }
+
+        // if attacking... other actions are blocked
+        if (this.currentAttack) return;
 
         // fall into movement
         this.move(updateCtx);
@@ -365,9 +433,10 @@ class characterClass {
     }
 
     draw() {
-        // handle grabbed object behind player
-        if (this.grabbedObj && this.idleState === Animator.idleNorth) {
-            this.grabbedObj.draw();
+        // handle grabbed object or attack behind player
+        if(this.facing === Animator.idleNorth) {
+            if (this.grabbedObj) this.grabbedObj.draw();
+            if (this.currentAttack) this.currentAttack.render(canvasContext);
         }
         drawBitmapCenteredAtLocationWithRotation(this.sketch, this.x+this.xOff, this.y+this.yOff, 0.0);
         if (showCollisions) {
@@ -375,12 +444,9 @@ class characterClass {
             this.collider.draw(canvasContext);
         }
         // handle grabbed object in front or side of player
-        if (this.grabbedObj && this.idleState !== Animator.idleNorth) {
-            this.grabbedObj.draw();
-        }
-        // render attack
-        if (this.currentAttack) {
-            this.currentAttack.render(canvasContext);
+        if (this.facing !== Animator.idleNorth) {
+            if (this.grabbedObj) this.grabbedObj.draw();
+            if (this.currentAttack) this.currentAttack.render(canvasContext);
         }
     }
 

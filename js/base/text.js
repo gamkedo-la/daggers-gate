@@ -63,7 +63,7 @@ class Text extends Sketch {
                 this._width = size.x;
                 this._height = size.y;
             }
-            this.evtUpdated.trigger();
+            //this.evtUpdated.trigger();
         }
     }
 

@@ -23,12 +23,26 @@ class Sprite extends Sketch {
     // METHODS -------------------------------------------------------------
     /**
      * draw the sprite
-     * @param {canvasContext} renderCtx - canvas context on which to draw
      * @param {int} x - x position to draw at
      * @param {int} y - y position to draw at
      */
     _render(renderCtx, x=0, y=0) {
-        renderCtx.drawImage(this._img, x, y);
+        // scale if necessary
+        if ((this.width !== this._img.width) || (this.height !== this._img.height)) {
+            if (this._img.width && this._img.height) {
+                let scalex = this.width/this._img.width;
+                let scaley = this.height/this._img.height;
+                if (scalex && scaley) {
+                    let iscalex = 1/scalex;
+                    let iscaley = 1/scaley;
+                    renderCtx.scale(scalex, scaley);
+                    renderCtx.drawImage(this._img, x*iscalex, y*iscaley);
+                    renderCtx.scale(1/scalex, 1/scaley);
+                }
+            }
+        } else {
+            renderCtx.drawImage(this._img, x, y);
+        }
     }
 
 }

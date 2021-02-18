@@ -115,7 +115,8 @@ class characterClass {
         // -- current attack
         this.currentAttack;
         // character attributes
-        this.health = 1;
+        this.health = Util.objKeyValue(spec, "health", 0);
+        this.maxHealth = Util.objKeyValue(spec, "maxHealth", 0);
         // variables for held objects
         this.grabbedObj;
         // linking of objects (used to handle double doors, where each part of the door is a separate object)
@@ -427,7 +428,9 @@ class characterClass {
     takeDamage(amount){
         if(this.immuneToDamageCounter <= 0){
             var damageAmount = amount;
+            let oldHealth = this.health;
             this.health = this.health - damageAmount;
+            console.log(this + " taking damage: " + amount + " health from: " + oldHealth + " to: " + this.health);
             this.immuneToDamageCounter = 300;
         }
     }

@@ -8,6 +8,7 @@ class UxPanel extends UxView {
     // CONSTRUCTOR ---------------------------------------------------------
     constructor(spec) {
         super(spec);
+        console.log("xsketch: " + Fmt.ofmt(spec.xsketch));
         this._sketch = (spec.xsketch) ? Sketch.generate(Object.assign({parent: this}, spec.xsketch)) : Sketch.generate({
             cls: "Rect",
             parent: this,
@@ -27,11 +28,11 @@ class UxPanel extends UxView {
 
     set sketch(v) {
         if (v !== this._sketch) {
-            if (this._sketch) this._sketch.evtUpdated.ignore(this.onSketchUpdate);
+            //if (this._sketch) this._sketch.evtUpdated.ignore(this.onSketchUpdate);
             if (this._sketch.parent) this._sketch.parent = undefined;
             this._sketch = v;
             v.parent = this;
-            if (this._sketch) this._sketch.evtUpdated.listen(this.onSketchUpdate);
+            //if (this._sketch) this._sketch.evtUpdated.listen(this.onSketchUpdate);
             this.evtUpdated.trigger();
         }
     }
@@ -39,7 +40,7 @@ class UxPanel extends UxView {
     // EVENT HANDLERS ------------------------------------------------------
     onSketchUpdate(evt) {
         // propagate update
-        this.evtUpdated.trigger();
+        //this.evtUpdated.trigger();
         //console.log("onSketchUpdate");
     }
 

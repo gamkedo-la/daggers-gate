@@ -16,6 +16,8 @@ class warriorClass extends characterClass {
         }, spec.interact);
         spec.yOff = spec.yOff || -25;
         spec.movingSpeed = spec.movingSpeed || PLAYER_MOVE_SPEED;
+        spec.health = 30;
+        spec.maxHealth = 30;
         super(spec);
     }
 
@@ -63,7 +65,7 @@ class warriorClass extends characterClass {
             if (obj.active && obj.collider.blocking && obj.collider.overlaps(this.nextCollider)) {
                 console.log("hit object collider " + walkIntoTileType);
                 if(walkIntoTileType == TILE.GROUND_SPIKES_DOWN){ //Need to investigate why it's down not up?
-                    this.takeDamage(1);
+                    this.takeDamage(5);
                     warriorOuch.play();
                 }
                 return;
@@ -141,8 +143,17 @@ class warriorClass extends characterClass {
                     currentLevel.setfgi(walkIntoTileIndex, 33); //open chest
                     this.gold = 10;
                 break;
-            case TILE.HEART_TILE:
             case TILE.HEART_PIECE1:
+                if (this.maxHealth < 100) {
+                    this.maxHealth += 10;
+                }
+                this.health += 10;
+                if (this.health > this.maxHealth) this.health = this.maxHealth;
+                currentLevel.setfgi(walkIntoTileIndex, 0); //remove heart
+                SetupPathfindingGridData(p1);
+                console.log("Heart");
+                break;
+            case TILE.HEART_TILE:
             case TILE.HEART_PIECE2:
                     this.health++;; 
                     currentLevel.setfgi(walkIntoTileIndex, 0); //remove heart
@@ -156,7 +167,7 @@ class warriorClass extends characterClass {
                 console.log("Bow: " + this.haveBow);
                 break;
             case TILE.GROUND_SPIKES_UP:
-                this.takeDamage(1);
+                this.takeDamage(5);
                 SetupPathfindingGridData(p1);
                 console.log("Take Damage from Spike");
                 break;

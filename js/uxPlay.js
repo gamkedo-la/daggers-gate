@@ -151,7 +151,7 @@ class UxPlayCtrl extends UxCtrl {
                 {
                     cls: "UxPanel",
                     tag: "manaPanel",
-                    xxform: { left:.1, right:.5, top:.1, bottom:.83},
+                    xxform: { left:.1, right:.6, top:.1, bottom:.83},
                     xsketch: {},
                     xchild: [
                         {
@@ -238,11 +238,15 @@ class UxPlayCtrl extends UxCtrl {
         for (let i=1; i<=10; i++) {
             let key = "healthSlot" + i.toString();
             this[key] = this.view.find((v) => v.tag === key);
+            key = "manaSlot" + i.toString();
+            this[key] = this.view.find((v) => v.tag === key);
         }
 
         // other state
         this.lastHealth = 0;
         this.lastMaxHealth = 0;
+        this.lastMana = 0;
+        this.lastMaxMana = 0;
 
     }
 
@@ -294,6 +298,35 @@ class UxPlayCtrl extends UxCtrl {
         }
     }
 
+    updatePlayerMana() {
+        // skip update if no change
+        if (p1.mana === this.lastMana && p1.maxMana === this.lastMaxMana) return;
+        // cache last mana values
+        this.lastMana = p1.mana;
+        this.lastMaxMana = p1.maxMana;
+        // update view for current mana and max mana
+        for (let i=1; i<=10; i++) {
+            let key = "manaSlot" + i.toString();
+            let slot = this[key];
+            // full 
+            if (p1.mana >= i*10) {
+                let xsketch = Object.assign({parent: slot}, assets.get("MANA_PIECE"), {xfitter: { cls: "FitToParent" }});
+                this[key].sketch = Sketch.generate(xsketch);
+            // partial
+            } else if (p1.mana < i*10 && p1.mana > (i-1)*10) {
+                let xsketch = Object.assign({parent: slot}, assets.get("MANA_HALF_EMPTY"), {xfitter: { cls: "FitToParent" }});
+                this[key].sketch = Sketch.generate(xsketch);
+            // empty
+            } else if (p1.maxMana >= i*10) {
+                let xsketch = Object.assign({parent: slot}, assets.get("MANA_EMPTY"), {xfitter: { cls: "FitToParent" }});
+                this[key].sketch = Sketch.generate(xsketch);
+            // not unlocked
+            } else {
+                this[key].sketch = Sketch.zero;
+            }
+        }
+    }
+
     update(updateCtx) {
 		// handle level exit
 		if (queuedExit) {
@@ -315,6 +348,7 @@ class UxPlayCtrl extends UxCtrl {
         // update view
         this.keyText.text = p1.keysHeld.toString();
         this.updatePlayerHealth();
+        this.updatePlayerMana();
         //console.log("this.keyText: " + this.keyText);
     }
 

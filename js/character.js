@@ -117,6 +117,8 @@ class characterClass {
         // character attributes
         this.health = Util.objKeyValue(spec, "health", 0);
         this.maxHealth = Util.objKeyValue(spec, "maxHealth", 0);
+        this.mana = Util.objKeyValue(spec, "mana", 0);
+        this.maxMana = Util.objKeyValue(spec, "maxMana", 0);
         // variables for held objects
         this.grabbedObj;
         // linking of objects (used to handle double doors, where each part of the door is a separate object)

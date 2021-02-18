@@ -18,6 +18,8 @@ class warriorClass extends characterClass {
         spec.movingSpeed = spec.movingSpeed || PLAYER_MOVE_SPEED;
         spec.health = 30;
         spec.maxHealth = 30;
+        spec.mana = 15;
+        spec.maxMana = 30;
         super(spec);
     }
 

@@ -103,7 +103,7 @@ class gameObjectClass extends characterClass {
                 this.state = (this.state === Animator.idle) ? Animator.active : Animator.idle;
                 this.active = (this.state === Animator.active);
                 // reset ignore list during state transitions
-                this.ignore = [this];
+                this.trap.ignore = [this];
             }
 
             // handle trap effects

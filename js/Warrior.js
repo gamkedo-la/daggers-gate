@@ -40,41 +40,23 @@ class warriorClass extends characterClass {
         super.reset();
     } // end of reset
 
+    takeDamage(amount) {
+        warriorOuch.play();
+        super.takeDamage(amount);
+    }
+
     //must override this function.  No super version
     tileCollisionHandle(walkIntoTileIndex, walkIntoTileType, nextX, nextY) {
 
-        // check for interaction collisions
-        if (this.interactWithObject) {
-            let heldObject = this.grabbedObj;
-            for (const obj of currentLevel.objects) {
-                if (obj.collider.overlaps(this.interactCollider)) {
-                    console.log("interact object collider");
-                    obj.interact(this);
-                }
-            }
-
-            // we had an object before interacting w/ object colliders and we still have an object...
-            // handle dropping of object
-            if (heldObject && this.grabbedObj) {
-                console.log("dropping object: " + this.grabbedObj);
-                this.grabbedObj.y += 15;
-                this.grabbedObj.visible = true;
-                this.grabbedObj = undefined;
-            }
-        }
-
         // check for collider collisions
+        // -- ran into object?
         for (const obj of currentLevel.objects) {
             if (obj.active && obj.collider.blocking && obj.collider.overlaps(this.nextCollider)) {
                 console.log("hit object collider " + walkIntoTileType);
-                if(walkIntoTileType == TILE.GROUND_SPIKES_DOWN){ //Need to investigate why it's down not up?
-                    console.log("taking spike damage...");
-                    this.takeDamage(5);
-                    warriorOuch.play();
-                }
                 return;
             }
         }
+        // -- ran into enemy?
         for (const obj of currentLevel.enemies) {
             if (obj.collider.blocking && obj.collider.overlaps(this.nextCollider)) {
                 console.log("hit enemy collider");
@@ -83,7 +65,7 @@ class warriorClass extends characterClass {
         }
 
         // check for tile collisions
-        // check for level exit
+        // -- ran into level exit?
         if (walkIntoTileIndex in currentLevel.exits) {
             if (!queuedExit) {
                 console.log("hit exit: " + Fmt.ofmt(currentLevel.exits[walkIntoTileIndex]));

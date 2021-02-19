@@ -21,6 +21,7 @@ class Animator {
     static attackEast =     32;
     static attackNorth =    33;
     static attackSouth =    34;
+    static death =          35;
 
     // PROPERTIES ----------------------------------------------------------
     get width() {
@@ -69,6 +70,7 @@ class Animator {
     getAnim(state) {
         // lookup sketch tag for given state
         let tag = this._animations[state];
+        if (!tag) return undefined;
         return this.getSketch(tag);
     }
 

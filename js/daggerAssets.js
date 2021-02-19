@@ -208,6 +208,7 @@ const daggerObjects = {
         trap: {
             activeTTL: 1500,
             idleTTL: 3500,
+            damage: 5,
         },
         sketch: { 
             cls: "Animator",

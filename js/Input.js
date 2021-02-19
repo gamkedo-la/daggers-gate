@@ -58,93 +58,19 @@ function setKeyHoldState(thisKey, thisPlayer, setTo) {
     thisPlayer.wantSecondaryAction = setTo;
     if (thisPlayer.startSecondaryAction) console.log("start secondary action");
   }
-  /*
-  if(thisKey == thisPlayer.controlKeyForinteractWithObject){
-	  thisPlayer.interactWithObject = setTo;
-  }
-  if(thisKey == thisPlayer.controlKeyForAttack){
-	  thisPlayer.wantAttack = setTo;
-  }
-  */
 }
 
 function keyPressed(evt) {
   if (currentCtrl) currentCtrl.keyPressed(evt.keyCode);
-  /*
-  setKeyHoldState(evt.keyCode, p1, true);
-  //console.log(evt.keyCode);
-  if(evt.keyCode == KEY_NUMBER_1){
-	  pathFindingDisplay = !pathFindingDisplay;
-  } else if (evt.keyCode == KEY_NUMBER_2){
-	  showCollisions = !showCollisions;
-  } else if (evt.keyCode == KEY_NUMBER_3){
-	  showRoomNumbers = !showRoomNumbers;
-  }
-  */
-  
   evt.preventDefault(); // without this, arrow keys scroll the browser!
 }
 
 function keyReleased(evt) {
   if (currentCtrl) currentCtrl.keyReleased(evt.keyCode);
-  /*
-  setKeyHoldState(evt.keyCode, p1, false);
-
-  if(evt.keyCode == KEY_SPACE && titleScreen) {
-  titleScreen = false;
-  // loadLevel(roomTwo);
-  }
-  if(evt.keyCode == KEY_NUMBER_9 && titleScreen) {
-    console.log("what what!")
-    editorMode = true;
-    titleScreen = false;
-    startEditor();
-  }
-  */
 }
 
 function mouseclicked(evt) {
   currentCtrl.mouseClicked(mouseX, mouseY);
-  /*
-  if(editorMode) {
-    if(editing_level = "BG") {
-      if (currentLevel.containsPoint(mouseX, mouseY)) {
-        let idx = currentLevel.idxfromxy(mouseX, mouseY);
-        // console.log(freshMap[clickedIndex], storedTileValue);
-        editorLvl.setbgi(idx, storedTileValue);
-        //blank_Map[idx] = storedTileValue;
-        mouseDragging = true;
-      }
-    }
-     if(editing_level = "FG") {
-      if (currentLevel.containsPoint(mouseX, mouseY)) {
-        let idx = currentLevel.idxfromxy(mouseX, mouseY);
-        // console.log(freshMap[clickedIndex], storedTileValue);
-        editorLvl.setfgi(idx, storedTileValue);
-        //blank_Map[idx] = storedTileValue;
-        mouseDragging = true;
-      }
-    }
-    
-    // Doesn't edit Rooms currently --need to learn how
-     if(editing_level = "ROOM") {
-      if (currentLevel.containsPoint(mouseX, mouseY)) {
-        let idx = currentLevel.idxfromxy(mouseX, mouseY);
-        // console.log(freshMap[clickedIndex], storedTileValue);
-        editorLvl.setbgi(idx, storedTileValue);
-        //blank_Map[idx] = storedTileValue;
-        mouseDragging = true;
-      }
-    }
-
-  }else {
-
-  	if(grid[tileOverIdx].elementType != WALL) {
-  		startPath(tileOverIdx, p1); 
-    }
-  }
-  */
-
 }
 
 function mousereleased(evt) {
@@ -154,30 +80,16 @@ function mousereleased(evt) {
 function mousemoved(evt) {
     var rect = canvas.getBoundingClientRect();
     var root = document.documentElement;
-
     // account for the margins, canvas position on page, scroll amount, etc.
     mouseX = evt.clientX - rect.left - root.scrollLeft;
     mouseY = evt.clientY - rect.top - root.scrollTop;
-
     if (currentLevel.containsPoint(mouseX, mouseY)) {
         tileOverIdx = currentLevel.idxfromxy(mouseX, mouseY);
     } else {
         tileOverIdx = -1;
     }
-
     // update controller
     currentCtrl.mouseMoved(mouseX, mouseY);
-
-    /*
-    if(mouseDragging && tileOverIdx != -1) { /////
-
-    } /////
-    //
-    if(mouseDragging) {
-      //blank_Map[tileOverIdx] = storedTileValue;
-      editorLvl.setfgi(tileOverIdx, storedTileValue);
-    }
-    */
 } 
 
 function findMouseTileXY(evt) {

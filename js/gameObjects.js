@@ -22,6 +22,7 @@ class gameObjectClass extends characterClass {
             // pick random ttl, so that traps do not go off at the same time
             let ttl = Math.floor(Math.random() * this.trap.idleTTL);
             this.trap.ttl = ttl;
+            this.trap.ignore = [this];
             this.active = false;
         }
         this.correctPuzzleLocation = false;
@@ -89,7 +90,8 @@ class gameObjectClass extends characterClass {
 
     }
 
-    move(updateCtx) {
+
+    update(updateCx) {
         // handle trap updates
         if (this.trap) {
             let duration = (this.state === Animator.idle) ? this.trap.idleTTL : this.trap.activeTTL;
@@ -100,10 +102,27 @@ class gameObjectClass extends characterClass {
                 this.trap.ttl = 0;
                 this.state = (this.state === Animator.idle) ? Animator.active : Animator.idle;
                 this.active = (this.state === Animator.active);
+                // reset ignore list during state transitions
+                this.ignore = [this];
+            }
+
+            // handle trap effects
+            if (this.active) {
+                if (this.collider.overlaps(p1.collider) && !this.trap.ignore.includes(p1)) {
+                    console.log("player taking trap damage: " + this.trap.damage);
+                    p1.takeDamage(this.trap.damage);
+                    this.trap.ignore.push(p1);
+                }
+                let ohits = currentLevel.findAllObjectEnemy((v) => this.collider.overlaps(v.collider) && !this.trap.ignore.includes(v));
+                for (const ohit of ohits) {
+                    console.log("enemy: " + ohit + " taking trap damage: " + this.trap.damage);
+                    ohit.takeDamage(this.trap.damage);
+                    this.trap.ignore.push(ohit);
+                }
             }
         }
 
-		super.move(updateCtx);
+		super.update(updateCtx);
     }
 
     //must override this function.  No super version

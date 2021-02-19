@@ -10,6 +10,8 @@ class enemyClass extends characterClass {
             width: 20, 
             height: 40, 
         }, spec.collider);
+        spec.health = spec.health || 15;
+        spec.maxHealth = spec.maxHealth || 15;
         console.log("enemy collider spec: " + Fmt.ofmt(spec.collider));
         spec.movingSpeed = spec.movingSpeed || ENEMY_MOVE_SPEED;
         super(spec);

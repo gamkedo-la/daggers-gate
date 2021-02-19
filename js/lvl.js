@@ -156,6 +156,16 @@ class Level {
         }
         return undefined;
     }
+    findAllObjectEnemy(filter) {
+        let match = [];
+        for (const obj of this.objects) {
+            if (filter(obj)) match.push(obj);
+        }
+        for (const obj of this.enemies) {
+            if (filter(obj)) match.push(obj);
+        }
+        return match;
+    }
 
     /**
      * get fg tile index at given x,y

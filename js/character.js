@@ -47,7 +47,6 @@ class characterClass {
         this.move_East = false;
         this.move_South = false;
         this.move_West = false;
-        this.wantAttack = false;
         this.wantPrimaryAction = false;
         this.wantSecondaryAction = false;
         this.startPrimaryAction = false;
@@ -137,10 +136,11 @@ class characterClass {
         this._active = true;
         this.reset();
         this.waitForInteraction = 0;
-        this.immuneToDamageCounter = 100;
         // delay timers
         this.delayBetweenAttacks = spec.delayBetweenAttacks || 200;
         this.attackDelayTTL = 0;
+        this.delayDeath = spec.delayDeath || 500;
+        this.deathTTL = 0;
     }
 
     get idleState() {
@@ -283,75 +283,16 @@ class characterClass {
         }
     }
 
-    // update character based on current state and inputs
-    update(updateCtx) {
-
-        // update any current attack
-        if (this.currentAttack) {
-            // check if attack is done
-            if (!this.currentAttack.active) {
-                //console.log("attack is done");
-                let lastAttack = this.currentAttack;
-                this.currentAttack = undefined;
-                // transition back to idle state (based on attack direction)
-                this.state = lastAttack.idleState;
-                this.attackDelayTTL = this.delayBetweenAttacks;
-            // otherwise, attack is still active...
-            } else {
-                this.currentAttack.update(updateCtx);
-            }
-        }
-
-        // check for interaction collisions
-        /*
-        if (this.interactWithObject) {
-            let heldObject = this.grabbedObj;
-            for (const obj of currentLevel.objects) {
-                if (obj.collider.overlaps(this.interactCollider)) {
-                    console.log("interact object collider");
-                    obj.interact(this);
-                }
-            }
-
-            // we had an object before interacting w/ object colliders and we still have an object...
-            // handle dropping of object
-            if (heldObject && this.grabbedObj) {
-                console.log("dropping object: " + this.grabbedObj);
-                this.grabbedObj.y += 15;
-                this.grabbedObj.visible = true;
-                this.grabbedObj = undefined;
-            }
-        }
-        */
-
-        // update delay TTLs
-        if (this.attackDelayTTL > 0) this.attackDelayTTL -= updateCtx.deltaTime;
-
-        // check for wanting to attack
-        /*
-        if (this.wantAttack && !this.currentAttack && this.attackDelayTTL <= 0) {
-            //console.log("creating attack");
-            // instantiate new attack
-            let xattack = Object.assign({}, this.xattacks[this.idleState], {actor: this, idleState: this.idleState});
-            xattack.collider = Object.assign({}, xattack.collider, {x:this.x, y:this.y});
-            this.currentAttack = new Attack(xattack);
-            // transition to attack state (based on idle direction)
-            this.state = xattack.state;
-        }
-        */
-
-        // if attacking... other actions are blocked
-        if (this.currentAttack) return;
-
-        // fall into movement
-        this.move(updateCtx);
+    doDie() {
+        console.log(this + " has died");
+        this.state = Animator.death;
+        this.deathTTL = this.delayDeath;
+        // FIXME: add loot
+        // FIXME: handle player death
     }
 
-    move(updateCtx) {
-
-        // character immunity timer
-        this.immuneToDamageCounter--;
-
+    // update character based on current state and inputs
+    update(updateCtx) {
         // resolve link during move/update of object
         if (this.wantLink) {
             for (const target of this.wantLink.targets || []) {
@@ -366,13 +307,52 @@ class characterClass {
             this.wantLink = undefined;
         }
 
-        // handle pause between interactions (so we don't pick stuff up and immediately drop it because the key is still down)
-        if (this.waitForInteraction > 0) {
-            this.waitForInteraction--;
-            this.interactWithObject = false;
-        } else if (this.interactWithObject) {
-            this.waitForInteraction = interactionWaitIterations;
+        // handle death
+        if (this.idleState !== Animator.death && this.maxHealth && this.health <= 0) {
+            this.doDie();
         }
+        if (this.deathTTL > 0) {
+            this.deathTTL -= updateCtx.deltaTime;
+            if (this.constructor.name === "enemyClass") {
+                currentLevel.destroyEnemy(this);
+            } else {
+                currentLevel.destroyObject(this);
+            }
+        }
+        let incapacitated = (this.idleState === Animator.death);
+
+        // update any current attack
+        if (!incapacitated && this.currentAttack) {
+            // check if attack is done
+            if (!this.currentAttack.active) {
+                //console.log("attack is done");
+                let lastAttack = this.currentAttack;
+                this.currentAttack = undefined;
+                // transition back to idle state (based on attack direction)
+                this.state = lastAttack.idleState;
+                this.attackDelayTTL = this.delayBetweenAttacks;
+            // otherwise, attack is still active...
+            } else {
+                this.currentAttack.update(updateCtx);
+            }
+        }
+
+        // update delay TTLs
+        if (this.attackDelayTTL > 0) this.attackDelayTTL -= updateCtx.deltaTime;
+
+        // handle movement
+        // -- blocked if attacking
+        // -- blocked if incapacitated
+        if (!this.currentAttack && !incapacitated) this.move(updateCtx);
+
+        // update sketch
+        this._updateCtx.deltaTime = updateCtx.deltaTime;
+        this._updateCtx.state = this.state;
+        this.sketch.update(this._updateCtx);
+
+    }
+
+    move(updateCtx) {
 
         var nextX = this.x;
         var nextY = this.y;
@@ -497,10 +477,6 @@ class characterClass {
             this.grabbedObj.y = this.y + this.yOff + yoff;
         }
 
-        // update sketch
-        this._updateCtx.deltaTime = updateCtx.deltaTime;
-        this._updateCtx.state = this.state;
-        this.sketch.update(this._updateCtx);
     }
 
     isOverLapping(testX, testY) {
@@ -521,13 +497,10 @@ class characterClass {
     }
 
     takeDamage(amount){
-        if(this.immuneToDamageCounter <= 0){
-            var damageAmount = amount;
-            let oldHealth = this.health;
-            this.health = this.health - damageAmount;
-            console.log(this + " taking damage: " + amount + " health from: " + oldHealth + " to: " + this.health);
-            this.immuneToDamageCounter = 300;
-        }
+        var damageAmount = amount;
+        let oldHealth = this.health;
+        this.health = this.health - damageAmount;
+        console.log(this + " taking damage: " + amount + " health from: " + oldHealth + " to: " + this.health);
     }
 
     draw() {

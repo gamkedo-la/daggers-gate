@@ -22,6 +22,11 @@ class Attack {
             height: this._sketch.height,
             origx: reach,
         });
+        // damage of attack...
+        this._damage = spec.damage || 5;
+        // ignore list... entities for which not to apply attack damage to
+        // starts w/ actor, then applies to entities already hit (don't do damage continuously when colliders hit)
+        this._ignore = [ this._actor ];
     }
 
     get active() {
@@ -41,6 +46,16 @@ class Attack {
         // update collider
         if (this.active) {
             this._collider.update(this._actor.x, this._actor.y, currentLevel.idxfromxy.bind(currentLevel));
+
+            // see if collider has hit anything...
+            let ohits = currentLevel.findAllObjectEnemy((v) => v.health && this._collider.overlaps(v.collider) && !this._ignore.includes(v));
+            for (const ohit of ohits) {
+                console.log("attack applying damage to: " + ohit);
+                // apply damage
+                ohit.takeDamage(this._damage);
+                // add object to ignore list
+                this._ignore.push(ohit);
+            }
         }
     }
 

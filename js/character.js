@@ -501,6 +501,10 @@ class characterClass {
         let oldHealth = this.health;
         this.health = this.health - damageAmount;
         console.log(this + " taking damage: " + amount + " health from: " + oldHealth + " to: " + this.health);
+        // if we are carrying something and we take damage, drop the item
+        if (this.grabbedObj) {
+            this.doDrop();
+        }
     }
 
     draw() {

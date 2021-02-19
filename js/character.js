@@ -48,6 +48,15 @@ class characterClass {
         this.move_South = false;
         this.move_West = false;
         this.wantAttack = false;
+        this.wantPrimaryAction = false;
+        this.wantSecondaryAction = false;
+        this.startPrimaryAction = false;
+        this.startSecondaryAction = false;
+        // primary/secondary action selectors
+        this.selectedPrimary = "melee";
+        this.selectedSecondary = "ranged";
+        this.chosenPrimary = "melee";
+        this.chosenSecondary = "ranged";
         // collisions
         this.collider = new Collider(Object.assign({}, spec.collider, {x: this.x, y:this.y}));
         this.nextCollider = this.collider.copy();
@@ -109,8 +118,6 @@ class characterClass {
                 endAngle: Math.PI*.25,
             },
         };
-        this.delayBetweenAttacks = 200;
-        this.attackDelayTTL = 0;
         this.xattacks[Animator.idle] = this.xattacks[Animator.idleSouth];
         // -- current attack
         this.currentAttack;
@@ -131,6 +138,9 @@ class characterClass {
         this.reset();
         this.waitForInteraction = 0;
         this.immuneToDamageCounter = 100;
+        // delay timers
+        this.delayBetweenAttacks = spec.delayBetweenAttacks || 200;
+        this.attackDelayTTL = 0;
     }
 
     get idleState() {
@@ -205,18 +215,79 @@ class characterClass {
         console.log("UNDEFINED FOR THIS SUBCLASS");
     }
 
-    getAnimState() {
+    primaryAction() {
+        this.startPrimaryAction = false;
+        console.log("...primary action...");
+        switch (this.chosenPrimary) {
+        case "open":
+            this.doOpen(this.targetObj);
+            break;
+        case "melee":
+            this.doMeleeAttack();
+            break;
+        case "grab":
+            this.doGrab(this.targetObj);
+            break;
+        case "drop":
+            this.doDrop();
+            break;
+        case "place":
+            console.log("trying to place...");
+            this.doPlace(this.targetObj);
+            break;
+        }
+    }
+
+    secondaryAction() {
+        this.startSecondaryAction = false;
+        console.log("...secondary action...");
+    }
+
+    // ACTIONS
+    doMeleeAttack() {
+        if (!this.currentAttack) {
+            let xattack = Object.assign({}, this.xattacks[this.idleState], {actor: this, idleState: this.idleState});
+            xattack.collider = Object.assign({}, xattack.collider, {x:this.x, y:this.y});
+            this.currentAttack = new Attack(xattack);
+            // transition to attack state (based on idle direction)
+            this.state = xattack.state;
+        }
+    }
+
+    doGrab(targetObj) {
+        if (targetObj) {
+            console.log("grabbing object: " + targetObj);
+            targetObj.interact(this);
+        }
+    }
+
+    doDrop() {
+        if (this.grabbedObj) {
+            console.log("dropping object: " + this.grabbedObj);
+            this.grabbedObj.y += 15;
+            this.grabbedObj.visible = true;
+            this.grabbedObj = undefined;
+        }
+    }
+
+    doOpen(targetObj) {
+        if (targetObj) {
+            targetObj.interact(this);
+        }
+    }
+
+    doPlace(targetObj) {
+        if (targetObj) {
+            console.log("trying to place: " + this.grabbedObj + " on: " + targetObj);
+            targetObj.interact(this);
+        }
     }
 
     // update character based on current state and inputs
     update(updateCtx) {
-        // check interaction/attack inputs
-        switch (this.idleState) {
-        case Animator.attackEast:
-        case Animator.attackWest:
-        case Animator.attackNorth:
-        case Animator.attackSouth:
-            //console.log("we are attacking...");
+
+        // update any current attack
+        if (this.currentAttack) {
             // check if attack is done
             if (!this.currentAttack.active) {
                 //console.log("attack is done");
@@ -225,18 +296,39 @@ class characterClass {
                 // transition back to idle state (based on attack direction)
                 this.state = lastAttack.idleState;
                 this.attackDelayTTL = this.delayBetweenAttacks;
-
             // otherwise, attack is still active...
             } else {
                 this.currentAttack.update(updateCtx);
             }
-            break;
         }
 
-        // update idle TTLS
+        // check for interaction collisions
+        /*
+        if (this.interactWithObject) {
+            let heldObject = this.grabbedObj;
+            for (const obj of currentLevel.objects) {
+                if (obj.collider.overlaps(this.interactCollider)) {
+                    console.log("interact object collider");
+                    obj.interact(this);
+                }
+            }
+
+            // we had an object before interacting w/ object colliders and we still have an object...
+            // handle dropping of object
+            if (heldObject && this.grabbedObj) {
+                console.log("dropping object: " + this.grabbedObj);
+                this.grabbedObj.y += 15;
+                this.grabbedObj.visible = true;
+                this.grabbedObj = undefined;
+            }
+        }
+        */
+
+        // update delay TTLs
         if (this.attackDelayTTL > 0) this.attackDelayTTL -= updateCtx.deltaTime;
 
         // check for wanting to attack
+        /*
         if (this.wantAttack && !this.currentAttack && this.attackDelayTTL <= 0) {
             //console.log("creating attack");
             // instantiate new attack
@@ -246,6 +338,7 @@ class characterClass {
             // transition to attack state (based on idle direction)
             this.state = xattack.state;
         }
+        */
 
         // if attacking... other actions are blocked
         if (this.currentAttack) return;
@@ -258,7 +351,7 @@ class characterClass {
 
         // character immunity timer
         this.immuneToDamageCounter--;
-        
+
         // resolve link during move/update of object
         if (this.wantLink) {
             for (const target of this.wantLink.targets || []) {

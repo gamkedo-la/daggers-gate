@@ -1,6 +1,13 @@
 // tuning 
 var objectNameList = ['fireRune', 'windRune', 'waterRune', 'earthRune'];
 
+var actionKindMap = {
+    "door": "open",
+    "chest": "open",
+    "pickup": "grab",
+    "altar": "drop",
+}
+
 //gameObjects have similar code to Character class for movement.
 class gameObjectClass extends characterClass {
     constructor(spec={}) {
@@ -20,6 +27,8 @@ class gameObjectClass extends characterClass {
         this.correctPuzzleLocation = false;
         this.want = spec.want || undefined;
         //console.log("created gameobject: " + this);
+        // tag object w/ wanted action
+        this.wantAction = actionKindMap[this.kind];
     }
 
     interact(character) {
@@ -31,6 +40,7 @@ class gameObjectClass extends characterClass {
                     character.keysHeld--; // one less key
                     document.getElementById("debugText").innerHTML = "Keys: " + character.keysHeld;
                     this.state = Animator.open;
+                    this.wantAction = undefined;
                     this.active = false;
                 }
             }
@@ -41,6 +51,7 @@ class gameObjectClass extends characterClass {
                     character.keysHeld--; // one less key
                     document.getElementById("debugText").innerHTML = "Keys: " + character.keysHeld;
                     this.state = Animator.open;
+                    this.wantAction = undefined;
                     // FIXME: add loot tables to object definition?
                     // FIXME: add animation for loot spilling out of chest, then being collected?
                     character.gold += 10;

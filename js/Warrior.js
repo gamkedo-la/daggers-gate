@@ -24,13 +24,13 @@ class warriorClass extends characterClass {
     }
 
     // key controls used for this
-    setupControls(northKey, eastKey, southKey, westKey, spaceKey, attackKey) {
+    setupControls(northKey, eastKey, southKey, westKey, primActKey, secActKey) {
         this.controlKeyForNorth = northKey;
         this.controlKeyForEast = eastKey;
         this.controlKeyForSouth = southKey;
         this.controlKeyForWest = westKey;
-        this.controlKeyForinteractWithObject = spaceKey;
-        this.controlKeyForAttack = attackKey;
+        this.primActKey = primActKey;
+        this.secActKey = secActKey;
     }
 
     reset() {
@@ -42,6 +42,7 @@ class warriorClass extends characterClass {
 
     //must override this function.  No super version
     tileCollisionHandle(walkIntoTileIndex, walkIntoTileType, nextX, nextY) {
+
         // check for interaction collisions
         if (this.interactWithObject) {
             let heldObject = this.grabbedObj;
@@ -67,6 +68,7 @@ class warriorClass extends characterClass {
             if (obj.active && obj.collider.blocking && obj.collider.overlaps(this.nextCollider)) {
                 console.log("hit object collider " + walkIntoTileType);
                 if(walkIntoTileType == TILE.GROUND_SPIKES_DOWN){ //Need to investigate why it's down not up?
+                    console.log("taking spike damage...");
                     this.takeDamage(5);
                     warriorOuch.play();
                 }
@@ -190,5 +192,70 @@ class warriorClass extends characterClass {
                 // any other tile type number was found... do nothing, for now
             break;
         }
+    }
+
+    choosePrimary() {
+        // are we carrying rune and are we close to matching altar?
+        if (this.grabbedObj) {
+            let obj = currentLevel.findObject((obj) => obj.collider.overlaps(this.interactCollider) && obj.kind === "altar" && this.grabbedObj.tag === obj.want);
+            this.targetObj = obj;
+            if (obj) return "place";
+        }
+        // but are we currently carrying something?
+        if (this.grabbedObj) {
+            return "drop";
+        }
+        // are we in combat?
+        if (this.inCombat) {
+            return this.selectedPrimary;
+        }
+        // are we in range of interactable object?
+        // FIXME: we may need to change this to be either a) closest object or b) iterate through/assign priority to objects we can interact with...
+        if (this.interactCollider) {
+            let obj = currentLevel.findObject((obj) => {
+                if (!obj.wantAction) return false;
+                if (!obj.collider.overlaps(this.interactCollider)) return false;
+                if (obj.wantAction === "open" && this.keysHeld <= 0) return false;
+                return true;
+            });
+            if (obj) {
+                this.targetObj = obj;
+                return obj.wantAction;
+            }
+        }
+        // otherwise, use selected main action
+        return this.selectedPrimary;
+    }
+
+    chooseSecondary() {
+        // can't perform secondary action if we carrying something...
+        if (this.grabbedObj) {
+            return "none";
+        }
+        // otherwise, use selected secondary action
+        return this.selectedSecondary;
+    }
+
+    update(updateCtx) {
+        // select primary/secondary actions...
+        let newPrimary = this.choosePrimary()
+        if (newPrimary !== this.chosenPrimary) {
+            console.log("new primary action: " + newPrimary);
+            this.chosenPrimary = newPrimary;
+        }
+        let newSecondary = this.chooseSecondary()
+        if (newSecondary !== this.chosenSecondary) {
+            console.log("new secondary action: " + newSecondary);
+            this.chosenSecondary = newSecondary;
+        }
+
+        // start primary or secondary action
+        if (this.startPrimaryAction) {
+            this.primaryAction();
+        }
+        if (this.startSecondaryAction) {
+            this.secondaryAction();
+        }
+        super.update(updateCtx);
     }
 } // end of class

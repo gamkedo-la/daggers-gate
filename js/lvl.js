@@ -258,13 +258,13 @@ class Level {
             if (this.bgsketches[i] && this.bgsketches[i].update) this.bgsketches[i].update(ctx);
             if (this.fgsketches[i] && this.fgsketches[i].update) this.fgsketches[i].update(ctx);
         }
-        // move enemies
+        // update enemies
         for(let i=0; i<this.enemies.length; i++){
-            this.enemies[i].move(ctx);
+            this.enemies[i].update(ctx);
         }
-        // move game objects
+        // update game objects
         for(let i=0; i<this.objects.length; i++){
-            this.objects[i].move(ctx);
+            this.objects[i].update(ctx);
         }
         // check collisions
 		for(let i=0; i<this.enemies.length; i++){

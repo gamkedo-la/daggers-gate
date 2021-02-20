@@ -252,6 +252,10 @@ class Level {
         if (this.dbg) console.log("placed character: " + chr + " at: " + x + "," + y);
     }
 
+    addObject(item) {
+        this.objects.push(item);
+    }
+
     destroyObject(item) {
         let idx = this.objects.indexOf(item);
         if (idx != -1) this.objects.splice(idx, 1);

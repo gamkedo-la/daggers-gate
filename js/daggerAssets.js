@@ -45,12 +45,33 @@ const animators = {
     }
 }
 
+/**
+ * loot table should be of the form:
+ * [
+ * {
+ *      chance: 0-1, (0 means will not drop, 1 means will always drop)
+ *      kind: "gold"|"health"|"mana"|"arrow"
+ *      min: int
+ *      max: int
+ *      amt: int  (amount for fixed amount, min,max for range)
+ * }
+ * ]
+ */
+const lootTables = {
+    GOBLIN: [{
+        chance: 1,
+        kind: "MANA_DROP",
+        amt: 1,
+    }],
+}
+
 const daggerEnemies = {
     GOBLIN: {
         sketch: animators["GOBLIN"],
         collider: {
             blocking: false,
-        }
+        },
+        lootTable: lootTables["GOBLIN"],
     },
     SLIME: {
         sketch: animators["SLIME"],
@@ -305,7 +326,7 @@ const daggerAssets = [
         {tag: "MANA_PIECE",             id: 54, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 200, tileset: true, pathFindingWalkable: true },
         {tag: "MANA_HALF_EMPTY",        id: 55, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 200, },
         {tag: "MANA_EMPTY",             id: 56, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 200, },
-        {tag: "MANA_DROP",              id: 57, cls: "Sprite", width: 50, height: 50, xoffset: 30, yoffset: 200, pathFindingWalkable: true },
+        {tag: "MANA_DROP",              id: 57, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 200, pathFindingWalkable: true },
     ]},
 
       { src: "images/window_tiles.png", cls: "Sheet", assets: [

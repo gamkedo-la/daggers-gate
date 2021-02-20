@@ -36,6 +36,7 @@ class characterClass {
         this.kind = spec.kind || "character";
         this._updateCtx = {};
         this.visible = true;
+        this.lootTable = spec.lootTable || [],
         // variables to keep track of position
         this.x;
         this.y;
@@ -215,6 +216,63 @@ class characterClass {
         console.log("UNDEFINED FOR THIS SUBCLASS");
     }
 
+    /**
+     * spawn loot from object loot table
+     * loot table should be of the form:
+     * [
+     * {
+     *      chance: 0-1,
+     *      kind: "gold"|"health"|"mana"|"arrow"
+     *      min: int
+     *      max: int
+     * }
+     * ]
+     */
+    spawnLoot() {
+        for (const loot of (this.lootTable || [])) {
+            console.log("checking for loot: " + Fmt.ofmt(loot));
+            // roll for loot
+            if (Math.random() <= loot.chance) {
+                console.log("roll ok");
+                // randomize amount
+                let amt = loot.amt;
+                if (!loot.amt) {
+                    let min = loot.min || 1;
+                    let max = loot.max || 1;
+                    amt = Math.floor(Math.random() * (max-min)) + min;
+                }
+                let angle = Math.random() * Math.PI * 2;
+                let speed = .25; // pixels per ms
+                let mover = {
+                    ttl: 200,
+                    dx: Math.sin(angle),
+                    dy: Math.cos(angle),
+                    speed: speed,
+                }
+                let id = assets.getId(loot.kind);
+                let spec = {
+                    kind: "loot",
+                    tileid: id,
+                    tag: loot.kind,
+                    sketch: assets.get(loot.kind),
+                    name: props.getName(id),
+                    x: this.x,
+                    y: this.y,
+                    loot: {
+                        amt: amt,
+                    },
+                    collider: {
+                        blocking: false,
+                    },
+                    mover:mover,
+                }
+                let obj = new gameObjectClass(spec);
+                console.log("loot: " + obj + " from: " + Fmt.ofmt(spec));
+                currentLevel.addObject(obj);
+            }
+        }
+    }
+
     primaryAction() {
         this.startPrimaryAction = false;
         console.log("...primary action...");
@@ -288,6 +346,7 @@ class characterClass {
         this.state = Animator.death;
         this.deathTTL = this.delayDeath;
         // FIXME: add loot
+        this.spawnLoot();
         // FIXME: handle player death
     }
 

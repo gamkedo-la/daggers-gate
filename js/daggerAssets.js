@@ -57,11 +57,16 @@ const animators = {
  * }
  * ]
  */
-const lootTables = {
+const daggerLootTables = {
     GOBLIN: [{
         chance: 1,
         kind: "MANA_DROP",
-        amt: 1,
+        amt: 5,
+    }],
+    SLIME: [{
+        chance: 1,
+        kind: "MANA_DROP",
+        amt: 5,
     }],
 }
 
@@ -71,7 +76,6 @@ const daggerEnemies = {
         collider: {
             blocking: false,
         },
-        lootTable: lootTables["GOBLIN"],
     },
     SLIME: {
         sketch: animators["SLIME"],

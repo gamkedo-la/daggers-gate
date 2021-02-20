@@ -21,6 +21,8 @@ class warriorClass extends characterClass {
         spec.mana = 15;
         spec.maxMana = 30;
         super(spec);
+        this.lootRange = 15;
+        this.lootPullSpeed = .25; // pixels per ms
     }
 
     // key controls used for this
@@ -218,6 +220,19 @@ class warriorClass extends characterClass {
         return this.selectedSecondary;
     }
 
+    gatherLoot(loot) {
+        // determine loot amount
+        let amt = (loot.loot) ? loot.loot.amt : 1;
+        // add loot to player
+        switch (loot.tag) {
+        case "MANA_DROP":
+            console.log("mana + " + amt);
+            this.mana += amt;
+        }
+        // destroy loot object
+        currentLevel.destroyObject(loot);
+    }
+
     update(updateCtx) {
         // select primary/secondary actions...
         let newPrimary = this.choosePrimary()
@@ -229,6 +244,21 @@ class warriorClass extends characterClass {
         if (newSecondary !== this.chosenSecondary) {
             console.log("new secondary action: " + newSecondary);
             this.chosenSecondary = newSecondary;
+        }
+
+        // gathering loot
+        for (const loot of currentLevel.findAllObjectEnemy((v) => v.kind === "loot" && this.interactCollider.overlaps(v.collider))) {
+            // is object "close enough" to pick up?
+            if (dist(this.x, this.y, loot.x, loot.y) <= this.lootRange) {
+                // pickup
+                this.gatherLoot(loot);
+            // otherwise... move the loot closer
+            } else {
+                let v = new Vect(this.x-loot.x, this.y-loot.y);
+                v.normalize().mult(this.lootPullSpeed);
+                loot.x += (v.x * updateCtx.deltaTime);
+                loot.y += (v.y * updateCtx.deltaTime);
+            }
         }
 
         // start primary or secondary action

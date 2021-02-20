@@ -8,6 +8,32 @@ var actionKindMap = {
     "altar": "drop",
 }
 
+// used to "nudge" a game object a short distance before expiring...
+class Nudge {
+    constructor(spec={}) {
+        this.target = spec.target;
+        this.ttl = spec.ttl || 100;
+        this.dx = spec.dx || (Math.random() * 5);
+        this.ddx = this.dx/this.ttl;
+        this.dy = spec.dy || (Math.random() * 5);
+        this.ddy = this.dy/this.ttl;
+    }
+
+    get done() {
+        return (this.ttl <= 0);
+    }
+
+    update(ctx) {
+        this.ttl -= ctx.deltaTime;
+        if (this.ttl > 0) {
+            this.target.x += (this.dx * ctx.deltaTime);
+            this.target.y += (this.dy * ctx.deltaTime);
+            this.dx -= this.ddx * ctx.deltaTime;
+            this.dy -= this.ddy * ctx.deltaTime;
+        }
+    }
+}
+
 //gameObjects have similar code to Character class for movement.
 class gameObjectClass extends characterClass {
     constructor(spec={}) {
@@ -30,6 +56,8 @@ class gameObjectClass extends characterClass {
         //console.log("created gameobject: " + this);
         // tag object w/ wanted action
         this.wantAction = actionKindMap[this.kind];
+        this.nudge = (spec.nudge) ? new Nudge(Object.assign({}, spec.nudge, {target:this})): undefined;
+        this.loot = spec.loot;
     }
 
     interact(character) {
@@ -91,7 +119,7 @@ class gameObjectClass extends characterClass {
     }
 
 
-    update(updateCx) {
+    update(updateCtx) {
         // handle trap updates
         if (this.trap) {
             let duration = (this.state === Animator.idle) ? this.trap.idleTTL : this.trap.activeTTL;
@@ -120,6 +148,12 @@ class gameObjectClass extends characterClass {
                     this.trap.ignore.push(ohit);
                 }
             }
+        }
+
+        // handle "nudge"
+        if (this.nudge) {
+            this.nudge.update(updateCtx)
+            if (this.nudge.done) this.nudge = undefined;
         }
 
 		super.update(updateCtx);

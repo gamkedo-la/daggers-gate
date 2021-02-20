@@ -28,12 +28,32 @@ const animators = {
             [Animator.walkWest]: "GOBLIN_WALK_WEST",
             [Animator.walkEast]: "GOBLIN_WALK_EAST",
         }
+    },
+    "SLIME": {
+        cls: "Animator",
+        animations: {
+            [Animator.idle]: "SLIME",
+            [Animator.idleSouth]: "SLIME",
+            [Animator.idleNorth]: "SLIME_IDLE_NORTH",
+            [Animator.idleWest]: "SLIME_IDLE_WEST",
+            [Animator.idleEast]: "SLIME_IDLE_EAST",
+            [Animator.walkSouth]: "SLIME_WALK_SOUTH",
+            [Animator.walkNorth]: "SLIME_WALK_NORTH",
+            [Animator.walkWest]: "SLIME_WALK_WEST",
+            [Animator.walkEast]: "SLIME_WALK_EAST",
+        }
     }
 }
 
 const daggerEnemies = {
     GOBLIN: {
         sketch: animators["GOBLIN"],
+        collider: {
+            blocking: false,
+        }
+    },
+    SLIME: {
+        sketch: animators["SLIME"],
         collider: {
             blocking: false,
         }
@@ -276,8 +296,7 @@ const daggerAssets = [
         {tag: "DEADBONES",              id: 46, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 150, tileset: true },
         {tag: "HEART_TILE",             id: 47, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 150, pathFindingWalkable: true },
         {tag: "HEART_PIECE1",           id: 48, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 150, tileset: true, pathFindingWalkable: true },
-        {tag: "HEART_PIECE2",           id: 49, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 150, pathFindingWalkable: true },
-        
+        {tag: "HEART_PIECE2",           id: 49, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 150, pathFindingWalkable: true },   
         //ROW 5
         {tag: "BOW",                    id: 50, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 200, tileset: true, pathFindingWalkable: true },
         {tag: "CEIL_UPPER_DOOR",        id: 51, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 200, tileset: true, passable: true },
@@ -383,6 +402,32 @@ const daggerAssets = [
 
     ]},
 
+    { src: "images/slime.png", cls: "Sheet", assets: [
+        // ---- SLIME ----
+        {tag: "SLIME_IDLE_NORTH",              id: 100, cls: "Sprite", width: 50, height: 31, xoffset: 0, yoffset: 0 },
+        {tag: "SLIME_WALK_NORTH",              cls: "Animation", cels: [
+            { xoffset: 0, yoffset: 0, width: 50, height: 31, duration: 200 },
+            { xoffset: 50, yoffset: 0, width: 50, height: 31, duration: 200 },
+            { xoffset: 100, yoffset: 0, width: 50, height: 31, duration: 200 },
+        ]},
+        {tag: "SLIME_IDLE_EAST",               id: 103, cls: "Sprite", width: 50, height: 31, xoffset: 0, yoffset: 31 },
+        {tag: "SLIME_WALK_EAST",              cls: "Animation", cels: [
+            { xoffset: 0, yoffset: 31, width: 50, height: 31, duration: 200 },
+            { xoffset: 50, yoffset: 31, width: 50, height: 31, duration: 200 },
+            { xoffset: 100, yoffset: 31, width: 50, height: 31, duration: 200 },
+        ]},
+        {tag: "SLIME_IDLE_WEST",               id: 106, cls: "Sprite", width: 50, height: 31, xoffset: 0, yoffset: 62 },
+        {tag: "SLIME_WALK_WEST",              cls: "Animation", cels: [
+            { xoffset: 0, yoffset: 62, width: 50, height: 31, duration: 200 },
+            { xoffset: 50, yoffset: 62, width: 50, height: 31, duration: 200 },
+            { xoffset: 100, yoffset: 62, width: 50, height: 31, duration: 200 },
+        ]},
+        {tag: "SLIME",                         id: 109, cls: "Sprite", width: 50, height: 31, xoffset: 0, yoffset: 93 },
+        {tag: "SLIME_WALK_SOUTH",              cls: "Animation", cels: [
+            { xoffset: 0, yoffset: 93, width: 50, height: 31, duration: 200 },
+            { xoffset: 50, yoffset: 93, width: 50, height: 31, duration: 200 },
+            { xoffset: 100, yoffset: 93, width: 50, height: 31, duration: 200 },
+        ]},
 
-
+    ]},
 ];

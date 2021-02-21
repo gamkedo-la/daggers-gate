@@ -38,15 +38,19 @@ function initInput() {
 
 function setKeyHoldState(thisKey, thisPlayer, setTo) {
   if(thisKey == thisPlayer.controlKeyForNorth) {
+    if (thisPlayer.pathfinding) thisPlayer.stopPathfinding();
     thisPlayer.move_North = setTo;
   }
   if(thisKey == thisPlayer.controlKeyForEast) {
+    if (thisPlayer.pathfinding) thisPlayer.stopPathfinding();
     thisPlayer.move_East = setTo;
   }
   if(thisKey == thisPlayer.controlKeyForSouth) {
+    if (thisPlayer.pathfinding) thisPlayer.stopPathfinding();
     thisPlayer.move_South = setTo;
   }
   if(thisKey == thisPlayer.controlKeyForWest) {
+    if (thisPlayer.pathfinding) thisPlayer.stopPathfinding();
     thisPlayer.move_West = setTo;
   }
   if (thisKey === thisPlayer.primActKey) {

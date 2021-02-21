@@ -196,6 +196,10 @@ class characterClass {
         }
     }
 
+    get pathfinding() {
+        return this.tilePath.length > 0;
+    }
+
     link(other) {
         if (!this.links.includes(other)) this.links.push(other);
         if (!other.links.includes(this)) other.links.push(this);
@@ -415,6 +419,14 @@ class characterClass {
         this._updateCtx.state = this.state;
         this.sketch.update(this._updateCtx);
 
+    }
+
+    /**
+     * stop pathfinding and restore move state
+     */
+    stopPathfinding() {
+        this.tilePath = [];
+        this.move_East = this.move_West = this.move_North = this.move_South = false;
     }
 
     move(updateCtx) {

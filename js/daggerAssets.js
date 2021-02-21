@@ -74,6 +74,10 @@ const daggerLootTables = {
         { chance: .5, kind: "GOLD_COINS_SIX_DROP", min: 7, max: 12},
         { chance: .5, kind: "GOLD_COINS_SIX_DROP", min: 7, max: 12},
     ],
+    CRATE: [
+        { chance: .5, kind: "GOLD_COINS_TWO_DROP", min: 2, max: 5},
+        { chance: .25, kind: "GOLD_COINS_TWO_DROP", min: 2, max: 5},
+    ],
 }
 
 const daggerEnemies = {
@@ -269,6 +273,17 @@ const daggerObjects = {
             },
         },
     },
+    CRATE: {
+        kind: "breakable",
+        health: 10,
+        maxHealth: 10,
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "CRATE",
+            },
+        },
+    },
 
 };
 
@@ -339,11 +354,11 @@ const daggerAssets = [
         {tag: "MANA_DROP",              id: 57, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 200, pathFindingWalkable: true },
         {tag: "HEALTH_DROP",            id: 58, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 200, pathFindingWalkable: true },
         //ROW 6
-        {tag: "GOLD_COINS_TWO_DROP",    id: 60, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 250, tileset: true, pathFindingWalkable: true },
-        {tag: "GOLD_COINS_SIX_DROP",    id: 61, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 250, tileset: true, pathFindingWalkable: true },
-        {tag: "ARROW_ONE_DROP",         id: 62, cls: "Sprite", width: 50, height: 50, xoffset: 100, yoffset: 250, tileset: true, pathFindingWalkable: true},
-        {tag: "ARROW_FIVE_DROP",        id: 63, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 250, tileset: true, pathFindingWalkable: true },
-        {tag: "EMPTY",                  id: 64, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 250, },
+        {tag: "GOLD_COINS_TWO_DROP",    id: 60, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 250, },
+        {tag: "GOLD_COINS_SIX_DROP",    id: 61, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 250, },
+        {tag: "ARROW_ONE_DROP",         id: 62, cls: "Sprite", width: 50, height: 50, xoffset: 100, yoffset: 250, },
+        {tag: "ARROW_FIVE_DROP",        id: 63, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 250, },
+        {tag: "CRATE",                  id: 64, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 250, tileset: true },
         {tag: "EMPTY",                  id: 65, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 250, },
         {tag: "EMPTY",                  id: 66, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 250, },
         {tag: "EMPTY",                  id: 77, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 250, }, 

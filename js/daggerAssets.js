@@ -284,6 +284,19 @@ const daggerObjects = {
             },
         },
     },
+    KEY: {
+        kind: "loot",
+        loot: {
+            amt: 1,
+        },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "KEY",
+            },
+        },
+        collider: { blocking: false, width:25, height: 25 },
+    },
 
 };
 

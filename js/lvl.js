@@ -321,6 +321,7 @@ class Level {
 		for(var i=0; i<this.objects.length; i++){
             let obj = this.objects[i];
             if (!obj.visible) continue;
+            if (obj.lateRender) continue;
             if (camera.containsRect(obj.x, obj.y, this.sketchWidth, this.sketchHeight)) {
                 obj.draw();
             }
@@ -338,6 +339,19 @@ class Level {
         // render rooms
 		for(var i=0; i<this.rooms.length; i++){
             this.rooms[i].draw();
+		}
+    }
+
+
+    lateRender(ctx) {
+        // render lateRender objects
+		for(var i=0; i<this.objects.length; i++){
+            let obj = this.objects[i];
+            if (!obj.visible) continue;
+            if (!obj.lateRender) continue;
+            if (camera.containsRect(obj.x, obj.y, this.sketchWidth, this.sketchHeight)) {
+                obj.draw();
+            }
 		}
     }
 

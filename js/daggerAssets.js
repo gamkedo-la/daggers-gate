@@ -99,11 +99,14 @@ const daggerEnemies = {
 const daggerObjects = {
     DOOR_CLOSE_TOP: {
         kind: "link",
+        //overlay: true,
+        //lateRender: true,
         sketch: { 
             cls: "Animator",
             animations: {
                 [Animator.idle]: "DOOR_CLOSE_TOP",
                 [Animator.open]: "DOOR_OPEN_TOP",
+                [Animator.transparent]: "DOOR_OPEN_TOP_TRANS",
             }
         },
     },
@@ -297,6 +300,18 @@ const daggerObjects = {
         },
         collider: { blocking: false, width:25, height: 25 },
     },
+    DOOR_ARCH: {
+        overlay: true,
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "DOOR_ARCH",
+                [Animator.transparent]: "DOOR_ARCH_TRANS",
+            },
+        },
+        collider: { blocking: false },
+        lateRender: true,
+    },
 
 };
 
@@ -372,9 +387,9 @@ const daggerAssets = [
         {tag: "ARROW_ONE_DROP",         id: 62, cls: "Sprite", width: 50, height: 50, xoffset: 100, yoffset: 250, },
         {tag: "ARROW_FIVE_DROP",        id: 63, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 250, },
         {tag: "CRATE",                  id: 64, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 250, tileset: true },
-        {tag: "EMPTY",                  id: 65, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 250, },
-        {tag: "EMPTY",                  id: 66, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 250, },
-        {tag: "EMPTY",                  id: 77, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 250, }, 
+        {tag: "DOOR_ARCH",              id: 65, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 250, tileset: true },
+        {tag: "DOOR_ARCH_TRANS",        id: 66, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 250, },
+        {tag: "DOOR_OPEN_TOP_TRANS",    id: 67, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 250, }, 
     ]},
 
       { src: "images/window_tiles.png", cls: "Sheet", assets: [

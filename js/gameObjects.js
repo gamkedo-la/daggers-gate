@@ -58,6 +58,8 @@ class gameObjectClass extends characterClass {
         this.wantAction = actionKindMap[this.kind];
         this.nudge = (spec.nudge) ? new Nudge(Object.assign({}, spec.nudge, {target:this})): undefined;
         this.loot = spec.loot;
+        this.lateRender = Util.objKeyValue(spec, "lateRender", false);
+        this.overlay = Util.objKeyValue(spec, "overlay", false);
     }
 
     interact(character) {
@@ -143,6 +145,19 @@ class gameObjectClass extends characterClass {
                     console.log("enemy: " + ohit + " taking trap damage: " + this.trap.damage);
                     ohit.takeDamage(this.trap.damage);
                     this.trap.ignore.push(ohit);
+                }
+            }
+        }
+
+        // handle overlay
+        if (this.overlay) {
+            if (this.collider.overlaps(p1.interactCollider)) {
+                if (this.state !== Animator.transparent) {
+                    this.state = Animator.transparent;
+                }
+            } else {
+                if (this.state !== Animator.idle) {
+                    this.state = Animator.idle;
                 }
             }
         }

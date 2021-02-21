@@ -36,6 +36,7 @@ class characterClass {
         this.kind = spec.kind || "character";
         this._updateCtx = {};
         this.visible = true;
+        // add loot table
         this.lootTable = spec.lootTable || daggerLootTables[this.tag];
         // variables to keep track of position
         this.x;
@@ -61,7 +62,6 @@ class characterClass {
         this.collider = new Collider(Object.assign({}, spec.collider, {x: this.x, y:this.y}));
         this.nextCollider = this.collider.copy();
         this.interactCollider = (spec.interactCollider) ? new Collider(Object.assign({}, spec.interactCollider, {x: this.x, y:this.y})) : undefined;
-        // add loot table
         // melee attack
         // -- specs for attack
         this.xattacks = {
@@ -260,6 +260,7 @@ class characterClass {
                     y: this.y,
                     loot: {
                         amt: amt,
+                        delayTTL: 500,
                     },
                     collider: {
                         blocking: false,

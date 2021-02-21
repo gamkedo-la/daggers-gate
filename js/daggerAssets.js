@@ -58,16 +58,22 @@ const animators = {
  * ]
  */
 const daggerLootTables = {
-    GOBLIN: [{
-        chance: 1,
-        kind: "MANA_DROP",
-        amt: 5,
-    }],
-    SLIME: [{
-        chance: 1,
-        kind: "HEALTH_DROP",
-        amt: 5,
-    }],
+    GOBLIN: [
+        { chance: 1, kind: "MANA_DROP", amt: 5, },
+        { chance: 1, kind: "HEALTH_DROP", amt: 5, },
+        { chance: 1, kind: "GOLD_COINS_TWO_DROP", min: 2, max: 5},
+    ],
+    SLIME: [
+        { chance: 1, kind: "HEALTH_DROP", amt: 5, },
+        { chance: 1, kind: "GOLD_COINS_TWO_DROP", min: 2, max: 5},
+        { chance: .5, kind: "GOLD_COINS_SIX_DROP", min: 7, max: 12},
+    ],
+    CHEST1_CLOSE: [
+        { chance: 1, kind: "GOLD_COINS_TWO_DROP", min: 2, max: 5},
+        { chance: 1, kind: "GOLD_COINS_TWO_DROP", min: 2, max: 5},
+        { chance: .5, kind: "GOLD_COINS_SIX_DROP", min: 7, max: 12},
+        { chance: .5, kind: "GOLD_COINS_SIX_DROP", min: 7, max: 12},
+    ],
 }
 
 const daggerEnemies = {
@@ -331,7 +337,7 @@ const daggerAssets = [
         {tag: "MANA_HALF_EMPTY",        id: 55, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 200, },
         {tag: "MANA_EMPTY",             id: 56, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 200, },
         {tag: "MANA_DROP",              id: 57, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 200, pathFindingWalkable: true },
-        {tag: "HEALTH_DROP",            id: 58, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 250, pathFindingWalkable: true },
+        {tag: "HEALTH_DROP",            id: 58, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 200, pathFindingWalkable: true },
         //ROW 6
         {tag: "GOLD_COINS_TWO_DROP",    id: 60, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 250, tileset: true, pathFindingWalkable: true },
         {tag: "GOLD_COINS_SIX_DROP",    id: 61, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 250, tileset: true, pathFindingWalkable: true },

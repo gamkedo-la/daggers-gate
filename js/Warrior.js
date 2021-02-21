@@ -269,7 +269,7 @@ class warriorClass extends characterClass {
         }
 
         // gathering loot
-        for (const loot of currentLevel.findAllObjectEnemy((v) => v.kind === "loot" && this.interactCollider.overlaps(v.collider))) {
+        for (const loot of currentLevel.findAllObjectEnemy((v) => v.kind === "loot" && v.loot.delayTTL <= 0 && this.interactCollider.overlaps(v.collider))) {
             // is object "close enough" to pick up?
             if (dist(this.x, this.y, loot.x, loot.y) <= this.lootRange) {
                 // pickup

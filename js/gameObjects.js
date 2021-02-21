@@ -81,9 +81,7 @@ class gameObjectClass extends characterClass {
                     document.getElementById("debugText").innerHTML = "Keys: " + character.keysHeld;
                     this.state = Animator.open;
                     this.wantAction = undefined;
-                    // FIXME: add loot tables to object definition?
-                    // FIXME: add animation for loot spilling out of chest, then being collected?
-                    character.gold += 10;
+                    this.spawnLoot();
                 }
             }
             break;
@@ -118,7 +116,6 @@ class gameObjectClass extends characterClass {
 
     }
 
-
     update(updateCtx) {
         // handle trap updates
         if (this.trap) {
@@ -141,12 +138,20 @@ class gameObjectClass extends characterClass {
                     p1.takeDamage(this.trap.damage);
                     this.trap.ignore.push(p1);
                 }
-                let ohits = currentLevel.findAllObjectEnemy((v) => this.collider.overlaps(v.collider) && !this.trap.ignore.includes(v));
+                let ohits = currentLevel.findAllObjectEnemy((v) => v.health > 0 && this.collider.overlaps(v.collider) && !this.trap.ignore.includes(v));
                 for (const ohit of ohits) {
                     console.log("enemy: " + ohit + " taking trap damage: " + this.trap.damage);
                     ohit.takeDamage(this.trap.damage);
                     this.trap.ignore.push(ohit);
                 }
+            }
+        }
+
+        // handle loot delay
+        if (this.loot) {
+            if (this.loot.delayTTL > 0) {
+                this.loot.delayTTL -= updateCtx.deltaTime;
+                if (this.loot.delayTTL < 0) this.loot.delayTTL = 0;
             }
         }
 

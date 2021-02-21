@@ -251,7 +251,7 @@ class warriorClass extends characterClass {
             this.arrows += amt;
         case "KEY":
             console.log("keys + " + amt);
-            this.arrows += amt;
+            this.keysHeld += amt;
         break;
         }
         // destroy loot objectcase 

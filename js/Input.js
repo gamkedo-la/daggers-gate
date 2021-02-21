@@ -56,11 +56,11 @@ function setKeyHoldState(thisKey, thisPlayer, setTo) {
   if (thisKey === thisPlayer.primActKey) {
     thisPlayer.startPrimaryAction = setTo && !thisPlayer.wantPrimaryAction && !thisPlayer.wantSecondaryAction;
     thisPlayer.wantPrimaryAction = setTo;
-    if (thisPlayer.startPrimaryAction) console.log("start primary action");
+    //if (thisPlayer.startPrimaryAction) console.log("start primary action");
   } else if (thisKey === thisPlayer.secActKey) {
     thisPlayer.startSecondaryAction = setTo && !thisPlayer.wantPrimaryAction && !thisPlayer.wantSecondaryAction;
     thisPlayer.wantSecondaryAction = setTo;
-    if (thisPlayer.startSecondaryAction) console.log("start secondary action");
+    //if (thisPlayer.startSecondaryAction) console.log("start secondary action");
   }
 }
 

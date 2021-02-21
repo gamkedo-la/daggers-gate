@@ -316,14 +316,7 @@ class Level {
             }
             y += this.sketchHeight;
         }
-        // render enemies
-		for(let i=0; i<this.enemies.length; i++){
-            let enemy = this.enemies[i];
-            if (!enemy.visible) continue;
-            if (camera.containsRect(enemy.x, enemy.y, this.sketchWidth, this.sketchHeight)) {
-                enemy.draw();
-            }
-		}
+
         // render objects
 		for(var i=0; i<this.objects.length; i++){
             let obj = this.objects[i];
@@ -332,6 +325,16 @@ class Level {
                 obj.draw();
             }
 		}
+
+        // render enemies
+		for(let i=0; i<this.enemies.length; i++){
+            let enemy = this.enemies[i];
+            if (!enemy.visible) continue;
+            if (camera.containsRect(enemy.x, enemy.y, this.sketchWidth, this.sketchHeight)) {
+                enemy.draw();
+            }
+		}
+
         // render rooms
 		for(var i=0; i<this.rooms.length; i++){
             this.rooms[i].draw();

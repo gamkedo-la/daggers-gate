@@ -280,7 +280,7 @@ class characterClass {
 
     primaryAction() {
         this.startPrimaryAction = false;
-        console.log("...primary action...");
+        //console.log("...primary action...");
         switch (this.chosenPrimary) {
         case "open":
             this.doOpen(this.targetObj);
@@ -303,7 +303,7 @@ class characterClass {
 
     secondaryAction() {
         this.startSecondaryAction = false;
-        console.log("...secondary action...");
+        //console.log("...secondary action...");
     }
 
     // ACTIONS

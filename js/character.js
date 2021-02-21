@@ -387,6 +387,12 @@ class characterClass {
         }
         let incapacitated = (this.idleState === Animator.death);
 
+        // handle "nudge"
+        if (this.nudge) {
+            this.nudge.update(updateCtx)
+            if (this.nudge.done) this.nudge = undefined;
+        }
+
         // update any current attack
         if (!incapacitated && this.currentAttack) {
             // check if attack is done

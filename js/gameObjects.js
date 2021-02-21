@@ -155,12 +155,6 @@ class gameObjectClass extends characterClass {
             }
         }
 
-        // handle "nudge"
-        if (this.nudge) {
-            this.nudge.update(updateCtx)
-            if (this.nudge.done) this.nudge = undefined;
-        }
-
 		super.update(updateCtx);
     }
 

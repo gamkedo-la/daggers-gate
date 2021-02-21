@@ -55,6 +55,15 @@ class Attack {
                 ohit.takeDamage(this._damage);
                 // add object to ignore list
                 this._ignore.push(ohit);
+                // nudge object
+                let v = new Vect(ohit.x-this._actor.x, ohit.y-this._actor.y).normalize().mult(.15);
+                let xnudge = {
+                    ttl: 100,
+                    dx: v.x,
+                    dy: v.y,
+                    target: ohit,
+                }
+                ohit.nudge = new Nudge(xnudge);
             }
         }
     }

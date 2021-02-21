@@ -88,7 +88,7 @@ class gameObjectClass extends characterClass {
         case "pickup":
             if (!character.grabbedObj) {
                 character.grabbedObj = this;
-                this.visible = false; // object is drawn during player render, don't draw during lvl render
+                //this.visible = false; // object is drawn during player render, don't draw during lvl render
                 console.log("picked up: " + this);
             }
             break;

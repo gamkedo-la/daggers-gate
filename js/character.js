@@ -317,6 +317,7 @@ class characterClass {
         if (targetObj) {
             console.log("grabbing object: " + targetObj);
             targetObj.interact(this);
+            currentLevel.destroyObject(targetObj);
         }
     }
 
@@ -324,7 +325,8 @@ class characterClass {
         if (this.grabbedObj) {
             console.log("dropping object: " + this.grabbedObj);
             this.grabbedObj.y += 15;
-            this.grabbedObj.visible = true;
+            //this.grabbedObj.visible = true;
+            currentLevel.addObject(this.grabbedObj);
             this.grabbedObj = undefined;
         }
     }
@@ -405,7 +407,10 @@ class characterClass {
         // -- blocked if incapacitated
         if (!this.currentAttack && !incapacitated) this.move(updateCtx);
 
-        // update sketch
+        // grabbed object is character's responsibility
+        if (this.grabbedObj) this.grabbedObj.update(updateCtx);
+
+        // update sketch ... add our own context to include state
         this._updateCtx.deltaTime = updateCtx.deltaTime;
         this._updateCtx.state = this.state;
         this.sketch.update(this._updateCtx);

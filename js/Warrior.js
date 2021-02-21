@@ -38,6 +38,7 @@ class warriorClass extends characterClass {
     reset() {
         this.keysHeld = 8;
         this.gold = 0;
+        this.arrows = 0;
         this.haveBow = false;
         super.reset();
     } // end of reset
@@ -228,8 +229,29 @@ class warriorClass extends characterClass {
         case "MANA_DROP":
             console.log("mana + " + amt);
             this.mana += amt;
+        break;
+        case "HEALTH_DROP":
+            console.log("health + " + amt);
+            this.health += amt;
+        break;
+        case "GOLD_COINS_TWO_DROP":
+            console.log("gold coins + " + amt);
+            this.gold += amt;
+        break;
+        case "GOLD_COINS_SIX_DROP":
+            console.log("gold coins + " + amt);
+            this.gold += amt;
+        break;
+        case "ARROW_ONE_DROP":
+            console.log("arrows + " + amt);
+            this.arrows += amt;
+        break;
+        case "ARROW_FIVE_DROP":
+            console.log("arrows + " + amt);
+            this.arrows += amt;
+        break;
         }
-        // destroy loot object
+        // destroy loot objectcase 
         currentLevel.destroyObject(loot);
     }
 

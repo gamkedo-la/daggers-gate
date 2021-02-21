@@ -65,7 +65,7 @@ const daggerLootTables = {
     }],
     SLIME: [{
         chance: 1,
-        kind: "MANA_DROP",
+        kind: "HEALTH_DROP",
         amt: 5,
     }],
 }
@@ -331,6 +331,16 @@ const daggerAssets = [
         {tag: "MANA_HALF_EMPTY",        id: 55, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 200, },
         {tag: "MANA_EMPTY",             id: 56, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 200, },
         {tag: "MANA_DROP",              id: 57, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 200, pathFindingWalkable: true },
+        {tag: "HEALTH_DROP",            id: 58, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 250, pathFindingWalkable: true },
+        //ROW 6
+        {tag: "GOLD_COINS_TWO_DROP",    id: 60, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 250, tileset: true, pathFindingWalkable: true },
+        {tag: "GOLD_COINS_SIX_DROP",    id: 61, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 250, tileset: true, pathFindingWalkable: true },
+        {tag: "ARROW_ONE_DROP",         id: 62, cls: "Sprite", width: 50, height: 50, xoffset: 100, yoffset: 250, tileset: true, pathFindingWalkable: true},
+        {tag: "ARROW_FIVE_DROP",        id: 63, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 250, tileset: true, pathFindingWalkable: true },
+        {tag: "EMPTY",                  id: 64, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 250, },
+        {tag: "EMPTY",                  id: 65, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 250, },
+        {tag: "EMPTY",                  id: 66, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 250, },
+        {tag: "EMPTY",                  id: 77, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 250, }, 
     ]},
 
       { src: "images/window_tiles.png", cls: "Sheet", assets: [

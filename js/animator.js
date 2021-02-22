@@ -22,7 +22,8 @@ class Animator {
     static attackNorth =    33;
     static attackSouth =    34;
     static death =          35;
-    static transparent =    36;
+    static idleTransparent =36;
+    static openTransparent =37;
 
     // PROPERTIES ----------------------------------------------------------
     get width() {

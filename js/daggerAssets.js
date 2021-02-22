@@ -99,16 +99,28 @@ const daggerEnemies = {
 const daggerObjects = {
     DOOR_CLOSE_TOP: {
         kind: "link",
-        //overlay: true,
-        //lateRender: true,
+        overlay: true,
+        lateRender: true,
         sketch: { 
             cls: "Animator",
             animations: {
                 [Animator.idle]: "DOOR_CLOSE_TOP",
                 [Animator.open]: "DOOR_OPEN_TOP",
-                [Animator.transparent]: "DOOR_OPEN_TOP_TRANS",
+                [Animator.openTransparent]: "DOOR_OPEN_TOP_TRANS",
             }
         },
+    },
+    DOOR_OPEN_TOP: {
+        overlay: true,
+        lateRender: true,
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "DOOR_OPEN_TOP",
+                [Animator.idleTransparent]: "DOOR_OPEN_TOP_TRANS",
+            }
+        },
+        collider: { blocking: false },
     },
     DOOR_CLOSE_BOTTOM: {
         kind: "door",
@@ -306,7 +318,7 @@ const daggerObjects = {
             cls: "Animator",
             animations: {
                 [Animator.idle]: "DOOR_ARCH",
-                [Animator.transparent]: "DOOR_ARCH_TRANS",
+                [Animator.idleTransparent]: "DOOR_ARCH_TRANS",
             },
         },
         collider: { blocking: false },

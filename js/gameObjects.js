@@ -152,13 +152,11 @@ class gameObjectClass extends characterClass {
         // handle overlay
         if (this.overlay) {
             if (this.collider.overlaps(p1.interactCollider)) {
-                if (this.state !== Animator.transparent) {
-                    this.state = Animator.transparent;
-                }
+                if (this.state === Animator.idle) this.state = Animator.idleTransparent;
+                if (this.state === Animator.open) this.state = Animator.openTransparent;
             } else {
-                if (this.state !== Animator.idle) {
-                    this.state = Animator.idle;
-                }
+                if (this.state === Animator.idleTransparent) this.state = Animator.idle;
+                if (this.state === Animator.openTransparent) this.state = Animator.open;
             }
         }
 

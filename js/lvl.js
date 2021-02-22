@@ -303,14 +303,14 @@ class Level {
         let minj = Math.floor(camera.y/this.sketchWidth);
         let maxi = Math.min(this.width, Math.floor(camera.maxx/this.sketchWidth)+1);
         let maxj = Math.min(this.height, Math.floor(camera.maxy/this.sketchHeight)+1);
-        //if (mini !== 0 || minj !== 0 || maxi !== this.width || maxj !== this.height) console.log("saved x: " + (this.width - (maxi-mini)) + " y: " + (this.height - (maxj-minj)));
         let y = minj * this.sketchHeight;
         for (let j=minj; j<maxj; j++) {
             let idx = this.idxfromij(mini, j);
             let x = mini * this.sketchWidth;
             for (let i=mini; i<maxi; i++) {
                 if (this.bgsketches[idx]) this.bgsketches[idx].render(ctx, x, y);
-                if (this.fgsketches[idx]) this.fgsketches[idx].render(ctx, x, y);
+                let fid = this.fgi(idx);
+                if (!props.lateRender(fid) && this.fgsketches[idx]) this.fgsketches[idx].render(ctx, x, y);
                 x += this.sketchWidth;
                 idx++;
             }
@@ -353,6 +353,24 @@ class Level {
                 obj.draw();
             }
 		}
+
+        // handle late rendering tiles...
+        let mini = Math.floor(camera.x/this.sketchWidth);
+        let minj = Math.floor(camera.y/this.sketchWidth);
+        let maxi = Math.min(this.width, Math.floor(camera.maxx/this.sketchWidth)+1);
+        let maxj = Math.min(this.height, Math.floor(camera.maxy/this.sketchHeight)+1);
+        let y = minj * this.sketchHeight;
+        for (let j=minj; j<maxj; j++) {
+            let idx = this.idxfromij(mini, j);
+            let x = mini * this.sketchWidth;
+            for (let i=mini; i<maxi; i++) {
+                let fid = this.fgi(idx);
+                if (props.lateRender(fid) && this.fgsketches[idx]) this.fgsketches[idx].render(ctx, x, y);
+                x += this.sketchWidth;
+                idx++;
+            }
+            y += this.sketchHeight;
+        }
     }
 
 }

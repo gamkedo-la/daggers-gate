@@ -27,6 +27,7 @@ class Props {
         this._enemies = {};
         this._objects = {};
         this._passable = {};
+        this._lateRender = {};
         this.dbg = spec.dbg;
         // setup lookup tables
         this._setup(assets);
@@ -63,6 +64,11 @@ class Props {
             if (asset.passable) {
                 this._passable[id] = true;
                 if (this.dbg) console.log(" -- passable");
+            }
+            // lookup lateRender
+            if (asset.lateRender) {
+                this._lateRender[id] = true;
+                if (this.dbg) console.log(" -- lateRender");
             }
             // tag assignment
             this._tags[id] = asset.tag;
@@ -110,6 +116,14 @@ class Props {
      */
     passable(id) {
         return this._passable[id] || false;
+    }
+
+    /**
+     * Is the tile associated w/ the given id set for late rendering?
+     * @param {*} id 
+     */
+    lateRender(id) {
+        return this._lateRender[id] || false;
     }
 
     /**

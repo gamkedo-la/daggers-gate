@@ -75,6 +75,8 @@ function keyReleased(evt) {
 
 function mouseclicked(evt) {
   currentCtrl.mouseClicked(mouseX, mouseY);
+  var colliderIdx = currentLevel.idxfromxy(mouseX, mouseY);
+  console.log("Index: " + colliderIdx);
 }
 
 function mousereleased(evt) {

@@ -304,6 +304,12 @@ class characterClass {
     secondaryAction() {
         this.startSecondaryAction = false;
         //console.log("...secondary action...");
+        switch (this.chosenSecondary) {
+        case "ranged":
+            console.log("trying to range attack...");
+            this.doRangedAttack();
+            break;
+        }
     }
 
     // ACTIONS
@@ -312,6 +318,17 @@ class characterClass {
             let xattack = Object.assign({}, this.xattacks[this.idleState], {actor: this, idleState: this.idleState});
             xattack.collider = Object.assign({}, xattack.collider, {x:this.x, y:this.y});
             this.currentAttack = new Attack(xattack);
+            // transition to attack state (based on idle direction)
+            this.state = xattack.state;
+        }
+    }
+
+    doRangedAttack() {
+        if (!this.currentAttack) {
+            let xattack = Object.assign({}, attackSpecs["ranged"][this.idleState], {actor: this, idleState: this.idleState});
+            console.log("xattack: " + Fmt.ofmt(xattack));
+            xattack.collider = Object.assign({}, xattack.collider, {x:this.x, y:this.y});
+            this.currentAttack = new RangedAttack(xattack);
             // transition to attack state (based on idle direction)
             this.state = xattack.state;
         }
@@ -397,7 +414,7 @@ class characterClass {
         if (!incapacitated && this.currentAttack) {
             // check if attack is done
             if (!this.currentAttack.active) {
-                //console.log("attack is done");
+                console.log("attack is done");
                 let lastAttack = this.currentAttack;
                 this.currentAttack = undefined;
                 // transition back to idle state (based on attack direction)

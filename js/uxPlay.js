@@ -238,6 +238,27 @@ class UxPlayCtrl extends UxCtrl {
                     ],
                 },
 
+                {
+                    cls: "UxPanel",
+                    tag: "arrowPanel",
+                    xxform: { width:35, height:35, left:.15, right:.85, top:.2, bottom:.8},
+                    xsketch: Object.assign({}, assets.get("ARROW_ONE_DROP"), {xfitter: { cls: "FitToParent" }}),
+                    xchild: [
+                        {
+                            cls: "UxText",
+                            tag: "arrowText",
+                            xtext: {
+                                color: new Color(225,225,0,.75),
+                                text: "1",
+                                outlineWidth: 1,
+                                outlineColor: new Color(0,0,0,.5),
+                                font: new Font({style:"bold"}),
+                            },
+                            xxform: { width:25, height:25, left:1, right:0, top:.95, bottom:0.05},
+                        },
+                    ],
+                },
+
             ],
         });
 
@@ -245,6 +266,7 @@ class UxPlayCtrl extends UxCtrl {
         this.zpanel = this.view.find((v) => v.tag === "zpanel");
         this.xpanel = this.view.find((v) => v.tag === "xpanel");
         this.keyText = this.view.find((v) => v.tag === "keyText");
+        this.arrowText = this.view.find((v) => v.tag === "arrowText");
         for (let i=1; i<=10; i++) {
             let key = "healthSlot" + i.toString();
             this[key] = this.view.find((v) => v.tag === key);
@@ -370,6 +392,7 @@ class UxPlayCtrl extends UxCtrl {
 
         // update view
         this.keyText.text = p1.keysHeld.toString();
+        this.arrowText.text = p1.arrows.toString();
         this.updatePlayerHealth();
         this.updatePlayerMana();
         this.updatePlayerActions();

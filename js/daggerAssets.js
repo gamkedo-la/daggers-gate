@@ -77,6 +77,7 @@ const daggerLootTables = {
     CRATE: [
         { chance: .5, kind: "GOLD_COINS_TWO_DROP", min: 2, max: 5},
         { chance: .25, kind: "GOLD_COINS_TWO_DROP", min: 2, max: 5},
+        { chance: 1, kind: "ARROW_ONE_DROP", amt: 1},
     ],
 }
 

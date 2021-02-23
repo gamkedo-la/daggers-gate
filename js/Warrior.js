@@ -253,6 +253,10 @@ class warriorClass extends characterClass {
             console.log("keys + " + amt);
             this.keysHeld += amt;
         break;
+        case "BOW":
+            console.log("picked up bow");
+            this.haveBow = true;
+        break;
         }
         // destroy loot objectcase 
         currentLevel.destroyObject(loot);

@@ -313,6 +313,19 @@ const daggerObjects = {
         },
         collider: { blocking: false, width:25, height: 25 },
     },
+    BOW: {
+        kind: "loot",
+        loot: {
+            amt: 1,
+        },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "BOW",
+            },
+        },
+        collider: { blocking: false, width:45, height: 45 },
+    },
     DOOR_ARCH: {
         overlay: true,
         sketch: { 

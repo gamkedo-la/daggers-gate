@@ -1,110 +1,126 @@
-// FIXME: need to figure out how to reference other sketches from here... as assets are not loaded yet... could have an init method...
-attackSpecs = {
-    "ranged": {
-        [Animator.idleEast]: {
-            state: Animator.attackEast,
-            sketch: sword,
-            collider: {
-                color: "red",
-                width: 25,
-                height: 25,
-            },
-            ttl: 450,
-            angle: 0,
-        },
-        [Animator.idleWest]: {
-            state: Animator.attackWest,
-            sketch: sword,
-            collider: {
-                color: "red",
-                width: 25,
-                height: 25,
-            },
-            ttl: 450,
-            angle: Math.PI,
-        },
-        [Animator.idleNorth]: {
-            state: Animator.attackNorth,
-            sketch: sword,
-            collider: {
-                color: "red",
-                width: 25,
-                height: 25,
-            },
-            ttl: 450,
-            angle: -Math.PI*.5,
-        },
-        [Animator.idleSouth]: {
-            state: Animator.attackSouth,
-            sketch: sword,
-            collider: {
-                color: "red",
-                width: 25,
-                height: 25,
-            },
-            ttl: 450,
-            angle: Math.PI*.5,
-        },
-
-    },
-    "melee": {
-        [Animator.idleSouth]: {
-            state: Animator.attackSouth,
-            sketch: sword,
-            collider: {
-                color: "red",
-                width: 35,
-                height: 25,
-                xoff:0, 
-                yoff:20,
-            },
-            startAngle: Math.PI*.25,
-            endAngle: Math.PI*.75,
-        },
-        [Animator.idleNorth]: {
-            state: Animator.attackNorth,
-            sketch: sword,
-            collider: {
-                color: "red",
-                width: 35,
-                height: 25,
-                xoff:0, 
-                yoff:-25,
-            },
-            startAngle: Math.PI*1.25,
-            endAngle: Math.PI*1.75,
-            reach: -.5,
-        },
-        [Animator.idleWest]: {
-            state: Animator.attackWest,
-            sketch: sword,
-            collider: {
-                color: "red",
-                width: 25,
-                height: 35,
-                xoff:-25, 
-                yoff:0,
-            },
-            startAngle: Math.PI*1.25,
-            endAngle: Math.PI*.75,
-        },
-        [Animator.idleEast]: {
-            state: Animator.attackEast,
-            sketch: sword,
-            collider: {
-                color: "red",
-                width: 25,
-                height: 35,
-                xoff:25, 
-                yoff:0,
-            },
-            startAngle: -Math.PI*.25,
-            endAngle: Math.PI*.25,
-        },
-    },
-}
 
 class Attack {
+    static _specs;
+
+    // initialize specs
+    static _initSpecs() {
+        this._specs = {};
+        this._specs["ranged"] = {
+            [Animator.idleEast]: {
+                state: Animator.attackEast,
+                sketch: assets.generate("ARROW_ONE_DROP"),
+                collider: {
+                    color: "red",
+                    width: 40,
+                    height: 20,
+                },
+                ttl: 450,
+                //angle: Math.PI*.5,
+                angle: 0,
+                rotation: Math.PI * .5,
+            },
+            [Animator.idleWest]: {
+                state: Animator.attackWest,
+                sketch: assets.generate("ARROW_ONE_DROP"),
+                collider: {
+                    color: "red",
+                    width: 40,
+                    height: 20,
+                },
+                ttl: 450,
+                angle: Math.PI,
+                rotation: Math.PI * .5,
+            },
+            [Animator.idleNorth]: {
+                state: Animator.attackNorth,
+                sketch: assets.generate("ARROW_ONE_DROP"),
+                collider: {
+                    color: "red",
+                    width: 25,
+                    height: 25,
+                },
+                ttl: 450,
+                angle: -Math.PI*.5,
+                rotation: Math.PI * .5,
+            },
+            [Animator.idleSouth]: {
+                state: Animator.attackSouth,
+                sketch: assets.generate("ARROW_ONE_DROP"),
+                collider: {
+                    color: "red",
+                    width: 25,
+                    height: 25,
+                },
+                ttl: 450,
+                angle: Math.PI*.5,
+                rotation: Math.PI * .5,
+            },
+        };
+        this._specs["ranged"][Animator.idle] = this._specs["ranged"][Animator.idleSouth];
+
+        this._specs["melee"] = {
+            [Animator.idleSouth]: {
+                state: Animator.attackSouth,
+                sketch: sword,
+                collider: {
+                    color: "red",
+                    width: 35,
+                    height: 25,
+                    xoff:0, 
+                    yoff:20,
+                },
+                startAngle: Math.PI*.25,
+                endAngle: Math.PI*.75,
+            },
+            [Animator.idleNorth]: {
+                state: Animator.attackNorth,
+                sketch: sword,
+                collider: {
+                    color: "red",
+                    width: 35,
+                    height: 25,
+                    xoff:0, 
+                    yoff:-25,
+                },
+                startAngle: Math.PI*1.25,
+                endAngle: Math.PI*1.75,
+                reach: -.5,
+            },
+            [Animator.idleWest]: {
+                state: Animator.attackWest,
+                sketch: sword,
+                collider: {
+                    color: "red",
+                    width: 25,
+                    height: 35,
+                    xoff:-25, 
+                    yoff:0,
+                },
+                startAngle: Math.PI*1.25,
+                endAngle: Math.PI*.75,
+            },
+            [Animator.idleEast]: {
+                state: Animator.attackEast,
+                sketch: sword,
+                collider: {
+                    color: "red",
+                    width: 25,
+                    height: 35,
+                    xoff:25, 
+                    yoff:0,
+                },
+                startAngle: -Math.PI*.25,
+                endAngle: Math.PI*.25,
+            },
+        };
+        this._specs["melee"][Animator.idle] = this._specs["melee"][Animator.idleSouth];
+    }
+
+    static getSpec(tag) {
+        if (!this._specs) this._initSpecs();
+        return this._specs[tag];
+    }
+
     constructor(spec={}) {
         // actor for attack (who is attacking?)
         this._actor = spec.actor || {x:0, y:0};
@@ -203,8 +219,10 @@ class RangedAttack {
         this._idleState = spec.idleState || Animator.idle;
         // angle of attack (which direction are we shooting?)
         let angle = spec.angle || 0;
+        // rotation of sprite
+        let rotation = spec.rotation || 0;
         this._xform = new XForm({
-            angle: angle,
+            angle: angle + rotation,
             width: this._sketch.width,
             height: this._sketch.height,
         });

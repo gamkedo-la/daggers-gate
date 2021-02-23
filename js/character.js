@@ -63,63 +63,6 @@ class characterClass {
         this.nextCollider = this.collider.copy();
         this.interactCollider = (spec.interactCollider) ? new Collider(Object.assign({}, spec.interactCollider, {x: this.x, y:this.y})) : undefined;
         // melee attack
-        // -- specs for attack
-        this.xattacks = {
-            [Animator.idleSouth]: {
-                state: Animator.attackSouth,
-                sketch: sword,
-                collider: {
-                    color: "red",
-                    width: 35,
-                    height: 25,
-                    xoff:0, 
-                    yoff:20,
-                },
-                startAngle: Math.PI*.25,
-                endAngle: Math.PI*.75,
-            },
-            [Animator.idleNorth]: {
-                state: Animator.attackNorth,
-                sketch: sword,
-                collider: {
-                    color: "red",
-                    width: 35,
-                    height: 25,
-                    xoff:0, 
-                    yoff:-25,
-                },
-                startAngle: Math.PI*1.25,
-                endAngle: Math.PI*1.75,
-                reach: -.5,
-            },
-            [Animator.idleWest]: {
-                state: Animator.attackWest,
-                sketch: sword,
-                collider: {
-                    color: "red",
-                    width: 25,
-                    height: 35,
-                    xoff:-25, 
-                    yoff:0,
-                },
-                startAngle: Math.PI*1.25,
-                endAngle: Math.PI*.75,
-            },
-            [Animator.idleEast]: {
-                state: Animator.attackEast,
-                sketch: sword,
-                collider: {
-                    color: "red",
-                    width: 25,
-                    height: 35,
-                    xoff:25, 
-                    yoff:0,
-                },
-                startAngle: -Math.PI*.25,
-                endAngle: Math.PI*.25,
-            },
-        };
-        this.xattacks[Animator.idle] = this.xattacks[Animator.idleSouth];
         // -- current attack
         this.currentAttack;
         // character attributes
@@ -315,7 +258,7 @@ class characterClass {
     // ACTIONS
     doMeleeAttack() {
         if (!this.currentAttack) {
-            let xattack = Object.assign({}, this.xattacks[this.idleState], {actor: this, idleState: this.idleState});
+            let xattack = Object.assign({}, Attack.getSpec("melee")[this.idleState], {actor: this, idleState: this.idleState});
             xattack.collider = Object.assign({}, xattack.collider, {x:this.x, y:this.y});
             this.currentAttack = new Attack(xattack);
             // transition to attack state (based on idle direction)
@@ -325,8 +268,7 @@ class characterClass {
 
     doRangedAttack() {
         if (!this.currentAttack) {
-            let xattack = Object.assign({}, attackSpecs["ranged"][this.idleState], {actor: this, idleState: this.idleState});
-            console.log("xattack: " + Fmt.ofmt(xattack));
+            let xattack = Object.assign({}, Attack.getSpec("ranged")[this.idleState], {actor: this, idleState: this.idleState});
             xattack.collider = Object.assign({}, xattack.collider, {x:this.x, y:this.y});
             this.currentAttack = new RangedAttack(xattack);
             // transition to attack state (based on idle direction)

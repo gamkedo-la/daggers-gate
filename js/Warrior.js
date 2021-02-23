@@ -249,6 +249,7 @@ class warriorClass extends characterClass {
         case "ARROW_FIVE_DROP":
             console.log("arrows + " + amt);
             this.arrows += amt;
+        break;
         case "KEY":
             console.log("keys + " + amt);
             this.keysHeld += amt;

@@ -235,6 +235,7 @@ class RangedAttack {
         this._dy = Math.sin(angle) * this._speed;
         // damage of attack...
         this._damage = spec.damage || 5;
+        this._piercing = Util.objKeyValue(spec, "piercing", false);
         // ignore list... entities for which not to apply attack damage to
         // starts w/ actor, then applies to entities already hit (don't do damage continuously when colliders hit)
         this._ignore = [ this._actor ];
@@ -259,15 +260,24 @@ class RangedAttack {
         if (this.active) {
             this._collider.update(this._x, this._y, currentLevel.idxfromxy.bind(currentLevel));
             // see if collider has hit anything...
-            let ohits = currentLevel.findAllObjectEnemy((v) => v.health && this._collider.overlaps(v.collider) && !this._ignore.includes(v));
+            let ohits = currentLevel.findAllObjectEnemy((v) => this._collider.overlaps(v.collider) && !this._ignore.includes(v));
             for (const ohit of ohits) {
+                // check for collision w/ non-health colliders that will block projectile
+                if (!ohit.health) {
+                    if (ohit.active && ohit.collider.blocking) {
+                        this._active = false;
+                        return;
+                    } else { // not a blocking collider, ignore it
+                        continue;
+                    }
+                }
                 console.log("attack applying damage to: " + ohit);
                 // apply damage
                 ohit.takeDamage(this._damage);
                 // add object to ignore list
                 this._ignore.push(ohit);
                 // nudge object
-                let v = new Vect(ohit.x-this._actor.x, ohit.y-this._actor.y).normalize().mult(.15);
+                let v = new Vect(ohit.x-this._x, ohit.y-this._y).normalize().mult(.15);
                 let xnudge = {
                     ttl: 100,
                     dx: v.x,
@@ -275,6 +285,19 @@ class RangedAttack {
                     target: ohit,
                 }
                 ohit.nudge = new Nudge(xnudge);
+                // if not piercing... we are done
+                if (!this._piercing) {
+                    this._active = false;
+                    return;
+                }
+            }
+
+            // check for tile collisions
+            let idx = currentLevel.idxfromxy(this._x, this._y);
+            let id = currentLevel.fgi(idx);
+            if (id && !props.passable(id)) {
+                this._active = false;
+                return;
             }
         }
     }

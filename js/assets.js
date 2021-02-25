@@ -201,10 +201,10 @@ class SheetLoader {
             const promises = [];
             const animSpec = {
                 tag: asset.tag, 
-                loop: asset.loop,
                 cls: "Animation", 
                 cels: [],
             }
+            if (asset.hasOwnProperty("loop")) animSpec.loop = asset.loop;
             for (const cel of (asset.cels || [])) {
                 // parse cel vars
                 const width = Util.objKeyValue(cel, "width", 0);

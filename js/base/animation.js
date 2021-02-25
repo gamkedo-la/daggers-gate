@@ -35,7 +35,6 @@ class Animation extends Sprite {
     constructor(spec={}) {
         super(spec);
         this._loop = Util.objKeyValue(spec, "loop", true);
-        console.log("animation loop: " + this._loop);
         this._cels = Util.objKeyValue(spec, "cels", [{}]).map((v) => new Cel(v));
         this._cidx = 0;
         if (this._width === 0) this._width = this.cel.sketch.width;

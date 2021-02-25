@@ -123,6 +123,7 @@ class characterClass {
 
     set state(v) {
         if (v !== this._state) {
+            if (this === p1) console.log("new state: " + v);
             this._state = v;
             if (this.linkVars.includes("state")) for (const link of this.links) link._state = v;
         }

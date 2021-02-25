@@ -1,6 +1,7 @@
 
 class Attack {
     static _specs;
+    static _meleeDuration = _meleeFrameDuration * 8;
 
     // initialize specs
     static _initSpecs() {
@@ -71,6 +72,7 @@ class Attack {
                 },
                 startAngle: Math.PI*.25,
                 endAngle: Math.PI*.75,
+                ttl: this._meleeDuration,
             },
             [Animator.idleNorth]: {
                 state: Animator.attackNorth,
@@ -85,6 +87,7 @@ class Attack {
                 startAngle: Math.PI*1.25,
                 endAngle: Math.PI*1.75,
                 reach: -.5,
+                ttl: this._meleeDuration,
             },
             [Animator.idleWest]: {
                 state: Animator.attackWest,
@@ -98,6 +101,7 @@ class Attack {
                 },
                 startAngle: Math.PI*1.25,
                 endAngle: Math.PI*.75,
+                ttl: this._meleeDuration,
             },
             [Animator.idleEast]: {
                 state: Animator.attackEast,
@@ -111,6 +115,7 @@ class Attack {
                 },
                 startAngle: -Math.PI*.25,
                 endAngle: Math.PI*.25,
+                ttl: this._meleeDuration,
             },
         };
         this._specs["melee"][Animator.idle] = this._specs["melee"][Animator.idleSouth];

@@ -109,6 +109,7 @@ class Animator {
         // -- check for animation for given state
         let anim = this.getAnim(wantState);
         if (!anim) return;
+        anim.reset();
         // -- check for transition to a pending state...
         let trans = this.getTransition(fromState, wantState);
         // -- if we have a transition... start transition animation and set current state to pending

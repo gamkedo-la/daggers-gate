@@ -90,6 +90,7 @@ function GridElement() {
   this.isNotPassible = function(elementType){
     for(var i = 0; i < daggerAssets.length; i++){
       if(daggerAssets[i].id == elementType){
+        if(elementType == 27) console.log("match found ", elementType)
         if(daggerAssets[i].pathFindingWalkable == true){
           return NOTHING;
         } else {
@@ -99,6 +100,7 @@ function GridElement() {
         if(daggerAssets[i].assets != undefined){
           for(var ii = 0; ii < daggerAssets[i].assets.length; ii++){
             if(daggerAssets[i].assets[ii].id == elementType){
+              if(elementType == 27)console.log("match found ", elementType)
               if(daggerAssets[i].assets[ii].pathFindingWalkable == true){ //checking for true incase maybe undefined
                 return NOTHING;
               } else {

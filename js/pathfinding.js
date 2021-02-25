@@ -49,13 +49,13 @@ function SetupPathfindingGridData(whichPathfinder) {
     //next Loop Through Object to mark as impassible for pathFinding
     if(collisionDebugCounter == 2)console.log("-----");
     for (var i = 0; i < currentLevel.objects.length; i++){
-     // if(currentLevel.objects[i].active && currentLevel.objects[i].blocking){
-        var centerX = currentLevel.objects[i].collider.x;// + currentLevel.objects[i].collider.width/2;
-        var centerY = currentLevel.objects[i].collider.y;// + currentLevel.objects[i].collider.height/2;
-        var colliderIdx = currentLevel.idxfromxy(centerX, centerY);
+      var centerX = currentLevel.objects[i].collider.x;// + currentLevel.objects[i].collider.width/2;
+      var centerY = currentLevel.objects[i].collider.y;// + currentLevel.objects[i].collider.height/2;
+      var colliderIdx = currentLevel.idxfromxy(centerX, centerY);
+      if(grid[colliderIdx].isNotPassible(currentLevel.objects[i].tileid)){
         grid[colliderIdx].changeElement(22);
-        if(collisionDebugCounter == 2)console.log(colliderIdx);
-      //}
+        if(collisionDebugCounter == 2)console.log(currentLevel.objects[i]);
+      }
     } 
     if(collisionDebugCounter == 2)console.log("++++++");
 	

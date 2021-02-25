@@ -55,12 +55,21 @@ let empty_room_Map = template_room_Map.slice();
 let editorLvl;
 
 function startEditor() {
+
+	/*
 	editorLvl = new Level({
 		bg: template_bg_Map.slice(),
 		fg: empty_fg_Map,
 		width: template_width,
 		height: template_height,
 	});
+	*/
+	editorLvl = new Level({
+		width: 20,
+		height: 20,
+	});
+	currentLevel = editorLvl;
+
 }
 
 function setStoredTileValue(val) {
@@ -125,7 +134,7 @@ function setupTileButtons() {
 function generateReadableMapData() {
 	let mapString = empty_fg_Map+'';
 	let readableMapString ='[ ' + mapString.replace(/,/g , ", ") + ' ]';
-	
+	//alert(JSON.stringify(readableMapString));
 	console.log(readableMapString)
 }
 

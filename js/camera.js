@@ -57,22 +57,22 @@ class Camera {
         let tx = this.target.x;
         let ty = this.target.y;
         // left of pan area
-        if (tx < (this._x + this.dx) && tx > this.dx) {
+        if (tx < (this._x + this.dx) && tx >= this.dx) {
             this._x = tx - this.dx;
             if (this.dbg) console.log("pan left - tx: " + tx + " wmaxx: " + wmaxx + " newx: " + this._x);
         }
         // right of pan area
-        if (tx > (this._x + this.width - this.dx) && tx < wmaxx-this.dx) {
+        if (tx > (this._x + this.width - this.dx) && tx <= wmaxx-this.dx) {
             this._x = tx - (this.width - this.dx);
             if (this.dbg) console.log("pan right - tx: " + tx + " wmaxx: " + wmaxx + " newx: " + this._x);
         }
         // above pan area
-        if (ty < (this._y + this.dy) && ty > this.dy) {
+        if (ty < (this._y + this.dy) && ty >= this.dy) {
             this._y = ty - this.dy;
             if (this.dbg) console.log("pan up - ty: " + ty + " wmaxy: " + wmaxy + " newy: " + this._y);
         }
         // below pan area
-        if (ty > (this._y + this.height - this.dy) && ty < wmaxy-this.dy) {
+        if (ty > (this._y + this.height - this.dy) && ty <= wmaxy-this.dy) {
             this._y = ty - (this.height - this.dy);
             if (this.dbg) console.log("pan down - ty: " + ty + " wmaxy: " + wmaxy + " newy: " + this._y);
         }

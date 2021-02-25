@@ -34,6 +34,9 @@ class Animator {
         if (this._anim) return this._anim.height;
         return 0;
     }
+    get animIdx() {
+        return this._anim.animIdx;
+    }
 
     // CONSTRUCTOR ---------------------------------------------------------
     constructor(spec={}) {

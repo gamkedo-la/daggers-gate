@@ -59,6 +59,10 @@ class Animation extends Sprite {
         return Sketch.zero;
     }
 
+    get animIdx() {
+        return this._cidx;
+    }
+
     // METHODS -------------------------------------------------------------
     reset() {
         this._cidx = 0;

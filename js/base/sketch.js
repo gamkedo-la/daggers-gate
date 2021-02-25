@@ -80,6 +80,10 @@ class Sketch {
         return new Vect(this.width, this.height);
     }
 
+    get animIdx() {
+        return 0;
+    }
+
     // METHODS -------------------------------------------------------------
     /**
      * A sketch can be updated...

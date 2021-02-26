@@ -16,60 +16,74 @@ class UxEditorView extends UxPanel {
     }
 }
 
-class UxLvlPopUpCtrl extends UxCtrl {
+class UxLoadLvlPopUpCtrl extends UxCtrl {
     constructor(spec={}) {
         super(spec);
         // construct the UI elements
-        let vspec = {
+        this.view = UxView.generate({
             cls: "UxCanvas",
             cvsid: "gameCanvas",
+            layer: 1,
             xchild: [
-                /*
                 {
-                    cls: "UxButton",
-                    tag: "startButton",
-                    xxform: { left: .2, top:.15, bottom: .75, right: .2},
-                    xtext: { text: "Start" },
+                    cls: "UxPanel",
+                    xxform: { border: .2},
+                    xsketch: { cls: 'Rect', borderWidth: 5, borderColor: "green", color: new Color(25,25,25,1), xfitter: { cls: "FitToParent" }, },
+                    xchild: [
+                        {
+                            cls: "UxText",
+                            xxform: { top: .075, bottom: .85 },
+                            xtext: { color: new Color(0,255,0,.75), text: "Choose Level", },
+                        },
+                        {
+                            cls: "UxPanel",
+                            tag: "lvlPanel",
+                            xxform: { top: .2, bottom: .1 },
+                        },
+                        {
+                            cls: "UxButton",
+                            tag: "backButton",
+                            xxform: { top: .9, offset: 5, left: .4, right: .4 },
+                            xtext: { text: "Back", color: new Color(255,255,0,.75)},
+                        },
+                    ],
                 },
-                */
             ],
-        };
+        });
 
-        // build out buttons for levels
-        let i = 0;
-        let j = 0;
-        for (const key in allLevels) {
-            let ypt = j * .1;
-            let ypb = 1 - (ypt + .1);
-            let spec = {
+        this.lvlPanel = this.view.find((v) => v.tag === "lvlPanel");
+        this.backButton = this.view.find((v) => v.tag === "backButton");
+        this.backButton.evtClicked.listen(this.onBack.bind(this));
+
+        // build out level buttons
+        let row = 0;
+        let col = 0;
+        let maxCols = 2;
+        let colStep = 1/maxCols;
+        let maxRows = Math.floor(this.lvlPanel.height/50);
+        let rowStep = 1/maxRows;
+        for (const lvlName in allLevels) {
+            let bspec = {
                 cls: "UxButton",
-                tag: "button." + key,
-                xxform: { left: .2, top: ypt, bottom: ypb, right: .6, offset: 10},
-                xtext: { text: key },
-            }
-            vspec.xchild.push(spec);
-            j++;
-            if (j >= 10) {
-                i++;
-                j = 0;
-            }
-        }
-
-        this.view = UxView.generate(vspec);
-
-        // bind buttons
-        for (const key in allLevels) {
-            let tag = "button." + key;
-            let b = this.view.find((v) => v.tag === tag);
-            b.savedName = key;
+                dfltDepth: this.lvlPanel.depth + 1,
+                dfltLayer: this.lvlPanel.layer,
+                parent: this.lvlPanel,
+                xxform: {parent: this.lvlPanel.xform, left: col*colStep, right: 1-(col+1)*colStep, top: row*rowStep, bottom: 1-(row+1)*rowStep, offset: 5},
+                xtext: {text: lvlName, color: new Color(255,255,0,.75)},
+            };
+            let b = UxView.generate(bspec);
             if (b) {
-                console.log("b found: " + b);
-                b.evtClicked.listen(this.onClickLvl.bind(this));
+                b.lvlName = lvlName;
+                b.evtClicked.listen(this.onLvlSelect.bind(this));
+                this.lvlPanel.adopt(b);
+                col++;
+                if (col >= maxCols) {
+                    row++;
+                    col = 0;
+                }
             }
         }
 
-        // clear level loader cache ... this flushes any game level that may have been loaded for the game (not in editor mode)
-        levelLoader.clear();
     }
 
     keyReleased(key) {
@@ -83,20 +97,25 @@ class UxLvlPopUpCtrl extends UxCtrl {
         console.log("onBack");
         // restore last controller
         currentCtrl = lastCtrl;
-        // tear down equip view
+        // tear down view
         if (this.view) this.view.destroy();
+        // restore last view
+        currentCtrl.view.active = true;
     }
 
-    onClickLvl(evt) {
-        console.log("onClickLvl: " + Fmt.ofmt(evt));
+    onLvlSelect(evt) {
+        console.log("onLvlSelect: " + Fmt.ofmt(evt));
+        if (!confirm("Loading new level will erase current level data, OK to proceed?")) return;
         // load level
-        let lvl = evt.actor.savedName;
+        let lvl = evt.actor.lvlName;
         levelLoader.load(lvl, true)
         editorLvl = currentLevel;
         // reset tracker and camera
         lastCtrl.tracker.x = 0;
         lastCtrl.tracker.y = 0;
         camera.reset();
+        // close window
+        this.onBack();
     }
 
 }
@@ -129,6 +148,12 @@ class UxEditorCtrl extends UxCtrl {
                             xxform: { top: .01, bottom: .95},
                             xtext: { color: new Color(0,255,0,.75), text: "Editor Menu", },
                         },
+                        {
+                            cls: "UxButton",
+                            tag: "helpButton",
+                            xxform: { top: .01, bottom: .95, left: .9, right: .025},
+                            xtext: { color: new Color(0,255,0,.75), text: "?", },
+                        },
 
                         {
                             cls: "UxButton",
@@ -152,38 +177,80 @@ class UxEditorCtrl extends UxCtrl {
                         },
 
                         {
-                            cls: "UxButton",
-                            tag: "fgButton",
-                            xxform: { top: .1, bottom: .85, right: .67, offset: 5},
-                            xtext: { color: new Color(0,255,0,.75), text: "FG", },
+                            cls: "UxPanel",
+                            xxform: { top: .1, bottom: .8, right: .67, offset: 5},
+                            xsketch: { cls: 'Rect', color: new Color(0,20,200,1), xfitter: { cls: "FitToParent" }, },
+                            xchild: [
+                                {
+                                    cls: "UxPanel",
+                                    tag: "fgSelectPanel",
+                                    xxform: {offset: 3},
+                                    xsketch: { cls: 'Rect', borderWidth: 5, borderColor: new Color(255,0,0,.5), xfitter: { cls: "FitToParent" }, },
+                                },
+                                {
+                                    cls: "UxButton",
+                                    tag: "fgButton",
+                                    xxform: { bottom: .6, offset: 5 },
+                                    xtext: { color: new Color(0,255,0,.75), text: "FG", },
+                                },
+                                {
+                                    cls: "UxPanel",
+                                    tag: "fgPanel",
+                                    xxform: { top: .65, bottom: .35, left: .5, right: .5, width: 40, height: 40},
+                                },
+                            ],
                         },
-                        {
-                            cls: "UxButton",
-                            tag: "bgButton",
-                            xxform: { top: .1, bottom: .85, left: .33, right: .33, offset: 5},
-                            xtext: { color: new Color(0,255,0,.75), text: "BG", },
-                        },
-                        {
-                            cls: "UxButton",
-                            tag: "roomButton",
-                            xxform: { top: .1, bottom: .85, left: .67, offset: 5},
-                            xtext: { color: new Color(0,255,0,.75), text: "Room", },
-                        },
+
                         {
                             cls: "UxPanel",
-                            tag: "fgPanel",
-                            xxform: { top: .175, bottom: .825, left: .167, right: .833, width: 50, height: 50},
+                            xxform: { top: .1, bottom: .8, left: .33, right: .33, offset: 5},
+                            xsketch: { cls: 'Rect', color: new Color(0,20,200,1), xfitter: { cls: "FitToParent" }, },
+                            xchild: [
+                                {
+                                    cls: "UxPanel",
+                                    tag: "bgSelectPanel",
+                                    xxform: {offset: 3},
+                                    xsketch: { cls: 'Rect', borderWidth: 5, borderColor: new Color(255,0,0,.5), xfitter: { cls: "FitToParent" }, },
+                                },
+                                {
+                                    cls: "UxButton",
+                                    tag: "bgButton",
+                                    xxform: { bottom: .6, offset: 5 },
+                                    xtext: { color: new Color(0,255,0,.75), text: "BG", },
+                                },
+                                {
+                                    cls: "UxPanel",
+                                    tag: "bgPanel",
+                                    xxform: { top: .65, bottom: .35, left: .5, right: .5, width: 40, height: 40},
+                                },
+                            ],
                         },
+
                         {
                             cls: "UxPanel",
-                            tag: "bgPanel",
-                            xxform: { top: .175, bottom: .825, left: .5, right: .5, width: 50, height: 50},
+                            xxform: { top: .1, bottom: .8, left: .67, offset: 5},
+                            xsketch: { cls: 'Rect', color: new Color(0,20,200,1), xfitter: { cls: "FitToParent" }, },
+                            xchild: [
+                                {
+                                    cls: "UxPanel",
+                                    tag: "roomSelectPanel",
+                                    xxform: {offset: 3},
+                                    xsketch: { cls: 'Rect', borderWidth: 5, borderColor: new Color(255,0,0,.5), xfitter: { cls: "FitToParent" }, },
+                                },
+                                {
+                                    cls: "UxButton",
+                                    tag: "roomButton",
+                                    xxform: { bottom: .6, offset: 5 },
+                                    xtext: { color: new Color(0,255,0,.75), text: "Room", },
+                                },
+                                {
+                                    cls: "UxPanel",
+                                    tag: "roomPanel",
+                                    xxform: { top: .65, bottom: .35, left: .5, right: .5, width: 40, height: 40},
+                                },
+                            ],
                         },
-                        {
-                            cls: "UxPanel",
-                            tag: "roomPanel",
-                            xxform: { top: .175, bottom: .825, right: .167, left: .833, width: 50, height: 50},
-                        },
+
                         {
                             cls: "UxPanel",
                             tag: "tilePanel",
@@ -201,9 +268,11 @@ class UxEditorCtrl extends UxCtrl {
         this.fgPanel = this.view.find((v) => v.tag === "fgPanel");
         this.bgPanel = this.view.find((v) => v.tag === "bgPanel");
         this.roomPanel = this.view.find((v) => v.tag === "roomPanel");
+        this.fgSelect = this.view.find((v) => v.tag === "fgSelectPanel");
+        this.bgSelect = this.view.find((v) => v.tag === "bgSelectPanel");
+        this.roomSelect = this.view.find((v) => v.tag === "roomSelectPanel");
         for (const tag of ["fg", "bg", "room"]) {
             let b = this.view.find((v) => v.tag === tag + "Button");
-            console.log("b: " + b);
             if (b) {
                 b.evtClicked.listen((evt) => { 
                     if (this.dbg) console.log(tag + " selected");
@@ -211,6 +280,10 @@ class UxEditorCtrl extends UxCtrl {
                 });
             }
         }
+        this.loadButton = this.view.find((v) => v.tag === "loadButton");
+        this.loadButton.evtClicked.listen(this.onLoadLevel.bind(this));
+        this.genButton = this.view.find((v) => v.tag === "generateButton");
+        this.genButton.evtClicked.listen(this.onGenerate.bind(this));
 
         // build out tile buttons
         let row = 0;
@@ -253,6 +326,8 @@ class UxEditorCtrl extends UxCtrl {
         camera.resize(this.editorPanel.width, this.editorPanel.height);
         this.view.evtResized.listen(this.onCanvasResize.bind(this));
         // FIXME: setup globals???
+        // reset levels
+        levelLoader.clear();
         editorMode = true;
         // update camera to track mouse position
         this.tracker = {x:0, y:0};
@@ -266,28 +341,33 @@ class UxEditorCtrl extends UxCtrl {
         if (!camera.contains(mouseX, mouseY)) return;
         // lookup idx of current mouse position
         let idx = currentLevel.idxfromxy(mouseX, mouseY);
-        if(editing_level === "BG") {
-            console.log("clicked: " + currentLevel.ifromidx(idx) + "," + currentLevel.jfromidx(idx));
-            editorLvl.setbgi(idx, storedTileValue);
+        if (this.selectMode === "fg") {
+            currentLevel.setfgi(idx, this.fgId);
         }
-        if(editing_level === "FG") {
-            console.log("clicked: " + currentLevel.ifromidx(idx) + "," + currentLevel.jfromidx(idx));
-            editorLvl.setfgi(idx, storedTileValue);
+        if (this.selectMode === "bg") {
+            currentLevel.setbgi(idx, this.bgId);
         }
-        
-        // Doesn't edit Rooms currently --need to learn how
-        if(editing_level === "ROOM") {
-            // FIXME
-            // console.log(freshMap[clickedIndex], storedTileValue);
-            //editorLvl.setbgi(idx, storedTileValue);
+        if (this.selectMode === "room") {
+            // FIXME: need to redo room code
+            //currentLvl.setbgi(idx, this.bgId);
         }
+
     }
 
     mouseMoved(mouseX, mouseY) {
         //console.log("tracker is: " + Fmt.ofmt(this.tracker));
         if(mouseDragging) {
             let idx = currentLevel.idxfromxy(mouseX, mouseY);
-            editorLvl.setfgi(idx, storedTileValue);
+            if (this.selectMode === "fg") {
+                currentLevel.setfgi(idx, this.fgId);
+            }
+            if (this.selectMode === "bg") {
+                currentLevel.setbgi(idx, this.bgId);
+            }
+            if (this.selectMode === "room") {
+                // FIXME: need to redo room code
+                //currentLvl.setbgi(idx, this.bgId);
+            }
         }
     }
 
@@ -306,12 +386,20 @@ class UxEditorCtrl extends UxCtrl {
         if (key === KEY_UP_ARROW) {
            if (camera.y > 0) this.tracker.y = camera.y + camera.dy - currentLevel.sketchWidth;
         }
+        /*
         if (key === KEY_ESCAPE) {
             this.onPopupMenu();
         }
+        */
     }
 
     updateSelectedPanels() {
+        if (this.selectMode !== this.lastSelectMode) {
+            this.lastSelectMode = this.selectMode;
+            this.fgSelect.visible = (this.selectMode === "fg");
+            this.bgSelect.visible = (this.selectMode === "bg");
+            this.roomSelect.visible = (this.selectMode === "room");
+        }
         if (this.fgId !== this.lastFgId) {
             this.lastFgId = this.fgId;
             let xsketch = Object.assign({parent: this.fgPanel}, assets.get(props.getTag(this.fgId)), {xfitter: { cls: "FitToParent" }});
@@ -337,13 +425,41 @@ class UxEditorCtrl extends UxCtrl {
     }
 
     // EVENT CALLBACKS -----------------------------------------------------
-    onPopupMenu() {
-        console.log("onPopupMenu");
+    onLoadLevel() {
+        console.log("onLoadLevel");
         // create new controller for equip menu
-        let ctrl = new UxLvlPopUpCtrl();
-        // activate new controller, move play controller to last
+        let ctrl = new UxLoadLvlPopUpCtrl();
+        // activate new controller, move editor controller to last
         lastCtrl = this;
+        this.view.active = false;
         currentCtrl = ctrl;
+    }
+
+    onGenerate() {
+        console.log("onGenerate");
+        const modal = document.getElementById('lvl-generate-modal');
+        console.log("modal is: " + modal);
+        modal.classList.add('is--visible');
+        const bodyBlackout = document.querySelector('.body-blackout');
+        bodyBlackout.classList.add('is-blacked-out');
+        modal.querySelector('.popup-modal__close').addEventListener('click', () => {
+            console.log("clicked");
+            modal.classList.remove('is--visible');
+            bodyBlackout.classList.remove('is-blacked-out');
+        });
+
+        // FIXME: query from modal?
+        // FIXME: add generated level data...
+        document.getElementById('lvl-text').innerText = "hello world";
+        /*
+        const text = modal.getElementsByTagName('lvl-text');
+        console.log("text is: " + text);
+        text.innerText = "no es bueno";
+        */
+        bodyBlackout.addEventListener('click', () => {
+            modal.classList.remove('is--visible')
+            bodyBlackout.classList.remove('is-blacked-out')
+        });
     }
 
     onCanvasResize(evt) {

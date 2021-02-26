@@ -4,12 +4,27 @@
 <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 <meta content="utf-8" http-equiv="encoding">
 <link rel="stylesheet" type="text/css" href="styles.css">
+<!--
+<link rel="stylesheet" type="text/css" href="modal.scss">
+-->
 </head>
 <body>
 
 <div id="edit-buttons"></div>
 <div id="load-maps"></div>
 <div id="level-buttons"></div>
+
+<!-- body overlay -->
+<div class="body-blackout"></div>
+
+<!-- modal for level generation text -->
+<!-- FIXME: modal close is using font-awesome stuff... need to figure out how to do similar w/out loading fas -->
+<div id="lvl-generate-modal"
+  class="popup-modal shadow" 
+  data-popup-modal="lvl">
+  <i class="fas fa-2x fa-times text-white bg-primary p-3 popup-modal__close"></i>
+  <p id="lvl-text">Level Data</p>
+</div>
 
 <canvas id="gameCanvas" width="800" height="600"></canvas>
 

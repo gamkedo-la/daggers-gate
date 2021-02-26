@@ -6,8 +6,8 @@ class Level {
         this.width = spec.width || 16;
         this.height = spec.height || 12;
         this.nentries = this.width * this.height;
-        this.bg = spec.bg || new Array(this.nentries);
-        this.fg = spec.fg || new Array(this.nentries);
+        this.bg = (spec.bg) ? spec.bg.slice() : new Array(this.nentries);
+        this.fg = (spec.fg) ? spec.fg.slice() : new Array(this.nentries);
         this.sketchWidth = spec.sketchWidth || 50;
         this.sketchHeight = spec.sketchHeight || 50;
         this.maxx = this.sketchWidth * this.width;

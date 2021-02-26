@@ -79,7 +79,7 @@ class Camera {
     }
 
     contains(x, y) {
-        return (x>=this._x && x<=this._x+width && y>=this._y && y<=this._y+height);
+        return (x>=this._x && x<=this._x+this.width && y>=this._y && y<=this._y+this.height);
     }
 
     containsRect(x, y, width, height) {
@@ -92,6 +92,19 @@ class Camera {
                        (y >= this._y && y < this.maxy) ||
                        (y+height > this._y && y+height <= this.maxy);
         return xoverlap && yoverlap;
+    }
+
+    reset() {
+        this._x = 0;
+        this._y = 0;
+    }
+
+    resize(width, height) {
+        console.log("resize camera to: " + width + "," + height);
+        this.width = width;
+        this.height = height;
+        this.halfWidth = this.width * .5;
+        this.halfHeight = this.height * .5;
     }
 
 }

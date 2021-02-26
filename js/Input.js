@@ -74,6 +74,7 @@ function keyReleased(evt) {
 }
 
 function mouseclicked(evt) {
+  mouseDragging = true;
   currentCtrl.mouseClicked(mouseX, mouseY);
 }
 
@@ -87,7 +88,10 @@ function mousemoved(evt) {
     // account for the margins, canvas position on page, scroll amount, etc.
     mouseX = evt.clientX - rect.left - root.scrollLeft;
     mouseY = evt.clientY - rect.top - root.scrollTop;
-    if (currentLevel.containsPoint(mouseX, mouseY)) {
+    // adjust mouse for camera
+    mouseX += camera.x;
+    mouseY += camera.y;
+    if (camera.contains(mouseX, mouseY)) {
         tileOverIdx = currentLevel.idxfromxy(mouseX, mouseY);
     } else {
         tileOverIdx = -1;

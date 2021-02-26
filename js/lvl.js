@@ -16,6 +16,8 @@ class Level {
         this.halfHeight = this.sketchHeight * .5;
         this.fgsketches = new Array(this.nentries);
         this.bgsketches = new Array(this.nentries);
+        this.editor = spec.editor || false;
+        console.log("this.editor is: " + this.editor);
         this.enemies = [];
         this.objects = [];
         this.exits = {};
@@ -42,43 +44,45 @@ class Level {
         }
         // iterate through level data
         for (let i=0; i<this.nentries; i++) {
-            // lookup enemies
-            let spec = props.getEnemySpec(this.fg[i]);
-            if (spec) {
-                // don't draw sketch as level data
-                let id = this.fg[i];
-                this.fg[i] = 0;
-                let tag = props.getTag(id);
-                spec = Object.assign({
-                    tileid: id,
-                    tag: tag,
-                    sketch: assets.get(tag),
-                    name: props.getName(id),
-                    x: this.xfromidx(i, true),
-                    y: this.yfromidx(i, true),
-                }, spec);
-                console.log("creating enemy: " + Fmt.ofmt(spec));
-                // instantiate enemy
-                let enemy = new enemyClass(spec);
-                this.enemies.push(enemy);
-            }
-            // lookup objects
-            spec = props.getObjectSpec(this.fg[i]);
-            if (spec) {
-                // don't draw as lvl data
-                let id = this.fg[i];
-                this.fg[i] = 0;
-                let tag = props.getTag(id);
-                spec = Object.assign({
-                    tileid: id,
-                    tag: tag,
-                    sketch: assets.get(tag),
-                    name: props.getName(id),
-                    x: this.xfromidx(i, true),
-                    y: this.yfromidx(i, true),
-                }, spec);
-                let obj = new gameObjectClass(spec);
-                this.objects.push(obj);
+            if (!this.editor) {
+                // lookup enemies
+                let spec = props.getEnemySpec(this.fg[i]);
+                if (spec) {
+                    // don't draw sketch as level data
+                    let id = this.fg[i];
+                    this.fg[i] = 0;
+                    let tag = props.getTag(id);
+                    spec = Object.assign({
+                        tileid: id,
+                        tag: tag,
+                        sketch: assets.get(tag),
+                        name: props.getName(id),
+                        x: this.xfromidx(i, true),
+                        y: this.yfromidx(i, true),
+                    }, spec);
+                    console.log("creating enemy: " + Fmt.ofmt(spec));
+                    // instantiate enemy
+                    let enemy = new enemyClass(spec);
+                    this.enemies.push(enemy);
+                }
+                // lookup objects
+                spec = props.getObjectSpec(this.fg[i]);
+                if (spec) {
+                    // don't draw as lvl data
+                    let id = this.fg[i];
+                    this.fg[i] = 0;
+                    let tag = props.getTag(id);
+                    spec = Object.assign({
+                        tileid: id,
+                        tag: tag,
+                        sketch: assets.get(tag),
+                        name: props.getName(id),
+                        x: this.xfromidx(i, true),
+                        y: this.yfromidx(i, true),
+                    }, spec);
+                    let obj = new gameObjectClass(spec);
+                    this.objects.push(obj);
+                }
             }
             // FIXME
             // lookup sprites
@@ -385,7 +389,7 @@ class LevelLoader {
         this.dbg = spec.dbg || false;
     }
 
-    load(name) {
+    load(name, editor=false) {
         let lvl;
         // level exists in cache?
         if (name in this._cache) {
@@ -398,12 +402,17 @@ class LevelLoader {
                 console.error("spec for level: " + name + " does not exist!");
                 return undefined
             }
+            if (editor) spec.editor = true;
             lvl = new Level(spec);
             this._cache[name] = lvl;
         }
         // assign current level
         currentLevel = lvl;
         if (this.dbg) console.log("finished loading level: " + name);
+    }
+
+    clear() {
+        this._cache = {};
     }
 
 }

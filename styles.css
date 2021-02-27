@@ -23,14 +23,14 @@
   display: inline-block;
 }
 .popup-modal {
-  height: 365px;
-  width: 650px;
+  height: 90%;
+  width: 70%;
   background-color: #fff;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  padding: 45px;
+  padding: 5px;
   opacity: 0;
   pointer-events: none;
   transition: all 300ms ease-in-out;

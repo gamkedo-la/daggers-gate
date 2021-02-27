@@ -616,23 +616,23 @@ const daggerAssets = [
     
     { src: "images/dwarfAxeman.png", cls: "Sheet", assets: [
         // ---- DWARF AX MAN ----
-        {tag: "DWARF_AX_MAN_IDLE_NORTH",              id: 110, cls: "Sprite", width: 50, height: 75, xoffset: 0, yoffset: 0 },
+        {tag: "DWARF_AX_MAN_IDLE_NORTH",              id: 110, cls: "Sprite", width: 50, height: 75, xoffset: 50, yoffset: 0 },
         {tag: "DWARF_AX_MAN_WALK_NORTH",              cls: "Animation", cels: [
-            { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
-            { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
-            { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
+            { xoffset: 50, yoffset: 0, width: 50, height: 75, duration: 200 },
+            { xoffset: 50, yoffset: 0, width: 50, height: 75, duration: 200 },
+            { xoffset: 50, yoffset: 0, width: 50, height: 75, duration: 200 },
         ]},
-        {tag: "DWARF_AX_MAN_IDLE_EAST",               id: 113, cls: "Sprite", width: 50, height: 75, xoffset: 0, yoffset: 0 },
+        {tag: "DWARF_AX_MAN_IDLE_EAST",               id: 113, cls: "Sprite", width: 50, height: 75, xoffset: 150, yoffset: 0 },
         {tag: "DWARF_AX_MAN_WALK_EAST",              cls: "Animation", cels: [
-            { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
-            { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
-            { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
+            { xoffset: 150, yoffset: 0, width: 50, height: 75, duration: 200 },
+            { xoffset: 150, yoffset: 0, width: 50, height: 75, duration: 200 },
+            { xoffset: 150, yoffset: 0, width: 50, height: 75, duration: 200 },
         ]},
-        {tag: "DWARF_AX_MAN_IDLE_WEST",               id: 116, cls: "Sprite", width: 50, height: 75, xoffset: 0, yoffset: 0 },
+        {tag: "DWARF_AX_MAN_IDLE_WEST",               id: 116, cls: "Sprite", width: 50, height: 75, xoffset: 100, yoffset: 0 },
         {tag: "DWARF_AX_MAN_WALK_WEST",              cls: "Animation", cels: [
-            { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
-            { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
-            { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
+            { xoffset: 100, yoffset: 0, width: 50, height: 75, duration: 200 },
+            { xoffset: 100, yoffset: 0, width: 50, height: 75, duration: 200 },
+            { xoffset: 100, yoffset: 0, width: 50, height: 75, duration: 200 },
         ]},
         {tag: "DWARF_AX_MAN",                         id: 119, cls: "Sprite", width: 50, height: 75, xoffset: 0, yoffset: 0 },
         {tag: "DWARF_AX_MAN_WALK_SOUTH",              cls: "Animation", cels: [

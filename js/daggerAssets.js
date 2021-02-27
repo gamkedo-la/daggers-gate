@@ -48,6 +48,20 @@ const animators = {
             [Animator.walkWest]: "SLIME_WALK_WEST",
             [Animator.walkEast]: "SLIME_WALK_EAST",
         }
+    },
+    "DWARF_AX_MAN": {
+        cls: "Animator",
+        animations: {
+            [Animator.idle]: "DWARF_AX_MAN",
+            [Animator.idleSouth]: "DWARF_AX_MAN",
+            [Animator.idleNorth]: "DWARF_AX_MAN_IDLE_NORTH",
+            [Animator.idleWest]: "DWARF_AX_MAN_IDLE_WEST",
+            [Animator.idleEast]: "DWARF_AX_MAN_IDLE_EAST",
+            [Animator.walkSouth]: "DWARF_AX_MAN_WALK_SOUTH",
+            [Animator.walkNorth]: "DWARF_AX_MAN_WALK_NORTH",
+            [Animator.walkWest]: "DWARF_AX_MAN_WALK_WEST",
+            [Animator.walkEast]: "DWARF_AX_MAN_WALK_EAST",
+        }
     }
 }
 
@@ -74,6 +88,11 @@ const daggerLootTables = {
         { chance: 1, kind: "GOLD_COINS_TWO_DROP", min: 2, max: 5},
         { chance: .5, kind: "GOLD_COINS_SIX_DROP", min: 7, max: 12},
     ],
+    DWARF_AX_MAN: [
+        { chance: 1, kind: "MANA_DROP", amt: 5, },
+        { chance: 1, kind: "HEALTH_DROP", amt: 5, },
+        { chance: 1, kind: "GOLD_COINS_TWO_DROP", min: 2, max: 5},
+    ],
     CHEST1_CLOSE: [
         { chance: 1, kind: "GOLD_COINS_TWO_DROP", min: 2, max: 5},
         { chance: 1, kind: "GOLD_COINS_TWO_DROP", min: 2, max: 5},
@@ -97,6 +116,12 @@ const daggerEnemies = {
     },
     SLIME: {
         sketch: animators["SLIME"],
+        collider: {
+            blocking: false,
+        }
+    },
+    DWARF_AX_MAN: {
+        sketch: animators["DWARF_AX_MAN"],
         collider: {
             blocking: false,
         }
@@ -584,6 +609,36 @@ const daggerAssets = [
             { xoffset: 0, yoffset: 93, width: 50, height: 31, duration: 200 },
             { xoffset: 50, yoffset: 93, width: 50, height: 31, duration: 200 },
             { xoffset: 100, yoffset: 93, width: 50, height: 31, duration: 200 },
+        ]},
+
+    ]},
+
+    
+    { src: "images/dwarfAxeman.png", cls: "Sheet", assets: [
+        // ---- DWARF AX MAN ----
+        {tag: "DWARF_AX_MAN_IDLE_NORTH",              id: 110, cls: "Sprite", width: 50, height: 75, xoffset: 0, yoffset: 0 },
+        {tag: "DWARF_AX_MAN_WALK_NORTH",              cls: "Animation", cels: [
+            { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
+            { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
+            { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
+        ]},
+        {tag: "DWARF_AX_MAN_IDLE_EAST",               id: 113, cls: "Sprite", width: 50, height: 75, xoffset: 0, yoffset: 0 },
+        {tag: "DWARF_AX_MAN_WALK_EAST",              cls: "Animation", cels: [
+            { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
+            { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
+            { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
+        ]},
+        {tag: "DWARF_AX_MAN_IDLE_WEST",               id: 116, cls: "Sprite", width: 50, height: 75, xoffset: 0, yoffset: 0 },
+        {tag: "DWARF_AX_MAN_WALK_WEST",              cls: "Animation", cels: [
+            { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
+            { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
+            { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
+        ]},
+        {tag: "DWARF_AX_MAN",                         id: 119, cls: "Sprite", width: 50, height: 75, xoffset: 0, yoffset: 0 },
+        {tag: "DWARF_AX_MAN_WALK_SOUTH",              cls: "Animation", cels: [
+            { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
+            { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
+            { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
         ]},
 
     ]},

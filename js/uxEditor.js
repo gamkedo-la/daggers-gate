@@ -23,6 +23,19 @@ class UxEditorView extends UxPanel {
         }
     }
 
+    renderRooms(ctx) {
+        if (this.ctrl && this.ctrl.selectMode === "room") {
+            for (let i=0; i<this.ctrl.rooms.length; i++) {
+                let id = this.ctrl.rooms[i];
+                if (!id) continue;
+                let x = currentLevel.xfromidx(i);
+                let y = currentLevel.yfromidx(i);
+                let text = new Text({text:id.toString(), width: 40, height: 40, align: "center", valign: "middle", color: "rgba(255,255,0,.75"});
+                text.render(ctx, x, y+5);
+            }
+        }
+    }
+
     render(ctx) {
         super.render(ctx);
 		// Wrapped in IF/ELSE to support Tile Editor Mode	
@@ -31,6 +44,7 @@ class UxEditorView extends UxPanel {
             editorLvl.render(ctx);
             editorLvl.lateRender(ctx);
             this.renderGrid(ctx);
+            this.renderRooms(ctx);
         }
 		ctx.translate(camera.x, camera.y);
     }
@@ -48,6 +62,7 @@ class UxEditorCtrl extends UxCtrl {
             xchild: [
                 {
                     cls: "UxEditorView",
+                    ctrl: this,
                     tag: "editorPanel",
                     xxform: { origx: 0, origy: 0, right: .3 },
                     xsketch: { cls: 'Rect', color: new Color(0,20,200,1), xfitter: { cls: "FitToParent" }, },
@@ -203,6 +218,42 @@ class UxEditorCtrl extends UxCtrl {
         this.genButton.evtClicked.listen(this.onGenerate.bind(this));
 
         // build out tile buttons
+        this.selectButtons = [];
+        this.buildTileButtons();
+
+        // editor state
+        this.selectMode = "fg";
+        this.fgId = TILE.WALL_BOTTOM;
+        this.bgId = TILE.GROUND;
+        this.roomId = 1;
+        this.lvlName = "editorlvl";
+        // level doesn't keep room array, so build editor's own version
+        this.rooms = this.buildRoomArray();
+
+        // handle resize of canvas/window
+        camera.resize(this.editorPanel.width, this.editorPanel.height);
+        this.view.evtResized.listen(this.onCanvasResize.bind(this));
+        // FIXME: setup globals???
+        // reset levels
+        levelLoader.clear();
+        editorMode = true;
+        // update camera to track mouse position
+        this.tracker = {x:0, y:0};
+        camera.follow(this.tracker);
+        camera.dbg = true;
+        startEditor();
+    }
+
+    destroySelectButtons() {
+        for (const b of this.selectButtons) {
+            console.log("destroying: " + b);
+            b.destroy();
+        }
+        this.selectButtons = [];
+    }
+
+    buildTileButtons() {
+        this.destroySelectButtons();
         let row = 0;
         let col = 0;
         let maxCols = Math.floor(this.tilePanel.width/40);
@@ -230,30 +281,42 @@ class UxEditorCtrl extends UxCtrl {
                     row++;
                     col = 0;
                 }
+                this.selectButtons.push(b);
             }
         }
+    }
 
-        // editor state
-        this.selectMode = "fg";
-        this.fgId = TILE.WALL_BOTTOM;
-        this.bgId = TILE.GROUND;
-        this.roomId = 1;
-        this.lvlName = "editorlvl";
-        // level doesn't keep room array, so build editor's own version
-        this.rooms = this.buildRoomArray();
-
-        // handle resize of canvas/window
-        camera.resize(this.editorPanel.width, this.editorPanel.height);
-        this.view.evtResized.listen(this.onCanvasResize.bind(this));
-        // FIXME: setup globals???
-        // reset levels
-        levelLoader.clear();
-        editorMode = true;
-        // update camera to track mouse position
-        this.tracker = {x:0, y:0};
-        camera.follow(this.tracker);
-        camera.dbg = true;
-        startEditor();
+    buildRoomButtons() {
+        console.log("build room buttons");
+        this.destroySelectButtons();
+        let row = 0;
+        let col = 0;
+        let maxCols = Math.floor(this.tilePanel.width/40);
+        let colStep = 1/maxCols;
+        let maxRows = Math.floor(this.tilePanel.height/40);
+        let rowStep = 1/maxRows;
+        for (let id = 0; id<25; id++) {
+            let bspec = {
+                cls: "UxButton",
+                dfltDepth: this.tilePanel.depth + 1,
+                dfltLayer: this.tilePanel.layer,
+                parent: this.tilePanel,
+                xxform: {parent: this.tilePanel.xform, left: col*colStep, right: 1-(col+1)*colStep, top: row*rowStep, bottom: 1-(row+1)*rowStep},
+                xtext: {text: " " + id.toString() + " ", color: new Color(255,255,0,.5)},
+            };
+            let b = UxView.generate(bspec);
+            if (b) {
+                b.roomId = id;
+                b.evtClicked.listen(this.onRoomSelect.bind(this));
+                this.tilePanel.adopt(b);
+                col++;
+                if (col >= maxCols) {
+                    row++;
+                    col = 0;
+                }
+                this.selectButtons.push(b);
+            }
+        }
     }
 
     mouseClicked(mouseX, mouseY) {
@@ -268,8 +331,7 @@ class UxEditorCtrl extends UxCtrl {
             currentLevel.setbgi(idx, this.bgId);
         }
         if (this.selectMode === "room") {
-            // FIXME: need to redo room code
-            //currentLvl.setbgi(idx, this.bgId);
+            this.rooms[idx] = this.roomId;
         }
 
     }
@@ -306,15 +368,28 @@ class UxEditorCtrl extends UxCtrl {
         if (key === KEY_UP_ARROW) {
            if (camera.y > 0) this.tracker.y = camera.y + camera.dy - currentLevel.sketchWidth;
         }
-        /*
-        if (key === KEY_ESCAPE) {
-            this.onPopupMenu();
+        if (key === KEY_LETTER_F) {
+            this.selectMode = "fg";
         }
-        */
+        if (key === KEY_LETTER_B) {
+            this.selectMode = "bg";
+        }
+        if (key === KEY_LETTER_R) {
+            this.selectMode = "room";
+        }
     }
 
     updateSelectedPanels() {
         if (this.selectMode !== this.lastSelectMode) {
+            if (this.selectMode === "room") {
+                this.buildRoomButtons();
+                showRoomNumbers = true;
+            } else {
+                if (this.lastSelectMode === "room") {
+                this.buildTileButtons();
+                showRoomNumbers = false;
+                }
+            }
             this.lastSelectMode = this.selectMode;
             this.fgSelect.visible = (this.selectMode === "fg");
             this.bgSelect.visible = (this.selectMode === "bg");
@@ -443,6 +518,11 @@ ${this.pprintArray(this.rooms, currentLevel.width, 8)}
         } else if (this.selectMode === "bg") {
             this.bgId = evt.actor.assetId;
         }
+    }
+
+    onRoomSelect(evt) {
+        console.log("onRoomSelect: " + evt.actor.roomId);
+        this.roomId = evt.actor.roomId;
     }
 
 }

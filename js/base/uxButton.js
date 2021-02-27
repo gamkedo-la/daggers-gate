@@ -55,6 +55,7 @@ class UxButton extends UxView {
             this.evtClicked.trigger();
         }
     }
+
     onSketchUpdate(evt) {
         // propagate update
         if (evt.actor === this._activeSketch || evt.actor === this._textSketch) this.evtUpdated.trigger();

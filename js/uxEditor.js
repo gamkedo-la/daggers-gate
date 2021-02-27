@@ -16,113 +16,6 @@ class UxEditorView extends UxPanel {
     }
 }
 
-class UxLoadLvlPopUpCtrl extends UxCtrl {
-    constructor(spec={}) {
-        super(spec);
-        // construct the UI elements
-        this.view = UxView.generate({
-            cls: "UxCanvas",
-            cvsid: "gameCanvas",
-            layer: 1,
-            xchild: [
-                {
-                    cls: "UxPanel",
-                    xxform: { border: .2},
-                    xsketch: { cls: 'Rect', borderWidth: 5, borderColor: "green", color: new Color(25,25,25,1), xfitter: { cls: "FitToParent" }, },
-                    xchild: [
-                        {
-                            cls: "UxText",
-                            xxform: { top: .075, bottom: .85 },
-                            xtext: { color: new Color(0,255,0,.75), text: "Choose Level", },
-                        },
-                        {
-                            cls: "UxPanel",
-                            tag: "lvlPanel",
-                            xxform: { top: .2, bottom: .1 },
-                        },
-                        {
-                            cls: "UxButton",
-                            tag: "backButton",
-                            xxform: { top: .9, offset: 5, left: .4, right: .4 },
-                            xtext: { text: "Back", color: new Color(255,255,0,.75)},
-                        },
-                    ],
-                },
-            ],
-        });
-
-        this.lvlPanel = this.view.find((v) => v.tag === "lvlPanel");
-        this.backButton = this.view.find((v) => v.tag === "backButton");
-        this.backButton.evtClicked.listen(this.onBack.bind(this));
-
-        // build out level buttons
-        let row = 0;
-        let col = 0;
-        let maxCols = 2;
-        let colStep = 1/maxCols;
-        let maxRows = Math.floor(this.lvlPanel.height/50);
-        let rowStep = 1/maxRows;
-        for (const lvlName in allLevels) {
-            let bspec = {
-                cls: "UxButton",
-                dfltDepth: this.lvlPanel.depth + 1,
-                dfltLayer: this.lvlPanel.layer,
-                parent: this.lvlPanel,
-                xxform: {parent: this.lvlPanel.xform, left: col*colStep, right: 1-(col+1)*colStep, top: row*rowStep, bottom: 1-(row+1)*rowStep, offset: 5},
-                xtext: {text: lvlName, color: new Color(255,255,0,.75)},
-            };
-            let b = UxView.generate(bspec);
-            if (b) {
-                b.lvlName = lvlName;
-                b.evtClicked.listen(this.onLvlSelect.bind(this));
-                this.lvlPanel.adopt(b);
-                col++;
-                if (col >= maxCols) {
-                    row++;
-                    col = 0;
-                }
-            }
-        }
-
-    }
-
-    keyReleased(key) {
-        if (key === KEY_ESCAPE) {
-            this.onBack();
-        }
-    }
-
-    // EVENT CALLBACKS -----------------------------------------------------
-    onBack() {
-        console.log("onBack");
-        // restore last controller
-        currentCtrl = lastCtrl;
-        // tear down view
-        if (this.view) this.view.destroy();
-        // restore last view
-        currentCtrl.view.active = true;
-    }
-
-    onLvlSelect(evt) {
-        console.log("onLvlSelect: " + Fmt.ofmt(evt));
-        if (!confirm("Loading new level will erase current level data, OK to proceed?")) return;
-        // load level
-        let lvl = evt.actor.lvlName;
-        levelLoader.load(lvl, true)
-        editorLvl = currentLevel;
-        // reset tracker and camera
-        lastCtrl.tracker.x = 0;
-        lastCtrl.tracker.y = 0;
-        lastCtrl.lvlName = evt.actor.lvlName;
-        lastCtrl.rooms = lastCtrl.buildRoomArray();
-        camera.reset();
-        // close window
-        this.onBack();
-    }
-
-}
-
-
 class UxEditorCtrl extends UxCtrl {
     constructor(spec={}) {
         super(spec);
@@ -282,6 +175,8 @@ class UxEditorCtrl extends UxCtrl {
                 });
             }
         }
+        this.newButton = this.view.find((v) => v.tag === "newButton");
+        this.newButton.evtClicked.listen(this.onNew.bind(this));
         this.loadButton = this.view.find((v) => v.tag === "loadButton");
         this.loadButton.evtClicked.listen(this.onLoadLevel.bind(this));
         this.genButton = this.view.find((v) => v.tag === "generateButton");
@@ -430,6 +325,17 @@ class UxEditorCtrl extends UxCtrl {
     }
 
     // EVENT CALLBACKS -----------------------------------------------------
+
+    onNew() {
+        console.log("onNewLevel");
+        // create new controller for equip menu
+        let ctrl = new UxNewLvlPopUpCtrl();
+        // activate new controller, move editor controller to last
+        lastCtrl = this;
+        this.view.active = false;
+        currentCtrl = ctrl;
+    }
+
     onLoadLevel() {
         console.log("onLoadLevel");
         // create new controller for equip menu
@@ -517,6 +423,240 @@ ${this.pprintArray(this.rooms, currentLevel.width, 8)}
         } else if (this.selectMode === "bg") {
             this.bgId = evt.actor.assetId;
         }
+    }
+
+}
+
+class UxLoadLvlPopUpCtrl extends UxCtrl {
+    constructor(spec={}) {
+        super(spec);
+        // construct the UI elements
+        this.view = UxView.generate({
+            cls: "UxCanvas",
+            cvsid: "gameCanvas",
+            layer: 1,
+            xchild: [
+                {
+                    cls: "UxPanel",
+                    xxform: { border: .2},
+                    xsketch: { cls: 'Rect', borderWidth: 5, borderColor: "green", color: new Color(25,25,25,1), xfitter: { cls: "FitToParent" }, },
+                    xchild: [
+                        {
+                            cls: "UxText",
+                            xxform: { top: .075, bottom: .85 },
+                            xtext: { color: new Color(0,255,0,.75), text: "Choose Level", },
+                        },
+                        {
+                            cls: "UxPanel",
+                            tag: "lvlPanel",
+                            xxform: { top: .2, bottom: .1 },
+                        },
+                        {
+                            cls: "UxButton",
+                            tag: "backButton",
+                            xxform: { top: .9, offset: 5, left: .4, right: .4 },
+                            xtext: { text: "Back", color: new Color(255,255,0,.75)},
+                        },
+                    ],
+                },
+            ],
+        });
+
+        this.lvlPanel = this.view.find((v) => v.tag === "lvlPanel");
+        this.backButton = this.view.find((v) => v.tag === "backButton");
+        this.backButton.evtClicked.listen(this.onBack.bind(this));
+
+        // build out level buttons
+        let row = 0;
+        let col = 0;
+        let maxCols = 2;
+        let colStep = 1/maxCols;
+        let maxRows = Math.floor(this.lvlPanel.height/50);
+        let rowStep = 1/maxRows;
+        for (const lvlName in allLevels) {
+            let bspec = {
+                cls: "UxButton",
+                dfltDepth: this.lvlPanel.depth + 1,
+                dfltLayer: this.lvlPanel.layer,
+                parent: this.lvlPanel,
+                xxform: {parent: this.lvlPanel.xform, left: col*colStep, right: 1-(col+1)*colStep, top: row*rowStep, bottom: 1-(row+1)*rowStep, offset: 5},
+                xtext: {text: lvlName, color: new Color(255,255,0,.75)},
+            };
+            let b = UxView.generate(bspec);
+            if (b) {
+                b.lvlName = lvlName;
+                b.evtClicked.listen(this.onLvlSelect.bind(this));
+                this.lvlPanel.adopt(b);
+                col++;
+                if (col >= maxCols) {
+                    row++;
+                    col = 0;
+                }
+            }
+        }
+
+    }
+
+    keyReleased(key) {
+        if (key === KEY_ESCAPE) {
+            this.onBack();
+        }
+    }
+
+    // EVENT CALLBACKS -----------------------------------------------------
+    onBack() {
+        console.log("onBack");
+        // restore last controller
+        currentCtrl = lastCtrl;
+        // tear down view
+        if (this.view) this.view.destroy();
+        // restore last view
+        currentCtrl.view.active = true;
+    }
+
+    onLvlSelect(evt) {
+        console.log("onLvlSelect: " + Fmt.ofmt(evt));
+        if (!confirm("Loading new level will erase current level data, OK to proceed?")) return;
+        // load level
+        let lvl = evt.actor.lvlName;
+        levelLoader.load(lvl, true)
+        editorLvl = currentLevel;
+        // reset tracker and camera
+        lastCtrl.tracker.x = 0;
+        lastCtrl.tracker.y = 0;
+        lastCtrl.lvlName = evt.actor.lvlName;
+        lastCtrl.rooms = lastCtrl.buildRoomArray();
+        camera.reset();
+        // close window
+        this.onBack();
+    }
+
+}
+
+class UxNewLvlPopUpCtrl extends UxCtrl {
+    constructor(spec={}) {
+        super(spec);
+        // construct the UI elements
+        this.view = UxView.generate({
+            cls: "UxCanvas",
+            cvsid: "gameCanvas",
+            layer: 1,
+            xchild: [
+                {
+                    cls: "UxPanel",
+                    xxform: { border: .2},
+                    xsketch: { cls: 'Rect', borderWidth: 5, borderColor: "green", color: new Color(25,25,25,1), xfitter: { cls: "FitToParent" }, },
+                    xchild: [
+                        {
+                            cls: "UxText",
+                            xxform: { top: .075, bottom: .85 },
+                            xtext: { color: new Color(0,255,0,.75), text: "New Level", },
+                        },
+                        {
+                            cls: "UxPanel",
+                            xxform: { top: .2, bottom: .1 },
+                            xchild: [
+                                {
+                                    cls: "UxText",
+                                    xxform: { bottom: .8, right: .6, left: .05, otop: 20, obottom:10},
+                                    xtext: { color: new Color(0,255,0,.75), text: "Name:", align: "left"},
+                                },
+                                {
+                                    cls: "UxInput",
+                                    tag: "nameInput",
+                                    xtext: { text: "lvl"},
+                                    xxform: { bottom: .8, left: .4, offset:10 },
+                                },
+                                {
+                                    cls: "UxText",
+                                    xxform: { top: .2, bottom: .6, right: .6, left: .05, otop: 20, obottom:10},
+                                    xtext: { color: new Color(0,255,0,.75), text: "Width:", align: "left"},
+                                },
+                                {
+                                    cls: "UxInput",
+                                    tag: "widthInput",
+                                    charset: '0123456789',
+                                    xtext: { text: "16"},
+                                    xxform: { top: .2, bottom: .6, left: .4, right: .4, offset:10 },
+                                },
+                                {
+                                    cls: "UxText",
+                                    xxform: { top: .4, bottom: .4, right: .6, left: .05, otop: 20, obottom:10},
+                                    xtext: { color: new Color(0,255,0,.75), text: "Height:", align: "left"},
+                                },
+                                {
+                                    cls: "UxInput",
+                                    tag: "heightInput",
+                                    charset: '0123456789',
+                                    xtext: { text: "12"},
+                                    xxform: { top: .4, bottom: .4, left: .4, right: .4, offset:10 },
+                                },
+
+                            ]
+                        },
+                        {
+                            cls: "UxButton",
+                            tag: "okButton",
+                            xxform: { top: .9, offset: 5, left: .3, right: .55 },
+                            xtext: { text: "OK", color: new Color(255,255,0,.75)},
+                        },
+                        {
+                            cls: "UxButton",
+                            tag: "backButton",
+                            xxform: { top: .9, offset: 5, left: .55, right: .3 },
+                            xtext: { text: "Back", color: new Color(255,255,0,.75)},
+                        },
+
+                    ],
+                },
+            ],
+        });
+
+        this.lvlPanel = this.view.find((v) => v.tag === "lvlPanel");
+        this.backButton = this.view.find((v) => v.tag === "backButton");
+        this.backButton.evtClicked.listen(this.onBack.bind(this));
+        this.okButton = this.view.find((v) => v.tag === "okButton");
+        this.okButton.evtClicked.listen(this.onOK.bind(this));
+        this.nameInput = this.view.find((v) => v.tag === "nameInput");
+        this.heightInput = this.view.find((v) => v.tag === "heightInput");
+        this.widthInput = this.view.find((v) => v.tag === "widthInput");
+
+    }
+
+    // EVENT CALLBACKS -----------------------------------------------------
+    onBack() {
+        console.log("onBack");
+        // restore last controller
+        currentCtrl = lastCtrl;
+        // tear down view
+        if (this.view) this.view.destroy();
+        // restore last view
+        currentCtrl.view.active = true;
+    }
+
+    onOK() {
+        console.log("onOK");
+        if (!confirm("Creating new level will erase current level data, OK to proceed?")) return;
+        let width = Math.min(gMaxLvlSize, parseInt(this.widthInput.text));
+        let height = Math.min(gMaxLvlSize, parseInt(this.heightInput.text));
+        let spec = {
+            name: this.nameInput.text,
+            width: width,
+            height: height,
+            editor: true,
+        }
+        console.log("trying to gen lvl for: " + Fmt.ofmt(spec));
+        let lvl = new Level(spec);
+        currentLevel = lvl;
+        editorLvl = lvl;
+        // reset tracker and camera
+        lastCtrl.tracker.x = 0;
+        lastCtrl.tracker.y = 0;
+        lastCtrl.lvlName = spec.name;
+        lastCtrl.rooms = lastCtrl.buildRoomArray();
+        camera.reset();
+        // close window
+        this.onBack();
     }
 
 }

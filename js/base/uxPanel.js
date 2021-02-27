@@ -8,7 +8,6 @@ class UxPanel extends UxView {
     // CONSTRUCTOR ---------------------------------------------------------
     constructor(spec) {
         super(spec);
-        console.log("xsketch: " + Fmt.ofmt(spec.xsketch));
         this._sketch = (spec.xsketch) ? Sketch.generate(Object.assign({parent: this}, spec.xsketch)) : Sketch.generate({
             cls: "Rect",
             parent: this,

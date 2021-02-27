@@ -15,13 +15,15 @@ class Text extends Sketch {
     static _textCtx = this._textCanvas.getContext('2d');
 
     // STATIC METHODS ------------------------------------------------------
-    static measure(font, text) {
+    static measure(font, text, hacky=true) {
         const ctx = this._textCtx;
         ctx.font = font;
         // Note: hacky... force text to include a capital and a descent letter to make sure we have enough room
-        text = "Xg" + text.slice(2);
+        if (hacky) text = "Xg" + text.slice(2);
         const metrics = ctx.measureText(text);
-        return new Vect(metrics.width, Math.abs(metrics.actualBoundingBoxAscent) + Math.abs(metrics.actualBoundingBoxDescent));
+        let h = Math.abs(metrics.actualBoundingBoxAscent) + Math.abs(metrics.actualBoundingBoxDescent);
+        let w = Math.abs(metrics.actualBoundingBoxLeft) + Math.abs(metrics.actualBoundingBoxRight);
+        return new Vect(w, h);
     }
     
     // CONSTRUCTOR ---------------------------------------------------------

@@ -20,6 +20,7 @@ class Registry {
         UxView._genreg(UxPanel);
         UxView._genreg(UxButton);
         UxView._genreg(UxText);
+        UxView._genreg(UxInput);
         UxView._genreg(UxTitleView);
         UxView._genreg(UxPlayView);
         UxView._genreg(UxEditorView);

@@ -1,5 +1,7 @@
 // world, room, and tile constants, variables
 
+const gMaxLvlSize = 100;
+
 // world level specifications
 var lvl1Spec = {
   name: "lvl1",

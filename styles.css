@@ -42,8 +42,8 @@
 }
 .popup-modal__close {
   position: absolute;
-  font-size: 1.2rem;
+  font-size: 4rem;
   right: -10px;
-  top: -10px;
+  top: -20px;
   cursor: pointer;
 }

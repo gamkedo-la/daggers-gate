@@ -435,6 +435,33 @@ class UxEditorCtrl extends UxCtrl {
         currentCtrl = ctrl;
     }
 
+    pprintArray(arr, width = 4, spaces = 3) {
+        let str = "";
+        let col = 0;
+        for (var v of arr) {
+            if (v === null) v = 0;
+            if (v === undefined) v = 0;
+            let s = v.toString().padStart(spaces, " ");
+            str += (s + ",");
+            if (++col >= width) {
+                str += "\n";
+                col = 0;
+            }
+        }
+        return str;
+    }
+
+    pprintLvl() {
+        const data = {
+            width: currentLevel.width,
+            height: currentLevel.height,
+            bg: currentLevel.bg,
+        }
+        let str = JSON.stringify(data, (k,v) => k === "bg" ? this.pprintArray(v) : v, "  ");
+        console.log("str: " + str);
+        return str;
+    }
+
     onGenerate() {
         console.log("onGenerate");
         const modal = document.getElementById('lvl-generate-modal');
@@ -450,7 +477,7 @@ class UxEditorCtrl extends UxCtrl {
 
         // FIXME: query from modal?
         // FIXME: add generated level data...
-        document.getElementById('lvl-text').innerText = "hello world";
+        document.getElementById('lvl-text').innerText = this.pprintLvl();
         /*
         const text = modal.getElementsByTagName('lvl-text');
         console.log("text is: " + text);

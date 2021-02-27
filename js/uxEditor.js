@@ -4,6 +4,25 @@ class UxEditorView extends UxPanel {
         console.log("starting ux editor view");
     }
 
+    renderGrid(ctx) {
+        ctx.strokeStyle = "rgba(255,255,0,.25";
+        ctx.lineWidth = 3;
+        // vertical
+        for (let i=0; i<currentLevel.width; i++) {
+            ctx.beginPath()
+            ctx.moveTo(i*currentLevel.sketchWidth,0);
+            ctx.lineTo(i*currentLevel.sketchWidth,currentLevel.maxy);
+            ctx.stroke();
+        }
+        // horizontal
+        for (let i=0; i<currentLevel.height; i++) {
+            ctx.beginPath()
+            ctx.moveTo(0,i*currentLevel.sketchHeight);
+            ctx.lineTo(currentLevel.maxx,i*currentLevel.sketchHeight);
+            ctx.stroke();
+        }
+    }
+
     render(ctx) {
         super.render(ctx);
 		// Wrapped in IF/ELSE to support Tile Editor Mode	
@@ -11,6 +30,7 @@ class UxEditorView extends UxPanel {
 		if (editorLvl) {
             editorLvl.render(ctx);
             editorLvl.lateRender(ctx);
+            this.renderGrid(ctx);
         }
 		ctx.translate(camera.x, camera.y);
     }

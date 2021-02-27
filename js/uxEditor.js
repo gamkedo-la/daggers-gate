@@ -113,6 +113,8 @@ class UxLoadLvlPopUpCtrl extends UxCtrl {
         // reset tracker and camera
         lastCtrl.tracker.x = 0;
         lastCtrl.tracker.y = 0;
+        lastCtrl.lvlName = evt.actor.lvlName;
+        lastCtrl.rooms = lastCtrl.buildRoomArray();
         camera.reset();
         // close window
         this.onBack();
@@ -321,6 +323,9 @@ class UxEditorCtrl extends UxCtrl {
         this.fgId = TILE.WALL_BOTTOM;
         this.bgId = TILE.GROUND;
         this.roomId = 1;
+        this.lvlName = "editorlvl";
+        // level doesn't keep room array, so build editor's own version
+        this.rooms = this.buildRoomArray();
 
         // handle resize of canvas/window
         camera.resize(this.editorPanel.width, this.editorPanel.height);
@@ -435,8 +440,19 @@ class UxEditorCtrl extends UxCtrl {
         currentCtrl = ctrl;
     }
 
-    pprintArray(arr, width = 4, spaces = 3) {
-        let str = "";
+    buildRoomArray(
+    ) {
+        let arr = new Array(currentLevel.nentries);
+        for (const room of currentLevel.rooms) {
+            for (const idx of room.idxs) {
+                arr[idx] = room.roomNumber;
+            }
+        }
+        return arr;
+    }
+
+    pprintArray(arr, width=16, indent=0, spaces=3) {
+        let str = " ".repeat(indent);
         let col = 0;
         for (var v of arr) {
             if (v === null) v = 0;
@@ -444,7 +460,7 @@ class UxEditorCtrl extends UxCtrl {
             let s = v.toString().padStart(spaces, " ");
             str += (s + ",");
             if (++col >= width) {
-                str += "\n";
+                str += "\n" + " ".repeat(indent);
                 col = 0;
             }
         }
@@ -452,37 +468,36 @@ class UxEditorCtrl extends UxCtrl {
     }
 
     pprintLvl() {
-        const data = {
-            width: currentLevel.width,
-            height: currentLevel.height,
-            bg: currentLevel.bg,
-        }
-        let str = JSON.stringify(data, (k,v) => k === "bg" ? this.pprintArray(v) : v, "  ");
-        console.log("str: " + str);
+        let str = 
+`var ${this.lvlName}Spec = {
+    name: "${this.lvlName}",
+    width: ${currentLevel.width},
+    height: ${currentLevel.height},
+    bg: [
+${this.pprintArray(currentLevel.bg, currentLevel.width, 8)}
+    ],
+    fg: [
+${this.pprintArray(currentLevel.fg, currentLevel.width, 8)}
+    ],
+    rooms: [
+${this.pprintArray(this.rooms, currentLevel.width, 8)}
+    ],
+};
+`
         return str;
     }
 
     onGenerate() {
         console.log("onGenerate");
         const modal = document.getElementById('lvl-generate-modal');
-        console.log("modal is: " + modal);
         modal.classList.add('is--visible');
         const bodyBlackout = document.querySelector('.body-blackout');
         bodyBlackout.classList.add('is-blacked-out');
         modal.querySelector('.popup-modal__close').addEventListener('click', () => {
-            console.log("clicked");
             modal.classList.remove('is--visible');
             bodyBlackout.classList.remove('is-blacked-out');
         });
-
-        // FIXME: query from modal?
-        // FIXME: add generated level data...
-        document.getElementById('lvl-text').innerText = this.pprintLvl();
-        /*
-        const text = modal.getElementsByTagName('lvl-text');
-        console.log("text is: " + text);
-        text.innerText = "no es bueno";
-        */
+        document.getElementById('lvl-text').innerHTML = "<pre>" + this.pprintLvl() + "</pre>";
         bodyBlackout.addEventListener('click', () => {
             modal.classList.remove('is--visible')
             bodyBlackout.classList.remove('is-blacked-out')

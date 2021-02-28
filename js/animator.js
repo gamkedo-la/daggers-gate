@@ -37,6 +37,9 @@ class Animator {
     get animIdx() {
         return this._anim.animIdx;
     }
+    get done() {
+        return this._anim.done;
+    }
 
     // CONSTRUCTOR ---------------------------------------------------------
     constructor(spec={}) {

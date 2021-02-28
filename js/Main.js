@@ -21,7 +21,10 @@ var currentCtrl;
 var lastCtrl;
 var queuedExit;
 var framesToDisplayMessage = 800;
-var levelLoader = new LevelLoader({lvls: allLevels});
+var levelLoader = new LevelLoader({
+	lvls: allLevels,
+	dbgNoEnemy: true,
+});
 var framesPerSecond = 30;
 var deltaTime = 1000/framesPerSecond;
 var updateCtx = {

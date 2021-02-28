@@ -25,6 +25,8 @@ class Level {
         this.rooms = unexploredRoomClass.fromGrid(spec.rooms || []);
         let exits = spec.exits || [];
         let spawns = spec.spawns || {};
+        this.dbg = spec.dbg;
+        this.dbgNoEnemy = spec.dbgNoEnemy;
         this.init(exits, spawns);
     }
 
@@ -45,8 +47,9 @@ class Level {
         // iterate through level data
         for (let i=0; i<this.nentries; i++) {
             if (!this.editor) {
+                let spec;
                 // lookup enemies
-                let spec = props.getEnemySpec(this.fg[i]);
+                spec = props.getEnemySpec(this.fg[i]);
                 if (spec) {
                     // don't draw sketch as level data
                     let id = this.fg[i];
@@ -60,10 +63,12 @@ class Level {
                         x: this.xfromidx(i, true),
                         y: this.yfromidx(i, true),
                     }, spec);
-                    console.log("creating enemy: " + Fmt.ofmt(spec));
                     // instantiate enemy
-                    let enemy = new enemyClass(spec);
-                    this.enemies.push(enemy);
+                    if (!this.dbgNoEnemy) {
+                        console.log("creating enemy: " + Fmt.ofmt(spec));
+                        let enemy = new enemyClass(spec);
+                        this.enemies.push(enemy);
+                    }
                 }
                 // lookup objects
                 spec = props.getObjectSpec(this.fg[i]);
@@ -387,6 +392,7 @@ class LevelLoader {
         this._cache = {};
         this._specs = spec.lvls || {};
         this.dbg = spec.dbg || false;
+        this.dbgNoEnemy = spec.dbgNoEnemy || false;
     }
 
     load(name, editor=false) {
@@ -403,6 +409,7 @@ class LevelLoader {
                 return undefined
             }
             if (editor) spec.editor = true;
+            if (this.dbgNoEnemy) spec.dbgNoEnemy = true;
             lvl = new Level(spec);
             this._cache[name] = lvl;
         }

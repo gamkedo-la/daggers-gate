@@ -84,6 +84,10 @@ class Sketch {
         return 0;
     }
 
+    get done() {
+        return true;
+    }
+
     // METHODS -------------------------------------------------------------
     /**
      * A sketch can be updated...

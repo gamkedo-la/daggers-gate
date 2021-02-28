@@ -41,6 +41,7 @@ class Animation extends Sprite {
         if (this._height === 0) this._height = this.cel.sketch.height;
         this._elapsed = 0;
         this._done = false;
+        this._step = false;
     }
 
     // PROPERTIES ----------------------------------------------------------
@@ -68,6 +69,7 @@ class Animation extends Sprite {
         this._cidx = 0;
         this._elapsed = 0;
         this._done = 0;
+        this._step = false;
     }
 
     advance() {
@@ -93,6 +95,12 @@ class Animation extends Sprite {
     update(ctx) {
         let updated = false;
         if (this.done) return;
+        if (this._step) {
+            if (this._step === "next") this.advance();
+            if (this._step === "prev" && this._cidx > 0) this._cidx--;
+            this._step = (this.done) ? false : true;
+            return;
+        }
         this._elapsed += ctx.deltaTime;
         while (!this.done && this._elapsed > this.cel.duration) {
             this._elapsed -= this.cel.duration;

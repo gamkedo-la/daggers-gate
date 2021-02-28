@@ -36,6 +36,7 @@ class characterClass {
         this.kind = spec.kind || "character";
         this._updateCtx = {};
         this.visible = true;
+        this.dbgAnim = spec.dbgAnim || false;
         // add loot table
         this.lootTable = spec.lootTable || daggerLootTables[this.tag];
         // variables to keep track of position
@@ -259,11 +260,13 @@ class characterClass {
     // ACTIONS
     doMeleeAttack() {
         if (!this.currentAttack) {
+            // lookup attack
             let xattack = Object.assign({}, Attack.getSpec("melee")[this.idleState], {actor: this, idleState: this.idleState});
-            xattack.collider = Object.assign({}, xattack.collider, {x:this.x, y:this.y});
-            this.currentAttack = new Attack(xattack);
             // transition to attack state (based on idle direction)
             this.state = xattack.state;
+            // start the attack
+            xattack.collider = Object.assign({}, xattack.collider, {x:this.x, y:this.y});
+            this.currentAttack = new SyncAttack(xattack);
         }
     }
 
@@ -364,9 +367,10 @@ class characterClass {
 
         // update any current attack
         if (!incapacitated && this.currentAttack) {
+            if (this.dbgAnim && !this.sketch._anim._step) this.sketch._anim._step = true;
             // check if attack is done
             if (!this.currentAttack.active) {
-                console.log("attack is done");
+                //console.log("attack is done");
                 let lastAttack = this.currentAttack;
                 this.currentAttack = undefined;
                 // transition back to idle state (based on attack direction)

@@ -293,11 +293,65 @@ class UxPlayCtrl extends UxCtrl {
         }
     }
 
+    /**
+     * check for player attack animation debug and positioning of weapon...  use keys described below to modify
+     * current frame animation weapon offset/angles/etc
+     * @param {*} key 
+     */
+    checkDbgAnimKeys(key) {
+        if (p1.currentAttack) {
+            let cidx = p1.currentAttack._animIdx;
+            if (key === 187) { // =
+                let delta = Math.PI*.05;
+                p1.currentAttack._xform.angle += delta;
+                p1.currentAttack._syncMap[cidx].angle += delta;
+                console.log("idx: " + cidx + " - " + Fmt.ofmt(p1.currentAttack._syncMap[cidx]));
+            }
+            if (key === 189) { // -
+                let delta = -Math.PI*.05;
+                p1.currentAttack._xform.angle += delta
+                p1.currentAttack._syncMap[cidx].angle += delta;
+                console.log("idx: " + cidx + " - " + Fmt.ofmt(p1.currentAttack._syncMap[cidx]));
+            }
+            if (key === 78) { // n
+                console.log("setting sketch next");
+                p1.sketch._anim._step = "next";
+            }
+            if (key === 80) { // p
+                console.log("setting sketch prev");
+                p1.sketch._anim._step = "prev";
+            }
+            if (key === 74) { // J
+                p1.currentAttack._xform._offy -= 1;
+                p1.currentAttack._syncMap[cidx].y = p1.currentAttack._xform._offy;
+                console.log("idx: " + cidx + " - " + Fmt.ofmt(p1.currentAttack._syncMap[cidx]));
+            } else if (key === 75) { // K
+                p1.currentAttack._xform._offx += 1;
+                p1.currentAttack._syncMap[cidx].x = p1.currentAttack._xform._offx;
+                console.log("idx: " + cidx + " - " + Fmt.ofmt(p1.currentAttack._syncMap[cidx]));
+            } else if (key === 76) { // L
+                p1.currentAttack._xform._offy += 1;
+                p1.currentAttack._syncMap[cidx].y = p1.currentAttack._xform._offy;
+                console.log("idx: " + cidx + " - " + Fmt.ofmt(p1.currentAttack._syncMap[cidx]));
+            } else if (key === 73) { // I
+                p1.currentAttack._xform._offx -= 1;
+                p1.currentAttack._syncMap[cidx].x = p1.currentAttack._xform._offx;
+                console.log("idx: " + cidx + " - " + Fmt.ofmt(p1.currentAttack._syncMap[cidx]));
+            }
+        }
+    }
+
     keyReleased(key) {
         setKeyHoldState(key, p1, false);
         if (key === KEY_ESCAPE) {
             this.onEquipMenu();
         }
+        if (key === 121) { // F10
+            console.log("player debug animation toggle");
+            p1.dbgAnim = !p1.dbgAnim;
+        }
+        if (p1.dbgAnim) this.checkDbgAnimKeys(key);
+
     }
 
     updatePlayerHealth() {

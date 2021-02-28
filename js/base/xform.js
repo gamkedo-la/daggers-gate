@@ -170,7 +170,11 @@ class XForm {
     // modify existing xform based on delta spec
     modify(spec) {
         // FIXME: add all possible modifications
-        if (spec.hasOwnProperty("angle")) this.angle = spec.angle
+        if (spec.hasOwnProperty("angle")) this.angle = spec.angle;
+        if (spec.hasOwnProperty("origx")) this._origx = spec.origx;
+        if (spec.hasOwnProperty("origy")) this._origy = spec.origy;
+        if (!this.stretchx && spec.hasOwnProperty("x")) this._offx = spec.x;
+        if (!this.stretchy && spec.hasOwnProperty("y")) this._offy = spec.y;
     }
 
     // floating point equality for use in xform

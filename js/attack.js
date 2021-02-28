@@ -70,6 +70,18 @@ class Attack {
                     xoff:0, 
                     yoff:20,
                 },
+
+                syncMap: {
+                    0: { origx: -.15, angle: 2.16, x: -9, y: -5, },
+                    1: { origx: -.15, angle: -.47, x: 5, y: -6, },
+                    2: { origx: -.15, angle: -.15, x: 0, y: 1, },
+                    3: { origx: -.15, angle: 2.04, x: -9, y: 0, },
+                    4: { origx: -.15, angle: 2.83, x: -19, y: 1, },
+                    5: { origx: -.15, angle: 3.14, x: -20, y: 0, },
+                    6: { origx: -.15, angle: 2.67, x: -19, y: 1, },
+                    7: { origx: -.15, angle: 1.72, x: -12, y: 2, },
+                },
+
                 startAngle: Math.PI*.25,
                 endAngle: Math.PI*.75,
                 ttl: this._meleeDuration,
@@ -84,6 +96,18 @@ class Attack {
                     xoff:0, 
                     yoff:-25,
                 },
+
+                syncMap: {
+                    0: { origx: -.15, angle: 1.06, x: 11, y: -4, },
+                    1: { origx: -.15, angle: -2.98, x: -3, y: -12, },
+                    2: { origx: -.15, angle: -2.5, x: -1, y: -10, },
+                    3: { origx: -.15, angle: -1.26, x: 6, y: -12, },
+                    4: { origx: -.15, angle: -.15, x: 21, y: -2, },
+                    5: { origx: -.15, angle: 0, x: 22, y: -4, },
+                    6: { origx: -.15, angle: .15, x: 18, y: -3, },
+                    7: { origx: -.15, angle: .78, x: 10, y: 2, },
+                },
+
                 startAngle: Math.PI*1.25,
                 endAngle: Math.PI*1.75,
                 reach: -.5,
@@ -99,6 +123,18 @@ class Attack {
                     xoff:-25, 
                     yoff:0,
                 },
+
+                syncMap: {
+                    0: { origx: -.15, angle: 1.06, x: 1, y: -5, },
+                    1: { origx: -.15, angle: -2.51, x: -8, y: -10, },
+                    2: { origx: -.15, angle: -3.12, x: -12, y: -3, },
+                    3: { origx: -.15, angle: 2.51, x: -12, y: 3, },
+                    4: { origx: -.15, angle: 2.21, x: -6, y: 5, },
+                    5: { origx: -.15, angle: .94, x: -6, y: 7, },
+                    6: { origx: -.15, angle: .78, x: -7, y: 4, },
+                    7: { origx: -.15, angle: .78, x: -7, y: 6, },
+                },
+
                 startAngle: Math.PI*1.25,
                 endAngle: Math.PI*.75,
                 ttl: this._meleeDuration,
@@ -113,6 +149,18 @@ class Attack {
                     xoff:25, 
                     yoff:0,
                 },
+
+                syncMap: {
+                    0: { origx: -.15, angle: 1.21, x: -6, y: -5, },
+                    1: { origx: -.15, angle: -.63, x: 8, y: -10, },
+                    2: { origx: -.15, angle: 0, x: 12, y: -3, },
+                    3: { origx: -.15, angle: .63, x: 12, y: 3, },
+                    4: { origx: -.15, angle: .94, x: 6, y: 5, },
+                    5: { origx: -.15, angle: 2.21, x: 6, y: 7, },
+                    6: { origx: -.15, angle: 2.36, x: 7, y: 4, },
+                    7: { origx: -.15, angle: 2.36, x: 7, y: 6, },
+                },
+
                 startAngle: -Math.PI*.25,
                 endAngle: Math.PI*.25,
                 ttl: this._meleeDuration,
@@ -226,25 +274,20 @@ class SyncAttack {
         this._sketch = spec.sketch || Sketch.zero;
         // sync map
         this._syncMap = spec.syncMap || {};
-        // reach of weapon
-        let reach = spec.reach || -.25;
-        /*
-        this._startAngle = spec.startAngle || 0;
-        this._endAngle = spec.endAngle || 0;
-        this._angleRate = (this._endAngle - this._startAngle) / this._ttl;
-        */
         this._idleState = spec.idleState || Animator.idle;
         this._xform = new XForm({
-            //angle: this._startAngle,
             width: this._sketch.width,
             height: this._sketch.height,
-            //origx: reach,
         });
         // damage of attack...
         this._damage = spec.damage || 5;
         // ignore list... entities for which not to apply attack damage to
         // starts w/ actor, then applies to entities already hit (don't do damage continuously when colliders hit)
         this._ignore = [ this._actor ];
+        // hackety hack hack: update is being called on attack before animation has started, so attack thinks animation
+        // is done... so wait a frame before actually calling attack update...
+        this.firstUpdate = true; 
+        this.updateSwing(this._animIdx);
     }
 
     get active() {
@@ -258,46 +301,56 @@ class SyncAttack {
         // lookup sync info based on index
         let sync = this._syncMap[animIdx];
         if (sync) {
+            //console.log("modify swing: " + Fmt.ofmt(sync));
             this._xform.modify(sync);
         }
+        this._animIdx = animIdx;
     }
 
     update(ctx) {
+        // hackety hack hack: update is being called on attack before animation has started, so attack thinks animation
+        // is done... so wait a frame before actually calling attack update...
+        if (this.firstUpdate) {
+            this.firstUpdate = false;
+            return;
+        }
+        // check for state transition
         if (this._actor.idleState === Animator.idle || this._actor.idleState !== this._actorState) {
+            //console.log("setting active to false: actor state: " + this._actor.idleState);
             this._active = false;
         }
-        /*
-        this._ttl -= ctx.deltaTime;
-        let dangle = ctx.deltaTime * this._angleRate;
-        this._xform.angle += dangle;
-        if (this._ttl <= 0) {
+        // check for animation completion
+        if (this._actor.sketch.done) {
+            //console.log("setting active to false: sketch done");
+            //console.log("sketch: " + this._actor.sketch._anim);
             this._active = false;
         }
-        */
+        // ## STOP update if not active
+        if (!this.active) return;
         // update swing transform
         if (this._actor.sketch.animIdx !== this._animIdx) {
+            //console.log("update index: " + this._actor.sketch.animIdx);
+            this.updateSwing(this._actor.sketch.animIdx);
         }
         // update collider
-        if (this.active) {
-            this._collider.update(this._actor.x, this._actor.y, currentLevel.idxfromxy.bind(currentLevel));
-            // see if collider has hit anything...
-            let ohits = currentLevel.findAllObjectEnemy((v) => v.health && this._collider.overlaps(v.collider) && !this._ignore.includes(v));
-            for (const ohit of ohits) {
-                console.log("attack applying damage to: " + ohit);
-                // apply damage
-                ohit.takeDamage(this._damage);
-                // add object to ignore list
-                this._ignore.push(ohit);
-                // nudge object
-                let v = new Vect(ohit.x-this._actor.x, ohit.y-this._actor.y).normalize().mult(.15);
-                let xnudge = {
-                    ttl: 100,
-                    dx: v.x,
-                    dy: v.y,
-                    target: ohit,
-                }
-                ohit.nudge = new Nudge(xnudge);
+        this._collider.update(this._actor.x, this._actor.y, currentLevel.idxfromxy.bind(currentLevel));
+        // see if collider has hit anything...
+        let ohits = currentLevel.findAllObjectEnemy((v) => v.health && this._collider.overlaps(v.collider) && !this._ignore.includes(v));
+        for (const ohit of ohits) {
+            console.log("attack applying damage to: " + ohit);
+            // apply damage
+            ohit.takeDamage(this._damage);
+            // add object to ignore list
+            this._ignore.push(ohit);
+            // nudge object
+            let v = new Vect(ohit.x-this._actor.x, ohit.y-this._actor.y).normalize().mult(.15);
+            let xnudge = {
+                ttl: 100,
+                dx: v.x,
+                dy: v.y,
+                target: ohit,
             }
+            ohit.nudge = new Nudge(xnudge);
         }
     }
 

@@ -222,6 +222,8 @@ class UxEditorCtrl extends UxCtrl {
         this.genButton.evtClicked.listen(this.onGenerate.bind(this));
         this.fillButton = this.view.find((v) => v.tag === "bgFillButton");
         this.fillButton.evtClicked.listen(this.onFillBg.bind(this));
+        this.helpButton = this.view.find((v) => v.tag === "helpButton");
+        this.helpButton.evtClicked.listen(this.onHelp.bind(this));
 
         // build out tile buttons
         this.selectButtons = [];
@@ -270,6 +272,23 @@ class UxEditorCtrl extends UxCtrl {
         let colStep = 1/maxCols;
         let maxRows = Math.floor(this.tilePanel.height/40);
         let rowStep = 1/maxRows;
+        // add button for "zero/no tile"
+        let bspec = {
+            cls: "UxButton",
+            dfltDepth: this.tilePanel.depth + 1,
+            dfltLayer: this.tilePanel.layer,
+            parent: this.tilePanel,
+            xxform: {parent: this.tilePanel.xform, left: col*colStep, right: 1-(col+1)*colStep, top: row*rowStep, bottom: 1-(row+1)*rowStep},
+            xtext: {text: " " + "0" + " ", color: new Color(255,255,0,.5)},
+            xunpressed: { cls: 'Rect', color: new Color(0,0,0,1), xfitter: { cls: "FitToParent" }, },
+        };
+        col++;
+        let b = UxView.generate(bspec);
+        b.assetId = 0;
+        b.evtClicked.listen(this.onTileSelect.bind(this));
+        this.tilePanel.adopt(b);
+        this.selectButtons.push(b);
+        // add button for rest of tileset assets
         for (const asset of assets) {
             if (!asset.tileset) continue;
             let bspec = {
@@ -407,7 +426,12 @@ class UxEditorCtrl extends UxCtrl {
         }
         if (this.fgId !== this.lastFgId) {
             this.lastFgId = this.fgId;
-            let xsketch = Object.assign({parent: this.fgPanel}, assets.get(props.getTag(this.fgId)), {xfitter: { cls: "FitToParent" }});
+            let xsketch;
+            if (this.fgId !== 0) {
+                xsketch = Object.assign({parent: this.fgPanel}, assets.get(props.getTag(this.fgId)), {xfitter: { cls: "FitToParent" }});
+            } else {
+                xsketch = {parent: this.bgPanel, cls: "Text", text: "0", xfitter: { cls: "FitToParent" }, color: new Color(255,255,0,.75)};
+            }
             this.fgPanel.sketch = Sketch.generate(xsketch);
         }
         if (this.bgId !== this.lastBgId) {
@@ -435,6 +459,16 @@ class UxEditorCtrl extends UxCtrl {
         console.log("onNewLevel");
         // create new controller for equip menu
         let ctrl = new UxNewLvlPopUpCtrl();
+        // activate new controller, move editor controller to last
+        lastCtrl = this;
+        this.view.active = false;
+        currentCtrl = ctrl;
+    }
+
+    onHelp() {
+        console.log("onHelp");
+        // create new controller for equip menu
+        let ctrl = new UxHelpPopUpCtrl();
         // activate new controller, move editor controller to last
         lastCtrl = this;
         this.view.active = false;
@@ -773,6 +807,81 @@ class UxNewLvlPopUpCtrl extends UxCtrl {
         camera.reset();
         // close window
         this.onBack();
+    }
+
+}
+
+class UxHelpPopUpCtrl extends UxCtrl {
+    constructor(spec={}) {
+        super(spec);
+        // construct the UI elements
+        this.view = UxView.generate({
+            cls: "UxCanvas",
+            cvsid: "gameCanvas",
+            layer: 1,
+            xchild: [
+                {
+                    cls: "UxPanel",
+                    xxform: { border: .2},
+                    xsketch: { cls: 'Rect', borderWidth: 5, borderColor: "green", color: new Color(25,25,25,1), xfitter: { cls: "FitToParent" }, },
+                    xchild: [
+                        {
+                            cls: "UxText",
+                            xxform: { top: .075, bottom: .85 },
+                            xtext: { color: new Color(0,255,0,.75), text: "Editor Key Bindings", },
+                        },
+                        {
+                            cls: "UxPanel",
+                            xxform: { top: .2, bottom: .1 },
+                            xchild: [
+                                {
+                                    cls: "UxText",
+                                    xxform: { bottom: .8, right: .7, left: .05, otop: 20, obottom:10},
+                                    xtext: { color: new Color(0,255,0,.75), text: "Arrows", align: "left"},
+                                },
+                                {
+                                    cls: "UxText",
+                                    xtext: { text: "Move/Pan levels larger than screen"},
+                                    xxform: { bottom: .8, left: .3, offset:10 },
+                                },
+                                {
+                                    cls: "UxText",
+                                    xxform: { top: .2, bottom: .6, right: .7, left: .05, otop: 20, obottom:10},
+                                    xtext: { color: new Color(0,255,0,.75), text: "F, B, R:", align: "left"},
+                                },
+                                {
+                                    cls: "UxText",
+                                    xtext: { text: "Switch between Foreground, Background, Room editor modes"},
+                                    xxform: { top: .2, bottom: .6, left: .3, offset:10 },
+                                },
+                            ]
+                        },
+                        {
+                            cls: "UxButton",
+                            tag: "backButton",
+                            xxform: { top: .9, offset: 5, left: .45, right: .45 },
+                            xtext: { text: "Back", color: new Color(255,255,0,.75)},
+                        },
+
+                    ],
+                },
+            ],
+        });
+
+        this.backButton = this.view.find((v) => v.tag === "backButton");
+        this.backButton.evtClicked.listen(this.onBack.bind(this));
+
+    }
+
+    // EVENT CALLBACKS -----------------------------------------------------
+    onBack() {
+        console.log("onBack");
+        // restore last controller
+        currentCtrl = lastCtrl;
+        // tear down view
+        if (this.view) this.view.destroy();
+        // restore last view
+        currentCtrl.view.active = true;
     }
 
 }

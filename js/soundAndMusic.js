@@ -5,6 +5,7 @@ var soundSetforMeetings = false; //make false to hear at normal level
 
 //Warrior's Voice
 var warriorOuch = new SoundOverlapsClass("ouch");
+var enemyDefaultOuch = new SoundOverlapsClass("ouch");
 
 function setFormat() {
     var audio = new Audio();

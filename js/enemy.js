@@ -94,4 +94,9 @@ class enemyClass extends characterClass {
         super.move(updateCtx);
     } //end of move function
 
+
+    takeDamage(amount) {
+        enemyDefaultOuch.play();
+        super.takeDamage(amount);
+    }
 } // end of class

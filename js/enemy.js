@@ -6,9 +6,9 @@ class enemyClass extends characterClass {
     constructor(spec={}) {
         // set spec defaults
         spec.collider = Object.assign({}, {
-            color: "green", 
-            width: 20, 
-            height: 40, 
+            color: "green",
+            width: 20,
+            height: 40,
         }, spec.collider);
         spec.health = spec.health || 15;
         spec.maxHealth = spec.maxHealth || 15;
@@ -96,7 +96,7 @@ class enemyClass extends characterClass {
 
 
     takeDamage(amount) {
-        enemyDefaultOuch.play();
+        enemyDefaultGrunt.play();
         super.takeDamage(amount);
     }
 } // end of class

@@ -63,7 +63,7 @@ class UxEditorCtrl extends UxCtrl {
                     ctrl: this,
                     tag: "editorPanel",
                     xxform: { origx: 0, origy: 0, right: .3 },
-                    xsketch: { cls: 'Rect', color: new Color(0,20,200,1), xfitter: { cls: "FitToParent" }, },
+                    xsketch: { cls: 'Rect', color: new Color(0,20,100,1), xfitter: { cls: "FitToParent" }, },
                 },
                 {
                     cls: "UxPanel",
@@ -147,6 +147,12 @@ class UxEditorCtrl extends UxCtrl {
                                     xtext: { color: new Color(0,255,0,.75), text: "BG", },
                                 },
                                 {
+                                    cls: "UxButton",
+                                    tag: "bgFillButton",
+                                    xxform: { top: .4, bottom: .1, left: .65, offset: 5 },
+                                    xtext: { color: new Color(0,255,0,.75), text: "Fill", },
+                                },
+                                {
                                     cls: "UxPanel",
                                     tag: "bgPanel",
                                     xxform: { top: .65, bottom: .35, left: .5, right: .5, width: 40, height: 40},
@@ -214,6 +220,8 @@ class UxEditorCtrl extends UxCtrl {
         this.loadButton.evtClicked.listen(this.onLoadLevel.bind(this));
         this.genButton = this.view.find((v) => v.tag === "generateButton");
         this.genButton.evtClicked.listen(this.onGenerate.bind(this));
+        this.fillButton = this.view.find((v) => v.tag === "bgFillButton");
+        this.fillButton.evtClicked.listen(this.onFillBg.bind(this));
 
         // build out tile buttons
         this.selectButtons = [];
@@ -441,6 +449,14 @@ class UxEditorCtrl extends UxCtrl {
         lastCtrl = this;
         this.view.active = false;
         currentCtrl = ctrl;
+    }
+
+    onFillBg() {
+        console.log("onFillBg");
+        if (!confirm("Fill entire background with selected BG tile?")) return;
+        for (let i=0; i<currentLevel.nentries; i++) {
+            currentLevel.setbgi(i, this.bgId);
+        }
     }
 
     buildRoomArray(

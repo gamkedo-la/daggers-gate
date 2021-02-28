@@ -439,6 +439,7 @@ const daggerAssets = [
         {tag: "MANA_EMPTY",             id: 56, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 200, },
         {tag: "MANA_DROP",              id: 57, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 200, pathFindingWalkable: true },
         {tag: "HEALTH_DROP",            id: 58, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 200, pathFindingWalkable: true },
+        {tag: "WOOD_FLOOR",             id: 59, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 200,  pathFindingWalkable: true, tileset: true },
         //ROW 6
         {tag: "GOLD_COINS_TWO_DROP",    id: 60, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 250, },
         {tag: "GOLD_COINS_SIX_DROP",    id: 61, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 250, },

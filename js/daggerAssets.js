@@ -380,7 +380,9 @@ const daggerAssets = [
         {tag: "HEART_HALF",            id:  2, cls: "Sprite", width: 37, height: 34, xoffset: 37, yoffset: 0 },
     ]},
 
+    /*
      { id: 2, src: "images/basicPlayerSprite-25.png", cls: "Image", tag: "PLAYER", pathFindingWalkable: true },
+     */
      { id: 3, src: "images/world_goal.png", cls: "Image", tag: "GOAL", pathFindingWalkable: true},
      { id: 4, src: "images/world_key.png", cls: "Image", tag: "KEY", pathFindingWalkable: true },
 
@@ -405,8 +407,8 @@ const daggerAssets = [
         {tag: "CEIL_EMPTY",             id: 25, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 50, tileset: true },
         {tag: "DOOR_OPEN_TOP",          id: 26, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 50, passable: true, pathFindingWalkable: true, tileset: true },
         {tag: "DOOR_OPEN_BOTTOM",       id: 27, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 50, passable: true, pathFindingWalkable: true, tileset: true },
-        {tag: "DOOR_CLOSE_TOP",         id: 28, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 50, },
-        {tag: "DOOR_CLOSE_BOTTOM",      id: 29, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 50, },
+        {tag: "DOOR_CLOSE_TOP",         id: 28, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 50, tileset: true },
+        {tag: "DOOR_CLOSE_BOTTOM",      id: 29, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 50, tileset: true },
         //ROW 3
         {tag: "DOOR_RIGHTSIDE_TOP",     id: 30, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 100, tileset: true },
         {tag: "DOOR_RIGHTSIDE_BOTTOM",  id: 31, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 100, tileset: true },
@@ -468,7 +470,7 @@ const daggerAssets = [
     ]},
 
     { src: "images/playerAnim.png", cls: "Sheet", assets: [
-        {tag: "PLAYER",                 id: 60, cls: "Sprite", width: 64, height: 100, xoffset: 0, yoffset: 0 },
+        {tag: "PLAYER",                 id: 200, cls: "Sprite", width: 64, height: 100, xoffset: 0, yoffset: 0 },
         {tag: "PLAYER_IDLE_NORTH",      cls: "Sprite", width: 64, height: 100, xoffset: 64, yoffset: 0 },
         {tag: "PLAYER_IDLE_WEST",       cls: "Sprite", width: 64, height: 100, xoffset: 128, yoffset: 0 },
         {tag: "PLAYER_IDLE_EAST",       cls: "Sprite", width: 64, height: 100, xoffset: 192, yoffset: 0 },
@@ -576,7 +578,7 @@ const daggerAssets = [
             { xoffset: 50, yoffset: 300, width: 50, height: 100, duration: 200 },
             { xoffset: 100, yoffset: 300, width: 50, height: 100, duration: 200 },
         ]},
-        {tag: "GOBLIN",                         id: 99, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 300 },
+        {tag: "GOBLIN",                         id: 99, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 300, tileset: true },
         {tag: "GOBLIN_WALK_SOUTH",              cls: "Animation", cels: [
             { xoffset: 0, yoffset: 200, width: 50, height: 100, duration: 200 },
             { xoffset: 50, yoffset: 200, width: 50, height: 100, duration: 200 },
@@ -605,7 +607,7 @@ const daggerAssets = [
             { xoffset: 50, yoffset: 62, width: 50, height: 31, duration: 200 },
             { xoffset: 100, yoffset: 62, width: 50, height: 31, duration: 200 },
         ]},
-        {tag: "SLIME",                         id: 109, cls: "Sprite", width: 50, height: 31, xoffset: 0, yoffset: 93 },
+        {tag: "SLIME",                         id: 109, cls: "Sprite", width: 50, height: 31, xoffset: 0, yoffset: 93, tileset: true },
         {tag: "SLIME_WALK_SOUTH",              cls: "Animation", cels: [
             { xoffset: 0, yoffset: 93, width: 50, height: 31, duration: 200 },
             { xoffset: 50, yoffset: 93, width: 50, height: 31, duration: 200 },
@@ -635,7 +637,7 @@ const daggerAssets = [
             { xoffset: 100, yoffset: 0, width: 50, height: 75, duration: 200 },
             { xoffset: 100, yoffset: 0, width: 50, height: 75, duration: 200 },
         ]},
-        {tag: "DWARF_AX_MAN",                         id: 119, cls: "Sprite", width: 50, height: 75, xoffset: 0, yoffset: 0 },
+        {tag: "DWARF_AX_MAN",                         id: 119, cls: "Sprite", width: 50, height: 75, xoffset: 0, yoffset: 0, tileset: true },
         {tag: "DWARF_AX_MAN_WALK_SOUTH",              cls: "Animation", cels: [
             { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
             { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },

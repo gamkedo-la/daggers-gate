@@ -167,6 +167,12 @@ class XForm {
 
     // METHODS -------------------------------------------------------------
 
+    // modify existing xform based on delta spec
+    modify(spec) {
+        // FIXME: add all possible modifications
+        if (spec.hasOwnProperty("angle")) this.angle = spec.angle
+    }
+
     // floating point equality for use in xform
     feq(v1, v2) {
         return Math.abs(v1-v2) < .00001;

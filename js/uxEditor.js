@@ -40,12 +40,10 @@ class UxEditorView extends UxPanel {
         super.render(ctx);
 		// Wrapped in IF/ELSE to support Tile Editor Mode	
 		ctx.translate(-camera.x, -camera.y);
-		if (editorLvl) {
-            editorLvl.render(ctx);
-            editorLvl.lateRender(ctx);
-            this.renderGrid(ctx);
-            this.renderRooms(ctx);
-        }
+        currentLevel.render(ctx);
+        currentLevel.lateRender(ctx);
+        this.renderGrid(ctx);
+        this.renderRooms(ctx);
 		ctx.translate(camera.x, camera.y);
     }
 }
@@ -227,21 +225,25 @@ class UxEditorCtrl extends UxCtrl {
         this.bgId = TILE.GROUND;
         this.roomId = 1;
         this.lvlName = "editorlvl";
-        // level doesn't keep room array, so build editor's own version
-        this.rooms = this.buildRoomArray();
 
         // handle resize of canvas/window
         camera.resize(this.editorPanel.width, this.editorPanel.height);
         this.view.evtResized.listen(this.onCanvasResize.bind(this));
-        // FIXME: setup globals???
         // reset levels
         levelLoader.clear();
-        editorMode = true;
         // update camera to track mouse position
         this.tracker = {x:0, y:0};
         camera.follow(this.tracker);
         camera.dbg = true;
-        startEditor();
+
+        // create new basic level
+        currentLevel = new Level({
+            width: 12,
+            height: 12,
+        });
+        // level doesn't keep room array, so build editor's own version
+        this.rooms = this.buildRoomArray();
+
     }
 
     destroySelectButtons() {
@@ -620,7 +622,6 @@ class UxLoadLvlPopUpCtrl extends UxCtrl {
         // load level
         let lvl = evt.actor.lvlName;
         levelLoader.load(lvl, true)
-        editorLvl = currentLevel;
         // reset tracker and camera
         lastCtrl.tracker.x = 0;
         lastCtrl.tracker.y = 0;
@@ -748,7 +749,6 @@ class UxNewLvlPopUpCtrl extends UxCtrl {
         console.log("trying to gen lvl for: " + Fmt.ofmt(spec));
         let lvl = new Level(spec);
         currentLevel = lvl;
-        editorLvl = lvl;
         // reset tracker and camera
         lastCtrl.tracker.x = 0;
         lastCtrl.tracker.y = 0;

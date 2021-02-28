@@ -7,7 +7,6 @@ var cheatSeeThroughCeiling = true;
 
 // Added to support Tile Editor Mode
 var titleScreen = true;
-var editorMode = false;
 
 var assets = new Assets({
 	refs: daggerAssets,
@@ -101,7 +100,6 @@ function loadingDoneSoStartGame() {
 
 
     // Added to support Tile Editor Mode
-	setupTileButtons();
 	if(!titleScreen){loadLevel(freshMap);} //can't find loadLevel used 
 }
 

@@ -29,6 +29,7 @@ var allLevels = {
     spawns: {
       "lvl2": { x: 3, y: 5 },
     },
+    lockPredicate: (lvl) => lvl.enemies.length !== 0,
   }),
 }
 var startingLevel = "lvl1";

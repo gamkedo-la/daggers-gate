@@ -70,6 +70,11 @@ class warriorClass extends characterClass {
         // check for tile collisions
         // -- ran into level exit?
         if (walkIntoTileIndex in currentLevel.exits) {
+            // check for locked exit
+            if (currentLevel.isLocked()) {
+                console.log("hit locked exit: " + Fmt.ofmt(currentLevel.exits[walkIntoTileIndex]));
+                return;
+            }
             if (!queuedExit) {
                 console.log("hit exit: " + Fmt.ofmt(currentLevel.exits[walkIntoTileIndex]));
                 queuedExit = currentLevel.exits[walkIntoTileIndex];

@@ -16,6 +16,7 @@ class Level {
         this.halfHeight = this.sketchHeight * .5;
         this.fgsketches = new Array(this.nentries);
         this.bgsketches = new Array(this.nentries);
+        this.lockPredicate = (spec.hasOwnProperty("lockPredicate")) ? spec.lockPredicate : () => false;
         this.editor = spec.editor || false;
         console.log("this.editor is: " + this.editor);
         this.enemies = [];
@@ -94,6 +95,10 @@ class Level {
             this.bgsketches[i] = this.genSketch(this.bg[i]);
             this.fgsketches[i] = this.genSketch(this.fg[i]);
         }
+    }
+
+    isLocked() {
+        return this.lockPredicate(this);
     }
 
     ifromidx(idx) {

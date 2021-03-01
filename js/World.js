@@ -5,19 +5,29 @@ const gMaxLvlSize = 100;
 var allLevels = {
   "lvl1": Object.assign(lvl1Spec, {
     exits: [
-      { x: 15, y: 3, lvl: "lvl2", spawn: "fromlvl1" },
+      { x: 15, y: 3, lvl: "lvl2", spawn: "lvl1" },
     ],
     spawns: {
       "start": { x: 8, y: 5 },
-      "fromlvl2": { x: 14, y: 3 },
+      "lvl2": { x: 14, y: 3 },
     },
   }),
   "lvl2": Object.assign(lvl2Spec, {
     exits: [
-      { x: 0, y: 3, lvl: "lvl1", spawn: "fromlvl2" },
+      { x: 0, y: 3, lvl: "lvl1", spawn: "lvl2" },
+      { x: 5, y: 0, lvl: "testroom", spawn: "lvl2" },
     ],
     spawns: {
-      "fromlvl1": { x: 1, y: 3 },
+      "lvl1": { x: 1, y: 3 },
+      "testroom": { x: 5, y: 1 },
+    },
+  }),
+  "testroom": Object.assign(testroomSpec, {
+    exits: [
+      { x: 3, y: 6, lvl: "lvl2", spawn: "testroom" },
+    ],
+    spawns: {
+      "lvl2": { x: 3, y: 5 },
     },
   }),
 }

@@ -308,8 +308,8 @@ class Level {
     render(ctx) {
         // render tiles
         // -- compute visible range from camera
-        let mini = Math.floor(camera.x/this.sketchWidth);
-        let minj = Math.floor(camera.y/this.sketchWidth);
+        let mini = Math.max(0,Math.floor(camera.x/this.sketchWidth));
+        let minj = Math.max(0,Math.floor(camera.y/this.sketchWidth));
         let maxi = Math.min(this.width, Math.floor(camera.maxx/this.sketchWidth)+1);
         let maxj = Math.min(this.height, Math.floor(camera.maxy/this.sketchHeight)+1);
         let y = minj * this.sketchHeight;
@@ -317,7 +317,9 @@ class Level {
             let idx = this.idxfromij(mini, j);
             let x = mini * this.sketchWidth;
             for (let i=mini; i<maxi; i++) {
-                if (this.bgsketches[idx]) this.bgsketches[idx].render(ctx, x, y);
+                if (this.bgsketches[idx]) {
+                    this.bgsketches[idx].render(ctx, x, y);
+                }
                 let fid = this.fgi(idx);
                 if (!props.lateRender(fid) && this.fgsketches[idx]) this.fgsketches[idx].render(ctx, x, y);
                 x += this.sketchWidth;

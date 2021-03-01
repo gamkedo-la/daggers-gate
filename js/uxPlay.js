@@ -436,6 +436,17 @@ class UxPlayCtrl extends UxCtrl {
 			queuedExit = undefined;
 			SetupPathfindingGridData(p1);
 		}
+        // update camera offset
+        let cameraXoff = Math.max(0, (camera.width-currentLevel.maxx) * .5);
+        if (cameraXoff != this.cameraXoff) {
+            this.cameraXoff = cameraXoff;
+            camera._x = -cameraXoff;
+        }
+        let cameraYoff = Math.max(0, (camera.height-currentLevel.maxy) * .5);
+        if (cameraYoff != this.cameraYoff) {
+            this.cameraYoff = cameraYoff;
+            camera._y = -cameraYoff;
+        }
 		// camera movement
 		camera.update(updateCtx);
 		// Wrapped in IF/ELSE to support Tile Editor Mode	

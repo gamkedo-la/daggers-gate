@@ -109,8 +109,8 @@ class ViewMgr {
 
     render() {
         // clear current context
-        //this.dfltRenderCtx.fillStyle = 'black';
-        //this.dfltRenderCtx.fillRect(0, 0, this.dfltCanvas.width, this.dfltCanvas.height);
+        this.dfltRenderCtx.fillStyle = 'black';
+        this.dfltRenderCtx.fillRect(0, 0, this.dfltCanvas.width, this.dfltCanvas.height);
         // render in layer/depth sorted order
         for (const layer of this._layers) {
             layer.render(this.dfltRenderCtx);

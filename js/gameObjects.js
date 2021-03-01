@@ -13,9 +13,9 @@ class Nudge {
     constructor(spec={}) {
         this.target = spec.target;
         this.ttl = spec.ttl || 100;
-        this.dx = spec.dx || (Math.random() * 5);
+        this.dx = Util.objKeyValue(spec, "dx", Math.random() * .5);
         this.ddx = this.dx/this.ttl;
-        this.dy = spec.dy || (Math.random() * 5);
+        this.dy = Util.objKeyValue(spec, "dy", Math.random() * .5);
         this.ddy = this.dy/this.ttl;
     }
 

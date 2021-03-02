@@ -1,6 +1,6 @@
 //export { daggerAssets };
 
-const _meleeFrameDuration = 60;
+const _meleeFrameDuration = 40;
 
 const animators = {
     "PLAYER": {
@@ -515,7 +515,7 @@ const daggerAssets = [
             { xoffset: 192, yoffset: 100, width: 64, height: 100, duration: 100 },
         ]},
         {tag: "PLAYER_MELEE_SOUTH",      cls: "Animation", loop: false, cels: [
-            { xoffset: 0, yoffset: 900, width: 64, height: 100, duration: _meleeFrameDuration },
+            //{ xoffset: 0, yoffset: 900, width: 64, height: 100, duration: _meleeFrameDuration },
             { xoffset: 0, yoffset: 1000, width: 64, height: 100, duration: _meleeFrameDuration },
             { xoffset: 0, yoffset: 1100, width: 64, height: 100, duration: _meleeFrameDuration },
             { xoffset: 0, yoffset: 1200, width: 64, height: 100, duration: _meleeFrameDuration },
@@ -525,7 +525,7 @@ const daggerAssets = [
             { xoffset: 0, yoffset: 1600, width: 64, height: 100, duration: _meleeFrameDuration },
         ]},
         {tag: "PLAYER_MELEE_NORTH",      cls: "Animation", loop: false, cels: [
-            { xoffset: 64, yoffset: 900, width: 64, height: 100, duration: _meleeFrameDuration },
+            //{ xoffset: 64, yoffset: 900, width: 64, height: 100, duration: _meleeFrameDuration },
             { xoffset: 64, yoffset: 1000, width: 64, height: 100, duration: _meleeFrameDuration },
             { xoffset: 64, yoffset: 1100, width: 64, height: 100, duration: _meleeFrameDuration },
             { xoffset: 64, yoffset: 1200, width: 64, height: 100, duration: _meleeFrameDuration },
@@ -535,7 +535,7 @@ const daggerAssets = [
             { xoffset: 64, yoffset: 1600, width: 64, height: 100, duration: _meleeFrameDuration },
         ]},
         {tag: "PLAYER_MELEE_WEST",      cls: "Animation", loop: false, cels: [
-            { xoffset: 128, yoffset: 900, width: 64, height: 100, duration: _meleeFrameDuration },
+            //{ xoffset: 128, yoffset: 900, width: 64, height: 100, duration: _meleeFrameDuration },
             { xoffset: 128, yoffset: 1000, width: 64, height: 100, duration: _meleeFrameDuration },
             { xoffset: 128, yoffset: 1100, width: 64, height: 100, duration: _meleeFrameDuration },
             { xoffset: 128, yoffset: 1200, width: 64, height: 100, duration: _meleeFrameDuration },
@@ -545,7 +545,7 @@ const daggerAssets = [
             { xoffset: 128, yoffset: 1600, width: 64, height: 100, duration: _meleeFrameDuration },
         ]},
         {tag: "PLAYER_MELEE_EAST",      cls: "Animation", loop: false, cels: [
-            { xoffset: 192, yoffset: 900, width: 64, height: 100, duration: _meleeFrameDuration },
+            //{ xoffset: 192, yoffset: 900, width: 64, height: 100, duration: _meleeFrameDuration },
             { xoffset: 192, yoffset: 1000, width: 64, height: 100, duration: _meleeFrameDuration },
             { xoffset: 192, yoffset: 1100, width: 64, height: 100, duration: _meleeFrameDuration },
             { xoffset: 192, yoffset: 1200, width: 64, height: 100, duration: _meleeFrameDuration },

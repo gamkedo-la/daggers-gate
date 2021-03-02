@@ -29,11 +29,13 @@ class Assets {
         this._refs = Util.objKeyValue(spec, "refs", {});
         this._loaders = Util.objKeyValue(spec, "loaders", {
             "Image": new ImageLoader({assets: this}),
+            "Stretch": new ImageLoader({assets: this, cls: "StretchSprite"}),
             "Sheet": new SheetLoader({assets: this, dbg: spec.dbg}),
             //"Audio": new AudioLoader({assets: this}),
         });
         this._generators = Util.objKeyValue(spec, "generators", {
             "Sprite": Sprite,
+            "StretchSprite": StretchSprite,
             "Animation": Animation,
             "Animator": Animator,
             //"Audio": Audio,
@@ -128,6 +130,7 @@ class Assets {
 class ImageLoader {
     // CONSTRUCTOR ---------------------------------------------------------
     constructor(spec={}) {
+        this._cls = spec.cls || "Sprite";
         this._assets = Util.objKeyValue(spec, "assets", Assets.instance);
     }
 
@@ -147,7 +150,7 @@ class ImageLoader {
         const src = Util.objKeyValue(spec, "src", "undefined");
         return ImageLoader.load(src, spec).then( rec => {
             // build final Sprite spec
-            const spec = Object.assign({}, rec, {cls: "Sprite"});
+            const spec = Object.assign({}, rec, {cls: this._cls});
             // add to assets
             if (this.dbg) console.log("ImageLoader loaded: " + Fmt.ofmt(spec));
             if (this._assets) this._assets.add(spec);
@@ -187,7 +190,7 @@ class SheetLoader {
         let promise = ImageLoader.load(dataURL, Object.assign({}, asset, {src: dataURL}));
         promise.then(rec => {
             // build final Sprite spec
-            const spec = Object.assign({}, rec, {cls: "Sprite"});
+            const spec = Object.assign({cls: "Sprite"}, rec);
             if (this.dbg) console.log("SheetLoader loaded: " + Fmt.ofmt(spec));
             // add to assets
             if (this._assets) this._assets.add(spec);

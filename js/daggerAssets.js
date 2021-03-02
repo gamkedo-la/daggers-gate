@@ -386,6 +386,8 @@ const daggerAssets = [
      */
      { id: 3, src: "images/world_goal.png", cls: "Image", tag: "GOAL", pathFindingWalkable: true},
      { id: 4, src: "images/world_key.png", cls: "Image", tag: "KEY", pathFindingWalkable: true },
+     // a test 9-slice image
+     { id: 5, src: "images/nslice.png", cls: "Stretch", tag: "NSLICE", border: 14 },
 
     { src: "images/spritesheet_Dungeon_01.png", cls: "Sheet", assets: [
         //ROW 1

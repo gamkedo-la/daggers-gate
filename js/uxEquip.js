@@ -11,11 +11,14 @@ class UxEquipCtrl extends UxCtrl {
                 cls: "UxPanel",
                 tag: "topPanel",
                 xxform: { origx:0, origy: 0 },
+                xsketch: Object.assign({}, assets.get("NSLICE"), {xfitter: { cls: "FitToParent" }}),
+                /*
                 xsketch: {
                     cls: 'Rect',
                     color: new Color(20,70,20,1),
                     xfitter: { cls: "FitToParent" },
                 },
+                */
                 xchild: [
 
                     // PLAYER --------------------------------------------------

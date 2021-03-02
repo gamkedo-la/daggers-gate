@@ -475,7 +475,6 @@ const daggerAssets = [
         {tag: "PLAYER_IDLE_WEST",       cls: "Sprite", width: 64, height: 100, xoffset: 128, yoffset: 0 },
         {tag: "PLAYER_IDLE_EAST",       cls: "Sprite", width: 64, height: 100, xoffset: 192, yoffset: 0 },
         {tag: "PLAYER_WALK_SOUTH",      cls: "Animation", cels: [
-            { xoffset: 0, yoffset: 100, width: 64, height: 100, duration: 100 },
             { xoffset: 0, yoffset: 200, width: 64, height: 100, duration: 100 },
             { xoffset: 0, yoffset: 300, width: 64, height: 100, duration: 100 },
             { xoffset: 0, yoffset: 400, width: 64, height: 100, duration: 100 },
@@ -483,9 +482,9 @@ const daggerAssets = [
             { xoffset: 0, yoffset: 600, width: 64, height: 100, duration: 100 },
             { xoffset: 0, yoffset: 700, width: 64, height: 100, duration: 100 },
             { xoffset: 0, yoffset: 800, width: 64, height: 100, duration: 100 },
+            { xoffset: 0, yoffset: 100, width: 64, height: 100, duration: 100 },
         ]},
         {tag: "PLAYER_WALK_NORTH",      cls: "Animation", cels: [
-            { xoffset: 64, yoffset: 100, width: 64, height: 100, duration: 100 },
             { xoffset: 64, yoffset: 200, width: 64, height: 100, duration: 100 },
             { xoffset: 64, yoffset: 300, width: 64, height: 100, duration: 100 },
             { xoffset: 64, yoffset: 400, width: 64, height: 100, duration: 100 },
@@ -493,9 +492,9 @@ const daggerAssets = [
             { xoffset: 64, yoffset: 600, width: 64, height: 100, duration: 100 },
             { xoffset: 64, yoffset: 700, width: 64, height: 100, duration: 100 },
             { xoffset: 64, yoffset: 800, width: 64, height: 100, duration: 100 },
+            { xoffset: 64, yoffset: 100, width: 64, height: 100, duration: 100 },
         ]},
         {tag: "PLAYER_WALK_WEST",      cls: "Animation", cels: [
-            { xoffset: 128, yoffset: 100, width: 64, height: 100, duration: 100 },
             { xoffset: 128, yoffset: 200, width: 64, height: 100, duration: 100 },
             { xoffset: 128, yoffset: 300, width: 64, height: 100, duration: 100 },
             { xoffset: 128, yoffset: 400, width: 64, height: 100, duration: 100 },
@@ -503,9 +502,9 @@ const daggerAssets = [
             { xoffset: 128, yoffset: 600, width: 64, height: 100, duration: 100 },
             { xoffset: 128, yoffset: 700, width: 64, height: 100, duration: 100 },
             { xoffset: 128, yoffset: 800, width: 64, height: 100, duration: 100 },
+            { xoffset: 128, yoffset: 100, width: 64, height: 100, duration: 100 },
         ]},
         {tag: "PLAYER_WALK_EAST",      cls: "Animation", cels: [
-            { xoffset: 192, yoffset: 100, width: 64, height: 100, duration: 100 },
             { xoffset: 192, yoffset: 200, width: 64, height: 100, duration: 100 },
             { xoffset: 192, yoffset: 300, width: 64, height: 100, duration: 100 },
             { xoffset: 192, yoffset: 400, width: 64, height: 100, duration: 100 },
@@ -513,6 +512,7 @@ const daggerAssets = [
             { xoffset: 192, yoffset: 600, width: 64, height: 100, duration: 100 },
             { xoffset: 192, yoffset: 700, width: 64, height: 100, duration: 100 },
             { xoffset: 192, yoffset: 800, width: 64, height: 100, duration: 100 },
+            { xoffset: 192, yoffset: 100, width: 64, height: 100, duration: 100 },
         ]},
         {tag: "PLAYER_MELEE_SOUTH",      cls: "Animation", loop: false, cels: [
             { xoffset: 0, yoffset: 900, width: 64, height: 100, duration: _meleeFrameDuration },

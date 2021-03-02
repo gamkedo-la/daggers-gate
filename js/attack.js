@@ -1,7 +1,7 @@
 
 class Attack {
     static _specs;
-    static _meleeDuration = _meleeFrameDuration * 8;
+    static _meleeDuration = _playerMeleeFrameDuration * 8;
 
     // initialize specs
     static _initSpecs() {

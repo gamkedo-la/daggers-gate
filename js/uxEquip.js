@@ -11,7 +11,7 @@ class UxEquipCtrl extends UxCtrl {
                 cls: "UxPanel",
                 tag: "topPanel",
                 xxform: { origx:0, origy: 0 },
-                xsketch: Object.assign({}, assets.get("NSLICE"), {xfitter: { cls: "FitToParent" }}),
+                xsketch: Object.assign({}, assets.get("WINDOW_BORDER"), {xfitter: { cls: "FitToParent" }}),
                 /*
                 xsketch: {
                     cls: 'Rect',

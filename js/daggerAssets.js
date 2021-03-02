@@ -456,6 +456,8 @@ const daggerAssets = [
         {tag: "DOOR_OPEN_TOP_TRANS",    id: 67, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 250, }, 
     ]},
 
+      { src: "images/window_tiles.png", cls: "Stretch", tag: "WINDOW_BORDER", border: 15 },
+      /*
       { src: "images/window_tiles.png", cls: "Sheet", assets: [
 
         // T = TOP,  M = MIDDLE,  B = BOTTOM,  L = LEFT,  R = RIGHT
@@ -471,6 +473,7 @@ const daggerAssets = [
         {tag: "WINDOW_BORDER_BM",       id: 507, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*2 },
         {tag: "WINDOW_BORDER_BR",       id: 508, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*2 }
     ]},
+    */
 
     { src: "images/playerAnim.png", cls: "Sheet", assets: [
         {tag: "PLAYER",                 id: 200, cls: "Sprite", width: 64, height: 100, xoffset: 0, yoffset: 0 },

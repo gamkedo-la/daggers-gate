@@ -9,24 +9,9 @@ class UxTemplates {
             cls: "UxButton",
             //mouseEnteredSound: assets.generate("beepUp"),
             //mouseLeftSound: assets.generate("beepDown"),
-            xunpressed: {
-                cls: 'Rect',
-                borderWidth: 3,
-                color: new Color(255,255,255,.25),
-                borderColor: new Color(0,127,127,1),
-            },
-            xhighlight: {
-                cls: "Rect",
-                borderWidth: 3,
-                color: new Color(255,255,255,.5),
-                borderColor: new Color(0,200,200,1),
-            },
-            xpressed: {
-                cls: 'Rect',
-                borderWidth: 3,
-                color: new Color(255,255,255,.75),
-                borderColor: new Color(0,255,255,1),
-            },
+            xunpressed: Object.assign({}, assets.get("BUTTON_GRN_S3_OPAQ") ),
+            xhighlight: Object.assign({}, assets.get("BUTTON_RED_S3_OPAQ") ),
+            xpressed: Object.assign({}, assets.get("BUTTON_RED_S3_OPAQ") ),
         }
         console.log("button: " + Fmt.ofmt(this.button));
         console.log("button.xhighlight: " + Fmt.ofmt(this.button.xhighlight));

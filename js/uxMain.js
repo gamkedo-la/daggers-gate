@@ -29,12 +29,8 @@ class UxMainCtrl extends UxCtrl {
                                 {
                                     cls: "UxText",
                                     tag: "titleText",
-                                    xxform: { top: .05, bottom: .875},
-                                    xtext: {
-                                        color: new Color(255,0,0,.75),
-                                        text: "Daggers Gate",
-                                        font: new Font({family:fontMenu}),
-                                    },
+                                    xxform: { top: .05, bottom: .85},
+                                    xtext: { color: new Color(168,36,36), outlineWidth:2, outlineColor: new Color(235,138,6), text: "Dagger's Gate", font: new Font({family:fontMenu})},
                                 },
                                 {
                                     cls: "UxPanel",

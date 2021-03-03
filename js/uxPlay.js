@@ -156,6 +156,7 @@ class UxPlayCtrl extends UxCtrl {
                             xxform: { width:slotSize, height:slotSize, left:.95, right:.05, top:.5, bottom:.5},
                         },
                     ],
+
                 },
 
                 {

@@ -457,6 +457,46 @@ const daggerAssets = [
     ]},
 
       { src: "images/window_tiles.png", cls: "Stretch", tag: "WINDOW_BORDER", border: 15 },
+      { src: "images/buttonFrames.png", cls: "Sheet", assets: [
+        // S1-S4 border sizes
+        // OPAQ|TRAN - opaque|transparent
+        {tag: "BUTTON_TAN_S1_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*0, border: 15 },
+        {tag: "BUTTON_TAN_S2_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*0, border: 15 },
+        {tag: "BUTTON_TAN_S3_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*0, border: 15 },
+        {tag: "BUTTON_TAN_S4_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*0, border: 15 },
+        {tag: "BUTTON_TAN_S1_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*1, border: 15 },
+        {tag: "BUTTON_TAN_S2_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*1, border: 15 },
+        {tag: "BUTTON_TAN_S3_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*1, border: 15 },
+        {tag: "BUTTON_TAN_S4_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*1, border: 15 },
+        // -- RED
+        {tag: "BUTTON_RED_S1_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*2, border: 15 },
+        {tag: "BUTTON_RED_S2_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*2, border: 15 },
+        {tag: "BUTTON_RED_S3_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*2, border: 15 },
+        {tag: "BUTTON_RED_S4_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*2, border: 15 },
+        {tag: "BUTTON_RED_S1_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*3, border: 15 },
+        {tag: "BUTTON_RED_S2_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*3, border: 15 },
+        {tag: "BUTTON_RED_S3_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*3, border: 15 },
+        {tag: "BUTTON_RED_S4_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*3, border: 15 },
+        // -- GREEN
+        {tag: "BUTTON_GRN_S1_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*4, border: 15 },
+        {tag: "BUTTON_GRN_S2_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*4, border: 15 },
+        {tag: "BUTTON_GRN_S3_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*4, border: 15 },
+        {tag: "BUTTON_GRN_S4_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*4, border: 15 },
+        {tag: "BUTTON_GRN_S1_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*5, border: 15 },
+        {tag: "BUTTON_GRN_S2_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*5, border: 15 },
+        {tag: "BUTTON_GRN_S3_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*5, border: 15 },
+        {tag: "BUTTON_GRN_S4_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*5, border: 15 },
+        // -- BLUE
+        {tag: "BUTTON_BLU_S1_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*6, border: 15 },
+        {tag: "BUTTON_BLU_S2_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*6, border: 15 },
+        {tag: "BUTTON_BLU_S3_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*6, border: 15 },
+        {tag: "BUTTON_BLU_S4_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*6, border: 15 },
+        {tag: "BUTTON_BLU_S1_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*7, border: 15 },
+        {tag: "BUTTON_BLU_S2_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*7, border: 15 },
+        {tag: "BUTTON_BLU_S3_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*7, border: 15 },
+        {tag: "BUTTON_BLU_S4_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*7, border: 15 },
+
+      ]},
       /*
       { src: "images/window_tiles.png", cls: "Sheet", assets: [
 

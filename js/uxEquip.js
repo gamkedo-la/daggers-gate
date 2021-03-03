@@ -2,6 +2,7 @@
 class UxEquipCtrl extends UxCtrl {
     constructor(spec={}) {
         super(spec);
+        const slotSize = 50;
         // construct the UI elements
         this.view = UxView.generate({
             cls: "UxCanvas",
@@ -25,16 +26,12 @@ class UxEquipCtrl extends UxCtrl {
                     {
                         cls: "UxPanel",
                         tag: "playerPanel",
-                        xxform: { left: .1, right: .525, top: .1, bottom: .65 },
+                        xxform: { left: .05, right: .5, top: .05, bottom: .6 },
                         xchild: [
                             {
                                 cls: "UxText",
-                                tag: "nameText",
-                                xxform: { left: .25, right:.75, top: 0, bottom: .7, width:100, height:40 },
-                                xtext: {
-                                    color: new Color(255,0,0,.75),
-                                    text: "Apollo",
-                                },
+                                xxform: { left: .25, right:.75, top: 0, bottom: .7, width:120, height:40 },
+                                xtext: { color: new Color(168,36,36), outlineWidth:2, outlineColor: new Color(235,138,6), text: "Apollo", },
                             },
                             {
                                 cls: "UxPanel",
@@ -44,17 +41,142 @@ class UxEquipCtrl extends UxCtrl {
                                     color: new Color(200,150,200,1),
                                     xfitter: { cls: "FitToParent" },
                                 },
-                                xxform: { left: .25, right:.75, top: .6, bottom: .4, width:100, height:100 },
+                                xxform: { left: .25, right:.75, top: .6, bottom: .4, width:115, height:115 },
+                            },
+                            {
+                                cls: "UxPanel",
+                                xsketch: Object.assign({}, assets.get("BUTTON_GRN_S2_TRAN"), {xfitter: { cls: "FitToParent" }}),
+                                xxform: { left: .25, right:.75, top: .6, bottom: .4, width:115, height:115 },
+                            },
+
+                            // HEARTS --------------------------------------------------
+                            {
+                                cls: "UxText",
+                                xxform: { left: .5, right:.1, top: 0, bottom: .85, otop: 5 },
+                                xtext: { color: new Color(48,51,134), text: "Health", },
                             },
                             {
                                 cls: "UxPanel",
                                 tag: "heartsPanel",
-                                xxform: { left: .5, right: .1, top: .1, bottom: .55 },
+                                xxform: { left: .5, right: .1, top: .15, bottom: .5 },
+                                xsketch: {},
+                                xchild: [
+                                    {
+                                        cls: "UxPanel",
+                                        tag: "healthSlot1",
+                                        xxform: { width:slotSize, height:slotSize, left:.1, right:.9, top:.25, bottom:.75},
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        tag: "healthSlot2",
+                                        xxform: { width:slotSize, height:slotSize, left:.3, right:.7, top:.25, bottom:.75},
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        tag: "healthSlot3",
+                                        xxform: { width:slotSize, height:slotSize, left:.5, right:.5, top:.25, bottom:.75},
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        tag: "healthSlot4",
+                                        xxform: { width:slotSize, height:slotSize, left:.7, right:.3, top:.25, bottom:.75},
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        tag: "healthSlot5",
+                                        xxform: { width:slotSize, height:slotSize, left:.9, right:.1, top:.25, bottom:.75},
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        tag: "healthSlot6",
+                                        xxform: { width:slotSize, height:slotSize, left:.1, right:.9, top:.75, bottom:.25},
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        tag: "healthSlot7",
+                                        xxform: { width:slotSize, height:slotSize, left:.3, right:.7, top:.75, bottom:.25},
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        tag: "healthSlot8",
+                                        xxform: { width:slotSize, height:slotSize, left:.5, right:.5, top:.75, bottom:.25},
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        tag: "healthSlot9",
+                                        xxform: { width:slotSize, height:slotSize, left:.7, right:.3, top:.75, bottom:.25},
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        tag: "healthSlot10",
+                                        xxform: { width:slotSize, height:slotSize, left:.9, right:.1, top:.75, bottom:.25},
+                                    },
+                                ],
+                            },
+
+                            // MANA --------------------------------------------------
+                            {
+                                cls: "UxText",
+                                xxform: { left: .5, right:.1, top: .5, bottom: .35, otop: 5 },
+                                xtext: { color: new Color(48,51,134), text: "Mana", },
                             },
                             {
                                 cls: "UxPanel",
                                 tag: "manaPanel",
-                                xxform: { left: .5, right: .1, top: .55, bottom: .1 },
+                                xxform: { left: .5, right: .1, top: .65 },
+                                xsketch: {},
+                                xchild: [
+                                    {
+                                        cls: "UxPanel",
+                                        tag: "manaSlot1",
+                                        xxform: { width:slotSize, height:slotSize, left:.1, right:.9, top:.25, bottom:.75},
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        tag: "manaSlot2",
+                                        xxform: { width:slotSize, height:slotSize, left:.3, right:.7, top:.25, bottom:.75},
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        tag: "manaSlot3",
+                                        xxform: { width:slotSize, height:slotSize, left:.5, right:.5, top:.25, bottom:.75},
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        tag: "manaSlot4",
+                                        xxform: { width:slotSize, height:slotSize, left:.7, right:.3, top:.25, bottom:.75},
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        tag: "manaSlot5",
+                                        xxform: { width:slotSize, height:slotSize, left:.9, right:.1, top:.25, bottom:.75},
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        tag: "manaSlot6",
+                                        xxform: { width:slotSize, height:slotSize, left:.1, right:.9, top:.75, bottom:.25},
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        tag: "manaSlot7",
+                                        xxform: { width:slotSize, height:slotSize, left:.3, right:.7, top:.75, bottom:.25},
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        tag: "manaSlot8",
+                                        xxform: { width:slotSize, height:slotSize, left:.5, right:.5, top:.75, bottom:.25},
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        tag: "manaSlot9",
+                                        xxform: { width:slotSize, height:slotSize, left:.7, right:.3, top:.75, bottom:.25},
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        tag: "manaSlot10",
+                                        xxform: { width:slotSize, height:slotSize, left:.9, right:.1, top:.75, bottom:.25},
+                                    },
+                                ],
                             },
                         ]
                     },
@@ -64,16 +186,13 @@ class UxEquipCtrl extends UxCtrl {
                     {
                         cls: "UxPanel",
                         tag: "equipPanel",
-                        xxform: { left: .525, right: .1, top: .1, bottom: .65 },
+                        xxform: { left: .5, right: .1, top: .05, bottom: .6 },
                         xchild: [
                             {
                                 cls: "UxText",
                                 tag: "equipText",
-                                xxform: { left: .5, right:.5, top: 0, bottom: .7, width: 150 },
-                                xtext: {
-                                    color: new Color(0,0,200,.75),
-                                    text: "Equipment",
-                                },
+                                xxform: { left: .5, right:.5, top: 0, bottom: .7, width: 175 },
+                                xtext: { color: new Color(48,51,134), text: "EQUIPMENT", },
                             },
 
                             {
@@ -152,19 +271,86 @@ class UxEquipCtrl extends UxCtrl {
                 ],
             }],
         });
-        this.setup();
-    }
+        for (let i=1; i<=10; i++) {
+            let key = "healthSlot" + i.toString();
+            this[key] = this.view.find((v) => v.tag === key);
+            key = "manaSlot" + i.toString();
+            this[key] = this.view.find((v) => v.tag === key);
+        }
 
-    setup() {
-        //this.portraitPanel = this.view.find((v) => v.tag === "portraitPanel");
-        //console.log("pp: " + this.portraitPanel);
-        //console.log("pp.layer: " + this.portraitPanel.layer);
     }
 
     keyReleased(key) {
         if (key === KEY_ESCAPE) {
             this.onRestoreGame();
         }
+    }
+
+    updatePlayerHealth(updateCtx) {
+        // skip update if no change
+        if (p1.health === this.lastHealth && p1.maxHealth === this.lastMaxHealth) return;
+        // cache last health values
+        this.lastHealth = p1.health;
+        this.lastMaxHealth = p1.maxHealth;
+        p1.maxHealth = 100;
+        // update view for current health and max health
+        for (let i=1; i<=10; i++) {
+            let key = "healthSlot" + i.toString();
+            let slot = this[key];
+            // full health
+            if (p1.health >= i*10) {
+                let xsketch = Object.assign({parent: slot}, assets.get("HEART_PIECE1"), {xfitter: { cls: "FitToParent" }});
+                //let xsketch = Object.assign({parent: slot}, assets.get("HEART_PIECE1"));
+                this[key].sketch = Sketch.generate(xsketch);
+            // partial health
+            } else if (p1.health < i*10 && p1.health > (i-1)*10) {
+                let xsketch = Object.assign({parent: slot}, assets.get("HEART_HALF_EMPTY"), {xfitter: { cls: "FitToParent" }});
+                //this[key].sketch = assets.generate("HEART_HALF_EMPTY");
+                this[key].sketch = Sketch.generate(xsketch);
+            } else if (p1.maxHealth >= i*10) {
+                let xsketch = Object.assign({parent: slot}, assets.get("HEART_EMPTY"), {xfitter: { cls: "FitToParent" }});
+                //this[key].sketch = assets.generate("HEART_EMPTY");
+                this[key].sketch = Sketch.generate(xsketch);
+            } else {
+                this[key].sketch = Sketch.zero;
+            }
+        }
+    }
+
+    updatePlayerMana(updateCtx) {
+        // skip update if no change
+        if (p1.mana === this.lastMana && p1.maxMana === this.lastMaxMana) return;
+        // cache last mana values
+        this.lastMana = p1.mana;
+        this.lastMaxMana = p1.maxMana;
+        p1.maxMana = 100;
+        // update view for current mana and max mana
+        for (let i=1; i<=10; i++) {
+            let key = "manaSlot" + i.toString();
+            let slot = this[key];
+            // full mana
+            if (p1.mana >= i*10) {
+                let xsketch = Object.assign({parent: slot}, assets.get("MANA_PIECE"), {xfitter: { cls: "FitToParent" }});
+                //let xsketch = Object.assign({parent: slot}, assets.get("HEART_PIECE1"));
+                this[key].sketch = Sketch.generate(xsketch);
+            // partial mana
+            } else if (p1.mana < i*10 && p1.mana > (i-1)*10) {
+                let xsketch = Object.assign({parent: slot}, assets.get("MANA_HALF_EMPTY"), {xfitter: { cls: "FitToParent" }});
+                //this[key].sketch = assets.generate("HEART_HALF_EMPTY");
+                this[key].sketch = Sketch.generate(xsketch);
+            } else if (p1.maxMana >= i*10) {
+                let xsketch = Object.assign({parent: slot}, assets.get("MANA_EMPTY"), {xfitter: { cls: "FitToParent" }});
+                //this[key].sketch = assets.generate("HEART_EMPTY");
+                this[key].sketch = Sketch.generate(xsketch);
+            } else {
+                this[key].sketch = Sketch.zero;
+            }
+        }
+    }
+
+    update(updateCtx) {
+        this.updatePlayerHealth(updateCtx);
+        this.updatePlayerMana(updateCtx);
     }
 
     // EVENT CALLBACKS -----------------------------------------------------

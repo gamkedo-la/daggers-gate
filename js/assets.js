@@ -190,7 +190,7 @@ class SheetLoader {
         let promise = ImageLoader.load(dataURL, Object.assign({}, asset, {src: dataURL}));
         promise.then(rec => {
             // build final Sprite spec
-            const spec = Object.assign({cls: "Sprite"}, rec);
+            const spec = Object.assign({cls: asset.cls}, rec);
             if (this.dbg) console.log("SheetLoader loaded: " + Fmt.ofmt(spec));
             // add to assets
             if (this._assets) this._assets.add(spec);
@@ -250,6 +250,8 @@ class SheetLoader {
             const sheet = rec.img;
             for (const asset of assets) {
                 if (asset.cls === "Sprite") {
+                    promises.push(this.loadSprite(sheet, asset));
+                } else if (asset.cls === "StretchSprite") {
                     promises.push(this.loadSprite(sheet, asset));
                 } else if (asset.cls === "Animation") {
                     promises.push(this.loadAnimation(sheet, asset));

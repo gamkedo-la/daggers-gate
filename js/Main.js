@@ -6,9 +6,9 @@ var pathFindingDisplay = false;
 var cheatSeeThroughCeiling = true;
 
 // Font definitions
-fontDefault = "Love Ya Like A Sister";
-fontTitle = "Love Ya Like A Sister";
-fontMenu = "Love Ya Like A Sister";
+fontDefault = "Reggae One";
+fontTitle = "Reggae One";
+fontMenu = "Reggae One";
 // override font default in Font class
 Font.dfltFamily = fontDefault;
 

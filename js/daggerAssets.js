@@ -453,7 +453,16 @@ const daggerAssets = [
         {tag: "CRATE",                  id: 64, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 250, tileset: true },
         {tag: "DOOR_ARCH",              id: 65, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 250, tileset: true },
         {tag: "DOOR_ARCH_TRANS",        id: 66, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 250, },
-        {tag: "DOOR_OPEN_TOP_TRANS",    id: 67, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 250, }, 
+        {tag: "DOOR_OPEN_TOP_TRANS",    id: 67, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 250, },
+        {tag: "WALL_TORCH_TOP",         id: 68, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 250, tileset: true },
+        {tag: "WALL_TORCH_BOTTOM",      id: 69, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 250, tileset: true },
+        //ROW 7
+        {tag: "STONE_FLOOR",             id: 70, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 300, tileset: true },
+        {tag: "STONE_FLOOR2",            id: 71, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 300, tileset: true },
+        {tag: "STONE_FLOOR3",            id: 72, cls: "Sprite", width: 50, height: 50, xoffset: 100, yoffset: 300, tileset: true },
+        {tag: "STONE_FLOOR4",            id: 73, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 300, tileset: true },
+        {tag: "POT",                     id: 74, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 300, tileset: true },
+        {tag: "WOOD_FLOOR2",             id: 75, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 300, tileset: true },
     ]},
 
       { src: "images/window_tiles.png", cls: "Stretch", tag: "WINDOW_BORDER", border: 15 },

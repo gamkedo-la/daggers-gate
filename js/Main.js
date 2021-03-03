@@ -5,6 +5,13 @@ var p1;
 var pathFindingDisplay = false;
 var cheatSeeThroughCeiling = true;
 
+// Font definitions
+fontDefault = "Love Ya Like A Sister";
+fontTitle = "Love Ya Like A Sister";
+fontMenu = "Love Ya Like A Sister";
+// override font default in Font class
+Font.dfltFamily = fontDefault;
+
 // Added to support Tile Editor Mode
 var titleScreen = true;
 

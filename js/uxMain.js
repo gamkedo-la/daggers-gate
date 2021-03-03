@@ -33,6 +33,7 @@ class UxMainCtrl extends UxCtrl {
                                     xtext: {
                                         color: new Color(255,0,0,.75),
                                         text: "Daggers Gate",
+                                        font: new Font({family:fontMenu}),
                                     },
                                 },
                                 {
@@ -44,22 +45,22 @@ class UxMainCtrl extends UxCtrl {
                                             tag: "startButton",
                                             cls: "UxButton",
                                             xxform: { left: .2, top:.15, bottom: .75, right: .2},
-                                            xtext: { text: "Start" },
+                                            xtext: { text: "Start", font: new Font({family:fontMenu}), },
                                         }), 
                                         Object.assign({}, UxTemplates.button, {
                                             tag: "editorButton",
                                             xxform: { left: .2, top:.35, bottom: .55, right: .2},
-                                            xtext: { text: "Editor" },
+                                            xtext: { text: "Editor", font: new Font({family:fontMenu}) },
                                         }),
                                         Object.assign({}, UxTemplates.button, {
                                             tag: "creditsButton",
                                             xxform: { left: .2, top:.55, bottom: .35, right: .2},
-                                            xtext: { text: "Credits" },
+                                            xtext: { text: "Credits", font: new Font({family:fontMenu}) },
                                         }),
                                         Object.assign({}, UxTemplates.button, {
                                             tag: "quitButton",
                                             xxform: { left: .2, top:.75, bottom: .15, right: .2},
-                                            xtext: { text: "Quit" },
+                                            xtext: { text: "Quit", font: new Font({family:fontMenu}) },
                                         }),
                                     ],
                                 },

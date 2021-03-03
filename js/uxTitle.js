@@ -5,9 +5,9 @@ class UxTitleView extends UxPanel {
 
     render(ctx) {
         super.render(ctx);
-        customText("Dagger's", 200, 200, 'white', 100, 'Garamond')
-        customText("Gate", 250, 280, 'white', 100, 'Garamond')
-        customText("© HomeTeam Gamedev 2021", 300, 550, 'white', 12, 'monospace')
+        customText("Dagger's", 200, 200, 'white', 100, 'Texturina')
+        customText("Gate", 250, 280, 'white', 100, 'Texturina')
+        customText("© HomeTeam Gamedev 2021", 300, 550, 'white', 12, 'Texturina')
         customText("Press the -SPACEBAR- to Begin", 270, 450, 'yellow', 12, 'monospace')
         //customText("Press  -9-  to go into EDITOR MODE", 270, 480, 'yellow', 12, 'monospace')
     }

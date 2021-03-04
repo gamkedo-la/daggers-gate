@@ -29,26 +29,46 @@ class UxEquipCtrl extends UxCtrl {
                         xxform: { left: .05, right: .5, top: .05, bottom: .6 },
                         xsketch: {},
                         xchild: [
-                            {
-                                cls: "UxText",
-                                xxform: { left: .25, right:.75, top: 0, bottom: .7, width:120, height:40 },
-                                xtext: { color: new Color(168,36,36), outlineWidth:1, outlineColor: new Color(235,138,6), text: "Apollo", },
-                            },
+                            // PORTRAIT --------------------------------------------------
                             {
                                 cls: "UxPanel",
-                                tag: "portraitPanel",
-                                xsketch: {
-                                    cls: 'Rect',
-                                    color: new Color(200,150,200,1),
-                                    xfitter: { cls: "FitToParent" },
-                                },
-                                xxform: { left: .25, right:.75, top: .6, bottom: .4, width:115, height:115 },
+                                xxform: { right: .55 },
+                                xsketch: {},
+                                xchild: [
+                                    {
+                                        cls: "UxText",
+                                        xxform: { top: .05, bottom: .7 },
+                                        xtext: { font: new Font({weight:400}), color: new Color(168,36,36), outlineWidth:1, outlineColor: new Color(235,138,6), text: "Apollo", },
+                                    },
+
+                                    {
+                                        cls: "UxPanel",
+                                        xxform: { top: .3, offset: 10 },
+                                        xsketch: {},
+                                        xchild: [
+                                            {
+                                                cls: "UxPanel",
+                                                // FIXME: replace w/ character portrait sketch
+                                                xsketch: {
+                                                    cls: 'Rect',
+                                                    color: new Color(200,150,200,1),
+                                                    xfitter: { cls: "FitToParent" },
+                                                    width: 50,
+                                                    height: 50,
+                                                    lockRatio: true,
+                                                },
+                                                xxform: { offset: 5 },
+                                            },
+                                            {
+                                                cls: "UxPanel",
+                                                xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_GRN_S1_TRAN") ),
+                                            },
+                                        ],
+                                    },
+
+                                ],
                             },
-                            {
-                                cls: "UxPanel",
-                                xsketch: Object.assign({}, assets.get("BUTTON_GRN_S2_TRAN"), {xfitter: { cls: "FitToParent" }}),
-                                xxform: { left: .25, right:.75, top: .6, bottom: .4, width:115, height:115 },
-                            },
+
 
                             // HEARTS --------------------------------------------------
                             {
@@ -188,49 +208,92 @@ class UxEquipCtrl extends UxCtrl {
                         cls: "UxPanel",
                         tag: "equipPanel",
                         xxform: { left: .5, right: .05, top: .05, bottom: .6 },
+                        xsketch: {},
                         xchild: [
                             {
                                 cls: "UxText",
                                 tag: "equipText",
-                                xxform: { left: .5, right:.5, top: 0, bottom: .7, width: 175 },
+                                xxform: { left: .2, right:.2, top: 0, bottom: .5 },
                                 xtext: { color: new Color(48,51,134), text: "EQUIPMENT", },
                             },
-
                             {
                                 cls: "UxPanel",
                                 tag: "equipButtonPanel",
                                 xxform: { top: .3, bottom: .1 },
                                 xsketch: {},
                                 xchild: [
+                                    // MAIN HAND
                                     {
                                         cls: "UxPanel",
-                                        tag: "equipButton1",
-                                        xxform: { left: .125, right:.875, top: .5, bottom: .5, width:50, height:65 },
-                                        xsketch: {
-                                            cls: 'Rect',
-                                            color: new Color(20,70,20,1),
-                                            xfitter: { cls: "FitToParent" },
-                                            width: 50,
-                                            height: 50,
-                                            lockRatio: true,
-                                        },
+                                        xxform: { right:.75, offset:7 },
+                                        xsketch: {},
+                                        xchild: [
+                                            {
+                                                cls: "UxPanel",
+                                                xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_RED_S2_OPAQ") ),
+                                            },
+                                            {
+                                                cls: "UxPanel",
+                                                tag: "mainHandPanel",
+                                                xsketch: {},
+                                                xxform: { border: .1 },
+                                            },
+                                        ],
                                     },
+                                    // OFF HAND
                                     {
                                         cls: "UxPanel",
-                                        tag: "equipButton2",
-                                        xxform: { left: .375, right:.625, top: .5, bottom: .5, width:65, height:65 },
+                                        xxform: { left: .25, right:.5, offset:7 },
+                                        xsketch: {},
+                                        xchild: [
+                                            {
+                                                cls: "UxPanel",
+                                                xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_RED_S2_OPAQ") ),
+                                            },
+                                            {
+                                                cls: "UxPanel",
+                                                tag: "offHandPanel",
+                                                xsketch: {},
+                                                xxform: { border: .1 },
+                                            },
+                                        ],
                                     },
+                                    // SHIRT
                                     {
                                         cls: "UxPanel",
-                                        tag: "equipButton3",
-                                        xxform: { left: .625, right:.375, top: .5, bottom: .5, width:65, height:65 },
+                                        xxform: { left: .5, right:.25, offset:7 },
+                                        xsketch: {},
+                                        xchild: [
+                                            {
+                                                cls: "UxPanel",
+                                                xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_RED_S2_OPAQ") ),
+                                            },
+                                            {
+                                                cls: "UxPanel",
+                                                tag: "shirtPanel",
+                                                xsketch: {},
+                                                xxform: { border: .1 },
+                                            },
+                                        ],
                                     },
+                                    // PANTS
                                     {
                                         cls: "UxPanel",
-                                        tag: "equipButton3",
-                                        xxform: { left: .875, right:.125, top: .5, bottom: .5, width:65, height:65 },
+                                        xxform: { left: .75, offset:7 },
+                                        xsketch: {},
+                                        xchild: [
+                                            {
+                                                cls: "UxPanel",
+                                                xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_RED_S2_OPAQ") ),
+                                            },
+                                            {
+                                                cls: "UxPanel",
+                                                tag: "pantsPanel",
+                                                xsketch: {},
+                                                xxform: { border: .1 },
+                                            },
+                                        ],
                                     },
-
                                 ],
                             },
 
@@ -240,28 +303,186 @@ class UxEquipCtrl extends UxCtrl {
                     // ACTIVE -------------------------------------------------
                     {
                         cls: "UxPanel",
-                        tag: "activePanel",
-                        xxform: { left: .1, right: .1, top: .4, bottom: .45 },
-                        /*
+                        xxform: { left: .1, right: .1, top: .45, bottom: .4 },
+                        xsketch: {},
                         xchild: [
+
+                            // ACTIVE ACTIONS
                             {
-                                cls: "UxText",
-                                tag: "equipText",
-                                xxform: { left: .5, right:.5, top: 0, bottom: .7, width: 150 },
-                                xtext: {
-                                    color: new Color(0,0,200,.75),
-                                    text: "Equipment",
-                                },
+                                cls: "UxPanel",
+                                xxform: { right: .75},
+                                xsketch: {},
+                                xchild: [
+                                    {
+                                        cls: "UxText",
+                                        xxform: { top: -.25, bottom: .75, offset:5 },
+                                        xtext: { color: new Color(48,51,134), text: "Active", },
+                                    },
+                                    // Z PANEL
+                                    {
+                                        cls: "UxPanel",
+                                        xxform: { top: .125, right: .5, offset:5 },
+                                        xsketch: {},
+                                        xchild: [
+                                            {
+                                                cls: "UxPanel",
+                                                xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_BLU_S2_OPAQ") ),
+                                            },
+                                            {
+                                                cls: "UxPanel",
+                                                tag: "zpanel",
+                                                xsketch: {},
+                                            },
+                                            {
+                                                cls: "UxText",
+                                                xtext: { color: new Color(225,225,0,1), text: "z", outlineWidth: 1, outlineColor: new Color(0,0,0,1), },
+                                                xxform: { width:50, height:50, left:1, right:0, top:.95, bottom:0.05},
+                                            },
+                                        ],
+                                    },
+                                    // X PANEL
+                                    {
+                                        cls: "UxPanel",
+                                        xxform: { top: .125, left: .5, offset:5 },
+                                        xsketch: {},
+                                        xchild: [
+                                            {
+                                                cls: "UxPanel",
+                                                xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_BLU_S2_OPAQ") ),
+                                            },
+                                            {
+                                                cls: "UxPanel",
+                                                tag: "xpanel",
+                                                xsketch: {},
+                                            },
+                                            {
+                                                cls: "UxText",
+                                                xtext: { color: new Color(225,225,0,1), text: "x", outlineWidth: 1, outlineColor: new Color(0,0,0,1), },
+                                                xxform: { width:50, height:50, left:1, right:0, top:.95, bottom:0.05},
+                                            },
+                                        ],
+                                    },
+                                ],
                             },
+
+                            // CONSUMABLES 
+                            {
+                                cls: "UxPanel",
+                                xxform: { left: .35},
+                                xsketch: {},
+                                xchild: [
+                                    {
+                                        cls: "UxText",
+                                        xxform: { top: -.25, bottom: .75, offset:5 },
+                                        xtext: { color: new Color(48,51,134), text: "Consumables", },
+                                    },
+
+                                    // GOLD PANEL
+                                    {
+                                        cls: "UxPanel",
+                                        xxform: { top: .125, right: .8, offset:5 },
+                                        xsketch: {},
+                                        xchild: [
+                                            {
+                                                cls: "UxPanel",
+                                                xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ),
+                                            },
+                                            {
+                                                cls: "UxPanel",
+                                                xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("GOLD_COINS_TWO_DROP") ),
+                                            },
+                                            {
+                                                cls: "UxText",
+                                                tag: "goldText",
+                                                xtext: { color: new Color(225,225,0,1), text: "1", outlineWidth: 1, outlineColor: new Color(0,0,0,1), },
+                                                xxform: { width:50, height:50, left:1, right:0, top:.95, bottom:0.05},
+                                            },
+                                        ],
+                                    },
+
+                                    // ARROW PANEL
+                                    {
+                                        cls: "UxPanel",
+                                        xxform: { top: .125, left: .2, right: .6, offset:5 },
+                                        xsketch: {},
+                                        xchild: [
+                                            {
+                                                cls: "UxPanel",
+                                                xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ),
+                                            },
+                                            {
+                                                cls: "UxPanel",
+                                                xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("ARROW_ONE_DROP") ),
+                                                xxform: { angle: Math.PI*.25, border: .1 },
+                                            },
+                                            {
+                                                cls: "UxText",
+                                                tag: "arrowText",
+                                                xtext: { color: new Color(225,225,0,1), text: "1", outlineWidth: 1, outlineColor: new Color(0,0,0,1), },
+                                                xxform: { width:50, height:50, left:1, right:0, top:.95, bottom:0.05},
+                                            },
+                                        ],
+                                    },
+
+                                    // HEALTH POTION PANEL
+                                    {
+                                        cls: "UxPanel",
+                                        xxform: { top: .125, left: .4, right: .4, offset:5 },
+                                        xsketch: {},
+                                        xchild: [
+                                            {
+                                                cls: "UxPanel",
+                                                xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ),
+                                            },
+                                            {
+                                                cls: "UxPanel",
+                                                // FIXME: add health potion
+                                                xsketch: {},
+                                            },
+                                            {
+                                                cls: "UxText",
+                                                tag: "healthPotionText",
+                                                xtext: { color: new Color(225,225,0,1), text: "1", outlineWidth: 1, outlineColor: new Color(0,0,0,1), },
+                                                xxform: { width:50, height:50, left:1, right:0, top:.95, bottom:0.05},
+                                            },
+                                        ],
+                                    },
+
+                                    // MANA POTION PANEL
+                                    {
+                                        cls: "UxPanel",
+                                        xxform: { top: .125, left: .6, right: .2, offset:5 },
+                                        xsketch: {},
+                                        xchild: [
+                                            {
+                                                cls: "UxPanel",
+                                                xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ),
+                                            },
+                                            {
+                                                cls: "UxPanel",
+                                                // FIXME: add mana potion
+                                                xsketch: {},
+                                            },
+                                            {
+                                                cls: "UxText",
+                                                tag: "manaPotionText",
+                                                xtext: { color: new Color(225,225,0,1), text: "1", outlineWidth: 1, outlineColor: new Color(0,0,0,1), },
+                                                xxform: { width:50, height:50, left:1, right:0, top:.95, bottom:0.05},
+                                            },
+                                        ],
+                                    },
+
+                                ],
+                            },
+
                         ],
-                        */
                     },
 
                     // AVAILABLE ----------------------------------------------
                     {
                         cls: "UxPanel",
                         tag: "activePanel",
-                        xxform: { left: .2, right: .2, top: .6, bottom: .1 },
+                        xxform: { left: .2, right: .2, top: .65, bottom: .1 },
                         /*
                         xchild: [
                             {

@@ -4,7 +4,6 @@ class UxPlayView extends UxView {
     }
 
     render(ctx) {
-		// Wrapped in IF/ELSE to support Tile Editor Mode	
 		ctx.translate(-camera.x, -camera.y);
 		currentLevel.render(ctx);
 		if(pathFindingDisplay){
@@ -13,26 +12,6 @@ class UxPlayView extends UxView {
 		p1.draw();
 		currentLevel.lateRender(ctx);
 		ctx.translate(camera.x, camera.y);
-		
-        /*
-		if(framesToDisplayMessage-- > 600){
-			colorText("HELPER CODE", 500, 400, fillColor = "black", font = "26px Arial Black");
-			colorText("'1' : Toggles Pathfinding Display", 500, 450, fillColor = "black", font = "14px Arial Black");
-			colorText("'2' : Toggles Collision Boxes Display", 500, 500, fillColor = "black", font = "14px Arial Black");
-			colorText("'3' : Toggles Room Numbers Display", 500, 550, fillColor = "black", font = "14px Arial Black");		
-		} else if (framesToDisplayMessage < 600 && framesToDisplayMessage > 300){ 	
-			colorText("Player Movements", 500, 400, fillColor = "black", font = "26px Arial Black");
-			colorText("'Up Arrow' : Move Up", 500, 450, fillColor = "black", font = "14px Arial Black");
-			colorText("'Left Arrow' : Move Left", 500, 475, fillColor = "black", font = "14px Arial Black");
-			colorText("'Down Arrow' : Move Down", 500, 500, fillColor = "black", font = "14px Arial Black");
-			colorText("'Right Arrow' : Move Right", 500, 525, fillColor = "black", font = "14px Arial Black");		
-			colorText("'Left Click' : Player uses pathfinding", 500, 550, fillColor = "black", font = "14px Arial Black");
-			colorText("to that location", 500, 575, fillColor = "black", font = "14px Arial Black");		
-		} else if (framesToDisplayMessage < 250 && framesToDisplayMessage > 0){ 	
-			colorText("USE KEYS TO FIND THE TREASURE", 400, 400, fillColor = "black", font = "14px Arial Black");
-		}
-        */
-
     }
 }
 
@@ -50,7 +29,7 @@ class UxPlayCtrl extends UxCtrl {
             "open": {cls: "Text", text: "o", color: new Color(225,0,0,.75)},
         };
         // variables for UI
-        const slotSize = 50;
+        const slotSize = 40;
         // construct the UI elements
         this.view = UxView.generate({
             cls: "UxCanvas",
@@ -62,47 +41,68 @@ class UxPlayCtrl extends UxCtrl {
                     tag: "play",
                     xxform: { origx: 0, origy: 0 },
                 },
+
+                // Z panel ---------------------------------------------------------------------------------
                 {
                     cls: "UxPanel",
-                    tag: "zpanel",
-                    xxform: { width:40, height:40, left:.05, right:.95, top:.05, bottom:.95},
+                    xxform: { width:40, height:40, left:.035, right:.965, top:.05, bottom:.95},
+                    xsketch: {},
                     xchild: [
+                        {
+                            cls: "UxPanel",
+                            xsketch: Object.assign({}, assets.get("BUTTON_BLU_S3_OPAQ"), {xfitter: { cls: "FitToParent" }}),
+                        },
+                        {
+                            cls: "UxPanel",
+                            tag: "zpanel",
+                        },
                         {
                             cls: "UxText",
                             xtext: {
-                                color: new Color(225,225,0,.75),
+                                color: new Color(225,225,0,1),
                                 text: "z",
                                 outlineWidth: 1,
-                                outlineColor: new Color(0,0,0,.5),
-                                font: new Font({style:"bold"}),
-                            },
-                            xxform: { width:40, height:40, left:1, right:0, top:.95, bottom:0.05},
-                        },
-                    ],
-                },
-                {
-                    cls: "UxPanel",
-                    tag: "xpanel",
-                    xxform: { width:40, height:40, left:.05, right:.95, top:.125, bottom:.875},
-                    xchild: [
-                        {
-                            cls: "UxText",
-                            xtext: {
-                                color: new Color(225,225,0,.75),
-                                text: "x",
-                                outlineWidth: 1,
-                                outlineColor: new Color(0,0,0,.5),
-                                font: new Font({style:"bold"}),
+                                outlineColor: new Color(0,0,0,1),
+                                //font: new Font({style:"bold"}),
                             },
                             xxform: { width:40, height:40, left:1, right:0, top:.95, bottom:0.05},
                         },
                     ],
                 },
 
+                // X panel ---------------------------------------------------------------------------------
+                {
+                    cls: "UxPanel",
+                    xxform: { width:40, height:40, left:.035, right:.965, top:.125, bottom:.875},
+                    xsketch: {},
+                    xchild: [
+                        {
+                            cls: "UxPanel",
+                            xsketch: Object.assign({}, assets.get("BUTTON_BLU_S3_OPAQ"), {xfitter: { cls: "FitToParent" }}),
+                        },
+                        {
+                            cls: "UxPanel",
+                            tag: "xpanel",
+                        },
+                        {
+                            cls: "UxText",
+                            xtext: {
+                                color: new Color(225,225,0,1),
+                                text: "x",
+                                outlineWidth: 1,
+                                outlineColor: new Color(0,0,0,1),
+                                //font: new Font({style:"bold"}),
+                            },
+                            xxform: { width:40, height:40, left:1, right:0, top:.95, bottom:0.05},
+                        },
+                    ],
+                },
+
+                // health panel ---------------------------------------------------------------------------------
                 {
                     cls: "UxPanel",
                     tag: "healthPanel",
-                    xxform: { left:.1, right:.6, top:.02, bottom:.91},
+                    xxform: { left:.1, right:.65, top:.01, bottom:.92},
                     xsketch: {},
                     xchild: [
                         {
@@ -162,7 +162,7 @@ class UxPlayCtrl extends UxCtrl {
                 {
                     cls: "UxPanel",
                     tag: "manaPanel",
-                    xxform: { left:.1, right:.6, top:.1, bottom:.83},
+                    xxform: { left:.4, right:.35, top:.01, bottom:.92},
                     xsketch: {},
                     xchild: [
                         {
@@ -221,20 +221,30 @@ class UxPlayCtrl extends UxCtrl {
                 {
                     cls: "UxPanel",
                     tag: "keyPanel",
-                    xxform: { width:35, height:35, left:.1, right:.9, top:.2, bottom:.8},
-                    xsketch: Object.assign({}, assets.get("KEY"), {xfitter: { cls: "FitToParent" }}),
+                    xxform: { width:35, height:35, left:.035, right:.965, top:.2, bottom:.8},
+                    xsketch: {},
                     xchild: [
+                        {
+                            cls: "UxPanel",
+                            xxform: { border: .1 },
+                            xsketch: { cls: 'Rect', color: new Color(0,0,0), xfitter: { cls: "FitToParent" }, },
+                        },
+                        {
+                            cls: "UxPanel",
+                            xsketch: Object.assign({}, assets.get("BUTTON_RED_S3_TRAN"), {xfitter: { cls: "FitToParent" }}),
+                        },
+                        {
+                            cls: "UxPanel",
+                            tag: "xpanel",
+                            xsketch: Object.assign({}, assets.get("KEY"), {xfitter: { cls: "FitToParent" }}),
+                            xxform: { border: .15 },
+                        },
+
                         {
                             cls: "UxText",
                             tag: "keyText",
-                            xtext: {
-                                color: new Color(225,225,0,.75),
-                                text: "1",
-                                outlineWidth: 1,
-                                outlineColor: new Color(0,0,0,.5),
-                                font: new Font({style:"bold"}),
-                            },
-                            xxform: { width:25, height:25, left:1, right:0, top:.95, bottom:0.05},
+                            xtext: { color: new Color(225,225,0), text: "1", outlineWidth: .5, outlineColor: new Color(0,0,0), },
+                            xxform: { width:30, height:30, left:1, right:0, top:.95, bottom:0.05},
                         },
                     ],
                 },
@@ -242,20 +252,31 @@ class UxPlayCtrl extends UxCtrl {
                 {
                     cls: "UxPanel",
                     tag: "arrowPanel",
-                    xxform: { width:35, height:35, left:.15, right:.85, top:.2, bottom:.8},
-                    xsketch: Object.assign({}, assets.get("ARROW_ONE_DROP"), {xfitter: { cls: "FitToParent" }}),
+                    //xxform: { width:35, height:35, left:.035, right:.965, top:.2, bottom:.8},
+                    xxform: { width:35, height:35, left:.035, right:.965, top:.27, bottom:.73},
+                    xsketch: {},
+                    //xsketch: Object.assign({}, assets.get("ARROW_ONE_DROP"), {xfitter: { cls: "FitToParent" }}),
                     xchild: [
+                        {
+                            cls: "UxPanel",
+                            xxform: { border: .1 },
+                            xsketch: { cls: 'Rect', color: new Color(0,0,0), xfitter: { cls: "FitToParent" }, },
+                        },
+                        {
+                            cls: "UxPanel",
+                            xsketch: Object.assign({}, assets.get("BUTTON_RED_S3_TRAN"), {xfitter: { cls: "FitToParent" }}),
+                        },
+                        {
+                            cls: "UxPanel",
+                            tag: "xpanel",
+                            xsketch: Object.assign({}, assets.get("ARROW_ONE_DROP"), {xfitter: { cls: "FitToParent" }}),
+                            xxform: { border: .1, angle: Math.PI*.25 },
+                        },
                         {
                             cls: "UxText",
                             tag: "arrowText",
-                            xtext: {
-                                color: new Color(225,225,0,.75),
-                                text: "1",
-                                outlineWidth: 1,
-                                outlineColor: new Color(0,0,0,.5),
-                                font: new Font({style:"bold"}),
-                            },
-                            xxform: { width:25, height:25, left:1, right:0, top:.95, bottom:0.05},
+                            xtext: { color: new Color(225,225,0), text: "1", outlineWidth: .5, outlineColor: new Color(0,0,0), },
+                            xxform: { width:30, height:30, left:1, right:0, top:.95, bottom:0.05},
                         },
                     ],
                 },

@@ -46,6 +46,7 @@ class Sketch {
         this._height = Util.objKeyValue(spec, "height", 0);
         this._lockRatio = spec.lockRatio || false;
         this._fitter = (spec.xfitter) ? Fitter.generate(Object.assign({target: this}, spec.xfitter)) : undefined;
+        this._cfWidth = this._cfHeight = this._cfX = this._cfY = 0;
     }
 
     // PROPERTIES ----------------------------------------------------------
@@ -67,17 +68,7 @@ class Sketch {
     get width() {
         if (this._fitter) {
             // if ratio is locked, adjust based on current ratio and fitter...
-            if (this._lockRatio) {
-                let dw = this._fitter.width;
-                let dh = this._fitter.height;
-                if (!this.FIXMEWIDTH) console.log("dw: " + dw + " dh: " + dh);
-                if ((this._width / dw) < (this._height / dh)) {
-                    dw = dh * this.ratio;
-                }
-                if (!this.FIXMEWIDTH) console.log("final dw: " + dw);
-                this.FIXMEWIDTH = true;
-                return dw;
-            }
+            if (this._lockRatio) return this._cfWidth;
             return this._fitter.width;
         }
         return this._width;
@@ -86,27 +77,25 @@ class Sketch {
     get height() {
         if (this._fitter) {
             // if ratio is locked, adjust based on current ratio and fitter...
-            if (this._lockRatio) {
-                let dw = this._fitter.width;
-                let dh = this._fitter.height;
-                if (!this.FIXMEHEIGHT) console.log("dw: " + dw + " dh: " + dh);
-                if ((this._width / dw) > (this._height / dh)) {
-                    dh = dw / this.ratio;
-                }
-                if (!this.FIXMEHEIGHT) console.log("final dh: " + dh);
-                this.FIXMEHEIGHT = true;
-                return dh;
-            }
+            if (this._lockRatio) return this._cfHeight;
             return this._fitter.height;
         }
         return this._height;
     }
 
     get minx() {
-        return (this._fitter) ? this._fitter.x : 0;
+        if (this._fitter) {
+            if (this._lockRatio) return this._cfX;
+            return this._fitter.x;
+        }
+        return 0;
     }
     get miny() {
-        return (this._fitter) ? this._fitter.y : 0;
+        if (this._fitter) {
+            if (this._lockRatio) return this._cfY;
+            return this._fitter.y;
+        }
+        return 0;
     }
 
     get size() {
@@ -127,6 +116,27 @@ class Sketch {
      * @param {*} ctx 
      */
     update(ctx) {
+        if (this._fitter && this._lockRatio) {
+            if (this._fitter.width != this._lastFitterWidth || this._fitter.height != this._lastFitterHeight ||
+                this._fitter.x != this._lastFitterX || this._fitter.y != this._lastFitterY) {
+                this._lastFitterWidth = this._fitter.width;
+                this._lastFitterHeight = this._fitter.height;
+                this._lastFitterX = this._fitter.x;
+                this._lastFitterY = this._fitter.y;
+                let dw = this._fitter.width;
+                let dh = this._fitter.height;
+                if ((this._width / dw) < (this._height / dh)) {
+                    dw = dh * this.ratio;
+                } else {
+                    dh = dw / this.ratio;
+                }
+                this._cfWidth = dw;
+                this._cfHeight = dh;
+                this._cfX = this._fitter.x + (this._fitter.width-dw )* .5;
+                this._cfY = this._fitter.y + (this._fitter.height-dh) * .5;
+                return dw;
+            }
+        }
         return false;
     }
 

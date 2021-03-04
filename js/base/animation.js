@@ -93,7 +93,7 @@ class Animation extends Sprite {
      * @param {*} ctx 
      */
     update(ctx) {
-        let updated = false;
+        let updated = super.update(ctx);
         if (this.done) return;
         if (this._step) {
             if (this._step === "next") this.advance();

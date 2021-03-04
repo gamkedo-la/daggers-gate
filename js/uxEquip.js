@@ -205,7 +205,7 @@ class UxEquipCtrl extends UxCtrl {
                                     {
                                         cls: "UxPanel",
                                         tag: "equipButton1",
-                                        xxform: { left: .125, right:.875, top: .5, bottom: .5, width:65, height:65 },
+                                        xxform: { left: .125, right:.875, top: .5, bottom: .5, width:50, height:65 },
                                         xsketch: {
                                             cls: 'Rect',
                                             color: new Color(20,70,20,1),

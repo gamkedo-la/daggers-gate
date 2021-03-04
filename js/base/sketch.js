@@ -44,6 +44,7 @@ class Sketch {
         this._tag = Util.objKeyValue(spec, "tag", "tag");
         this._width = Util.objKeyValue(spec, "width", 0);
         this._height = Util.objKeyValue(spec, "height", 0);
+        this._lockRatio = spec.lockRatio || false;
         this._fitter = (spec.xfitter) ? Fitter.generate(Object.assign({target: this}, spec.xfitter)) : undefined;
     }
 
@@ -55,17 +56,49 @@ class Sketch {
         if (this._parent !== v) this._parent = v;
     }
 
+    get ratio() {
+        return (this._height) ? (this._width/this._height) : 1;
+    }
+
     get tag() {
         return this._tag;
     }
 
     get width() {
-        if (this._fitter) return this._fitter.width;
+        if (this._fitter) {
+            // if ratio is locked, adjust based on current ratio and fitter...
+            if (this._lockRatio) {
+                let dw = this._fitter.width;
+                let dh = this._fitter.height;
+                if (!this.FIXMEWIDTH) console.log("dw: " + dw + " dh: " + dh);
+                if ((this._width / dw) < (this._height / dh)) {
+                    dw = dh * this.ratio;
+                }
+                if (!this.FIXMEWIDTH) console.log("final dw: " + dw);
+                this.FIXMEWIDTH = true;
+                return dw;
+            }
+            return this._fitter.width;
+        }
         return this._width;
     }
 
     get height() {
-        if (this._fitter) return this._fitter.height;
+        if (this._fitter) {
+            // if ratio is locked, adjust based on current ratio and fitter...
+            if (this._lockRatio) {
+                let dw = this._fitter.width;
+                let dh = this._fitter.height;
+                if (!this.FIXMEHEIGHT) console.log("dw: " + dw + " dh: " + dh);
+                if ((this._width / dw) > (this._height / dh)) {
+                    dh = dw / this.ratio;
+                }
+                if (!this.FIXMEHEIGHT) console.log("final dh: " + dh);
+                this.FIXMEHEIGHT = true;
+                return dh;
+            }
+            return this._fitter.height;
+        }
         return this._height;
     }
 

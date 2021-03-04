@@ -12,6 +12,8 @@ class Sprite extends Sketch {
         spec.width = Util.objKeyValue(spec, "width", img.width);
         spec.height = Util.objKeyValue(spec, "height", img.height);
         super(spec);
+        //this._lockRatio = spec.lockRatio || false;
+        //this._ratio = (img.height) ? (img.width/img.height) : 1,
         this._img = img;
     }
 
@@ -30,15 +32,15 @@ class Sprite extends Sketch {
         // scale if necessary
         if ((this.width !== this._img.width) || (this.height !== this._img.height)) {
             if (this._img.width && this._img.height) {
-                let scalex = this.width/this._img.width;
-                let scaley = this.height/this._img.height;
-                if (scalex && scaley) {
-                    let iscalex = 1/scalex;
-                    let iscaley = 1/scaley;
-                    renderCtx.scale(scalex, scaley);
-                    renderCtx.drawImage(this._img, x*iscalex, y*iscaley);
-                    renderCtx.scale(1/scalex, 1/scaley);
-                }
+                // src dims
+                let sw = this._img.width;
+                let sh = this._img.height;
+                // dst dims
+                let dw = this.width;
+                let dh = this.height;
+                renderCtx.drawImage(this._img, 
+                    0, 0, sw, sh, 
+                    x, y, dw, dh);
             }
         } else {
             renderCtx.drawImage(this._img, x, y);

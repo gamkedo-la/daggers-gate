@@ -27,11 +27,12 @@ class UxEquipCtrl extends UxCtrl {
                         cls: "UxPanel",
                         tag: "playerPanel",
                         xxform: { left: .05, right: .5, top: .05, bottom: .6 },
+                        xsketch: {},
                         xchild: [
                             {
                                 cls: "UxText",
                                 xxform: { left: .25, right:.75, top: 0, bottom: .7, width:120, height:40 },
-                                xtext: { color: new Color(168,36,36), outlineWidth:2, outlineColor: new Color(235,138,6), text: "Apollo", },
+                                xtext: { color: new Color(168,36,36), outlineWidth:1, outlineColor: new Color(235,138,6), text: "Apollo", },
                             },
                             {
                                 cls: "UxPanel",
@@ -186,7 +187,7 @@ class UxEquipCtrl extends UxCtrl {
                     {
                         cls: "UxPanel",
                         tag: "equipPanel",
-                        xxform: { left: .5, right: .1, top: .05, bottom: .6 },
+                        xxform: { left: .5, right: .05, top: .05, bottom: .6 },
                         xchild: [
                             {
                                 cls: "UxText",
@@ -205,6 +206,14 @@ class UxEquipCtrl extends UxCtrl {
                                         cls: "UxPanel",
                                         tag: "equipButton1",
                                         xxform: { left: .125, right:.875, top: .5, bottom: .5, width:65, height:65 },
+                                        xsketch: {
+                                            cls: 'Rect',
+                                            color: new Color(20,70,20,1),
+                                            xfitter: { cls: "FitToParent" },
+                                            width: 50,
+                                            height: 50,
+                                            lockRatio: true,
+                                        },
                                     },
                                     {
                                         cls: "UxPanel",

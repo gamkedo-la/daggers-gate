@@ -370,6 +370,7 @@ const daggerObjects = {
         },
         collider: { blocking: false, width:25, height: 25 },
     },
+
     BOW: {
         kind: "loot",
         loot: {
@@ -379,6 +380,19 @@ const daggerObjects = {
             cls: "Animator",
             animations: {
                 [Animator.idle]: "BOW",
+            },
+        },
+        collider: { blocking: false, width:45, height: 45 },
+    },
+    FIREWAND: {
+        kind: "loot",
+        loot: {
+            amt: 1,
+        },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "FIREWAND",
             },
         },
         collider: { blocking: false, width:45, height: 45 },
@@ -500,6 +514,7 @@ const daggerAssets = [
         {tag: "STONE_FLOOR4",            id: 73, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 300, tileset: true },
         {tag: "POT",                     id: 74, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 300, tileset: true },
         {tag: "WOOD_FLOOR2",             id: 75, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 300, tileset: true },
+        {tag: "FIREWAND",                id: 76, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 300, tileset: true },
     ]},
 
       { src: "images/window_tiles.png", cls: "Stretch", tag: "WINDOW_BORDER", border: 15 },
@@ -751,6 +766,7 @@ class DaggerAssets {
             "place": {cls: "Text", text: "p", color: new Color(225,0,0,.75)},
             "ranged": {cls: "Text", text: "r", color: new Color(225,0,0,.75)},
             "open": {cls: "Text", text: "o", color: new Color(225,0,0,.75)},
+            "magic": {cls: "Text", text: "#", color: new Color(225,0,0,.75)},
         };
     }
 }

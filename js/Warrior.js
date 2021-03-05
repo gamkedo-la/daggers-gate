@@ -319,6 +319,16 @@ class warriorClass extends characterClass {
                 this.inventory.push("BOW");
             }
         break;
+        case "FIREWAND":
+            if (!this.offHand) {
+                this.equipOffHand("FIREWAND");
+                console.log("equipped firewand!");
+            } else {
+                console.log("picked up firewand");
+                this.inventory.push("FIREWAND");
+            }
+        break;
+
         }
         // destroy loot objectcase 
         currentLevel.destroyObject(loot);

@@ -376,7 +376,6 @@ class UxEquipCtrl extends UxCtrl {
                                         xxform: { top: -.25, bottom: .75, offset:5 },
                                         xtext: { color: new Color(48,51,134), text: "Consumables", },
                                     },
-
                                     // GOLD PANEL
                                     {
                                         cls: "UxPanel",
@@ -399,7 +398,6 @@ class UxEquipCtrl extends UxCtrl {
                                             },
                                         ],
                                     },
-
                                     // ARROW PANEL
                                     {
                                         cls: "UxPanel",
@@ -423,7 +421,6 @@ class UxEquipCtrl extends UxCtrl {
                                             },
                                         ],
                                     },
-
                                     // HEALTH POTION PANEL
                                     {
                                         cls: "UxPanel",
@@ -478,11 +475,127 @@ class UxEquipCtrl extends UxCtrl {
                         ],
                     },
 
-                    // AVAILABLE ----------------------------------------------
+                    // INVENTORY ----------------------------------------------
                     {
                         cls: "UxPanel",
-                        tag: "activePanel",
-                        xxform: { left: .2, right: .2, top: .65, bottom: .1 },
+                        xxform: { left: .25, right: .25, top: .65, bottom: .05 },
+                        xsketch: {},
+                        xchild: [
+                            {
+                                cls: "UxText",
+                                xxform: { top: -.15, bottom: .85, offset:5 },
+                                xtext: { color: new Color(48,51,134), text: "Inventory", },
+                            },
+
+                            // ROW1
+                            {
+                                cls: "UxPanel",
+                                xxform: { top: .125, bottom: .5 },
+                                xsketch: {},
+                                xchild: [
+                                    {
+                                        cls: "UxPanel",
+                                        xxform: { right: .8, offset:2 },
+                                        xsketch: {},
+                                        xchild: [
+                                            { cls: "UxPanel", xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ), },
+                                            { cls: "UxPanel", tag: "invSlot1", xsketch: {}, },
+                                        ],
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        xxform: { left: .2, right: .6, offset:2 },
+                                        xsketch: {},
+                                        xchild: [
+                                            { cls: "UxPanel", xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ), },
+                                            { cls: "UxPanel", tag: "invSlot2", xsketch: {}, },
+                                        ],
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        xxform: { left: .4, right: .4, offset:2 },
+                                        xsketch: {},
+                                        xchild: [
+                                            { cls: "UxPanel", xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ), },
+                                            { cls: "UxPanel", tag: "invSlot3", xsketch: {}, },
+                                        ],
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        xxform: { left: .6, right: .2, offset:2 },
+                                        xsketch: {},
+                                        xchild: [
+                                            { cls: "UxPanel", xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ), },
+                                            { cls: "UxPanel", tag: "invSlot4", xsketch: {}, },
+                                        ],
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        xxform: { left: .8, offset:2 },
+                                        xsketch: {},
+                                        xchild: [
+                                            { cls: "UxPanel", xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ), },
+                                            { cls: "UxPanel", tag: "invSlot5", xsketch: {}, },
+                                        ],
+                                    },
+                                ],
+                            },
+
+                            // ROW2
+                            {
+                                cls: "UxPanel",
+                                xxform: { top: .5, bottom: .125 },
+                                xsketch: {},
+                                xchild: [
+                                    {
+                                        cls: "UxPanel",
+                                        xxform: { right: .8, offset:2 },
+                                        xsketch: {},
+                                        xchild: [
+                                            { cls: "UxPanel", xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ), },
+                                            { cls: "UxPanel", tag: "invSlot6", xsketch: {}, },
+                                        ],
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        xxform: { left: .2, right: .6, offset:2 },
+                                        xsketch: {},
+                                        xchild: [
+                                            { cls: "UxPanel", xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ), },
+                                            { cls: "UxPanel", tag: "invSlot7", xsketch: {}, },
+                                        ],
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        xxform: { left: .4, right: .4, offset:2 },
+                                        xsketch: {},
+                                        xchild: [
+                                            { cls: "UxPanel", xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ), },
+                                            { cls: "UxPanel", tag: "invSlot8", xsketch: {}, },
+                                        ],
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        xxform: { left: .6, right: .2, offset:2 },
+                                        xsketch: {},
+                                        xchild: [
+                                            { cls: "UxPanel", xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ), },
+                                            { cls: "UxPanel", tag: "invSlot9", xsketch: {}, },
+                                        ],
+                                    },
+                                    {
+                                        cls: "UxPanel",
+                                        xxform: { left: .8, offset:2 },
+                                        xsketch: {},
+                                        xchild: [
+                                            { cls: "UxPanel", xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ), },
+                                            { cls: "UxPanel", tag: "invSlot10", xsketch: {}, },
+                                        ],
+                                    },
+                                ],
+                            },
+
+                        ],
                         /*
                         xchild: [
                             {

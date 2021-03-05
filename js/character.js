@@ -1,25 +1,3 @@
-// FIXME: remove when we have real sword
-const sword = new Shape({
-    cls: "Shape",
-	fill: false,
-	verts: [
-		{x:4, y:0},
-		{x:8, y:0},
-		{x:8, y:4},
-		{x:28, y:4},
-		{x:30, y:6},
-		{x:28, y:8},
-		{x:8, y:8},
-		{x:8, y:12},
-		{x:4, y:12},
-		{x:4, y:8},
-		{x:0, y:8},
-		{x:0, y:4},
-		{x:4, y:4},
-	],
-	borderWidth: 1,
-	borderColor: "rgba(200,200,0,1)",
-});
 
 const interactionWaitIterations = 3;
 class characterClass {
@@ -55,10 +33,10 @@ class characterClass {
         this.startPrimaryAction = false;
         this.startSecondaryAction = false;
         // primary/secondary action selectors
-        this.selectedPrimary = "melee";
-        this.selectedSecondary = "ranged";
-        this.chosenPrimary = "melee";
-        this.chosenSecondary = "ranged";
+        this.selectedPrimary = "none";
+        this.selectedSecondary = "none";
+        this.chosenPrimary = "none";
+        this.chosenSecondary = "none";
         // collisions
         this.collider = new Collider(Object.assign({}, spec.collider, {x: this.x, y:this.y}));
         this.nextCollider = this.collider.copy();

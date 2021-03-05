@@ -214,7 +214,7 @@ class UxEquipCtrl extends UxCtrl {
                                 cls: "UxText",
                                 tag: "equipText",
                                 xxform: { left: .2, right:.2, top: 0, bottom: .5 },
-                                xtext: { color: new Color(48,51,134), text: "EQUIPMENT", },
+                                xtext: { color: new Color(48,51,134), text: "Equipment", },
                             },
                             {
                                 cls: "UxPanel",
@@ -398,10 +398,35 @@ class UxEquipCtrl extends UxCtrl {
                                             },
                                         ],
                                     },
-                                    // ARROW PANEL
+
+                                    // KEY PANEL
                                     {
                                         cls: "UxPanel",
                                         xxform: { top: .125, left: .2, right: .6, offset:5 },
+                                        xsketch: {},
+                                        xchild: [
+                                            {
+                                                cls: "UxPanel",
+                                                xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ),
+                                            },
+                                            {
+                                                cls: "UxPanel",
+                                                xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("KEY") ),
+                                                xxform: { border: .1 },
+                                            },
+                                            {
+                                                cls: "UxText",
+                                                tag: "keyText",
+                                                xtext: { color: new Color(225,225,0,1), text: "1", outlineWidth: 1, outlineColor: new Color(0,0,0,1), },
+                                                xxform: { width:50, height:50, left:1, right:0, top:.95, bottom:0.05},
+                                            },
+                                        ],
+                                    },
+
+                                    // ARROW PANEL
+                                    {
+                                        cls: "UxPanel",
+                                        xxform: { top: .125, left: .4, right: .4, offset:5 },
                                         xsketch: {},
                                         xchild: [
                                             {
@@ -421,10 +446,11 @@ class UxEquipCtrl extends UxCtrl {
                                             },
                                         ],
                                     },
+
                                     // HEALTH POTION PANEL
                                     {
                                         cls: "UxPanel",
-                                        xxform: { top: .125, left: .4, right: .4, offset:5 },
+                                        xxform: { top: .125, left: .6, right: .2, offset:5 },
                                         xsketch: {},
                                         xchild: [
                                             {
@@ -448,7 +474,7 @@ class UxEquipCtrl extends UxCtrl {
                                     // MANA POTION PANEL
                                     {
                                         cls: "UxPanel",
-                                        xxform: { top: .125, left: .6, right: .2, offset:5 },
+                                        xxform: { top: .125, left: .8, offset:5 },
                                         xsketch: {},
                                         xchild: [
                                             {
@@ -596,19 +622,6 @@ class UxEquipCtrl extends UxCtrl {
                             },
 
                         ],
-                        /*
-                        xchild: [
-                            {
-                                cls: "UxText",
-                                tag: "equipText",
-                                xxform: { left: .5, right:.5, top: 0, bottom: .7, width: 150 },
-                                xtext: {
-                                    color: new Color(0,0,200,.75),
-                                    text: "Equipment",
-                                },
-                            },
-                        ],
-                        */
                     },
 
                 ],
@@ -619,7 +632,22 @@ class UxEquipCtrl extends UxCtrl {
             this[key] = this.view.find((v) => v.tag === key);
             key = "manaSlot" + i.toString();
             this[key] = this.view.find((v) => v.tag === key);
+            key = "invSlot" + i.toString();
+            this[key] = this.view.find((v) => v.tag === key);
         }
+
+        this.zpanel = this.view.find((v) => v.tag === "zpanel");
+        this.xpanel = this.view.find((v) => v.tag === "xpanel");
+        this.mainHandPanel = this.view.find((v) => v.tag === "manaHandPanel");
+        this.offHandPanel = this.view.find((v) => v.tag === "offHandPanel");
+        this.shirtPanel = this.view.find((v) => v.tag === "shirtPanel");
+        this.pantsPanel = this.view.find((v) => v.tag === "pantsPanel");
+
+        this.goldText = this.view.find((v) => v.tag === "goldText");
+        this.keyText = this.view.find((v) => v.tag === "keyText");
+        this.arrowText = this.view.find((v) => v.tag === "arrowText");
+        this.healthPotionText = this.view.find((v) => v.tag === "healthPotionText");
+        this.manaPotionText = this.view.find((v) => v.tag === "manaPotionText");
 
     }
 
@@ -635,7 +663,7 @@ class UxEquipCtrl extends UxCtrl {
         // cache last health values
         this.lastHealth = p1.health;
         this.lastMaxHealth = p1.maxHealth;
-        p1.maxHealth = 100;
+        //p1.maxHealth = 100;
         // update view for current health and max health
         for (let i=1; i<=10; i++) {
             let key = "healthSlot" + i.toString();
@@ -666,7 +694,7 @@ class UxEquipCtrl extends UxCtrl {
         // cache last mana values
         this.lastMana = p1.mana;
         this.lastMaxMana = p1.maxMana;
-        p1.maxMana = 100;
+        //p1.maxMana = 100;
         // update view for current mana and max mana
         for (let i=1; i<=10; i++) {
             let key = "manaSlot" + i.toString();
@@ -691,9 +719,33 @@ class UxEquipCtrl extends UxCtrl {
         }
     }
 
+    updateCounts(updateCtx) {
+        if (p1.gold != this.lastGold) {
+            this.lastGold = p1.gold;
+            this.goldText.text = p1.gold.toString();
+        }
+        if (p1.keysHeld != this.lastKeysHeld) {
+            this.lastKeysHeld = p1.keysHeld;
+            this.keyText.text = p1.keysHeld.toString();
+        }
+        if (p1.arrows != this.lastArrows) {
+            this.lastArrows = p1.arrows;
+            this.arrowText.text = p1.arrows.toString();
+        }
+        if (p1.healthPotions != this.lastHealthPotions) {
+            this.lastHealthPotions = p1.healthPotions;
+            this.healthPotionText.text = p1.healthPotions.toString();
+        }
+        if (p1.manaPotions != this.lastManaPotions) {
+            this.lastManaPotions = p1.manaPotions;
+            this.manaPotionText.text = p1.manaPotions.toString();
+        }
+    }
+
     update(updateCtx) {
         this.updatePlayerHealth(updateCtx);
         this.updatePlayerMana(updateCtx);
+        this.updateCounts(updateCtx);
     }
 
     // EVENT CALLBACKS -----------------------------------------------------

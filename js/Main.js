@@ -19,6 +19,9 @@ var assets = new Assets({
 	refs: daggerAssets,
 	//dbg: true,
 });
+// FIXME: remove after we have real sword
+assets._items.add(Object.assign({tag: "SWORD", id: 999, tileset: true}, swordSpec));
+
 var loaders = [ 
 	assets,
 ];

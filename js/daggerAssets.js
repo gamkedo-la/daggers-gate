@@ -3,6 +3,30 @@
 const _playerMeleeFrameDuration = 40;
 const _playerIdleFrameDuration = 60;
 
+// FIXME: remove when we have real sword
+const swordSpec = {
+    cls: "Shape",
+	fill: false,
+	verts: [
+		{x:4, y:0},
+		{x:8, y:0},
+		{x:8, y:4},
+		{x:28, y:4},
+		{x:30, y:6},
+		{x:28, y:8},
+		{x:8, y:8},
+		{x:8, y:12},
+		{x:4, y:12},
+		{x:4, y:8},
+		{x:0, y:8},
+		{x:0, y:4},
+		{x:4, y:4},
+	],
+	borderWidth: 1,
+	borderColor: "rgba(200,200,0,1)",
+};
+const sword = new Shape(swordSpec);
+
 const animators = {
     "PLAYER": {
         cls: "Animator",
@@ -355,6 +379,19 @@ const daggerObjects = {
             cls: "Animator",
             animations: {
                 [Animator.idle]: "BOW",
+            },
+        },
+        collider: { blocking: false, width:45, height: 45 },
+    },
+    SWORD: {
+        kind: "loot",
+        loot: {
+            amt: 1,
+        },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "SWORD",
             },
         },
         collider: { blocking: false, width:45, height: 45 },

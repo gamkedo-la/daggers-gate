@@ -23,6 +23,17 @@ class warriorClass extends characterClass {
         super(spec);
         this.lootRange = 15;
         this.lootPullSpeed = .25; // pixels per ms
+        this.inventory = []; // just a list of strings
+        this.mainHand = "";
+        this.offHand = "";
+    }
+
+    // properties
+    get haveBow() {
+        return this.inventory.includes("bow");
+    }
+    get haveSword() {
+        return this.inventory.includes("sword");
     }
 
     // key controls used for this
@@ -39,7 +50,8 @@ class warriorClass extends characterClass {
         this.keysHeld = 8;
         this.gold = 0;
         this.arrows = 0;
-        this.haveBow = false;
+        this.healthPotions = 0;
+        this.manaPotions = 0;
         super.reset();
     } // end of reset
 
@@ -124,19 +136,13 @@ class warriorClass extends characterClass {
                 }
                 break;
 
-            case TILE.KEY:
-                this.keysHeld++; // gain key
-                document.getElementById("debugText").innerHTML = "Keys: " + this.keysHeld;
-                currentLevel.setfgi(walkIntoTileIndex, 0); //remove key
-                SetupPathfindingGridData(p1);
-                console.log("key")
-                break;
             case TILE.CHEST1_CLOSE:
                     this.keysHeld--; // use key
                     document.getElementById("debugText").innerHTML = "Keys: " + this.keysHeld + " Gold:" + this.gold;
                     currentLevel.setfgi(walkIntoTileIndex, 33); //open chest
                     this.gold = 10;
                 break;
+
             case TILE.HEART_PIECE1:
                 if (this.maxHealth < 100) {
                     this.maxHealth += 10;
@@ -153,12 +159,6 @@ class warriorClass extends characterClass {
                     currentLevel.setfgi(walkIntoTileIndex, 0); //remove heart
                     SetupPathfindingGridData(p1);
                     console.log("Heart");
-                break;
-            case TILE.BOW:
-                this.haveBow = true; // use key
-                currentLevel.setfgi(walkIntoTileIndex, 0); //remove bow
-                SetupPathfindingGridData(p1);
-                console.log("Bow: " + this.haveBow);
                 break;
             case TILE.GROUND_SPIKES_UP:
                 this.takeDamage(5);
@@ -180,6 +180,48 @@ class warriorClass extends characterClass {
             case TILE.WALL_13:
             default:
                 // any other tile type number was found... do nothing, for now
+            break;
+        }
+    }
+
+    equipMainHand(item) {
+        if (this.mainHand) {
+            this.inventory.push(this.mainHand);
+        }
+        this.mainHand = item;
+        switch (item) {
+        case "sword":
+            this.selectedPrimary = "melee";
+            break;
+        case "icewand":
+            this.selectedPrimary = "magic";
+            break;
+        case "firewand":
+            this.selectedPrimary = "magic";
+            break;
+        default:
+            this.selectedPrimary = "none";
+            break;
+        }
+    }
+
+    equipOffHand(item) {
+        if (this.offHand) {
+            this.inventory.push(this.offHand);
+        }
+        this.offHand = item;
+        switch (item) {
+        case "bow":
+            this.selectedSecondary = "ranged";
+            break;
+        case "icewand":
+            this.selectedSecondary = "magic";
+            break;
+        case "firewand":
+            this.selectedSecondary = "magic";
+            break;
+        default:
+            this.selectedSecondary = "none";
             break;
         }
     }
@@ -259,9 +301,23 @@ class warriorClass extends characterClass {
             console.log("keys + " + amt);
             this.keysHeld += amt;
         break;
+        case "SWORD":
+            if (!this.mainHand) {
+                this.equipMainHand("sword");
+                console.log("equipped sword!");
+            } else {
+                console.log("picked up sword");
+                this.inventory.push("sword");
+            }
+        break;
         case "BOW":
-            console.log("picked up bow");
-            this.haveBow = true;
+            if (!this.offHand) {
+                this.equipOffHand("bow");
+                console.log("equipped bow!");
+            } else {
+                console.log("picked up bow");
+                this.inventory.push("bow");
+            }
         break;
         }
         // destroy loot objectcase 

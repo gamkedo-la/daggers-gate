@@ -21,6 +21,7 @@ class UxPlayCtrl extends UxCtrl {
         super(spec);
         // cache action sketches
         this.actionSketches = {
+            "none": {cls: "Text", text: "n", color: new Color(225,0,0,.75)},
             "melee":{cls: "Text", text: "m", color: new Color(225,0,0,.75)},
             "drop": {cls: "Text", text: "d", color: new Color(225,0,0,.75)},
             "grab": {cls: "Text", text: "g", color: new Color(225,0,0,.75)},

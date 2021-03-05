@@ -38,6 +38,7 @@ class Assets {
             "StretchSprite": StretchSprite,
             "Animation": Animation,
             "Animator": Animator,
+            "Shape": Shape,
             //"Audio": Audio,
         });
         this._items = new KeyedGroup((v)=>v.tag);

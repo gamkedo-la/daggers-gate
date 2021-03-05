@@ -659,7 +659,7 @@ class UxEquipCtrl extends UxCtrl {
             this[key] = this.view.find((v) => v.tag === key);
             key = "invButton" + i.toString();
             this[key] = this.view.find((v) => v.tag === key);
-            this[key].slot = i;
+            this[key].slot = i-1;
             this[key].evtClicked.listen(this.onInvSlotClick.bind(this));
         }
 
@@ -683,8 +683,11 @@ class UxEquipCtrl extends UxCtrl {
         // state
         this.swapMain = false;
         this.swapOff = false;
-        this.matchSlots = [];
-        this.lastMatchSlots = [];
+        this.swapInv = false;
+        this.swapSlot = 0;
+        this.activeSlots = [];
+        this.idleActiveSlots();
+        this.lastActiveSlots = [];
         this.lastInvSlots = [];
 
     }
@@ -695,30 +698,57 @@ class UxEquipCtrl extends UxCtrl {
         }
     }
 
+    idleActiveSlots() {
+        for (let i=0; i<10; i++) {
+            this.activeSlots[i] = (p1.inventory.get(i)) ? true : false;
+        }
+    }
+
     updateActive(updateCtx) {
-        if (p1.chosenPrimary !== this.lastPrimary) {
-            this.lastPrimary = p1.chosenPrimary;
-            let xsketch = Object.assign({parent: this.zpanel, xfitter: {cls: "FitToParent"}, lockRatio: true}, DaggerAssets.actionSketches[p1.chosenPrimary]);
+        if (p1.selectedPrimary !== this.lastPrimary) {
+            this.lastPrimary = p1.selectedPrimary;
+            let xsketch = Object.assign({parent: this.zpanel, xfitter: {cls: "FitToParent"}, lockRatio: true}, DaggerAssets.actionSketches[p1.selectedPrimary]);
             this.zpanel.sketch = Sketch.generate(xsketch) || Sketch.zero;
         }
-        if (p1.chosenSecondary !== this.lastSecondary) {
-            this.lastSecondary = p1.chosenSecondary;
-            let xsketch = Object.assign({parent: this.xpanel, xfitter: {cls: "FitToParent"}, lockRatio: true}, DaggerAssets.actionSketches[p1.chosenSecondary]);
+        if (p1.selectedSecondary !== this.lastSecondary) {
+            this.lastSecondary = p1.selectedSecondary;
+            let xsketch = Object.assign({parent: this.xpanel, xfitter: {cls: "FitToParent"}, lockRatio: true}, DaggerAssets.actionSketches[p1.selectedSecondary]);
             this.xpanel.sketch = Sketch.generate(xsketch) || Sketch.zero;
         }
     }
 
     updateEquipped(updateCtx) {
-        if (p1.mainHand !== this.lastMainHand) {
-            this.lastMainHand = p1.mainHand;
-            let xsketch = Object.assign({parent: this.mainHandPanel, xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get(p1.mainHand));
+        if (p1.inventory.mainHand !== this.lastMainHand) {
+            this.lastMainHand = p1.inventory.mainHand;
+            let item = p1.inventory.mainHand;
+            let xsketch = Object.assign({parent: this.mainHandPanel, xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get((item) ? item.tag : ""));
+            //console.log("xsketch: " + Fmt.ofmt(xsketch));
             this.mainHandPanel.sketch = Sketch.generate(xsketch);
+            //console.log("panel sketch: " + this.mainHandPanel.sketch);
         }
-        if (p1.offHand !== this.lastOffHand) {
-            this.lastOffHand = p1.offHand;
-            let xsketch = Object.assign({parent: this.offHandPanel, xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get(p1.offHand));
+        if (p1.inventory.offHand !== this.lastOffHand) {
+            this.lastOffHand = p1.inventory.offHand;
+            let item = p1.inventory.offHand;
+            let xsketch = Object.assign({parent: this.offHandPanel, xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get((item) ? item.tag : ""));
             this.offHandPanel.sketch = Sketch.generate(xsketch);
         }
+        if (this.swapMain != this.lastSwapMain) {
+            this.lastSwapMain = this.swapMain;
+            if (this.swapMain) {
+                this.mainHandButton.unpressed = Sketch.generate( Object.assign({parent: this.mainHandButton, xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get("BUTTON_BLU_S2_TRAN")));
+            } else {
+                this.mainHandButton.unpressed = Sketch.generate( Object.assign({parent: this.mainHandBugton, xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get("BUTTON_RED_S2_TRAN")));
+            }
+        }
+        if (this.swapOff != this.lastSwapOff) {
+            this.lastSwapOff = this.swapOff;
+            if (this.swapOff) {
+                this.offHandButton.unpressed = Sketch.generate( Object.assign({parent: this.offHandButton, xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get("BUTTON_BLU_S2_TRAN")));
+            } else {
+                this.offHandButton.unpressed = Sketch.generate( Object.assign({parent: this.offHandBugton, xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get("BUTTON_RED_S2_TRAN")));
+            }
+        }
+
     }
 
     updatePlayerHealth(updateCtx) {
@@ -808,19 +838,21 @@ class UxEquipCtrl extends UxCtrl {
 
     updateInventory(updateCtx) {
         for (let i=0; i<10; i++) {
-            if (p1.inventory[i] !== this.lastInvSlots[i]) {
+            if (p1.inventory.get(i) !== this.lastInvSlots[i]) {
                 let tag = `invSlot${i+1}`;
-                this.lastInvSlots[i] = p1.inventory[i];
-                let xsketch = Object.assign({parent: this[tag], xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get(p1.inventory[i]));
+                this.lastInvSlots[i] = p1.inventory.get(i);
+                let item = p1.inventory.get(i);
+                let xsketch = Object.assign({parent: this[tag], xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get((item) ? item.tag : ""));
                 this[tag].sketch = Sketch.generate(xsketch);
             }
-            if (this.matchSlots[i] !== this.lastMatchSlots[i]) {
-                this.lastMatchSlots[i] = this.matchSlots[i];
+            if (this.activeSlots[i] !== this.lastActiveSlots[i]) {
+                this.lastActiveSlots[i] = this.activeSlots[i];
                 let tag = `invButton${i+1}`;
-                if(this.matchSlots[i]) {
-                    this[tag].unpressed = Sketch.generate( Object.assign({parent: this[tag], xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get("BUTTON_GRN_S2_TRAN")));
-                    console.log("matched")
+                if(this.activeSlots[i]) {
+                    this[tag].active = true;
+                    this[tag].unpressed = Sketch.generate( Object.assign({parent: this[tag], xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get("BUTTON_RED_S2_TRAN")));
                 } else {
+                    this[tag].active = false;
                     this[tag].unpressed = Sketch.generate( Object.assign({parent: this[tag], xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get("BUTTON_TAN_S2_TRAN")));
                 }
             }
@@ -838,7 +870,7 @@ class UxEquipCtrl extends UxCtrl {
 
     // EVENT CALLBACKS -----------------------------------------------------
     onRestoreGame() {
-        console.log("onRestoreGame");
+        //console.log("onRestoreGame");
         // restore game controller
         currentCtrl = lastCtrl;
         // tear down equip view
@@ -846,40 +878,91 @@ class UxEquipCtrl extends UxCtrl {
     }
 
     onMainClick(evt) {
-        console.log("onMainClick");
-        if (this.swapMain) {
+        //console.log("onMainClick");
+        if (this.swapInv) {
+            let swap = p1.inventory.get(this.swapSlot);
+            if (swap && swap.mainHand) {
+                p1.inventory.set(this.swapSlot, p1.inventory.mainHand);
+                p1.inventory.mainHand = swap;
+            }
+            this.swapInv = false;
+            this.idleActiveSlots();
+        } else if (this.swapMain) {
             this.swapMain = false;
-            this.matchSlots = [];
+            this.idleActiveSlots();
         } else {
             this.swapMain = true;
             if (this.swapOff) this.swapOff = false;
             for (let i=0; i<10; i++) {
-                let item = p1.inventory[i];
-                this.matchSlots[i] = (item === "SWORD" || item === "ICEWAND" || item === "FIREWAND");
+                let item = p1.inventory.get(i);
+                this.activeSlots[i] = (p1.inventory.mainHand && !item) || (item && item.mainHand);
             }
         }
-        console.log(`swapmain: ${this.swapMain} swapoff: ${this.swapOff} matchSlots: ${this.matchSlots}`);
+        //console.log(`swapmain: ${this.swapMain} swapoff: ${this.swapOff} activeSlots: ${this.activeSlots}`);
     }
 
     onOffClick(evt) {
-        console.log("onOffClick");
-        if (this.swapOff) {
+        //console.log("onOffClick");
+        if (this.swapInv) {
+            let swap = p1.inventory.get(this.swapSlot);
+            if (swap && swap.offHand) {
+                p1.inventory.set(this.swapSlot, p1.inventory.offHand);
+                p1.inventory.offHand = swap;
+            }
+            this.swapInv = false;
+            this.idleActiveSlots();
+
+        } else if (this.swapOff) {
             this.swapOff = false;
-            this.matchSlots = [];
+            this.idleActiveSlots();
         } else {
             this.swapOff = true;
             if (this.swapMain) this.swapMain = false;
             for (let i=0; i<10; i++) {
-                let item = p1.inventory[i];
-                this.matchSlots[i] = (item === "BOW" || item === "ICEWAND" || item === "FIREWAND");
+                let item = p1.inventory.get(i);
+                this.activeSlots[i] = (p1.inventory.offHand && !item) || (item && item.offHand);
             }
         }
-        console.log(`swapmain: ${this.swapMain} swapoff: ${this.swapOff} matchSlots: ${this.matchSlots}`);
+        //console.log(`swapmain: ${this.swapMain} swapoff: ${this.swapOff} activeSlots: ${this.activeSlots}`);
     }
 
     onInvSlotClick(evt) {
-        console.log("onInvSlotClick");
-        console.log("actor.slot: " + evt.actor.slot);
+        //console.log("onInvSlotClick");
+        //console.log("actor.slot: " + evt.actor.slot);
+        let slot = evt.actor.slot;
+        let item = p1.inventory.get(slot);
+        //console.log("slot: " + slot);
+        //console.log("item: " + item);
+        // swapping w/ main hand
+        if (this.swapMain) {
+            let swap = p1.inventory.mainHand;
+            p1.inventory.mainHand = item;
+            p1.inventory.set(slot, swap);
+            this.swapMain = false;
+            this.idleActiveSlots();
+        // swapping w/ off hand
+        } else if (this.swapOff) {
+            let swap = p1.inventory.offHand;
+            p1.inventory.offHand = item;
+            p1.inventory.set(slot, swap);
+            this.swapOff = false;
+            this.idleActiveSlots();
+        // swapping inventory slot
+        } else {
+            if (this.swapInv) {
+                let swap = p1.inventory.get(this.swapSlot);
+                p1.inventory.set(this.swapSlot, p1.inventory.get(slot));
+                p1.inventory.set(slot, swap);
+                this.swapInv = false;
+                this.idleActiveSlots();
+            } else {
+                this.swapInv = true;
+                this.swapSlot = slot;
+                for (let i=0; i<10; i++) {
+                    this.activeSlots[i] = true;
+                }
+            }
+        }
     }
 
 }

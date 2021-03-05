@@ -373,6 +373,8 @@ const daggerObjects = {
 
     BOW: {
         kind: "loot",
+        offHand: true,
+        attackKind: "ranged",
         loot: {
             amt: 1,
         },
@@ -386,6 +388,9 @@ const daggerObjects = {
     },
     FIREWAND: {
         kind: "loot",
+        mainHand: true,
+        offHand: true,
+        attackKind: "magic",
         loot: {
             amt: 1,
         },
@@ -399,6 +404,8 @@ const daggerObjects = {
     },
     SWORD: {
         kind: "loot",
+        mainHand: true,
+        attackKind: "melee",
         loot: {
             amt: 1,
         },

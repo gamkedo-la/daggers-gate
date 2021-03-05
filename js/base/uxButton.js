@@ -43,8 +43,17 @@ class UxButton extends UxView {
         this._textSketch.text = v;
     }
 
+    get active() {
+        return super.active;
+    }
+    set active(v) {
+        if (!v) this._activeSketch = this._unpressedSketch;
+        super.active = v;
+    }
+
     set unpressed(v) {
         if (this._unpressedSketch && this._unpressedSketch.parent) this._unpressedSketch.parent = undefined;
+        if (this._activeSketch === this._unpressedSketch) this._activeSketch = v;
         this._unpressedSketch = v;
         v.parent = this;
     }
@@ -52,12 +61,15 @@ class UxButton extends UxView {
     set pressed(v) {
         if (this._pressedSketch && this._pressedSketch.parent) this._pressedSketch.parent = undefined;
         this._pressedSketch = v;
+        if (this._activeSketch === this._pressedSketch) this._activeSketch = v;
         v.parent = this;
     }
 
     set highlight(v) {
         if (this._highlightSketch && this._highlightSketch.parent) this._highlightSketch.parent = undefined;
         this._highlightSketch = v;
+        if (this._activeSketch === this._highlightSketch) this._activeSketch = v;
+        this._activeSketch == this._unpressedSketch;
         v.parent = this;
     }
 
@@ -68,7 +80,7 @@ class UxButton extends UxView {
     onMouseClick(evt) {
         const mousePos = this.mouse.pos;
         const localMousePos = this.xform.getLocal(mousePos);
-        if (this.bounds.contains(localMousePos)) {
+        if (this.active && this.bounds.contains(localMousePos)) {
             if (this._pressedSound) this._pressedSound.play();
             this.evtClicked.trigger();
         }
@@ -82,17 +94,18 @@ class UxButton extends UxView {
     // METHODS -------------------------------------------------------------
     update(ctx) {
         super.update(ctx);
-        if (!this.active) return;
-        // determine active sketch based on mouse state
-        let wantSketch = this._unpressedSketch;
-        if (this.mouseDown) {
-            wantSketch = this._pressedSketch;
-        } else if (this.mouseOver) {
-            wantSketch = this._highlightSketch;
-        }
-        if (wantSketch !== this._activeSketch)  {
-            this._activeSketch = wantSketch;
-            this.evtUpdated.trigger();
+        if (this.active) {
+            // determine active sketch based on mouse state
+            let wantSketch = this._unpressedSketch;
+            if (this.mouseDown) {
+                wantSketch = this._pressedSketch;
+            } else if (this.mouseOver) {
+                wantSketch = this._highlightSketch;
+            }
+            if (wantSketch !== this._activeSketch)  {
+                this._activeSketch = wantSketch;
+                this.evtUpdated.trigger();
+            }
         }
         // update active sketch
         if (this._activeSketch) this._activeSketch.update(ctx);

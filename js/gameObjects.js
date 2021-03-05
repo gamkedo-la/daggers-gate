@@ -58,6 +58,9 @@ class gameObjectClass extends characterClass {
         this.wantAction = actionKindMap[this.kind];
         this.nudge = (spec.nudge) ? new Nudge(Object.assign({}, spec.nudge, {target:this})): undefined;
         this.loot = spec.loot;
+        this.mainHand = spec.mainHand;
+        this.offHand = spec.offHand;
+        this.attackKind = spec.attackKind;
         this.lateRender = Util.objKeyValue(spec, "lateRender", false);
         this.overlay = Util.objKeyValue(spec, "overlay", false);
     }

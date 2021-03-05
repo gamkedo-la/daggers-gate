@@ -32,7 +32,7 @@ class Sketch {
     static generate(spec={}) {
         let cls = this._genmap.get(spec.cls);
         if (cls) return new cls(spec);
-        return undefined;
+        return Sketch.zero;
     }
 
     // CONSTRUCTOR ---------------------------------------------------------

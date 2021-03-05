@@ -23,9 +23,18 @@ class warriorClass extends characterClass {
         super(spec);
         this.lootRange = 15;
         this.lootPullSpeed = .25; // pixels per ms
-        this.inventory = []; // just a list of strings
-        this.mainHand = "";
-        this.offHand = "";
+        //this.inventory = []; // just a list of strings
+        this.inventory = new Inventory();
+        this.inventory.evtMainHandUpdated.listen((evt) => {
+            let weapon = evt.value;
+            this.selectedPrimary = (weapon) ? weapon.attackKind : "none";
+        });
+        this.inventory.evtOffHandUpdated.listen((evt) => {
+            let weapon = evt.value;
+            this.selectedSecondary = (weapon) ? weapon.attackKind : "none";
+        });
+        //this.mainHand = "";
+        //this.offHand = "";
     }
 
     // properties
@@ -184,6 +193,7 @@ class warriorClass extends characterClass {
         }
     }
 
+    /*
     equipMainHand(item) {
         if (this.mainHand) {
             this.inventory.push(this.mainHand);
@@ -225,6 +235,7 @@ class warriorClass extends characterClass {
             break;
         }
     }
+    */
 
     choosePrimary() {
         // are we carrying rune and are we close to matching altar?
@@ -269,70 +280,78 @@ class warriorClass extends characterClass {
     }
 
     gatherLoot(loot) {
-        // determine loot amount
-        let amt = (loot.loot) ? loot.loot.amt : 1;
-        // add loot to player
-        switch (loot.tag) {
-        case "MANA_DROP":
-            console.log("mana + " + amt);
-            this.mana += amt;
-        break;
-        case "HEALTH_DROP":
-            console.log("health + " + amt);
-            this.health += amt;
-        break;
-        case "GOLD_COINS_TWO_DROP":
-            console.log("gold coins + " + amt);
-            this.gold += amt;
-        break;
-        case "GOLD_COINS_SIX_DROP":
-            console.log("gold coins + " + amt);
-            this.gold += amt;
-        break;
-        case "ARROW_ONE_DROP":
-            console.log("arrows + " + amt);
-            this.arrows += amt;
-        break;
-        case "ARROW_FIVE_DROP":
-            console.log("arrows + " + amt);
-            this.arrows += amt;
-        break;
-        case "KEY":
-            console.log("keys + " + amt);
-            this.keysHeld += amt;
-        break;
-        case "SWORD":
-            if (!this.mainHand) {
-                this.equipMainHand("SWORD");
-                console.log("equipped sword!");
-            } else {
-                console.log("picked up sword");
-                this.inventory.push("SWORD");
-            }
-        break;
-        case "BOW":
-            if (!this.offHand) {
-                this.equipOffHand("BOW");
-                console.log("equipped bow!");
-            } else {
-                console.log("picked up bow");
-                this.inventory.push("BOW");
-            }
-        break;
-        case "FIREWAND":
-            if (!this.mainHand) {
-                this.equipMainHand("FIREWAND");
-                console.log("equipped firewand!");
-            } else if (!this.offHand) {
-                this.equipOffHand("FIREWAND");
-                console.log("equipped firewand!");
-            } else {
-                console.log("picked up firewand");
-                this.inventory.push("FIREWAND");
-                console.log("inventory: " + this.inventory);
-            }
-        break;
+        // if loot is a weapon...
+        if (loot.mainHand || loot.offHand) {
+            console.log(" ----- INVENTORY ADD");
+            this.inventory.add(loot);
+        } else {
+            // determine loot amount
+            let amt = (loot.loot) ? loot.loot.amt : 1;
+            // add loot to player
+            switch (loot.tag) {
+            case "MANA_DROP":
+                console.log("mana + " + amt);
+                this.mana += amt;
+            break;
+            case "HEALTH_DROP":
+                console.log("health + " + amt);
+                this.health += amt;
+            break;
+            case "GOLD_COINS_TWO_DROP":
+                console.log("gold coins + " + amt);
+                this.gold += amt;
+            break;
+            case "GOLD_COINS_SIX_DROP":
+                console.log("gold coins + " + amt);
+                this.gold += amt;
+            break;
+            case "ARROW_ONE_DROP":
+                console.log("arrows + " + amt);
+                this.arrows += amt;
+            break;
+            case "ARROW_FIVE_DROP":
+                console.log("arrows + " + amt);
+                this.arrows += amt;
+            break;
+            case "KEY":
+                console.log("keys + " + amt);
+                this.keysHeld += amt;
+            break;
+            /*
+            case "SWORD":
+                if (!this.mainHand) {
+                    this.equipMainHand("SWORD");
+                    console.log("equipped sword!");
+                } else {
+                    console.log("picked up sword");
+                    this.inventory.push("SWORD");
+                }
+            break;
+            case "BOW":
+                if (!this.offHand) {
+                    this.equipOffHand("BOW");
+                    console.log("equipped bow!");
+                } else {
+                    console.log("picked up bow");
+                    this.inventory.push("BOW");
+                }
+            break;
+            case "FIREWAND":
+                if (!this.mainHand) {
+                    this.equipMainHand("FIREWAND");
+                    console.log("equipped firewand!");
+                } else if (!this.offHand) {
+                    this.equipOffHand("FIREWAND");
+                    console.log("equipped firewand!");
+                } else {
+                    console.log("picked up firewand");
+                    this.inventory.push("FIREWAND");
+                    console.log("inventory: " + this.inventory);
+                }
+            break;
+                */
 
+            }
         }
         // destroy loot objectcase 
         currentLevel.destroyObject(loot);

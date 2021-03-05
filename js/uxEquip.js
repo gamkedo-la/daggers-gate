@@ -13,13 +13,6 @@ class UxEquipCtrl extends UxCtrl {
                 tag: "topPanel",
                 xxform: { origx:0, origy: 0 },
                 xsketch: Object.assign({}, assets.get("WINDOW_BORDER"), {xfitter: { cls: "FitToParent" }}),
-                /*
-                xsketch: {
-                    cls: 'Rect',
-                    color: new Color(20,70,20,1),
-                    xfitter: { cls: "FitToParent" },
-                },
-                */
                 xchild: [
 
                     // PLAYER --------------------------------------------------
@@ -230,8 +223,19 @@ class UxEquipCtrl extends UxCtrl {
                                         xchild: [
                                             {
                                                 cls: "UxPanel",
-                                                xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_RED_S2_OPAQ") ),
+                                                xsketch: { cls: 'Rect', color: new Color(227,196,176), xfitter: { cls: "FitToParent" }, width: 50, height: 50, lockRatio: true, },
+                                                xxform: {offset: 5},
                                             },
+
+                                            {
+                                                cls: "UxButton",
+                                                tag: "mainHandButton",
+                                                xunpressed: Object.assign( {lockRatio: true}, assets.get("BUTTON_RED_S2_TRAN") ),
+                                                xpressed: Object.assign( {lockRatio: true}, assets.get("BUTTON_BLU_S2_TRAN") ),
+                                                xhighlight: Object.assign( {lockRatio: true}, assets.get("BUTTON_BLU_S2_TRAN") ),
+                                                xtext: {text:""},
+                                            },
+
                                             {
                                                 cls: "UxPanel",
                                                 tag: "mainHandPanel",
@@ -248,7 +252,16 @@ class UxEquipCtrl extends UxCtrl {
                                         xchild: [
                                             {
                                                 cls: "UxPanel",
-                                                xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_RED_S2_OPAQ") ),
+                                                xsketch: { cls: 'Rect', color: new Color(227,196,176), xfitter: { cls: "FitToParent" }, width: 50, height: 50, lockRatio: true, },
+                                                xxform: {offset: 5},
+                                            },
+                                            {
+                                                cls: "UxButton",
+                                                tag: "offHandButton",
+                                                xunpressed: Object.assign( {lockRatio: true}, assets.get("BUTTON_RED_S2_TRAN") ),
+                                                xpressed: Object.assign( {lockRatio: true}, assets.get("BUTTON_BLU_S2_TRAN") ),
+                                                xhighlight: Object.assign( {lockRatio: true}, assets.get("BUTTON_BLU_S2_TRAN") ),
+                                                xtext: {text:""},
                                             },
                                             {
                                                 cls: "UxPanel",
@@ -524,7 +537,8 @@ class UxEquipCtrl extends UxCtrl {
                                         xxform: { right: .8, offset:2 },
                                         xsketch: {},
                                         xchild: [
-                                            { cls: "UxPanel", xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ), },
+                                            { cls: "UxPanel", xsketch: { cls: 'Rect', color: new Color(255,191,137), xfitter: { cls: "FitToParent" }, width: 50, height: 50, lockRatio: true, }, xxform: {offset: 5}, },
+                                            Object.assign({tag: "invButton1"}, UxTemplates.invButton),
                                             { cls: "UxPanel", tag: "invSlot1", xsketch: {}, },
                                         ],
                                     },
@@ -533,7 +547,8 @@ class UxEquipCtrl extends UxCtrl {
                                         xxform: { left: .2, right: .6, offset:2 },
                                         xsketch: {},
                                         xchild: [
-                                            { cls: "UxPanel", xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ), },
+                                            { cls: "UxPanel", xsketch: { cls: 'Rect', color: new Color(255,191,137), xfitter: { cls: "FitToParent" }, width: 50, height: 50, lockRatio: true, }, xxform: {offset: 5}, },
+                                            Object.assign({tag: "invButton2"}, UxTemplates.invButton),
                                             { cls: "UxPanel", tag: "invSlot2", xsketch: {}, },
                                         ],
                                     },
@@ -542,7 +557,8 @@ class UxEquipCtrl extends UxCtrl {
                                         xxform: { left: .4, right: .4, offset:2 },
                                         xsketch: {},
                                         xchild: [
-                                            { cls: "UxPanel", xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ), },
+                                            { cls: "UxPanel", xsketch: { cls: 'Rect', color: new Color(255,191,137), xfitter: { cls: "FitToParent" }, width: 50, height: 50, lockRatio: true, }, xxform: {offset: 5}, },
+                                            Object.assign({tag: "invButton3"}, UxTemplates.invButton),
                                             { cls: "UxPanel", tag: "invSlot3", xsketch: {}, },
                                         ],
                                     },
@@ -551,7 +567,8 @@ class UxEquipCtrl extends UxCtrl {
                                         xxform: { left: .6, right: .2, offset:2 },
                                         xsketch: {},
                                         xchild: [
-                                            { cls: "UxPanel", xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ), },
+                                            { cls: "UxPanel", xsketch: { cls: 'Rect', color: new Color(255,191,137), xfitter: { cls: "FitToParent" }, width: 50, height: 50, lockRatio: true, }, xxform: {offset: 5}, },
+                                            Object.assign({tag: "invButton4"}, UxTemplates.invButton),
                                             { cls: "UxPanel", tag: "invSlot4", xsketch: {}, },
                                         ],
                                     },
@@ -560,7 +577,8 @@ class UxEquipCtrl extends UxCtrl {
                                         xxform: { left: .8, offset:2 },
                                         xsketch: {},
                                         xchild: [
-                                            { cls: "UxPanel", xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ), },
+                                            { cls: "UxPanel", xsketch: { cls: 'Rect', color: new Color(255,191,137), xfitter: { cls: "FitToParent" }, width: 50, height: 50, lockRatio: true, }, xxform: {offset: 5}, },
+                                            Object.assign({tag: "invButton5"}, UxTemplates.invButton),
                                             { cls: "UxPanel", tag: "invSlot5", xsketch: {}, },
                                         ],
                                     },
@@ -578,7 +596,8 @@ class UxEquipCtrl extends UxCtrl {
                                         xxform: { right: .8, offset:2 },
                                         xsketch: {},
                                         xchild: [
-                                            { cls: "UxPanel", xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ), },
+                                            { cls: "UxPanel", xsketch: { cls: 'Rect', color: new Color(255,191,137), xfitter: { cls: "FitToParent" }, width: 50, height: 50, lockRatio: true, }, xxform: {offset: 5}, },
+                                            Object.assign({tag: "invButton6"}, UxTemplates.invButton),
                                             { cls: "UxPanel", tag: "invSlot6", xsketch: {}, },
                                         ],
                                     },
@@ -587,7 +606,8 @@ class UxEquipCtrl extends UxCtrl {
                                         xxform: { left: .2, right: .6, offset:2 },
                                         xsketch: {},
                                         xchild: [
-                                            { cls: "UxPanel", xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ), },
+                                            { cls: "UxPanel", xsketch: { cls: 'Rect', color: new Color(255,191,137), xfitter: { cls: "FitToParent" }, width: 50, height: 50, lockRatio: true, }, xxform: {offset: 5}, },
+                                            Object.assign({tag: "invButton7"}, UxTemplates.invButton),
                                             { cls: "UxPanel", tag: "invSlot7", xsketch: {}, },
                                         ],
                                     },
@@ -596,7 +616,8 @@ class UxEquipCtrl extends UxCtrl {
                                         xxform: { left: .4, right: .4, offset:2 },
                                         xsketch: {},
                                         xchild: [
-                                            { cls: "UxPanel", xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ), },
+                                            { cls: "UxPanel", xsketch: { cls: 'Rect', color: new Color(255,191,137), xfitter: { cls: "FitToParent" }, width: 50, height: 50, lockRatio: true, }, xxform: {offset: 5}, },
+                                            Object.assign({tag: "invButton8"}, UxTemplates.invButton),
                                             { cls: "UxPanel", tag: "invSlot8", xsketch: {}, },
                                         ],
                                     },
@@ -605,7 +626,8 @@ class UxEquipCtrl extends UxCtrl {
                                         xxform: { left: .6, right: .2, offset:2 },
                                         xsketch: {},
                                         xchild: [
-                                            { cls: "UxPanel", xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ), },
+                                            { cls: "UxPanel", xsketch: { cls: 'Rect', color: new Color(255,191,137), xfitter: { cls: "FitToParent" }, width: 50, height: 50, lockRatio: true, }, xxform: {offset: 5}, },
+                                            Object.assign({tag: "invButton9"}, UxTemplates.invButton),
                                             { cls: "UxPanel", tag: "invSlot9", xsketch: {}, },
                                         ],
                                     },
@@ -614,7 +636,8 @@ class UxEquipCtrl extends UxCtrl {
                                         xxform: { left: .8, offset:2 },
                                         xsketch: {},
                                         xchild: [
-                                            { cls: "UxPanel", xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ), },
+                                            { cls: "UxPanel", xsketch: { cls: 'Rect', color: new Color(255,191,137), xfitter: { cls: "FitToParent" }, width: 50, height: 50, lockRatio: true, }, xxform: {offset: 5}, },
+                                            Object.assign({tag: "invButton10"}, UxTemplates.invButton),
                                             { cls: "UxPanel", tag: "invSlot10", xsketch: {}, },
                                         ],
                                     },
@@ -634,12 +657,20 @@ class UxEquipCtrl extends UxCtrl {
             this[key] = this.view.find((v) => v.tag === key);
             key = "invSlot" + i.toString();
             this[key] = this.view.find((v) => v.tag === key);
+            key = "invButton" + i.toString();
+            this[key] = this.view.find((v) => v.tag === key);
+            this[key].slot = i;
+            this[key].evtClicked.listen(this.onInvSlotClick.bind(this));
         }
 
         this.zpanel = this.view.find((v) => v.tag === "zpanel");
         this.xpanel = this.view.find((v) => v.tag === "xpanel");
         this.mainHandPanel = this.view.find((v) => v.tag === "mainHandPanel");
+        this.mainHandButton = this.view.find((v) => v.tag === "mainHandButton");
+        this.mainHandButton.evtClicked.listen(this.onMainClick.bind(this));
         this.offHandPanel = this.view.find((v) => v.tag === "offHandPanel");
+        this.offHandButton = this.view.find((v) => v.tag === "offHandButton");
+        this.offHandButton.evtClicked.listen(this.onOffClick.bind(this));
         this.shirtPanel = this.view.find((v) => v.tag === "shirtPanel");
         this.pantsPanel = this.view.find((v) => v.tag === "pantsPanel");
 
@@ -648,6 +679,13 @@ class UxEquipCtrl extends UxCtrl {
         this.arrowText = this.view.find((v) => v.tag === "arrowText");
         this.healthPotionText = this.view.find((v) => v.tag === "healthPotionText");
         this.manaPotionText = this.view.find((v) => v.tag === "manaPotionText");
+
+        // state
+        this.swapMain = false;
+        this.swapOff = false;
+        this.matchSlots = [];
+        this.lastMatchSlots = [];
+        this.lastInvSlots = [];
 
     }
 
@@ -671,12 +709,12 @@ class UxEquipCtrl extends UxCtrl {
     }
 
     updateEquipped(updateCtx) {
-        if (p1.mainHand != this.lastMainHand) {
+        if (p1.mainHand !== this.lastMainHand) {
             this.lastMainHand = p1.mainHand;
             let xsketch = Object.assign({parent: this.mainHandPanel, xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get(p1.mainHand));
             this.mainHandPanel.sketch = Sketch.generate(xsketch);
         }
-        if (p1.offHand != this.lastOffHand) {
+        if (p1.offHand !== this.lastOffHand) {
             this.lastOffHand = p1.offHand;
             let xsketch = Object.assign({parent: this.offHandPanel, xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get(p1.offHand));
             this.offHandPanel.sketch = Sketch.generate(xsketch);
@@ -746,25 +784,46 @@ class UxEquipCtrl extends UxCtrl {
     }
 
     updateCounts(updateCtx) {
-        if (p1.gold != this.lastGold) {
+        if (p1.gold !== this.lastGold) {
             this.lastGold = p1.gold;
             this.goldText.text = p1.gold.toString();
         }
-        if (p1.keysHeld != this.lastKeysHeld) {
+        if (p1.keysHeld !== this.lastKeysHeld) {
             this.lastKeysHeld = p1.keysHeld;
             this.keyText.text = p1.keysHeld.toString();
         }
-        if (p1.arrows != this.lastArrows) {
+        if (p1.arrows !== this.lastArrows) {
             this.lastArrows = p1.arrows;
             this.arrowText.text = p1.arrows.toString();
         }
-        if (p1.healthPotions != this.lastHealthPotions) {
+        if (p1.healthPotions !== this.lastHealthPotions) {
             this.lastHealthPotions = p1.healthPotions;
             this.healthPotionText.text = p1.healthPotions.toString();
         }
-        if (p1.manaPotions != this.lastManaPotions) {
+        if (p1.manaPotions !== this.lastManaPotions) {
             this.lastManaPotions = p1.manaPotions;
             this.manaPotionText.text = p1.manaPotions.toString();
+        }
+    }
+
+    updateInventory(updateCtx) {
+        for (let i=0; i<10; i++) {
+            if (p1.inventory[i] !== this.lastInvSlots[i]) {
+                let tag = `invSlot${i+1}`;
+                this.lastInvSlots[i] = p1.inventory[i];
+                let xsketch = Object.assign({parent: this[tag], xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get(p1.inventory[i]));
+                this[tag].sketch = Sketch.generate(xsketch);
+            }
+            if (this.matchSlots[i] !== this.lastMatchSlots[i]) {
+                this.lastMatchSlots[i] = this.matchSlots[i];
+                let tag = `invButton${i+1}`;
+                if(this.matchSlots[i]) {
+                    this[tag].unpressed = Sketch.generate( Object.assign({parent: this[tag], xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get("BUTTON_GRN_S2_TRAN")));
+                    console.log("matched")
+                } else {
+                    this[tag].unpressed = Sketch.generate( Object.assign({parent: this[tag], xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get("BUTTON_TAN_S2_TRAN")));
+                }
+            }
         }
     }
 
@@ -774,6 +833,7 @@ class UxEquipCtrl extends UxCtrl {
         this.updatePlayerHealth(updateCtx);
         this.updatePlayerMana(updateCtx);
         this.updateCounts(updateCtx);
+        this.updateInventory(updateCtx);
     }
 
     // EVENT CALLBACKS -----------------------------------------------------
@@ -783,6 +843,43 @@ class UxEquipCtrl extends UxCtrl {
         currentCtrl = lastCtrl;
         // tear down equip view
         this.view.destroy();
+    }
+
+    onMainClick(evt) {
+        console.log("onMainClick");
+        if (this.swapMain) {
+            this.swapMain = false;
+            this.matchSlots = [];
+        } else {
+            this.swapMain = true;
+            if (this.swapOff) this.swapOff = false;
+            for (let i=0; i<10; i++) {
+                let item = p1.inventory[i];
+                this.matchSlots[i] = (item === "SWORD" || item === "ICEWAND" || item === "FIREWAND");
+            }
+        }
+        console.log(`swapmain: ${this.swapMain} swapoff: ${this.swapOff} matchSlots: ${this.matchSlots}`);
+    }
+
+    onOffClick(evt) {
+        console.log("onOffClick");
+        if (this.swapOff) {
+            this.swapOff = false;
+            this.matchSlots = [];
+        } else {
+            this.swapOff = true;
+            if (this.swapMain) this.swapMain = false;
+            for (let i=0; i<10; i++) {
+                let item = p1.inventory[i];
+                this.matchSlots[i] = (item === "BOW" || item === "ICEWAND" || item === "FIREWAND");
+            }
+        }
+        console.log(`swapmain: ${this.swapMain} swapoff: ${this.swapOff} matchSlots: ${this.matchSlots}`);
+    }
+
+    onInvSlotClick(evt) {
+        console.log("onInvSlotClick");
+        console.log("actor.slot: " + evt.actor.slot);
     }
 
 }

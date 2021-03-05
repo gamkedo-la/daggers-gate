@@ -43,6 +43,24 @@ class UxButton extends UxView {
         this._textSketch.text = v;
     }
 
+    set unpressed(v) {
+        if (this._unpressedSketch && this._unpressedSketch.parent) this._unpressedSketch.parent = undefined;
+        this._unpressedSketch = v;
+        v.parent = this;
+    }
+
+    set pressed(v) {
+        if (this._pressedSketch && this._pressedSketch.parent) this._pressedSketch.parent = undefined;
+        this._pressedSketch = v;
+        v.parent = this;
+    }
+
+    set highlight(v) {
+        if (this._highlightSketch && this._highlightSketch.parent) this._highlightSketch.parent = undefined;
+        this._highlightSketch = v;
+        v.parent = this;
+    }
+
     // EVENTS --------------------------------------------------------------
     get evtClicked() { return this.__evtClicked; }
 

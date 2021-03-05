@@ -32,7 +32,7 @@ class UxPanel extends UxView {
             this._sketch = v;
             v.parent = this;
             //if (this._sketch) this._sketch.evtUpdated.listen(this.onSketchUpdate);
-            this.evtUpdated.trigger();
+            //this.evtUpdated.trigger();
         }
     }
 

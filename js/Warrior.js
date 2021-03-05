@@ -320,12 +320,16 @@ class warriorClass extends characterClass {
             }
         break;
         case "FIREWAND":
-            if (!this.offHand) {
+            if (!this.mainHand) {
+                this.equipMainHand("FIREWAND");
+                console.log("equipped firewand!");
+            } else if (!this.offHand) {
                 this.equipOffHand("FIREWAND");
                 console.log("equipped firewand!");
             } else {
                 console.log("picked up firewand");
                 this.inventory.push("FIREWAND");
+                console.log("inventory: " + this.inventory);
             }
         break;
 

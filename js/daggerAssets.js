@@ -738,3 +738,19 @@ const daggerAssets = [
 
     ]},
 ];
+
+class DaggerAssets {
+    static actionSketches;
+    static init() {
+        // cache action sketches
+        this.actionSketches = {
+            "none": {cls: "Text", text: "n", color: new Color(225,0,0,.75)},
+            "melee":{cls: "Text", text: "m", color: new Color(225,0,0,.75)},
+            "drop": {cls: "Text", text: "d", color: new Color(225,0,0,.75)},
+            "grab": {cls: "Text", text: "g", color: new Color(225,0,0,.75)},
+            "place": {cls: "Text", text: "p", color: new Color(225,0,0,.75)},
+            "ranged": {cls: "Text", text: "r", color: new Color(225,0,0,.75)},
+            "open": {cls: "Text", text: "o", color: new Color(225,0,0,.75)},
+        };
+    }
+}

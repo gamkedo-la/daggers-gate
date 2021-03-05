@@ -638,7 +638,7 @@ class UxEquipCtrl extends UxCtrl {
 
         this.zpanel = this.view.find((v) => v.tag === "zpanel");
         this.xpanel = this.view.find((v) => v.tag === "xpanel");
-        this.mainHandPanel = this.view.find((v) => v.tag === "manaHandPanel");
+        this.mainHandPanel = this.view.find((v) => v.tag === "mainHandPanel");
         this.offHandPanel = this.view.find((v) => v.tag === "offHandPanel");
         this.shirtPanel = this.view.find((v) => v.tag === "shirtPanel");
         this.pantsPanel = this.view.find((v) => v.tag === "pantsPanel");
@@ -654,6 +654,32 @@ class UxEquipCtrl extends UxCtrl {
     keyReleased(key) {
         if (key === KEY_ESCAPE) {
             this.onRestoreGame();
+        }
+    }
+
+    updateActive(updateCtx) {
+        if (p1.chosenPrimary !== this.lastPrimary) {
+            this.lastPrimary = p1.chosenPrimary;
+            let xsketch = Object.assign({parent: this.zpanel, xfitter: {cls: "FitToParent"}, lockRatio: true}, DaggerAssets.actionSketches[p1.chosenPrimary]);
+            this.zpanel.sketch = Sketch.generate(xsketch) || Sketch.zero;
+        }
+        if (p1.chosenSecondary !== this.lastSecondary) {
+            this.lastSecondary = p1.chosenSecondary;
+            let xsketch = Object.assign({parent: this.xpanel, xfitter: {cls: "FitToParent"}, lockRatio: true}, DaggerAssets.actionSketches[p1.chosenSecondary]);
+            this.xpanel.sketch = Sketch.generate(xsketch) || Sketch.zero;
+        }
+    }
+
+    updateEquipped(updateCtx) {
+        if (p1.mainHand != this.lastMainHand) {
+            this.lastMainHand = p1.mainHand;
+            let xsketch = Object.assign({parent: this.mainHandPanel, xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get(p1.mainHand));
+            this.mainHandPanel.sketch = Sketch.generate(xsketch);
+        }
+        if (p1.offHand != this.lastOffHand) {
+            this.lastOffHand = p1.offHand;
+            let xsketch = Object.assign({parent: this.offHandPanel, xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get(p1.offHand));
+            this.offHandPanel.sketch = Sketch.generate(xsketch);
         }
     }
 
@@ -743,6 +769,8 @@ class UxEquipCtrl extends UxCtrl {
     }
 
     update(updateCtx) {
+        this.updateActive(updateCtx);
+        this.updateEquipped(updateCtx);
         this.updatePlayerHealth(updateCtx);
         this.updatePlayerMana(updateCtx);
         this.updateCounts(updateCtx);

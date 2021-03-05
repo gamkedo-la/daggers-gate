@@ -69,6 +69,7 @@ window.onload = async function() {
     canvasContext = canvas.getContext('2d');
 
 	await load();
+	DaggerAssets.init();
 	props = new Props({
 		assets: assets,
 		//dbg: true,

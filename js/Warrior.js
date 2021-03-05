@@ -30,10 +30,10 @@ class warriorClass extends characterClass {
 
     // properties
     get haveBow() {
-        return this.inventory.includes("bow");
+        return this.inventory.includes("BOW");
     }
     get haveSword() {
-        return this.inventory.includes("sword");
+        return this.inventory.includes("SWORD");
     }
 
     // key controls used for this
@@ -190,13 +190,13 @@ class warriorClass extends characterClass {
         }
         this.mainHand = item;
         switch (item) {
-        case "sword":
+        case "SWORD":
             this.selectedPrimary = "melee";
             break;
-        case "icewand":
+        case "ICEWAND":
             this.selectedPrimary = "magic";
             break;
-        case "firewand":
+        case "FIREWAND":
             this.selectedPrimary = "magic";
             break;
         default:
@@ -211,13 +211,13 @@ class warriorClass extends characterClass {
         }
         this.offHand = item;
         switch (item) {
-        case "bow":
+        case "BOW":
             this.selectedSecondary = "ranged";
             break;
-        case "icewand":
+        case "ICEWAND":
             this.selectedSecondary = "magic";
             break;
-        case "firewand":
+        case "FIREWAND":
             this.selectedSecondary = "magic";
             break;
         default:
@@ -303,20 +303,20 @@ class warriorClass extends characterClass {
         break;
         case "SWORD":
             if (!this.mainHand) {
-                this.equipMainHand("sword");
+                this.equipMainHand("SWORD");
                 console.log("equipped sword!");
             } else {
                 console.log("picked up sword");
-                this.inventory.push("sword");
+                this.inventory.push("SWORD");
             }
         break;
         case "BOW":
             if (!this.offHand) {
-                this.equipOffHand("bow");
+                this.equipOffHand("BOW");
                 console.log("equipped bow!");
             } else {
                 console.log("picked up bow");
-                this.inventory.push("bow");
+                this.inventory.push("BOW");
             }
         break;
         }

@@ -106,18 +106,18 @@ class Assets {
     generate(tag, overrides={}) {
         // pull asset spec
         let spec = this.get(tag);
-        if (!spec) return undefined;
+        if (!spec) return Sketch.zero;
         spec = Object.assign({}, spec, overrides);
         // pull asset generator
         let gen = this._generators[spec.cls];
-        if (!gen) return undefined;
+        if (!gen) return Sketch.zero;
         return new gen(spec);
     }
 
     generateFromSpec(spec) {
         // pull asset generator
         let gen = this._generators[spec.cls];
-        if (!gen) return undefined;
+        if (!gen) return Sketch.zero;
         return new gen(spec);
     }
 

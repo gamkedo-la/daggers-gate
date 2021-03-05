@@ -19,16 +19,7 @@ class UxPlayView extends UxView {
 class UxPlayCtrl extends UxCtrl {
     constructor(spec={}) {
         super(spec);
-        // cache action sketches
-        this.actionSketches = {
-            "none": {cls: "Text", text: "n", color: new Color(225,0,0,.75)},
-            "melee":{cls: "Text", text: "m", color: new Color(225,0,0,.75)},
-            "drop": {cls: "Text", text: "d", color: new Color(225,0,0,.75)},
-            "grab": {cls: "Text", text: "g", color: new Color(225,0,0,.75)},
-            "place": {cls: "Text", text: "p", color: new Color(225,0,0,.75)},
-            "ranged": {cls: "Text", text: "r", color: new Color(225,0,0,.75)},
-            "open": {cls: "Text", text: "o", color: new Color(225,0,0,.75)},
-        };
+
         // variables for UI
         const slotSize = 40;
         // construct the UI elements
@@ -439,12 +430,12 @@ class UxPlayCtrl extends UxCtrl {
     updatePlayerActions() {
         if (p1.chosenPrimary !== this.lastPrimary) {
             this.lastPrimary = p1.chosenPrimary;
-            let xsketch = Object.assign({parent: this.zpanel}, this.actionSketches[p1.chosenPrimary], {xfitter: { cls: "FitToParent" }});
+            let xsketch = Object.assign({parent: this.zpanel}, DaggerAssets.actionSketches[p1.chosenPrimary], {xfitter: { cls: "FitToParent" }});
             this.zpanel.sketch = Sketch.generate(xsketch) || Sketch.zero;
         }
         if (p1.chosenSecondary !== this.lastSecondary) {
             this.lastSecondary = p1.chosenSecondary;
-            let xsketch = Object.assign({parent: this.xpanel}, this.actionSketches[p1.chosenSecondary], {xfitter: { cls: "FitToParent" }});
+            let xsketch = Object.assign({parent: this.xpanel}, DaggerAssets.actionSketches[p1.chosenSecondary], {xfitter: { cls: "FitToParent" }});
             this.xpanel.sketch = Sketch.generate(xsketch) || Sketch.zero;
         }
     }

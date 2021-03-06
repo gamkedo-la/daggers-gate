@@ -167,6 +167,29 @@ class XForm {
 
     // METHODS -------------------------------------------------------------
 
+    copy() {
+        let c = new XForm();
+        Object.assign(c, this);
+        return c;
+    }
+
+    add(other) {
+        if (other.hasOwnProperty("scalex")) this.scalex *= other.scalex;
+        if (other.hasOwnProperty("scaley")) this.scaley *= other.scaley;
+        if (other.hasOwnProperty("angle")) this.angle += other.angle;
+        if (other.constructor.name === "XForm") {
+            if (other.hasOwnProperty("_origx")) this._origx += other._origx;
+            if (other.hasOwnProperty("_origy")) this._origy += other._origy;
+        } else {
+            if (other.hasOwnProperty("origx")) this._origx += other.origx;
+            if (other.hasOwnProperty("origy")) this._origy += other.origy;
+            if (other.hasOwnProperty("offx")) this._offx += other.offx;
+            if (other.hasOwnProperty("offy")) this._offy += other.offy;
+        }
+        if (other.hasOwnProperty("dx")) this.dx += other.dx;
+        if (other.hasOwnProperty("dy")) this.dy += other.dy;
+    }
+
     // modify existing xform based on delta spec
     modify(spec) {
         // FIXME: add all possible modifications

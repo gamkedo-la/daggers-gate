@@ -62,7 +62,7 @@ class Attack {
         this._specs["melee"] = {
             [Animator.idleSouth]: {
                 state: Animator.attackSouth,
-                sketch: sword,
+                sketch: assets.generate("SWORD"),
                 collider: {
                     color: "red",
                     width: 35,
@@ -70,15 +70,15 @@ class Attack {
                     xoff:0, 
                     yoff:20,
                 },
+                rotation: Math.PI*.25,
                 syncMap: {
-                    //0: { origx: -.15, angle: 2.16, x: -9, y: -5, },
-                    0: { origx: -.15, angle: -.47, x: 5, y: -6, },
-                    1: { origx: -.15, angle: -.15, x: 0, y: 1, },
-                    2: { origx: -.15, angle: 2.04, x: -9, y: 0, },
-                    3: { origx: -.15, angle: 2.83, x: -19, y: 1, },
-                    4: { origx: -.15, angle: 3.14, x: -20, y: 0, },
-                    5: { origx: -.15, angle: 2.67, x: -19, y: 1, },
-                    6: { origx: -.15, angle: 1.72, x: -12, y: 2, },
+                    0: { angle: -.47, offx: 11, offy: -4, },
+                    1: { angle: -.15, offx: 2, offy: 2, },
+                    2: { angle: 2.04, offx: -13, offy: 2, },
+                    3: { angle: 2.83, offx: -21, offy: 0, },
+                    4: { angle: 3.14, offx: -23, offy: -3, },
+                    5: { angle: 2.67, offx: -21, offy: -1, },
+                    6: { angle: 1.72, offx: -15, offy: 3, },
                 },
                 startAngle: Math.PI*.25,
                 endAngle: Math.PI*.75,
@@ -86,7 +86,7 @@ class Attack {
             },
             [Animator.idleNorth]: {
                 state: Animator.attackNorth,
-                sketch: sword,
+                sketch: assets.generate("SWORD"),
                 collider: {
                     color: "red",
                     width: 35,
@@ -95,14 +95,13 @@ class Attack {
                     yoff:-25,
                 },
                 syncMap: {
-                    //0: { origx: -.15, angle: 1.06, x: 11, y: -4, },
-                    0: { origx: -.15, angle: -2.98, x: -3, y: -12, },
-                    1: { origx: -.15, angle: -2.5, x: -1, y: -10, },
-                    2: { origx: -.15, angle: -1.26, x: 6, y: -12, },
-                    3: { origx: -.15, angle: -.15, x: 21, y: -2, },
-                    4: { origx: -.15, angle: 0, x: 22, y: -4, },
-                    5: { origx: -.15, angle: .15, x: 18, y: -3, },
-                    6: { origx: -.15, angle: .78, x: 10, y: 2, },
+                    0: { angle: -2.98,  offx: -3, offy: -12, },
+                    1: { angle: -2.5,   offx: -1, offy: -10, },
+                    2: { angle: -1.26,  offx: 6, offy: -12, },
+                    3: { angle: -.15,   offx: 21, offy: 1, },
+                    4: { angle: 0,      offx: 22, offy: -1, },
+                    5: { angle: .15,    offx: 20, offy: 0, },
+                    6: { angle: .78,    offx: 9, offy: 3, },
                 },
                 startAngle: Math.PI*1.25,
                 endAngle: Math.PI*1.75,
@@ -111,7 +110,7 @@ class Attack {
             },
             [Animator.idleWest]: {
                 state: Animator.attackWest,
-                sketch: sword,
+                sketch: assets.generate("SWORD"),
                 collider: {
                     color: "red",
                     width: 25,
@@ -120,14 +119,13 @@ class Attack {
                     yoff:0,
                 },
                 syncMap: {
-                    //0: { origx: -.15, angle: 1.06, x: 1, y: -5, },
-                    0: { origx: -.15, angle: -2.51, x: -8, y: -10, },
-                    1: { origx: -.15, angle: -3.12, x: -12, y: -3, },
-                    2: { origx: -.15, angle: 2.51, x: -12, y: 3, },
-                    3: { origx: -.15, angle: 2.21, x: -6, y: 5, },
-                    4: { origx: -.15, angle: .94, x: -6, y: 7, },
-                    5: { origx: -.15, angle: .78, x: -7, y: 4, },
-                    6: { origx: -.15, angle: .78, x: -7, y: 6, },
+                    0: { angle: -2.51,  offx: -10, offy: -13, },
+                    1: { angle: -3.12,  offx: -16, offy: -6, },
+                    2: { angle: 2.51,   offx: -18, offy: 5, },
+                    3: { angle: 2.21,   offx: -12, offy: 9, },
+                    4: { angle: .94,    offx: -4, offy: 10, },
+                    5: { angle: .62,    offx: -7, offy: 7, },
+                    6: { angle: .78,    offx: -6, offy: 9, },
                 },
                 startAngle: Math.PI*1.25,
                 endAngle: Math.PI*.75,
@@ -135,7 +133,7 @@ class Attack {
             },
             [Animator.idleEast]: {
                 state: Animator.attackEast,
-                sketch: sword,
+                sketch: assets.generate("SWORD"),
                 collider: {
                     color: "red",
                     width: 25,
@@ -144,14 +142,13 @@ class Attack {
                     yoff:0,
                 },
                 syncMap: {
-                    //0: { origx: -.15, angle: 1.21, x: -6, y: -5, },
-                    0: { origx: -.15, angle: -.63, x: 8, y: -10, },
-                    1: { origx: -.15, angle: 0, x: 12, y: -3, },
-                    2: { origx: -.15, angle: .63, x: 12, y: 3, },
-                    3: { origx: -.15, angle: .94, x: 6, y: 5, },
-                    4: { origx: -.15, angle: 2.21, x: 6, y: 7, },
-                    5: { origx: -.15, angle: 2.36, x: 7, y: 4, },
-                    6: { origx: -.15, angle: 2.36, x: 7, y: 6, },
+                    0: { angle: -.63,   offx: 15, offy: -10, },
+                    1: { angle: 0,      offx: 14, offy: -1, },
+                    2: { angle: .63,    offx: 16, offy: 9, },
+                    3: { angle: .94,    offx: 9, offy: 11, },
+                    4: { angle: 2.21,   offx: 1, offy: 8, },
+                    5: { angle: 2.51,   offx: 2, offy: 7, },
+                    6: { angle: 2.36,   offx: 3, offy: 6, },
                 },
                 startAngle: -Math.PI*.25,
                 endAngle: Math.PI*.25,
@@ -254,6 +251,7 @@ class Attack {
 class SyncAttack {
 
     constructor(spec={}) {
+        //console.log("spec is: " + Fmt.ofmt(spec));
         // actor for attack (who is attacking?)
         this._actor = spec.actor || {x:0, y:0, idleState: Animator.idle, sketch: Sketch.zero};
         this._actorState = this._actor.idleState;
@@ -267,10 +265,14 @@ class SyncAttack {
         // sync map
         this._syncMap = spec.syncMap || {};
         this._idleState = spec.idleState || Animator.idle;
-        this._xform = new XForm({
+        this._rotation = spec.rotation || 0;
+        this._weapon = spec.weapon;
+        this._baseXform = new XForm(Object.assign({
             width: this._sketch.width,
             height: this._sketch.height,
-        });
+        }, (this._weapon)?this._weapon.xxform:undefined));
+        this._xform = this._baseXform.copy();
+        //console.log(`attack xform: ${this._xform}`);
         // damage of attack...
         this._damage = spec.damage || 5;
         // ignore list... entities for which not to apply attack damage to
@@ -293,8 +295,9 @@ class SyncAttack {
         // lookup sync info based on index
         let sync = this._syncMap[animIdx];
         if (sync) {
-            //console.log("modify swing: " + Fmt.ofmt(sync));
-            this._xform.modify(sync);
+            this._xform = this._baseXform.copy();
+            this._xform.add(sync);
+            //console.log("swing xform: " + this._xform);
         }
         this._animIdx = animIdx;
     }
@@ -350,6 +353,8 @@ class SyncAttack {
         ctx.translate(this._actor.x, this._actor.y)
         this._xform.apply(ctx);
         this._sketch.render(ctx, this._xform.minx, this._xform.miny);
+        //ctx.fillStyle = "rgba(255,0,0,.75)";
+        //ctx.fillRect(-5,-5,5,5);
         this._xform.revert(ctx);
         //this._xform.render(ctx);
         ctx.translate(-this._actor.x, -this._actor.y)

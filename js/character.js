@@ -203,7 +203,7 @@ class characterClass {
             this.doOpen(this.targetObj);
             break;
         case "melee":
-            this.doMeleeAttack();
+            this.doMeleeAttack((this.inventory)?this.inventory.mainHand:undefined);
             break;
         case "grab":
             this.doGrab(this.targetObj);
@@ -230,12 +230,13 @@ class characterClass {
     }
 
     // ACTIONS
-    doMeleeAttack() {
+    doMeleeAttack(weapon) {
         if (!this.currentAttack) {
             // lookup attack
             let xattack = Object.assign({}, Attack.getSpec("melee")[this.facing], {actor: this, idleState: this.facing});
             // transition to attack state (based on idle direction)
             this.state = xattack.state;
+            if (weapon) xattack.weapon = weapon;
             // start the attack
             xattack.collider = Object.assign({}, xattack.collider, {x:this.x, y:this.y});
             this.currentAttack = new SyncAttack(xattack);
@@ -364,8 +365,6 @@ class characterClass {
         // -- blocked if incapacitated
         if (!this.currentAttack && !incapacitated) {
             this.move(updateCtx);
-        } else {
-            console.log("blocking move due to attack");
         }
 
         // grabbed object is character's responsibility

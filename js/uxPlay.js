@@ -337,19 +337,19 @@ class UxPlayCtrl extends UxCtrl {
             }
             if (key === 74) { // J
                 p1.currentAttack._xform._offy -= 1;
-                p1.currentAttack._syncMap[cidx].y = p1.currentAttack._xform._offy;
+                p1.currentAttack._syncMap[cidx].offy = p1.currentAttack._xform._offy;
                 console.log("idx: " + cidx + " - " + Fmt.ofmt(p1.currentAttack._syncMap[cidx]));
             } else if (key === 75) { // K
                 p1.currentAttack._xform._offx += 1;
-                p1.currentAttack._syncMap[cidx].x = p1.currentAttack._xform._offx;
+                p1.currentAttack._syncMap[cidx].offx = p1.currentAttack._xform._offx;
                 console.log("idx: " + cidx + " - " + Fmt.ofmt(p1.currentAttack._syncMap[cidx]));
             } else if (key === 76) { // L
                 p1.currentAttack._xform._offy += 1;
-                p1.currentAttack._syncMap[cidx].y = p1.currentAttack._xform._offy;
+                p1.currentAttack._syncMap[cidx].offy = p1.currentAttack._xform._offy;
                 console.log("idx: " + cidx + " - " + Fmt.ofmt(p1.currentAttack._syncMap[cidx]));
             } else if (key === 73) { // I
                 p1.currentAttack._xform._offx -= 1;
-                p1.currentAttack._syncMap[cidx].x = p1.currentAttack._xform._offx;
+                p1.currentAttack._syncMap[cidx].offx = p1.currentAttack._xform._offx;
                 console.log("idx: " + cidx + " - " + Fmt.ofmt(p1.currentAttack._syncMap[cidx]));
             }
         }

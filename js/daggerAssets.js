@@ -415,6 +415,13 @@ const daggerObjects = {
                 [Animator.idle]: "SWORD",
             },
         },
+        xxform: {
+            origx:.155,
+            origy:.9,
+            scalex:.85,
+            scaley:.85,
+            angle:Math.PI*.25,
+        },
         collider: { blocking: false, width:45, height: 45 },
     },
     DOOR_ARCH: {
@@ -493,8 +500,8 @@ const daggerAssets = [
         {tag: "HEART_PIECE1",           id: 48, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 150, tileset: true, pathFindingWalkable: true },
         {tag: "HEART_PIECE2",           id: 49, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 150, pathFindingWalkable: true },   
         //ROW 5
-        {tag: "BOW",                    id: 50, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 200, tileset: true, pathFindingWalkable: true },
-        {tag: "CEIL_UPPER_DOOR",        id: 51, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 200, tileset: true, passable: true },
+        {tag: "BOW",                    id: 50, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 200, tileset: true },
+        {tag: "SWORD",                  id: 51, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 200, tileset: true },
         {tag: "HEART_EMPTY",            id: 52, cls: "Sprite", width: 50, height: 50, xoffset: 100, yoffset: 200, },
         {tag: "HEART_HALF_EMPTY",       id: 53, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 200, },
         {tag: "MANA_PIECE",             id: 54, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 200, tileset: true, pathFindingWalkable: true },

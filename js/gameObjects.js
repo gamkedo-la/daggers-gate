@@ -63,6 +63,7 @@ class gameObjectClass extends characterClass {
         this.attackKind = spec.attackKind;
         this.lateRender = Util.objKeyValue(spec, "lateRender", false);
         this.overlay = Util.objKeyValue(spec, "overlay", false);
+        this.xxform = spec.xxform || undefined;
     }
 
     interact(character) {

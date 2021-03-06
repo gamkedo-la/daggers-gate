@@ -402,6 +402,32 @@ const daggerObjects = {
         },
         collider: { blocking: false, width:45, height: 45 },
     },
+    HEALING_POTION: {
+        kind: "loot",
+        loot: {
+            amt: 1,
+        },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "HEALING_POTION",
+            },
+        },
+        collider: { blocking: false, width:25, height: 25 },
+    },
+    MANA_POTION: {
+        kind: "loot",
+        loot: {
+            amt: 1,
+        },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "MANA_POTION",
+            },
+        },
+        collider: { blocking: false, width:25, height: 25 },
+    },
     SWORD: {
         kind: "loot",
         mainHand: true,
@@ -529,6 +555,8 @@ const daggerAssets = [
         {tag: "POT",                     id: 74, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 300, tileset: true },
         {tag: "WOOD_FLOOR2",             id: 75, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 300, tileset: true },
         {tag: "FIREWAND",                id: 76, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 300, tileset: true },
+        {tag: "MANA_POTION",             id: 77, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 300, tileset: true },
+        {tag: "HEALING_POTION",          id: 78, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 300, tileset: true },
     ]},
 
       { src: "images/window_tiles.png", cls: "Stretch", tag: "WINDOW_BORDER", border: 15 },

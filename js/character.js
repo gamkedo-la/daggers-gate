@@ -67,45 +67,39 @@ class characterClass {
         this.deathTTL = 0;
     }
 
-    get idleState() {
-        return this._state;
-    }
     get state() {
-        // handle moving states
-        if (this.move_West) {
-            return Animator.walkWest;
-        } else if (this.move_East) {
-            return Animator.walkEast;
-        } else if (this.move_North) {
-            return Animator.walkNorth;
-        } else if (this.move_South) {
-            return Animator.walkSouth;
-        }
+
         // handle idle state
         return this._state;
+    }
+
+    set state(v) {
+        if (v !== this._state) {
+            if (this === p1) {
+                console.log("new state: " + v);
+                if (v === undefined) console.error("invalid state");
+            }
+            this._state = v;
+            if (this.linkVars.includes("state")) for (const link of this.links) link._state = v;
+        }
     }
 
     get facing() {
         switch (this._state) {
         case Animator.idleEast:
         case Animator.attackEast:
+        case Animator.walkEast:
             return Animator.idleEast;
         case Animator.idleWest:
         case Animator.attackWest:
+        case Animator.walkWest:
             return Animator.idleWest;
         case Animator.idleNorth:
         case Animator.attackNorth:
+        case Animator.walkNorth:
             return Animator.idleNorth;
         }
         return Animator.idleSouth;
-    }
-
-    set state(v) {
-        if (v !== this._state) {
-            if (this === p1) console.log("new state: " + v);
-            this._state = v;
-            if (this.linkVars.includes("state")) for (const link of this.links) link._state = v;
-        }
     }
 
     get active() {
@@ -239,7 +233,7 @@ class characterClass {
     doMeleeAttack() {
         if (!this.currentAttack) {
             // lookup attack
-            let xattack = Object.assign({}, Attack.getSpec("melee")[this.idleState], {actor: this, idleState: this.idleState});
+            let xattack = Object.assign({}, Attack.getSpec("melee")[this.facing], {actor: this, idleState: this.facing});
             // transition to attack state (based on idle direction)
             this.state = xattack.state;
             // start the attack
@@ -260,7 +254,7 @@ class characterClass {
                 console.log("no arrow!");
                 return;
             }
-            let xattack = Object.assign({}, Attack.getSpec("ranged")[this.idleState], {actor: this, idleState: this.idleState});
+            let xattack = Object.assign({}, Attack.getSpec("ranged")[this.facing], {actor: this, idleState: this.facing});
             xattack.collider = Object.assign({}, xattack.collider, {x:this.x, y:this.y});
             this.currentAttack = new RangedAttack(xattack);
             this.arrows -= 1;
@@ -326,7 +320,7 @@ class characterClass {
         }
 
         // handle death
-        if (this.idleState !== Animator.death && this.maxHealth && this.health <= 0) {
+        if (this.state !== Animator.death && this.maxHealth && this.health <= 0) {
             this.doDie();
         }
         if (this.deathTTL > 0) {
@@ -337,7 +331,7 @@ class characterClass {
                 currentLevel.destroyObject(this);
             }
         }
-        let incapacitated = (this.idleState === Animator.death);
+        let incapacitated = (this.state === Animator.death);
 
         // handle "nudge"
         if (this.nudge) {
@@ -368,7 +362,11 @@ class characterClass {
         // handle movement
         // -- blocked if attacking
         // -- blocked if incapacitated
-        if (!this.currentAttack && !incapacitated) this.move(updateCtx);
+        if (!this.currentAttack && !incapacitated) {
+            this.move(updateCtx);
+        } else {
+            console.log("blocking move due to attack");
+        }
 
         // grabbed object is character's responsibility
         if (this.grabbedObj) this.grabbedObj.update(updateCtx);
@@ -395,6 +393,7 @@ class characterClass {
         var charCol = Math.floor(this.x / TILE_W);
         var charRow = Math.floor(this.y / TILE_H);
 
+        // handle path finding movement
         if (this.tilePath.length > 0) {
             var targetIndex = this.tilePath[0];
             var targetC = currentLevel.ifromidx(targetIndex);
@@ -441,21 +440,33 @@ class characterClass {
             }
         }
 
-        // determine facing direction
-        if (this.move_East) {
-            this.state = Animator.idleEast;
-        } else if (this.move_West) {
-            this.state = Animator.idleWest;
+        // update state
+        this.moving = true;
+        if (this.move_West) {
+            this.state = Animator.walkWest;
+        } else if (this.move_East) {
+            this.state = Animator.walkEast;
         } else if (this.move_North) {
-            this.state = Animator.idleNorth;
+            this.state = Animator.walkNorth;
         } else if (this.move_South) {
-            this.state = Animator.idleSouth;
-        }
-
-        if (this.move_North || this.move_East || this.move_South || this.move_West) {
-            this.moving = true;
+            this.state = Animator.walkSouth;
         } else {
             this.moving = false;
+            // handle transition from moving state to idle state
+            switch(this.state) {
+            case Animator.walkEast:
+                this.state = Animator.idleEast;
+                break;
+            case Animator.walkWest:
+                this.state = Animator.idleWest;
+                break;
+            case Animator.walkNorth:
+                this.state = Animator.idleNorth;
+                break;
+            case Animator.walkSouth:
+                this.state = Animator.idleSouth;
+                break;
+            }
         }
 
         if (this.move_North) {
@@ -490,7 +501,7 @@ class characterClass {
         // update position of grabbed object, based on current player position and facing direction
         if (this.grabbedObj) {
             let xoff, yoff;
-            switch (this.idleState) {
+            switch (this.facing) {
             case Animator.idleNorth:
                 xoff = 0;
                 yoff = -15;

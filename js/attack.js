@@ -65,8 +65,8 @@ class Attack {
                 sketch: assets.generate("SWORD"),
                 collider: {
                     color: "red",
-                    width: 35,
-                    height: 25,
+                    width: 60,
+                    height: 45,
                     xoff:0, 
                     yoff:20,
                 },
@@ -89,10 +89,10 @@ class Attack {
                 sketch: assets.generate("SWORD"),
                 collider: {
                     color: "red",
-                    width: 35,
-                    height: 25,
+                    width: 60,
+                    height: 45,
                     xoff:0, 
-                    yoff:-25,
+                    yoff:-20,
                 },
                 syncMap: {
                     0: { angle: -2.98,  offx: -3, offy: -12, },
@@ -113,9 +113,9 @@ class Attack {
                 sketch: assets.generate("SWORD"),
                 collider: {
                     color: "red",
-                    width: 25,
-                    height: 35,
-                    xoff:-25, 
+                    width: 45,
+                    height: 50,
+                    xoff:-30, 
                     yoff:0,
                 },
                 syncMap: {
@@ -136,9 +136,9 @@ class Attack {
                 sketch: assets.generate("SWORD"),
                 collider: {
                     color: "red",
-                    width: 25,
-                    height: 35,
-                    xoff:25, 
+                    width: 45,
+                    height: 50,
+                    xoff:30, 
                     yoff:0,
                 },
                 syncMap: {

@@ -130,6 +130,11 @@ const daggerLootTables = {
         { chance: 1, kind: "ARROW_ONE_DROP", min: 1, max: 3},
         { chance: .5, kind: "ARROW_FIVE_DROP", min: 5, max: 8},
     ],
+    POT: [
+        { chance: .25, kind: "GOLD_COINS_TWO_DROP", min: 2, max: 5},
+        { chance: .1, kind: "ARROW_ONE_DROP", min: 1, max: 3},
+    ],
+
 }
 
 const daggerEnemies = {
@@ -357,6 +362,19 @@ const daggerObjects = {
             },
         },
     },
+    POT: {
+        kind: "breakable",
+        health: 5,
+        maxHealth: 5,
+        collider: { width:25, height: 25 },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "POT",
+            },
+        },
+    },
+
     KEY: {
         kind: "loot",
         loot: {

@@ -8,6 +8,7 @@ function SetupPathfindingGridData(whichPathfinder) {
     unvisitedList = [];
 	var pathfinder = whichPathfinder;
 
+                /*
     if(grid.length > 0) { // non-zero, copy over player set walls into tileGrid for reset
         for (var eachCol = 0; eachCol < currentLevel.width; eachCol++) {
             for (var eachRow = 0; eachRow < currentLevel.height; eachRow++) {
@@ -21,6 +22,7 @@ function SetupPathfindingGridData(whichPathfinder) {
             }
         }
     }
+                */
 
     grid = [];
 

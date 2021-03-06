@@ -317,39 +317,14 @@ class warriorClass extends characterClass {
                 console.log("keys + " + amt);
                 this.keysHeld += amt;
             break;
-            /*
-            case "SWORD":
-                if (!this.mainHand) {
-                    this.equipMainHand("SWORD");
-                    console.log("equipped sword!");
-                } else {
-                    console.log("picked up sword");
-                    this.inventory.push("SWORD");
-                }
+            case "HEALING_POTION":
+                console.log("hpotion + " + amt);
+                this.healthPotions += amt;
             break;
-            case "BOW":
-                if (!this.offHand) {
-                    this.equipOffHand("BOW");
-                    console.log("equipped bow!");
-                } else {
-                    console.log("picked up bow");
-                    this.inventory.push("BOW");
-                }
+            case "MANA_POTION":
+                console.log("mpotion + " + amt);
+                this.manaPotions += amt;
             break;
-            case "FIREWAND":
-                if (!this.mainHand) {
-                    this.equipMainHand("FIREWAND");
-                    console.log("equipped firewand!");
-                } else if (!this.offHand) {
-                    this.equipOffHand("FIREWAND");
-                    console.log("equipped firewand!");
-                } else {
-                    console.log("picked up firewand");
-                    this.inventory.push("FIREWAND");
-                    console.log("inventory: " + this.inventory);
-                }
-            break;
-                */
 
             }
         }

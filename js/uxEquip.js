@@ -425,7 +425,7 @@ class UxEquipCtrl extends UxCtrl {
                                             {
                                                 cls: "UxPanel",
                                                 xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("KEY") ),
-                                                xxform: { border: .1 },
+                                                xxform: { border: .15 },
                                             },
                                             {
                                                 cls: "UxText",
@@ -449,7 +449,7 @@ class UxEquipCtrl extends UxCtrl {
                                             {
                                                 cls: "UxPanel",
                                                 xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("ARROW_ONE_DROP") ),
-                                                xxform: { angle: Math.PI*.25, border: .1 },
+                                                xxform: { angle: Math.PI*.25, border: .15 },
                                             },
                                             {
                                                 cls: "UxText",
@@ -472,8 +472,8 @@ class UxEquipCtrl extends UxCtrl {
                                             },
                                             {
                                                 cls: "UxPanel",
-                                                // FIXME: add health potion
-                                                xsketch: {},
+                                                xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("HEALING_POTION") ),
+                                                xxform: { left: .15, right: .15, top:.15, bottom:.2 },
                                             },
                                             {
                                                 cls: "UxText",
@@ -496,8 +496,8 @@ class UxEquipCtrl extends UxCtrl {
                                             },
                                             {
                                                 cls: "UxPanel",
-                                                // FIXME: add mana potion
-                                                xsketch: {},
+                                                xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("MANA_POTION") ),
+                                                xxform: { left: .15, right: .15, top:.15, bottom:.2 },
                                             },
                                             {
                                                 cls: "UxText",

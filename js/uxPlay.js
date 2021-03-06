@@ -360,6 +360,9 @@ class UxPlayCtrl extends UxCtrl {
         if (key === KEY_ESCAPE) {
             this.onEquipMenu();
         }
+        if (key === 81) {  // Q
+            this.onQuestMenu();
+        }
         if (key === 121) { // F10
             console.log("player debug animation toggle");
             p1.dbgAnim = !p1.dbgAnim;
@@ -490,6 +493,16 @@ class UxPlayCtrl extends UxCtrl {
         console.log("onEquipMenu");
         // create new controller for equip menu
         let ctrl = new UxEquipCtrl();
+        // activate new controller, move play controller to last
+        lastCtrl = this;
+        currentCtrl = ctrl;
+    }
+
+    // EVENT CALLBACKS -----------------------------------------------------
+    onQuestMenu() {
+        console.log("onQuestMenu");
+        // create new controller for equip menu
+        let ctrl = new UxQuestCtrl();
         // activate new controller, move play controller to last
         lastCtrl = this;
         currentCtrl = ctrl;

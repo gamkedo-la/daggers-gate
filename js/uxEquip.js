@@ -722,9 +722,7 @@ class UxEquipCtrl extends UxCtrl {
             this.lastMainHand = p1.inventory.mainHand;
             let item = p1.inventory.mainHand;
             let xsketch = Object.assign({parent: this.mainHandPanel, xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get((item) ? item.tag : ""));
-            //console.log("xsketch: " + Fmt.ofmt(xsketch));
             this.mainHandPanel.sketch = Sketch.generate(xsketch);
-            //console.log("panel sketch: " + this.mainHandPanel.sketch);
         }
         if (p1.inventory.offHand !== this.lastOffHand) {
             this.lastOffHand = p1.inventory.offHand;
@@ -735,17 +733,21 @@ class UxEquipCtrl extends UxCtrl {
         if (this.swapMain != this.lastSwapMain) {
             this.lastSwapMain = this.swapMain;
             if (this.swapMain) {
-                this.mainHandButton.unpressed = Sketch.generate( Object.assign({parent: this.mainHandButton, xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get("BUTTON_BLU_S2_TRAN")));
+                this.mainHandButton.unpressed = Sketch.generate( Object.assign({parent: this.mainHandButton, xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get("BUTTON_GLD_S2_TRAN")));
+                this.mainHandButton.highlight = Sketch.generate( Object.assign({parent: this.mainHandButton, xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get("BUTTON_GLD_S1_TRAN")));
             } else {
                 this.mainHandButton.unpressed = Sketch.generate( Object.assign({parent: this.mainHandBugton, xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get("BUTTON_RED_S2_TRAN")));
+                this.mainHandButton.highlight = Sketch.generate( Object.assign({parent: this.mainHandButton, xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get("BUTTON_BLU_S2_TRAN")));
             }
         }
         if (this.swapOff != this.lastSwapOff) {
             this.lastSwapOff = this.swapOff;
             if (this.swapOff) {
-                this.offHandButton.unpressed = Sketch.generate( Object.assign({parent: this.offHandButton, xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get("BUTTON_BLU_S2_TRAN")));
+                this.offHandButton.unpressed = Sketch.generate( Object.assign({parent: this.offHandButton, xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get("BUTTON_GLD_S2_TRAN")));
+                this.offHandButton.highlight = Sketch.generate( Object.assign({parent: this.mainHandButton, xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get("BUTTON_GLD_S1_TRAN")));
             } else {
                 this.offHandButton.unpressed = Sketch.generate( Object.assign({parent: this.offHandBugton, xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get("BUTTON_RED_S2_TRAN")));
+                this.offHandButton.highlight = Sketch.generate( Object.assign({parent: this.mainHandButton, xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get("BUTTON_BLU_S2_TRAN")));
             }
         }
 
@@ -850,10 +852,12 @@ class UxEquipCtrl extends UxCtrl {
                 let tag = `invButton${i+1}`;
                 if(this.activeSlots[i]) {
                     this[tag].active = true;
-                    this[tag].unpressed = Sketch.generate( Object.assign({parent: this[tag], xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get("BUTTON_RED_S2_TRAN")));
+                    this[tag].unpressed = Sketch.generate( Object.assign({parent: this[tag], xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get("BUTTON_GLD_S2_TRAN")));
+                    this[tag].highlight = Sketch.generate( Object.assign({parent: this[tag], xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get("BUTTON_GLD_S1_TRAN")));
                 } else {
                     this[tag].active = false;
                     this[tag].unpressed = Sketch.generate( Object.assign({parent: this[tag], xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get("BUTTON_TAN_S2_TRAN")));
+                    this[tag].highlight = Sketch.generate( Object.assign({parent: this[tag], xfitter: {cls: "FitToParent"}, lockRatio: true}, assets.get("BUTTON_GRN_S2_TRAN")));
                 }
             }
         }

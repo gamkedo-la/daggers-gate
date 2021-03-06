@@ -580,8 +580,9 @@ const daggerAssets = [
 
     ]},
 
-      { src: "images/window_tiles.png", cls: "Stretch", tag: "WINDOW_BORDER", border: 15 },
-      { src: "images/buttonFrames.png", cls: "Sheet", assets: [
+    { src: "images/window_tiles.png", cls: "Stretch", tag: "WINDOW_BORDER", border: 15 },
+
+    { src: "images/buttonFrames.png", cls: "Sheet", assets: [
         // S1-S4 border sizes
         // OPAQ|TRAN - opaque|transparent
         {tag: "BUTTON_TAN_S1_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*0, border: 15 },
@@ -619,25 +620,18 @@ const daggerAssets = [
         {tag: "BUTTON_BLU_S2_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*7, border: 15 },
         {tag: "BUTTON_BLU_S3_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*7, border: 15 },
         {tag: "BUTTON_BLU_S4_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*7, border: 15 },
-
-      ]},
-      /*
-      { src: "images/window_tiles.png", cls: "Sheet", assets: [
-
-        // T = TOP,  M = MIDDLE,  B = BOTTOM,  L = LEFT,  R = RIGHT
-        {tag: "WINDOW_BORDER_TL",       id: 500, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*0 },
-        {tag: "WINDOW_BORDER_TM",       id: 501, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*0 },
-        {tag: "WINDOW_BORDER_TR",       id: 502, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*0 },
-
-        {tag: "WINDOW_BORDER_ML",       id: 503, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*1 },
-        {tag: "WINDOW_INSIDE",          id: 504, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*1 },
-        {tag: "WINDOW_BORDER_MR",       id: 505, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*1 },
-
-        {tag: "WINDOW_BORDER_BL",       id: 506, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*2 },
-        {tag: "WINDOW_BORDER_BM",       id: 507, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*2 },
-        {tag: "WINDOW_BORDER_BR",       id: 508, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*2 }
     ]},
-    */
+
+    { src: "images/goldButtonFrames.png", cls: "Sheet", assets: [
+        {tag: "BUTTON_GLD_S1_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*0, border: 15 },
+        {tag: "BUTTON_GLD_S2_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*0, border: 15 },
+        {tag: "BUTTON_GLD_S3_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*0, border: 15 },
+        {tag: "BUTTON_GLD_S4_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*0, border: 15 },
+        {tag: "BUTTON_GLD_S1_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*1, border: 15 },
+        {tag: "BUTTON_GLD_S2_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*1, border: 15 },
+        {tag: "BUTTON_GLD_S3_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*1, border: 15 },
+        {tag: "BUTTON_GLD_S4_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*1, border: 15 },
+    ]},
 
     { src: "images/playerAnim.png", cls: "Sheet", assets: [
         {tag: "PLAYER",                 id: 200, cls: "Sprite", width: 64, height: 100, xoffset: 0, yoffset: 0 },

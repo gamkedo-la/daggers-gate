@@ -402,6 +402,22 @@ const daggerObjects = {
         },
         collider: { blocking: false, width:45, height: 45 },
     },
+    ICEWAND: {
+        kind: "loot",
+        mainHand: true,
+        offHand: true,
+        attackKind: "magic",
+        loot: {
+            amt: 1,
+        },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "ICEWAND",
+            },
+        },
+        collider: { blocking: false, width:45, height: 45 },
+    },
     HEALING_POTION: {
         kind: "loot",
         loot: {
@@ -557,6 +573,11 @@ const daggerAssets = [
         {tag: "FIREWAND",                id: 76, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 300, tileset: true },
         {tag: "MANA_POTION",             id: 77, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 300, tileset: true },
         {tag: "HEALING_POTION",          id: 78, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 300, tileset: true },
+        {tag: "ICEWAND",                 id: 79, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 300, tileset: true },
+        //ROW 8
+        {tag: "GREEN_TUNIC",             id: 80, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 400 },
+        {tag: "BLUE_TUNIC",              id: 81, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 300 },
+
     ]},
 
       { src: "images/window_tiles.png", cls: "Stretch", tag: "WINDOW_BORDER", border: 15 },

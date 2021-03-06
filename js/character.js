@@ -484,6 +484,12 @@ class characterClass {
         var walkIntoTileIndex = currentLevel.idxfromxy(nextX, nextY);
         var walkIntoTileType = currentLevel.fgi(walkIntoTileIndex);
 
+        // prevent movement past edge of level
+        if (nextX < 0) nextX = 0;
+        if (nextX > currentLevel.maxx) nextX = currentLevel.maxx;
+        if (nextY < 0) nextY = 0;
+        if (nextY > currentLevel.maxy) nextY = currentLevel.maxy;
+
 		// update next collider
         this.nextCollider.update(nextX, nextY, currentLevel.idxfromxy.bind(currentLevel));
   

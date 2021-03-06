@@ -284,7 +284,7 @@ class UxEquipCtrl extends UxCtrl {
                                             {
                                                 cls: "UxPanel",
                                                 tag: "shirtPanel",
-                                                xsketch: {},
+                                                xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("GREEN_TUNIC") ),
                                                 xxform: { border: .1 },
                                             },
                                         ],

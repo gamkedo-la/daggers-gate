@@ -575,8 +575,8 @@ const daggerAssets = [
         {tag: "HEALING_POTION",          id: 78, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 300, tileset: true },
         {tag: "ICEWAND",                 id: 79, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 300, tileset: true },
         //ROW 8
-        {tag: "GREEN_TUNIC",             id: 80, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 400 },
-        {tag: "BLUE_TUNIC",              id: 81, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 300 },
+        {tag: "GREEN_TUNIC",             id: 80, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 350 },
+        {tag: "BLUE_TUNIC",              id: 81, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 350 },
 
     ]},
 

@@ -25,7 +25,7 @@ function evtCode(tag) {
     _evtIdMap[id] = tag;
     _evtTagMap[tag] = id;
     _evt_id++;
-    console.log("=-=-= defined event for: " + tag + " id: " + id);
+    //console.log("=-=-= defined event for: " + tag + " id: " + id);
     return id;
 }
 

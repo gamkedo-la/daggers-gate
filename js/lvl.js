@@ -18,7 +18,6 @@ class Level {
         this.bgsketches = new Array(this.nentries);
         this.lockPredicate = (spec.hasOwnProperty("lockPredicate")) ? spec.lockPredicate : () => false;
         this.editor = spec.editor || false;
-        console.log("this.editor is: " + this.editor);
         this.enemies = [];
         this.objects = [];
         this.exits = {};
@@ -66,7 +65,7 @@ class Level {
                     }, spec);
                     // instantiate enemy
                     if (!this.dbgNoEnemy) {
-                        console.log("creating enemy: " + Fmt.ofmt(spec));
+                        //console.log("creating enemy: " + Fmt.ofmt(spec));
                         let enemy = new enemyClass(spec);
                         this.enemies.push(enemy);
                     }

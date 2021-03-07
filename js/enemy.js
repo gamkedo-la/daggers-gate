@@ -12,7 +12,7 @@ class enemyClass extends characterClass {
         }, spec.collider);
         spec.health = spec.health || 15;
         spec.maxHealth = spec.maxHealth || 15;
-        console.log("enemy collider spec: " + Fmt.ofmt(spec.collider));
+        //console.log("enemy collider spec: " + Fmt.ofmt(spec.collider));
         spec.movingSpeed = spec.movingSpeed || ENEMY_MOVE_SPEED;
         super(spec);
         this.framesBeforeReThink = AI_FRAME_THINK_TIME;

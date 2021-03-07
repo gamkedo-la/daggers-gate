@@ -13,7 +13,7 @@
 
 class Registry {
     static init() {
-        console.log("registry init");
+        //console.log("registry init");
         // ux views
         UxView._genreg(UxView);
         UxView._genreg(UxCanvas);

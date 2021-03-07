@@ -212,8 +212,10 @@ class characterClass {
             this.doDrop();
             break;
         case "place":
-            console.log("trying to place...");
             this.doPlace(this.targetObj);
+            break;
+        case "talk":
+            this.doTalk(this.targetObj);
             break;
         }
     }
@@ -295,6 +297,13 @@ class characterClass {
         }
     }
 
+    doTalk(targetObj) {
+        if (targetObj) {
+            console.log("trying to talk to: " + targetObj);
+            targetObj.interact(this);
+        }
+    }
+
     doDie() {
         console.log(this + " has died");
         this.state = Animator.death;
@@ -302,6 +311,10 @@ class characterClass {
         // FIXME: add loot
         this.spawnLoot();
         // FIXME: handle player death
+    }
+
+    interact(character) {
+        // expecting subclasses to override this function...
     }
 
     // update character based on current state and inputs

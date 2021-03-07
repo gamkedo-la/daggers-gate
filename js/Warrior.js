@@ -251,7 +251,7 @@ class warriorClass extends characterClass {
     choosePrimary() {
         // are we carrying rune and are we close to matching altar?
         if (this.grabbedObj) {
-            let obj = currentLevel.findObject((obj) => obj.collider.overlaps(this.interactCollider) && obj.kind === "altar" && this.grabbedObj.tag === obj.want);
+            let obj = currentLevel.findObject((obj) => obj.collider.overlaps(this.interactCollider) && obj.kind === "altar" && this.grabbedObj.tag === obj.want, true);
             this.targetObj = obj;
             if (obj) return "place";
         }
@@ -271,7 +271,7 @@ class warriorClass extends characterClass {
                 if (!obj.collider.overlaps(this.interactCollider)) return false;
                 if (obj.wantAction === "open" && this.keysHeld <= 0) return false;
                 return true;
-            });
+            }, true);
             if (obj) {
                 this.targetObj = obj;
                 return obj.wantAction;
@@ -359,7 +359,7 @@ class warriorClass extends characterClass {
         }
 
         // gathering loot
-        for (const loot of currentLevel.findAllObjectEnemy((v) => v.kind === "loot" && !v.loot.delayTTL && this.interactCollider.overlaps(v.collider))) {
+        for (const loot of currentLevel.findObject((v) => v.kind === "loot" && !v.loot.delayTTL && this.interactCollider.overlaps(v.collider))) {
             // is object "close enough" to pick up?
             if (dist(this.x, this.y, loot.x, loot.y) <= this.lootRange) {
                 // pickup

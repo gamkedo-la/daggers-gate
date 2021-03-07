@@ -6,6 +6,9 @@ class Npc extends characterClass {
     // CONSTRUCTOR ---------------------------------------------------------
     constructor(spec={}) {
         super(spec);
+        // set spec defaults
+        spec.kind = spec.kind || "npc";
+        this.wantAction = actionKindMap[this.kind];
     }
 
     // METHODS -------------------------------------------------------------

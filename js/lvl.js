@@ -187,21 +187,59 @@ class Level {
         }
         return undefined;
     }
-    findObject(filter) {
-        for (const obj of this.objects) {
-            if (filter(obj)) return obj;
-        }
-        return undefined;
-    }
-    findAllObjectEnemy(filter) {
+
+    findObject(filter, first=false) {
         let match = [];
         for (const obj of this.objects) {
-            if (filter(obj)) match.push(obj);
+            if (filter(obj)) {
+                if (first) return obj;
+                match.push(obj);
+            }
+        }
+        return (first) ? undefined : match;
+    }
+    findEnemy(filter, first=false) {
+        let match = [];
+        for (const obj of this.enemies) {
+            if (filter(obj)) {
+                if (first) return obj;
+                match.push(obj);
+            }
+        }
+        return (first) ? undefined : match;
+    }
+    findNpc(filter, first=false) {
+        let match = [];
+        for (const obj of this.npcs) {
+            if (filter(obj)) {
+                if (first) return obj;
+                match.push(obj);
+            }
+        }
+        return (first) ? undefined : match;
+    }
+
+    findAll(filter, first) {
+        let match = [];
+        for (const obj of this.objects) {
+            if (filter(obj)) {
+                if (first) return obj;
+                match.push(obj);
+            }
         }
         for (const obj of this.enemies) {
-            if (filter(obj)) match.push(obj);
+            if (filter(obj)) {
+                if (first) return obj;
+                match.push(obj);
+            }
         }
-        return match;
+        for (const obj of this.npcs) {
+            if (filter(obj)) {
+                if (first) return obj;
+                match.push(obj);
+            }
+        }
+        return (first) ? undefined : match;
     }
 
     /**

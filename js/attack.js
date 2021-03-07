@@ -211,7 +211,7 @@ class Attack {
         if (this.active) {
             this._collider.update(this._actor.x, this._actor.y, currentLevel.idxfromxy.bind(currentLevel));
             // see if collider has hit anything...
-            let ohits = currentLevel.findAllObjectEnemy((v) => v.health && this._collider.overlaps(v.collider) && !this._ignore.includes(v));
+            let ohits = currentLevel.findAll((v) => v.health && this._collider.overlaps(v.collider) && !this._ignore.includes(v));
             for (const ohit of ohits) {
                 console.log("attack applying damage to: " + ohit);
                 // apply damage
@@ -330,7 +330,7 @@ class SyncAttack {
         // update collider
         this._collider.update(this._actor.x, this._actor.y, currentLevel.idxfromxy.bind(currentLevel));
         // see if collider has hit anything...
-        let ohits = currentLevel.findAllObjectEnemy((v) => v.health && this._collider.overlaps(v.collider) && !this._ignore.includes(v));
+        let ohits = currentLevel.findAll((v) => v.health && this._collider.overlaps(v.collider) && !this._ignore.includes(v));
         for (const ohit of ohits) {
             console.log("attack applying damage to: " + ohit);
             // apply damage
@@ -422,7 +422,7 @@ class RangedAttack {
         if (this.active) {
             this._collider.update(this._x, this._y, currentLevel.idxfromxy.bind(currentLevel));
             // see if collider has hit anything...
-            let ohits = currentLevel.findAllObjectEnemy((v) => this._collider.overlaps(v.collider) && !this._ignore.includes(v));
+            let ohits = currentLevel.findAll((v) => this._collider.overlaps(v.collider) && !this._ignore.includes(v));
             for (const ohit of ohits) {
                 // check for collision w/ non-health colliders that will block projectile
                 if (!ohit.health) {

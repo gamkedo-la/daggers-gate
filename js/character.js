@@ -310,10 +310,10 @@ class characterClass {
         if (this.wantLink) {
             for (const target of this.wantLink.targets || []) {
                 if (target === "left") {
-                    let linkObj = currentLevel.findObject((v) => v.x === this.x-currentLevel.sketchWidth && v.y === this.y);
+                    let linkObj = currentLevel.findObject((v) => v.x === this.x-currentLevel.sketchWidth && v.y === this.y, true);
                     if (linkObj) this.link(linkObj);
                 } else if (target === "up") {
-                    let linkObj = currentLevel.findObject((v) => v.x === this.x && v.y === this.y-currentLevel.sketchHeight);
+                    let linkObj = currentLevel.findObject((v) => v.x === this.x && v.y === this.y-currentLevel.sketchHeight, true);
                     if (linkObj) this.link(linkObj);
                 }
             }

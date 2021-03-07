@@ -32,6 +32,9 @@ class Text extends Sketch {
         this._font = Util.objKeyValue(spec, "font", Font.dflt);
         this._color = Util.objKeyValue(spec, "color", new Color(0,0,0,1));
         this._text = Util.objKeyValue(spec, "text", "default text");
+        this._wrapLines = [];
+        this._wrapLeading;
+        this._leadingPct = spec.leadingPct || .25;
         this._outlineWidth = Util.objKeyValue(spec, "outlineWidth", 0);
         this._outlineColor = Util.objKeyValue(spec, "outlineColor", new Color(255,255,255,1));
         this._highlightColor = Util.objKeyValue(spec, "highlightColor", undefined);
@@ -39,12 +42,15 @@ class Text extends Sketch {
         this._align = Util.objKeyValue(spec, "align", "center");
         // fit - adjust font to best fit sketch size iff sketch size is set
         this._fit = Util.objKeyValue(spec, "fit", true);
+        // wrap - wrap text, breaking on spaces, applicable to static sized text only
+        this._wrap = Util.objKeyValue(spec, "wrap", true);
         // staticSize - should width/height track to text size
         this._staticSize = ((this.width === 0 && this.height === 0 && !this._fitter) || !this._fit);
         if (this._staticSize) {
             const size = Text.measure(this._font, this._text);
             this._width = size.x;
             this._height = size.y;
+            if (this._wrap) this.splitText();
         } else {
             this._fitSize = Vect.zero;
             this._resize(true);
@@ -98,6 +104,32 @@ class Text extends Sketch {
         }
     }
 
+    splitText() {
+        // split on spaces
+        let tokens = this._text.split(' ');
+        // iterate over tokens...
+        let line = "";
+        let lines = [];
+        for (const token of tokens) {
+            let testStr = `${line} ${token}`;
+            // measure test string
+            let tsize = Text.measure(this._font, testStr);
+            if (tsize.x > this.width) {
+                lines.push(line);
+                line = "";
+            } else {
+                line = testStr;
+            }
+        }
+        if (line) lines.push(line);
+        // measure first full line to determine leading space
+        if (lines.length) {
+            let tsize = Text.measure(this._font, lines[0]);
+            this._wrapLeading = Math.round(tsize.y * (1+this._leadingPct));
+        }
+        this._wrapLines = lines;
+    }
+
     _render(renderCtx, x=0, y=0) {
         // refit text (if necessary based on updated sketch size)
         this._resize();
@@ -125,11 +157,17 @@ class Text extends Sketch {
         }
         renderCtx.fillStyle = this._color;
         renderCtx.font = this._font;
-        renderCtx.fillText(this._text, x, y);
-        if (this._outlineWidth) {
-            renderCtx.lineWidth = this._outlineWidth;
-            renderCtx.strokeStyle = this._outlineColor;
-            renderCtx.strokeText(this._text, x, y);
+        renderCtx.lineWidth = this._outlineWidth;
+        renderCtx.strokeStyle = this._outlineColor;
+        if (this._staticSize && this._wrap) {
+            for (let i=0; i<this._wrapLines.length; i++) {
+                const line = this._wrapLines[i];
+                renderCtx.fillText(line, x, y + (i*this._wrapLeading));
+                if (this._outlineWidth) renderCtx.strokeText(line, x, y + (i*this._wrapLeading));
+            }
+        } else {
+            renderCtx.fillText(this._text, x, y);
+            if (this._outlineWidth) renderCtx.strokeText(this._text, x, y);
         }
     }
 }

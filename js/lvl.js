@@ -18,6 +18,7 @@ class Level {
         this.bgsketches = new Array(this.nentries);
         this.lockPredicate = (spec.hasOwnProperty("lockPredicate")) ? spec.lockPredicate : () => false;
         this.editor = spec.editor || false;
+        this.npcs = [];
         this.enemies = [];
         this.objects = [];
         this.exits = {};
@@ -70,6 +71,29 @@ class Level {
                         this.enemies.push(enemy);
                     }
                 }
+                // lookup npcs
+                spec = props.getNpcSpec(this.fg[i]);
+                if (spec) {
+                    // don't draw sketch as level data
+                    let id = this.fg[i];
+                    this.fg[i] = 0;
+                    let tag = props.getTag(id);
+                    spec = Object.assign({
+                        tileid: id,
+                        tag: tag,
+                        sketch: assets.get(tag),
+                        name: props.getName(id),
+                        x: this.xfromidx(i, true),
+                        y: this.yfromidx(i, true),
+                    }, spec);
+                    // instantiate enemy
+                    if (!this.dbgNoNpc) {
+                        console.log("creating enemy: " + Fmt.ofmt(spec));
+                        let npc = new Npc(spec);
+                        this.npcs.push(npc);
+                    }
+                }
+
                 // lookup objects
                 spec = props.getObjectSpec(this.fg[i]);
                 if (spec) {
@@ -285,6 +309,10 @@ class Level {
             if (this.bgsketches[i] && this.bgsketches[i].update) this.bgsketches[i].update(ctx);
             if (this.fgsketches[i] && this.fgsketches[i].update) this.fgsketches[i].update(ctx);
         }
+        // update npcs
+        for(let i=0; i<this.npcs.length; i++){
+            this.npcs[i].update(ctx);
+        }
         // update enemies
         for(let i=0; i<this.enemies.length; i++){
             this.enemies[i].update(ctx);
@@ -351,6 +379,15 @@ class Level {
             }
 		}
 
+        // render npcs
+		for(let i=0; i<this.npcs.length; i++){
+            let npc = this.npcs[i];
+            if (!npc.visible) continue;
+            if (camera.containsRect(npc.x, npc.y, this.sketchWidth, this.sketchHeight)) {
+                npc.draw();
+            }
+		}
+
         // render rooms
 		for(var i=0; i<this.rooms.length; i++){
             this.rooms[i].draw();
@@ -399,6 +436,7 @@ class LevelLoader {
         this._specs = spec.lvls || {};
         this.dbg = spec.dbg || false;
         this.dbgNoEnemy = spec.dbgNoEnemy || false;
+        this.dbgNoNpc = spec.dbgNoNpc || false;
     }
 
     load(name, editor=false) {

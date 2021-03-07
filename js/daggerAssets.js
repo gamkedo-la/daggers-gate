@@ -74,6 +74,7 @@ const animators = {
             [Animator.walkEast]: "SLIME_WALK_EAST",
         }
     },
+
     "DWARF_AX_MAN": {
         cls: "Animator",
         animations: {
@@ -87,7 +88,19 @@ const animators = {
             [Animator.walkWest]: "DWARF_AX_MAN_WALK_WEST",
             [Animator.walkEast]: "DWARF_AX_MAN_WALK_EAST",
         }
-    }
+    },
+
+    "NPC1": {
+        cls: "Animator",
+        animations: {
+            [Animator.idle]: "NPC1",
+            [Animator.idleSouth]: "NPC1",
+            [Animator.idleNorth]: "NPC1_IDLE_NORTH",
+            [Animator.idleWest]: "NPC1_IDLE_WEST",
+            [Animator.idleEast]: "NPC1_IDLE_EAST",
+        }
+    },
+
 }
 
 /**
@@ -136,6 +149,19 @@ const daggerLootTables = {
     ],
 
 }
+
+const daggerNpcs = {
+    NPC1: {
+        sketch: animators["NPC1"],
+        yOff: -25,
+        collider: {
+            color: "rgba(175,175,175,.75)",
+            width: 20, 
+            height: 30, 
+            //blocking: false,
+        },
+    },
+};
 
 const daggerEnemies = {
     GOBLIN: {
@@ -826,6 +852,15 @@ const daggerAssets = [
             { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
         ]},
 
+    ]},
+
+    // NPC sheet
+    // 300
+    { src: "images/npc.png", cls: "Sheet", assets: [
+        {tag: "NPC1",                 id: 300, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 100 },
+        {tag: "NPC1_IDLE_NORTH",      cls: "Sprite", width: 50, height: 100, xoffset: 50, yoffset: 100 },
+        {tag: "NPC1_IDLE_WEST",       cls: "Sprite", width: 50, height: 100, xoffset: 150, yoffset: 100 },
+        {tag: "NPC1_IDLE_EAST",       cls: "Sprite", width: 50, height: 100, xoffset: 200, yoffset: 100 },
     ]},
 ];
 

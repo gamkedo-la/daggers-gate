@@ -87,6 +87,13 @@ class warriorClass extends characterClass {
                 return;
             }
         }
+        // -- ran into npc?
+        for (const obj of currentLevel.npcs) {
+            if (obj.collider.blocking && obj.collider.overlaps(this.nextCollider)) {
+                console.log("hit npc collider");
+                return;
+            }
+        }
 
         // check for tile collisions
         // -- ran into level exit?

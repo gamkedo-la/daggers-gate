@@ -24,6 +24,7 @@ class Props {
         this._tags = {};
         this._names = {};
         this._tilesByTag = {};
+        this._npcs = {};
         this._enemies = {};
         this._objects = {};
         this._passable = {};
@@ -43,6 +44,14 @@ class Props {
             if (asset.tag && asset.hasOwnProperty("id")) {
                 TILE[asset.tag] = asset.id;
                 if (this.dbg) console.log(" -- assigned TILE." + asset.tag);
+            }
+            // lookup npcs
+            if (asset.tag in daggerNpcs) {
+                let spec = daggerNpcs[asset.tag];
+                if (spec) {
+                    this._npcs[id] = spec;
+                    if (this.dbg) console.log(" -- is npc w/ spec: " + Fmt.ofmt(spec));
+                }
             }
             // lookup enemies
             if (asset.tag in daggerEnemies) {
@@ -90,8 +99,24 @@ class Props {
      * Is the tile associated w/ the given id an enemy?
      * @param {*} id 
      */
+    isNpc(id) {
+        return this._npcs[id] !== undefined;
+    }
+
+    /**
+     * Is the tile associated w/ the given id an enemy?
+     * @param {*} id 
+     */
     isEnemy(id) {
         return this._enemies[id] !== undefined;
+    }
+
+    /**
+     * Is the tile associated w/ the given id an enemy?
+     * @param {*} id 
+     */
+    getNpcSpec(id) {
+        return this._npcs[id] || false;
     }
 
     /**

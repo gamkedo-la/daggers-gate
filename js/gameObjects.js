@@ -77,6 +77,7 @@ class gameObjectClass extends characterClass {
                     this.state = Animator.open;
                     this.wantAction = undefined;
                     this.active = false;
+                    doorOpenning.play();
                 }
             }
             break;

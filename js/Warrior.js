@@ -133,6 +133,8 @@ class warriorClass extends characterClass {
                         document.getElementById("debugText").innerHTML = "Keys: " + this.keysHeld;
                         currentLevel.setfgi(walkIntoTileIndex, TILE.WALL_15); //remove door
                         SetupPathfindingGridData(p1);
+                        doorOpenning.play();
+                        console.log("open door")
                     }
                 }
                 break;
@@ -142,6 +144,8 @@ class warriorClass extends characterClass {
                     document.getElementById("debugText").innerHTML = "Keys: " + this.keysHeld;
                     currentLevel.setfgi(walkIntoTileIndex, 0); //remove door
                     SetupPathfindingGridData(p1);
+                    doorOpenning.play();
+                    console.log("open door")
                 }
                 break;
 
@@ -292,10 +296,12 @@ class warriorClass extends characterClass {
             case "MANA_DROP":
                 console.log("mana + " + amt);
                 this.mana += amt;
+                manaGain.play();
             break;
             case "HEALTH_DROP":
                 console.log("health + " + amt);
                 this.health += amt;
+                healthGain.play();
             break;
             case "GOLD_COINS_TWO_DROP":
                 console.log("gold coins + " + amt);

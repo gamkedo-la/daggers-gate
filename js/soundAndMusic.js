@@ -7,6 +7,11 @@ var soundSetforMeetings = false; //make false to hear at normal level
 var warriorOuch = new SoundOverlapsClass("ouch");
 var enemyDefaultGrunt = new SoundOverlapsClass("ouch");
 
+//Asset Sounds
+var doorOpenning = new SoundOverlapsClass("door_openning");
+var manaGain = new SoundOverlapsClass("manaGain");
+var healthGain = new SoundOverlapsClass("healthGain");
+
 function setFormat() {
     var audio = new Audio();
     if (audio.canPlayType("audio/mp3")) {
@@ -40,6 +45,7 @@ function SoundOverlapsClass(filenameWithPath) {
 			}
 			mainSound.play();
 		}
+		console.log("sound played")
 		altSoundTurn = !altSoundTurn;
     }
 }  

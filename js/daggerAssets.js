@@ -166,18 +166,25 @@ const daggerNpcs = {
 const daggerEnemies = {
     GOBLIN: {
         sketch: animators["GOBLIN"],
+        yOff: -25,
         collider: {
             blocking: false,
+            width: 25, 
+            height: 40, 
         },
     },
     SLIME: {
         sketch: animators["SLIME"],
         collider: {
+            color: "rgba(0,200,0,.65)",
+            width: 40, 
+            height: 30, 
             blocking: false,
         }
     },
     DWARF_AX_MAN: {
         sketch: animators["DWARF_AX_MAN"],
+        yOff: -12,
         collider: {
             blocking: false,
         }

@@ -498,7 +498,6 @@ class UxPlayCtrl extends UxCtrl {
         currentCtrl = ctrl;
     }
 
-    // EVENT CALLBACKS -----------------------------------------------------
     onQuestMenu() {
         console.log("onQuestMenu");
         // create new controller for equip menu
@@ -506,6 +505,17 @@ class UxPlayCtrl extends UxCtrl {
         // activate new controller, move play controller to last
         lastCtrl = this;
         currentCtrl = ctrl;
+    }
+
+    onStartDialog(dialog, npc) {
+        console.log("onDialog");
+        /*
+        // create new controller for equip menu
+        let ctrl = new UxDialogCtrl();
+        // activate new controller, move play controller to last
+        lastCtrl = this;
+        currentCtrl = ctrl;
+        */
     }
 
 

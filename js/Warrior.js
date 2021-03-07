@@ -204,54 +204,10 @@ class warriorClass extends characterClass {
         }
     }
 
-    /*
-    equipMainHand(item) {
-        if (this.mainHand) {
-            this.inventory.push(this.mainHand);
-        }
-        this.mainHand = item;
-        switch (item) {
-        case "SWORD":
-            this.selectedPrimary = "melee";
-            break;
-        case "ICEWAND":
-            this.selectedPrimary = "magic";
-            break;
-        case "FIREWAND":
-            this.selectedPrimary = "magic";
-            break;
-        default:
-            this.selectedPrimary = "none";
-            break;
-        }
-    }
-
-    equipOffHand(item) {
-        if (this.offHand) {
-            this.inventory.push(this.offHand);
-        }
-        this.offHand = item;
-        switch (item) {
-        case "BOW":
-            this.selectedSecondary = "ranged";
-            break;
-        case "ICEWAND":
-            this.selectedSecondary = "magic";
-            break;
-        case "FIREWAND":
-            this.selectedSecondary = "magic";
-            break;
-        default:
-            this.selectedSecondary = "none";
-            break;
-        }
-    }
-    */
-
     choosePrimary() {
         // are we carrying rune and are we close to matching altar?
         if (this.grabbedObj) {
-            let obj = currentLevel.findObject((obj) => obj.collider.overlaps(this.interactCollider) && obj.kind === "altar" && this.grabbedObj.tag === obj.want);
+            let obj = currentLevel.findObject((obj) => obj.collider.overlaps(this.interactCollider) && obj.kind === "altar" && this.grabbedObj.tag === obj.want, true);
             this.targetObj = obj;
             if (obj) return "place";
         }
@@ -266,12 +222,12 @@ class warriorClass extends characterClass {
         // are we in range of interactable object?
         // FIXME: we may need to change this to be either a) closest object or b) iterate through/assign priority to objects we can interact with...
         if (this.interactCollider) {
-            let obj = currentLevel.findObject((obj) => {
+            let obj = currentLevel.findAll((obj) => {
                 if (!obj.wantAction) return false;
                 if (!obj.collider.overlaps(this.interactCollider)) return false;
                 if (obj.wantAction === "open" && this.keysHeld <= 0) return false;
                 return true;
-            });
+            }, true);
             if (obj) {
                 this.targetObj = obj;
                 return obj.wantAction;
@@ -359,7 +315,7 @@ class warriorClass extends characterClass {
         }
 
         // gathering loot
-        for (const loot of currentLevel.findAllObjectEnemy((v) => v.kind === "loot" && !v.loot.delayTTL && this.interactCollider.overlaps(v.collider))) {
+        for (const loot of currentLevel.findObject((v) => v.kind === "loot" && !v.loot.delayTTL && this.interactCollider.overlaps(v.collider))) {
             // is object "close enough" to pick up?
             if (dist(this.x, this.y, loot.x, loot.y) <= this.lootRange) {
                 // pickup

@@ -212,8 +212,10 @@ class characterClass {
             this.doDrop();
             break;
         case "place":
-            console.log("trying to place...");
             this.doPlace(this.targetObj);
+            break;
+        case "talk":
+            this.doTalk(this.targetObj);
             break;
         }
     }
@@ -295,6 +297,13 @@ class characterClass {
         }
     }
 
+    doTalk(targetObj) {
+        if (targetObj) {
+            console.log("trying to talk to: " + targetObj);
+            targetObj.interact(this);
+        }
+    }
+
     doDie() {
         console.log(this + " has died");
         this.state = Animator.death;
@@ -304,16 +313,20 @@ class characterClass {
         // FIXME: handle player death
     }
 
+    interact(character) {
+        // expecting subclasses to override this function...
+    }
+
     // update character based on current state and inputs
     update(updateCtx) {
         // resolve link during move/update of object
         if (this.wantLink) {
             for (const target of this.wantLink.targets || []) {
                 if (target === "left") {
-                    let linkObj = currentLevel.findObject((v) => v.x === this.x-currentLevel.sketchWidth && v.y === this.y);
+                    let linkObj = currentLevel.findObject((v) => v.x === this.x-currentLevel.sketchWidth && v.y === this.y, true);
                     if (linkObj) this.link(linkObj);
                 } else if (target === "up") {
-                    let linkObj = currentLevel.findObject((v) => v.x === this.x && v.y === this.y-currentLevel.sketchHeight);
+                    let linkObj = currentLevel.findObject((v) => v.x === this.x && v.y === this.y-currentLevel.sketchHeight, true);
                     if (linkObj) this.link(linkObj);
                 }
             }

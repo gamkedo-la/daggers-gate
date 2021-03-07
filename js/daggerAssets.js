@@ -884,6 +884,7 @@ class DaggerAssets {
             "ranged": {cls: "Text", text: "r", color: new Color(225,0,0,.75)},
             "open": {cls: "Text", text: "o", color: new Color(225,0,0,.75)},
             "magic": {cls: "Text", text: "#", color: new Color(225,0,0,.75)},
+            "talk": {cls: "Text", text: "t", color: new Color(225,0,0,.75)},
         };
     }
 }

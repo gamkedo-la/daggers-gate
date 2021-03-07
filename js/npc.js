@@ -5,10 +5,17 @@
 class Npc extends characterClass {
     // CONSTRUCTOR ---------------------------------------------------------
     constructor(spec={}) {
+        spec.kind = spec.kind || "npc";
         super(spec);
+        // set spec defaults
+        this.wantAction = actionKindMap[this.kind];
     }
 
     // METHODS -------------------------------------------------------------
     tileCollisionHandle(walkIntoTileIndex, walkIntoTileType, nextX, nextY) {
     }
+
+    interact(other) {
+    }
+
 }

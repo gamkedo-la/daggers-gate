@@ -6,6 +6,7 @@ var actionKindMap = {
     "chest": "open",
     "pickup": "grab",
     "altar": "drop",
+    "npc": "talk",
 }
 
 // used to "nudge" a game object a short distance before expiring...
@@ -145,7 +146,7 @@ class gameObjectClass extends characterClass {
                     p1.takeDamage(this.trap.damage);
                     this.trap.ignore.push(p1);
                 }
-                let ohits = currentLevel.findAllObjectEnemy((v) => v.health > 0 && this.collider.overlaps(v.collider) && !this.trap.ignore.includes(v));
+                let ohits = currentLevel.findAll((v) => v.health > 0 && this.collider.overlaps(v.collider) && !this.trap.ignore.includes(v));
                 for (const ohit of ohits) {
                     console.log("enemy: " + ohit + " taking trap damage: " + this.trap.damage);
                     ohit.takeDamage(this.trap.damage);

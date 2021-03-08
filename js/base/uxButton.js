@@ -12,6 +12,8 @@ class UxButton extends UxView {
     constructor(spec) {
         super(spec);
         const xtext = Object.assign( {xfitter: {cls: "Fitter", ref: this, top: .15, bottom: .1}}, Util.objKeyValue(spec, "xtext", {})); 
+        xtext.xfitter.ref = this;
+        xtext.xfitter.parent = this;
         this._textSketch = new Text(xtext);
         const xunpressed = Object.assign( {cls: "Rect", xfitter: {cls: "Fitter", ref: this}, color: new Color(255,255,255,.25)}, Util.objKeyValue(spec, "xunpressed", {})); 
         this._unpressedSketch = Sketch.generate(xunpressed);

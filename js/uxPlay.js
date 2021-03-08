@@ -305,6 +305,24 @@ class UxPlayCtrl extends UxCtrl {
         } else if (key === KEY_NUMBER_3){
             showRoomNumbers = !showRoomNumbers;
         }
+
+        if (key === KEY_ESCAPE) {
+            this.onEquipMenu();
+        }
+        if (key === 81) {  // Q
+            //this.onQuestMenu();
+            this.onStartDialog();
+        }
+        if (key === 121) { // F10
+            console.log("player debug animation toggle");
+            p1.dbgAnim = !p1.dbgAnim;
+        }
+        if (p1.dbgAnim) this.checkDbgAnimKeys(key);
+    }
+
+    keyReleased(key) {
+        setKeyHoldState(key, p1, false);
+
     }
 
     /**
@@ -353,22 +371,6 @@ class UxPlayCtrl extends UxCtrl {
                 console.log("idx: " + cidx + " - " + Fmt.ofmt(p1.currentAttack._syncMap[cidx]));
             }
         }
-    }
-
-    keyReleased(key) {
-        setKeyHoldState(key, p1, false);
-        if (key === KEY_ESCAPE) {
-            this.onEquipMenu();
-        }
-        if (key === 81) {  // Q
-            this.onQuestMenu();
-        }
-        if (key === 121) { // F10
-            console.log("player debug animation toggle");
-            p1.dbgAnim = !p1.dbgAnim;
-        }
-        if (p1.dbgAnim) this.checkDbgAnimKeys(key);
-
     }
 
     updatePlayerHealth() {
@@ -509,13 +511,11 @@ class UxPlayCtrl extends UxCtrl {
 
     onStartDialog(dialog, npc) {
         console.log("onDialog");
-        /*
         // create new controller for equip menu
         let ctrl = new UxDialogCtrl();
         // activate new controller, move play controller to last
         lastCtrl = this;
         currentCtrl = ctrl;
-        */
     }
 
 

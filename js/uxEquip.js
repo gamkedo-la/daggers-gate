@@ -692,8 +692,8 @@ class UxEquipCtrl extends UxCtrl {
 
     }
 
-    keyReleased(key) {
-        if (key === KEY_ESCAPE) {
+    keyPressed(key) {
+        if (key === KEY_ESCAPE || key === KEY_LETTER_Z || key === KEY_LETTER_X) {
             this.onRestoreGame();
         }
     }

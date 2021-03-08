@@ -16,6 +16,8 @@ class Npc extends characterClass {
     }
 
     interact(other) {
+        console.log("interact w/ " + other);
+        currentCtrl.onStartDialog();
     }
 
 }

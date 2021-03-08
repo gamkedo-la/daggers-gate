@@ -83,6 +83,12 @@ class UxMainCtrl extends UxCtrl {
         this.quitButton.evtClicked.listen(this.onQuit.bind(this));
     }
 
+    keyPressed(key) {
+        if (key === KEY_SPACE) {
+            this.onStart();
+        }
+    }
+
     onStart(evt) {
         console.log("onStart");
         // build out next controller

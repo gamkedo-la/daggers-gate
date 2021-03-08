@@ -25,7 +25,39 @@ class Text extends Sketch {
         let w = Math.abs(metrics.actualBoundingBoxLeft) + Math.abs(metrics.actualBoundingBoxRight);
         return new Vect(w, h);
     }
-    
+
+    static measureWrapHeight(font, text, width, leadingPct=.25) {
+        // split the lines
+        let lines = this.splitText(font, text, width);
+        console.log("num lines: " + lines.length);
+        if (lines.length > 0) {
+            let tsize = Text.measure(font, lines[0]);
+            return (tsize.y * lines.length-1) * (1+leadingPct) + tsize.y;
+        }
+        return 0;
+    }
+
+    static splitText(font, text, width) {
+        // split on spaces
+        let tokens = text.split(' ');
+        // iterate over tokens...
+        let line = "";
+        let lines = [];
+        for (const token of tokens) {
+            let testStr = `${line} ${token}`;
+            // measure test string
+            let tsize = Text.measure(font, testStr);
+            if (tsize.x > width) {
+                lines.push(line);
+                line = "";
+            } else {
+                line = testStr;
+            }
+        }
+        if (line) lines.push(line);
+        return lines;
+    }
+
     // CONSTRUCTOR ---------------------------------------------------------
     constructor(spec={}) {
         super(spec);
@@ -50,7 +82,13 @@ class Text extends Sketch {
             const size = Text.measure(this._font, this._text);
             this._width = size.x;
             this._height = size.y;
-            if (this._wrap) this.splitText();
+            if (this._wrap) {
+                this._wrapLines = Text.splitText(this._font, this._text, this.width);
+                if (this._wrapLines.length) {
+                    let tsize = Text.measure(this._font, this._wrapLines[0]);
+                    this._wrapLeading = Math.round(tsize.y * (1+this._leadingPct));
+                }
+            }
         } else {
             this._fitSize = Vect.zero;
             this._resize(true);

@@ -36,7 +36,9 @@ class UxView extends Gizmo {
         this.__cat = "View";
         this._active = Util.objKeyValue(spec, "active", true);
         this._visible = Util.objKeyValue(spec, "visible", true);
-        this._xform = (spec.xxform) ? new XForm(spec.xxform) : XForm.identity;
+        let xxform = Object.assign({}, spec.xxform, (spec.parent) ? {parent:spec.parent.xform} : {});
+        //this._xform = (spec.xxform) ? new XForm(spec.xxform) : XForm.identity;
+        this._xform = new XForm(xxform);
         this._depth = Util.objKeyValue(spec, "depth", Util.objKeyValue(spec, "dfltDepth", 0));
         this._layer = Util.objKeyValue(spec, "layer", Util.objKeyValue(spec, "dfltLayer", 0));
         this._mouse = Util.objKeyValue(spec, "mouse", UxMouse.instance);

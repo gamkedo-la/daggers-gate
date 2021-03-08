@@ -39,7 +39,7 @@ class UxTitleCtrl extends UxCtrl {
     }
 
     // METHODS -------------------------------------------------------------
-    keyReleased(key) {
+    keyPressed(key) {
         if (key === KEY_SPACE) {
             this.onStart();
         }

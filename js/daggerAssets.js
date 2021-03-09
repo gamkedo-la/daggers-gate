@@ -621,13 +621,14 @@ const daggerAssets = [
         {tag: "STONE_FLOOR4",            id: 73, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 300, tileset: true },
         {tag: "POT",                     id: 74, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 300, tileset: true },
         {tag: "WOOD_FLOOR2",             id: 75, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 300, tileset: true },
-        {tag: "FIREWAND",                id: 76, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 300, tileset: true },
+        {tag: "FIREWAND",                id: 76, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 300, },
         {tag: "MANA_POTION",             id: 77, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 300, tileset: true },
         {tag: "HEALING_POTION",          id: 78, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 300, tileset: true },
-        {tag: "ICEWAND",                 id: 79, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 300, tileset: true },
+        {tag: "ICEWAND",                 id: 79, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 300, },
         //ROW 8
         {tag: "GREEN_TUNIC",             id: 80, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 350 },
         {tag: "BLUE_TUNIC",              id: 81, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 350 },
+        {tag: "STONE_STAIRS",            id: 82, cls: "Sprite", width: 50, height: 50, xoffset: 100, yoffset: 350, passable: true, tileset: true },
 
     ]},
 

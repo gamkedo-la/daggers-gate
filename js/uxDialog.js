@@ -1,20 +1,17 @@
 class UxDialogCtrl extends UxCtrl {
-
-    static FIXME_RESPONSES = ["Hello", "Okay", "No way!"];
-    static FIXME_NRESP = 1;
-
-
     
     constructor(spec={}) {
-        const nameColor = new Color(168,36,36);
-        const dialogColor = new Color(168,36,36);
-        const responseColor = new Color(168,36,36);
-        const dialogFont = new Font({size:25});
+        super(spec);
+
+        this._dialog = spec.dialog;
+        this._responseColor || new Color(168,36,36);
+        const titleColor = spec.titleColor || new Color(168,36,36);
+        const dialogColor = spec.dialogColor || new Color(168,36,36);
+        this._font = spec.font || new Font({size:25});
+
         let text = UxQuestCtrl.lorem;
         let rlen = Math.floor(Math.random() * text.length);
         text = text.slice(0, rlen);
-        let npcName = "Billy Bob";
-        super(spec);
         // construct the UI elements
         this.view = UxView.generate({
             cls: "UxCanvas",
@@ -29,42 +26,27 @@ class UxDialogCtrl extends UxCtrl {
                     xchild: [
                         {
                             cls: "UxButton",
-                            xtext: { color: nameColor, text: npcName, xfitter: {cls: "FitToParent", top: .2, bottom: .125} },
+                            tag: "titleText",
+                            xtext: { color: titleColor, text: "title", xfitter: {cls: "FitToParent", top: .2, bottom: .125} },
                             xxform: {top: 0, bottom:1, left: .35, right: .35, height: 35},
                             xunpressed: Object.assign({}, assets.get("BUTTON_GRN_S3_OPAQ")),
                             active: false,
                         },
                         {
                             cls: "UxText",
-                            xtext: { color: dialogColor, text: text, wrap: true, fit: false, font: dialogFont},
+                            tag: "dialogText",
+                            xtext: { color: dialogColor, text: "dialog", wrap: true, fit: false, font: this._font},
                             xxform: { otop: 25, oleft: 10, oright: 5 },
                         },
                     ],
                 },
             ],
         });
-        this.dialogPanel = this.view.find((v) => v.tag === "dialogPanel");
-        // resize dialog to fit wrapped text
-        let height = Text.measureWrapHeight(dialogFont, text, this.dialogPanel.width) + 25;
-        this.dialogPanel.xform.height = height;
-        // add response buttons
-        const nresp = UxDialogCtrl.FIXME_NRESP;
-        const responses = UxDialogCtrl.FIXME_RESPONSES;
-        if (nresp === 1) {
-            this.addResponseButton(this.dialogPanel, responseColor, responses[0], .35, .35);
-        } else if (nresp === 2) {
-            this.addResponseButton(this.dialogPanel, responseColor, responses[0], .15, .55);
-            this.addResponseButton(this.dialogPanel, responseColor, responses[1], .55, .15);
-        } else if (nresp === 3) {
-            this.addResponseButton(this.dialogPanel, responseColor, responses[0], .05, .7);
-            this.addResponseButton(this.dialogPanel, responseColor, responses[1], .375, .375);
-            this.addResponseButton(this.dialogPanel, responseColor, responses[2], .7, .05);
-        }
-        UxDialogCtrl.FIXME_NRESP = (UxDialogCtrl.FIXME_NRESP === UxDialogCtrl.FIXME_RESPONSES.length) ? 1 : UxDialogCtrl.FIXME_NRESP+1;
         // lookup UI elements
-        //this.backButton = this.view.find((v) => v.tag === "backButton");
-        // hook actions
-        //this.backButton.evtClicked.listen(this.onBack.bind(this));
+        this.titleText = this.view.find((v) => v.tag === "titleText");
+        this.dialogPanel = this.view.find((v) => v.tag === "dialogPanel");
+        this.dialogText = this.view.find((v) => v.tag === "dialogText");
+        this.responseButtons = [];
     }
 
     // METHODS -------------------------------------------------------------
@@ -75,20 +57,18 @@ class UxDialogCtrl extends UxCtrl {
             dfltDepth: parent.depth + 1,
             dfltLayer: parent.layer,
             parent: parent,
-            //xxform: {parent: parent.xform, left: left, right: right, top: .94, bottom: -.04},
             xxform: {parent: parent.xform, top: 1, bottom:0, left: left, right: right, height: 32},
             xunpressed: Object.assign({}, assets.get("BUTTON_GRN_S3_OPAQ")),
             xpressed: Object.assign({}, assets.get("BUTTON_GLD_S3_OPAQ")),
             xhighlight: Object.assign({}, assets.get("BUTTON_GLD_S3_OPAQ")),
-            //xtext: {text: response, color: responseColor},
             xtext: {color: responseColor, text: response, xfitter: {cls: "FitToParent", top: .2, bottom: .15} },
         };
         let b = UxView.generate(bspec);
         if (b) {
-            //b.lvlName = lvlName;
-            //b.evtClicked.listen(this.onLvlSelect.bind(this));
+            b.evtClicked.listen((evt) => { this._dialog.chooseResponse(response)});
             parent.adopt(b);
         }
+        return b;
     }
 
     keyPressed(key) {
@@ -99,6 +79,49 @@ class UxDialogCtrl extends UxCtrl {
         if (key === 81) {  // Q
             this.onBack();
         }
+    }
+
+    updateTitle(ctx) {
+        if (this._dialog.title !== this.lastTitle) {
+            this.lastTitle = this._dialog.title;
+            this.titleText.text = this._dialog.title;
+        }
+    }
+
+    updateDialog(ctx) {
+        if (this._dialog.text !== this.lastText) {
+            this.lastText = this._dialog.text;
+            let height = Text.measureWrapHeight(this._font, this._dialog.text, this.dialogText.width) + 25;
+            this.dialogPanel.xform.height = height;
+            this.dialogText.text = this._dialog.text;
+        }
+    }
+
+    updateResponses(ctx) {
+        let responses = this._dialog.responses;
+        if (!Util.collectionEqual(responses, this.lastResponses)) {
+            this.lastResponses = responses.slice(0);
+            for (const b of this.responseButtons) b.destroy();
+            this.responseButtons = [];
+            if (responses.length === 1) {
+                this.responseButtons.push(this.addResponseButton(this.dialogPanel, this._responseColor, responses[0], .35, .35));
+            } else if (responses.length === 2) {
+                this.responseButtons.push(this.addResponseButton(this.dialogPanel, this._responseColor, responses[0], .15, .55));
+                this.responseButtons.push(this.addResponseButton(this.dialogPanel, this._responseColor, responses[1], .55, .15));
+            } else if (responses.length === 3) {
+                this.responseButtons.push(this.addResponseButton(this.dialogPanel, this._responseColor, responses[0], .05, .7));
+                this.responseButtons.push(this.addResponseButton(this.dialogPanel, this._responseColor, responses[1], .375, .375));
+                this.responseButtons.push(this.addResponseButton(this.dialogPanel, this._responseColor, responses[2], .7, .05));
+            }
+        }
+    }
+
+    update(ctx) {
+        // check for dialog completion
+        if (this._dialog.done) this.onBack();
+        this.updateTitle(ctx);
+        this.updateDialog(ctx);
+        this.updateResponses(ctx);
     }
 
     // EVENT CALLBACKS -----------------------------------------------------

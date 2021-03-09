@@ -258,7 +258,6 @@ class UxEditorCtrl extends UxCtrl {
 
     destroySelectButtons() {
         for (const b of this.selectButtons) {
-            console.log("destroying: " + b);
             b.destroy();
         }
         this.selectButtons = [];

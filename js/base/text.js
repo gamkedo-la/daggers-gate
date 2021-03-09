@@ -10,9 +10,25 @@
  */
 class Text extends Sketch {
     // STATIC VARIABLES ----------------------------------------------------
+    static lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " + 
+                   "labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
+                   "nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit " +
+                   "esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in " +
+                   "culpa qui officia deserunt mollit anim id est laborum.";
     static minFontSize = 5;
     static _textCanvas = document.createElement('canvas');
     static _textCtx = this._textCanvas.getContext('2d');
+
+    static get rlorem() {
+        let len = Math.floor(Math.random()*this.lorem.length);
+        return  this.lorem.slice(0, len);
+    }
+
+    static get rword() {
+        let choices = this.lorem.split(" ");
+        let idx = Math.floor(Math.random() * choices.length);
+        return choices[idx];
+    }
 
     // STATIC METHODS ------------------------------------------------------
     static measure(font, text, hacky=true) {
@@ -29,7 +45,6 @@ class Text extends Sketch {
     static measureWrapHeight(font, text, width, leadingPct=.25) {
         // split the lines
         let lines = this.splitText(font, text, width);
-        console.log("num lines: " + lines.length);
         if (lines.length > 0) {
             let tsize = Text.measure(font, lines[0]);
             return (tsize.y * lines.length-1) * (1+leadingPct) + tsize.y;
@@ -108,6 +123,14 @@ class Text extends Sketch {
                 const size = Text.measure(this._font, this._text);
                 this._width = size.x;
                 this._height = size.y;
+                if (this._wrap) {
+                    this._wrapLines = Text.splitText(this._font, this._text, this.width);
+                    if (this._wrapLines.length) {
+                        let tsize = Text.measure(this._font, this._wrapLines[0]);
+                        this._wrapLeading = Math.round(tsize.y * (1+this._leadingPct));
+                        return (tsize.y * this._wrapLines.length-1) * (1+this._leadingPct) + tsize.y;
+                    }
+                }
             }
             //this.evtUpdated.trigger();
         }
@@ -140,32 +163,6 @@ class Text extends Sketch {
             }
             this._font = this._font.copy({size: fsize-1});
         }
-    }
-
-    splitText() {
-        // split on spaces
-        let tokens = this._text.split(' ');
-        // iterate over tokens...
-        let line = "";
-        let lines = [];
-        for (const token of tokens) {
-            let testStr = `${line} ${token}`;
-            // measure test string
-            let tsize = Text.measure(this._font, testStr);
-            if (tsize.x > this.width) {
-                lines.push(line);
-                line = "";
-            } else {
-                line = testStr;
-            }
-        }
-        if (line) lines.push(line);
-        // measure first full line to determine leading space
-        if (lines.length) {
-            let tsize = Text.measure(this._font, lines[0]);
-            this._wrapLeading = Math.round(tsize.y * (1+this._leadingPct));
-        }
-        this._wrapLines = lines;
     }
 
     _render(renderCtx, x=0, y=0) {

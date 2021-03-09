@@ -9,9 +9,6 @@ class UxDialogCtrl extends UxCtrl {
         const dialogColor = spec.dialogColor || new Color(168,36,36);
         this._font = spec.font || new Font({size:25});
 
-        let text = UxQuestCtrl.lorem;
-        let rlen = Math.floor(Math.random() * text.length);
-        text = text.slice(0, rlen);
         // construct the UI elements
         this.view = UxView.generate({
             cls: "UxCanvas",
@@ -20,7 +17,6 @@ class UxDialogCtrl extends UxCtrl {
                 {
                     cls: "UxPanel",
                     tag: "dialogPanel",
-                    xsketch: {},
                     xsketch: Object.assign({}, assets.get("BUTTON_BLU_S1_OPAQ"), {xfitter: { cls: "FitToParent" }}),
                     xxform: { left: .2, right: .2, top: .5, bottom: .5, height: 100 },
                     xchild: [

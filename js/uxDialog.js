@@ -75,10 +75,6 @@ class UxDialogCtrl extends UxCtrl {
         if (key === KEY_ESCAPE || key === KEY_LETTER_Z || key === KEY_LETTER_X) { // Z
             this.onBack();
         }
-        // FIXME: remvoe
-        if (key === 81) {  // Q
-            this.onBack();
-        }
     }
 
     updateTitle(ctx) {

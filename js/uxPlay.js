@@ -310,8 +310,7 @@ class UxPlayCtrl extends UxCtrl {
             this.onEquipMenu();
         }
         if (key === 81) {  // Q
-            //this.onQuestMenu();
-            this.onStartDialog();
+            this.onQuestMenu();
         }
         if (key === 121) { // F10
             console.log("player debug animation toggle");

@@ -30,7 +30,7 @@ class UxQuestCtrl extends UxCtrl {
     }
 
     // METHODS -------------------------------------------------------------
-    keyReleased(key) {
+    keyPressed(key) {
         if (key === KEY_ESCAPE || key === 81) { // Q
             this.onBack();
         }

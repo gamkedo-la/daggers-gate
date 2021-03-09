@@ -509,10 +509,10 @@ class UxPlayCtrl extends UxCtrl {
         currentCtrl = ctrl;
     }
 
-    onStartDialog(dialog, npc) {
+    onStartDialog(dialog) {
         console.log("onDialog");
         // create new controller for equip menu
-        let ctrl = new UxDialogCtrl({dialog: new Dialog()});
+        let ctrl = new UxDialogCtrl({dialog: dialog});
         // activate new controller, move play controller to last
         lastCtrl = this;
         currentCtrl = ctrl;

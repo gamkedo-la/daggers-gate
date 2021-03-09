@@ -17,7 +17,14 @@ class Npc extends characterClass {
 
     interact(other) {
         console.log("interact w/ " + other);
-        currentCtrl.onStartDialog();
+        console.log("tag: " + this.tag);
+        // load dialog
+        let dspec = daggerDialogs[this.tag];
+        if (dspec) {
+            dspec.actor = other;
+            dspec.npc = this;
+            currentCtrl.onStartDialog(new Dialog(dspec));
+        }
     }
 
 }

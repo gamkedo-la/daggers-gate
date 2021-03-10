@@ -1,6 +1,87 @@
 class UxQuestInfoCtrl extends UxCtrl {
     constructor(spec={}) {
         super(spec);
+        this.quest = spec.quest;
+        const titleColor = spec.titleColor || new Color(168,36,36);
+        const dialogColor = spec.dialogColor || new Color(168,36,36);
+        this._font = spec.font || new Font({size:25});
+
+        // construct the UI elements
+        this.view = UxView.generate({
+            cls: "UxCanvas",
+            cvsid: "gameCanvas",
+            layer: 2,
+            xchild: [
+                {
+                    cls: "UxPanel",
+                    tag: "dialogPanel",
+                    xsketch: Object.assign({}, assets.get("BUTTON_BLU_S1_OPAQ"), {xfitter: { cls: "FitToParent" }}),
+                    xxform: { left: .1, right: .1, top: .5, bottom: .5, height: 100 },
+                    xchild: [
+                        {
+                            cls: "UxButton",
+                            tag: "titleText",
+                            xtext: { color: titleColor, text: this.quest.title, xfitter: {cls: "FitToParent", top: .2, bottom: .125} },
+                            xxform: {top: 0, bottom:1, left: .25, right: .25, height: 35},
+                            xunpressed: Object.assign({}, assets.get("BUTTON_GRN_S3_OPAQ")),
+                            active: false,
+                        },
+                        {
+                            cls: "UxText",
+                            tag: "dialogText",
+                            xtext: { color: dialogColor, text: "dialog", wrap: true, fit: false, font: this._font},
+                            xxform: { otop: 25, oleft: 10, oright: 5 },
+                        },
+
+                        // BACK ---------------------------
+                        {
+                            cls: "UxButton",
+                            tag: "backButton",
+                            xtext: { color: titleColor, text: " Back " },
+                            xxform: {top: .95, bottom: .05, left: .75, right: .05, height: 40},
+                            xunpressed: Object.assign({}, assets.get("BUTTON_GRN_S3_OPAQ")),
+                            xpressed: Object.assign({}, assets.get("BUTTON_RED_S2_OPAQ")),
+                            xhighlight: Object.assign({}, assets.get("BUTTON_RED_S3_OPAQ")),
+                        },
+                    ],
+                },
+            ],
+        });
+        // lookup UI elements
+        this.titleText = this.view.find((v) => v.tag === "titleText");
+        this.dialogPanel = this.view.find((v) => v.tag === "dialogPanel");
+        this.dialogText = this.view.find((v) => v.tag === "dialogText");
+        this.backButton = this.view.find((v) => v.tag === "backButton");
+        // hook actions
+        this.backButton.evtClicked.listen(this.onBack.bind(this));
+    }
+
+    keyPressed(key) {
+        if (key === KEY_ESCAPE || key === KEY_LETTER_Z || key === KEY_LETTER_X) { // Z
+            this.onBack();
+        }
+    }
+
+    updateDialog(ctx) {
+        if (this.quest.text !== this.lastText) {
+            this.lastText = this.quest.text;
+            let height = Text.measureWrapHeight(this._font, this.quest.text, this.dialogText.width) + 65;
+            this.dialogPanel.xform.height = height;
+            this.dialogText.text = this.quest.text;
+        }
+    }
+
+    update(ctx) {
+        this.updateDialog(ctx);
+    }
+
+    // EVENT CALLBACKS -----------------------------------------------------
+    onBack() {
+        // restore game controller
+        ctrlSys.pop();
+        // tear down current view
+        this.view.destroy();
+        ctrlSys.current.view.active = true;
     }
 }
 
@@ -120,6 +201,10 @@ class UxQuestCtrl extends UxCtrl {
         this.sideQuestButton3 = this.view.find((v) => v.tag === "sideQuestButton3");
         // hook actions
         this.backButton.evtClicked.listen(this.onBack.bind(this));
+        this.mainQuestButton.evtClicked.listen(this.onQuestInfo.bind(this));
+        this.sideQuestButton1.evtClicked.listen(this.onQuestInfo.bind(this));
+        this.sideQuestButton2.evtClicked.listen(this.onQuestInfo.bind(this));
+        this.sideQuestButton3.evtClicked.listen(this.onQuestInfo.bind(this));
     }
 
     // METHODS -------------------------------------------------------------
@@ -137,6 +222,7 @@ class UxQuestCtrl extends UxCtrl {
                 this.mainQuestButton.active = true;
                 this.mainQuestButton.visible = true;
                 this.mainQuestButton.text = quest.title;
+                this.mainQuestButton.quest = quest;
             } else {
                 this.mainQuestButton.active = false;
                 this.mainQuestButton.visible = false;
@@ -155,6 +241,7 @@ class UxQuestCtrl extends UxCtrl {
                     this[btag].active = true;
                     this[btag].visible = true;
                     this[btag].text = quest.title;
+                    this[btag].quest = quest;
                 } else {
                     this[btag].active = false;
                     this[btag].visible = false;
@@ -169,6 +256,12 @@ class UxQuestCtrl extends UxCtrl {
     }
 
     // EVENT CALLBACKS -----------------------------------------------------
+    onQuestInfo(evt) {
+        console.log("clicked: " + evt.actor + " quest: " + evt.actor.quest);
+        ctrlSys.assign(new UxQuestInfoCtrl({quest: evt.actor.quest}), true);
+        this.view.active = false;
+    }
+
     onBack() {
         // restore game controller
         ctrlSys.pop();

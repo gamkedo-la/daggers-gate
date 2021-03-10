@@ -119,7 +119,7 @@ class UxDialogCtrl extends UxCtrl {
     // EVENT CALLBACKS -----------------------------------------------------
     onBack() {
         // restore game controller
-        currentCtrl = lastCtrl;
+        ctrlSys.pop();
         // tear down current view
         this.view.destroy();
     }

@@ -1,3 +1,9 @@
+class UxQuestInfoCtrl extends UxCtrl {
+    constructor(spec={}) {
+        super(spec);
+    }
+}
+
 class UxQuestCtrl extends UxCtrl {
 
     constructor(spec={}) {
@@ -165,7 +171,7 @@ class UxQuestCtrl extends UxCtrl {
     // EVENT CALLBACKS -----------------------------------------------------
     onBack() {
         // restore game controller
-        currentCtrl = lastCtrl;
+        ctrlSys.pop();
         // tear down current view
         this.view.destroy();
     }

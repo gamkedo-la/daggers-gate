@@ -23,7 +23,7 @@ class Npc extends characterClass {
         if (dspec) {
             dspec.actor = other;
             dspec.npc = this;
-            currentCtrl.onStartDialog(new Dialog(dspec));
+            ctrlSys.current.onStartDialog(new Dialog(dspec));
         }
     }
 

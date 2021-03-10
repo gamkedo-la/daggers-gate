@@ -27,8 +27,9 @@ var loaders = [
 ];
 var props;
 var currentLevel;
-var currentCtrl;
-var lastCtrl;
+
+// controller system
+var ctrlSys = new UxCtrlSys();
 var queuedExit;
 var framesToDisplayMessage = 800;
 var levelLoader = new LevelLoader({
@@ -91,8 +92,7 @@ function loadingDoneSoStartGame() {
 	levelLoader.load(startingLevel);
 
 	// setup ux controller
-	currentCtrl = new UxTitleCtrl();
-	//currentCtrl = new UxEquipCtrl();
+	ctrlSys.assign(new UxTitleCtrl());
 
 	// instantiate player
 	p1 = new warriorClass({
@@ -121,7 +121,7 @@ function loadingDoneSoStartGame() {
 function moveEverything() {
 
 	// pass control to current UI controller
-	currentCtrl.update(updateCtx);
+	if(ctrlSys.current) ctrlSys.current.update(updateCtx);
 
 	// update mouse
 	UxMouse.instance.update(updateCtx);

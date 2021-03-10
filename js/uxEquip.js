@@ -876,7 +876,7 @@ class UxEquipCtrl extends UxCtrl {
     onRestoreGame() {
         //console.log("onRestoreGame");
         // restore game controller
-        currentCtrl = lastCtrl;
+        ctrlSys.pop();
         // tear down equip view
         this.view.destroy();
     }

@@ -49,8 +49,7 @@ class UxTitleCtrl extends UxCtrl {
     onStart() {
         // build out next controller
         //let ctrl = new UxPlayCtrl();
-        let ctrl = new UxMainCtrl();
-        currentCtrl = ctrl;
+        ctrlSys.assign(new UxMainCtrl());
         // tear down my view
         this.view.destroy();
         // FIXME: remove global???
@@ -59,9 +58,7 @@ class UxTitleCtrl extends UxCtrl {
 
     onEditor() {
         // build out next controller
-        let ctrl = new UxEditorCtrl();
-        //let ctrl = new UxMainCtrl();
-        currentCtrl = ctrl;
+        ctrlSys.assign(new UxEditorCtrl());
         // tear down my view
         this.view.destroy();
         // FIXME: remove global???

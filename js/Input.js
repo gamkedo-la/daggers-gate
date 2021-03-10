@@ -67,17 +67,17 @@ function setKeyHoldState(thisKey, thisPlayer, setTo) {
 }
 
 function keyPressed(evt) {
-  if (currentCtrl) currentCtrl.keyPressed(evt.keyCode);
+  if (ctrlSys.current) ctrlSys.current.keyPressed(evt.keyCode);
   evt.preventDefault(); // without this, arrow keys scroll the browser!
 }
 
 function keyReleased(evt) {
-  if (currentCtrl) currentCtrl.keyReleased(evt.keyCode);
+  if (ctrlSys.current) ctrlSys.current.keyReleased(evt.keyCode);
 }
 
 function mouseclicked(evt) {
   mouseDragging = true;
-  currentCtrl.mouseClicked(mouseX, mouseY);
+  ctrlSys.current.mouseClicked(mouseX, mouseY);
 }
 
 function mousereleased(evt) {
@@ -99,7 +99,7 @@ function mousemoved(evt) {
         tileOverIdx = -1;
     }
     // update controller
-    currentCtrl.mouseMoved(mouseX, mouseY);
+    ctrlSys.current.mouseMoved(mouseX, mouseY);
 } 
 
 function findMouseTileXY(evt) {

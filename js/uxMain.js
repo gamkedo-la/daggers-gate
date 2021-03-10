@@ -92,16 +92,14 @@ class UxMainCtrl extends UxCtrl {
     onStart(evt) {
         console.log("onStart");
         // build out next controller
-        let ctrl = new UxPlayCtrl();
-        currentCtrl = ctrl;
+        ctrlSys.assign(new UxPlayCtrl());
         // tear down my view
         this.view.destroy();
     }
 
     onEditor(evt) {
         // build out next controller
-        let ctrl = new UxEditorCtrl();
-        currentCtrl = ctrl;
+        ctrlSys.assign(new UxEditorCtrl());
         // tear down my view
         this.view.destroy();
         // FIXME: remove global???

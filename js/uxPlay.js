@@ -493,28 +493,19 @@ class UxPlayCtrl extends UxCtrl {
     onEquipMenu() {
         console.log("onEquipMenu");
         // create new controller for equip menu
-        let ctrl = new UxEquipCtrl();
-        // activate new controller, move play controller to last
-        lastCtrl = this;
-        currentCtrl = ctrl;
+        ctrlSys.assign(new UxEquipCtrl(), true);
     }
 
     onQuestMenu() {
         console.log("onQuestMenu");
-        // create new controller for equip menu
-        let ctrl = new UxQuestCtrl();
         // activate new controller, move play controller to last
-        lastCtrl = this;
-        currentCtrl = ctrl;
+        ctrlSys.assign(new UxQuestCtrl(), true);
     }
 
     onStartDialog(dialog) {
         console.log("onDialog");
         // create new controller for equip menu
-        let ctrl = new UxDialogCtrl({dialog: dialog});
-        // activate new controller, move play controller to last
-        lastCtrl = this;
-        currentCtrl = ctrl;
+        ctrlSys.assign(new UxDialogCtrl({dialog: dialog}), true);
     }
 
 

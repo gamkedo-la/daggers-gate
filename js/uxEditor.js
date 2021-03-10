@@ -456,32 +456,23 @@ class UxEditorCtrl extends UxCtrl {
 
     onNew() {
         console.log("onNewLevel");
-        // create new controller for equip menu
-        let ctrl = new UxNewLvlPopUpCtrl();
-        // activate new controller, move editor controller to last
-        lastCtrl = this;
         this.view.active = false;
-        currentCtrl = ctrl;
+        // create new controller for equip menu
+        ctrlSys.assign(new UxNewLvlPopUpCtrl(), true);
     }
 
     onHelp() {
         console.log("onHelp");
-        // create new controller for equip menu
-        let ctrl = new UxHelpPopUpCtrl();
-        // activate new controller, move editor controller to last
-        lastCtrl = this;
         this.view.active = false;
-        currentCtrl = ctrl;
+        // create new controller for help menu
+        ctrlSys.assign(new UxHelpPopUpCtrl(), true);
     }
 
     onLoadLevel() {
         console.log("onLoadLevel");
-        // create new controller for equip menu
-        let ctrl = new UxLoadLvlPopUpCtrl();
-        // activate new controller, move editor controller to last
-        lastCtrl = this;
         this.view.active = false;
-        currentCtrl = ctrl;
+        // create new controller for equip menu
+        ctrlSys.assign(new UxLoadLvlPopUpCtrl(), true);
     }
 
     onFillBg() {
@@ -658,11 +649,11 @@ class UxLoadLvlPopUpCtrl extends UxCtrl {
     onBack() {
         console.log("onBack");
         // restore last controller
-        currentCtrl = lastCtrl;
+        ctrlSys.pop();
         // tear down view
         if (this.view) this.view.destroy();
         // restore last view
-        currentCtrl.view.active = true;
+        ctrlSys.current.view.active = true;
     }
 
     onLvlSelect(evt) {
@@ -672,10 +663,10 @@ class UxLoadLvlPopUpCtrl extends UxCtrl {
         let lvl = evt.actor.lvlName;
         levelLoader.load(lvl, true)
         // reset tracker and camera
-        lastCtrl.tracker.x = 0;
-        lastCtrl.tracker.y = 0;
-        lastCtrl.lvlName = evt.actor.lvlName;
-        lastCtrl.rooms = lastCtrl.buildRoomArray();
+        ctrlSys.last.tracker.x = 0;
+        ctrlSys.last.tracker.y = 0;
+        ctrlSys.last.lvlName = evt.actor.lvlName;
+        ctrlSys.last.rooms = ctrlSys.last.buildRoomArray();
         camera.reset();
         // close window
         this.onBack();
@@ -777,11 +768,10 @@ class UxNewLvlPopUpCtrl extends UxCtrl {
     onBack() {
         console.log("onBack");
         // restore last controller
-        currentCtrl = lastCtrl;
+        ctrlSys.pop();
         // tear down view
         if (this.view) this.view.destroy();
-        // restore last view
-        currentCtrl.view.active = true;
+        ctrlSys.current.view.active = true;
     }
 
     onOK() {
@@ -799,10 +789,10 @@ class UxNewLvlPopUpCtrl extends UxCtrl {
         let lvl = new Level(spec);
         currentLevel = lvl;
         // reset tracker and camera
-        lastCtrl.tracker.x = 0;
-        lastCtrl.tracker.y = 0;
-        lastCtrl.lvlName = spec.name;
-        lastCtrl.rooms = lastCtrl.buildRoomArray();
+        ctrlSys.last.tracker.x = 0;
+        ctrlSys.last.tracker.y = 0;
+        ctrlSys.last.lvlName = spec.name;
+        ctrlSys.last.rooms = ctrlSys.last.buildRoomArray();
         camera.reset();
         // close window
         this.onBack();
@@ -876,11 +866,10 @@ class UxHelpPopUpCtrl extends UxCtrl {
     onBack() {
         console.log("onBack");
         // restore last controller
-        currentCtrl = lastCtrl;
-        // tear down view
+        ctrlSys.pop();
         if (this.view) this.view.destroy();
         // restore last view
-        currentCtrl.view.active = true;
+        ctrlSys.current.view.active = true;
     }
 
 }

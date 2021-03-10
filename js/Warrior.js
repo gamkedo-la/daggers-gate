@@ -259,11 +259,13 @@ class warriorClass extends characterClass {
             case "MANA_DROP":
                 console.log("mana + " + amt);
                 this.mana += amt;
+                if (this.mana > this.maxMana) this.man = this.maxMana;
                 manaGain.play();
             break;
             case "HEALTH_DROP":
                 console.log("health + " + amt);
                 this.health += amt;
+                if (this.health > this.maxHealth) this.health = this.maxHealth;
                 healthGain.play();
             break;
             case "GOLD_COINS_TWO_DROP":

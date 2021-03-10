@@ -38,7 +38,7 @@ class UxQuestInfoCtrl extends UxCtrl {
                             cls: "UxButton",
                             tag: "backButton",
                             xtext: { color: titleColor, text: " Back " },
-                            xxform: {top: .95, bottom: .05, left: .75, right: .05, height: 40},
+                            xxform: {top: .95, bottom: .05, left: .75, right: .05, height: 35},
                             xunpressed: Object.assign({}, assets.get("BUTTON_GRN_S3_OPAQ")),
                             xpressed: Object.assign({}, assets.get("BUTTON_RED_S2_OPAQ")),
                             xhighlight: Object.assign({}, assets.get("BUTTON_RED_S3_OPAQ")),

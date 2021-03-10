@@ -311,6 +311,12 @@ class characterClass {
         // FIXME: add loot
         this.spawnLoot();
         // FIXME: handle player death
+        // global event
+        if (this.constructor.name === "enemyClass") {
+            GameEvents.enemyDied.trigger({actor: this});
+        } else if (this.constructor.name === "gameObject") {
+            GameEvents.objectDestroyed.trigger({actor: this});
+        }
     }
 
     interact(character) {

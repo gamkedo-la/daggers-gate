@@ -296,8 +296,9 @@ class warriorClass extends characterClass {
                 console.log("mpotion + " + amt);
                 this.manaPotions += amt;
             break;
-
             }
+            // trigger global event
+            GameEvents.looted.trigger({loot: { tag: loot.tag, amt: amt }});
         }
         // destroy loot objectcase 
         currentLevel.destroyObject(loot);

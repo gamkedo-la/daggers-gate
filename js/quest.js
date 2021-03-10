@@ -19,9 +19,64 @@
 
 class Objective {
     constructor(spec={}) {
-        this.condition=spec.condition || false;
-        this.trigger
+        this.text = spec.text;
     }
+    get done() {
+        return false;
+    }
+}
+
+class CollectionObjective extends Objective {
+
+    constructor(spec={}) {
+        this.getter = spec.getter || (() => 0);
+        this.wantCount = spec.count || 1;
+    }
+
+    get count() {
+        return this.getter();
+    }
+
+    get done() {
+        this.count === this.wantCount;
+    }
+
+}
+
+class EvtObjective extends Objective {
+
+    constructor(spec={}) {
+        this.filter = spec.filter || ((evt) => false);
+        this.event = spec.event;
+        this.count = 0;
+        this.wantCount = spec.count || 1;
+    }
+
+    get done() {
+        this.count === this.wantCount;
+    }
+
+    // start tracking the objective...
+    track() {
+        if (this.event) {
+            this.event.listen(this.handle.bind(this));
+        }
+    }
+
+    // stop tracking objective...
+    forget() {
+        if (this.event) {
+            this.event.ignore(this.handle.bind(this));
+        }
+    }
+
+    handle(evt) {
+        if (this.filter && this.filter(evt)) {
+            this.count++;
+        }
+    }
+
+
 }
 
 /**
@@ -31,6 +86,7 @@ class Quest {
 
     // CONSTRUCTOR ---------------------------------------------------------
     constructor(spec={}) {
+        this.main = spec.main || false;
         this.text = spec.text || Text.rlorem,
         this.title = spec.title || "name of quest",
         this.objectives = spec.objectives || {},
@@ -72,6 +128,7 @@ class Quests {
         this._side1 = new Quest({title: "this is a side quest #1...", text: Text.rlorem});
         this._side2 = new Quest({title: "this is a side quest #2...", text: Text.rlorem});
         this._side3 = undefined;
+        this._completed = {};
         return Quests._instance;
     }
 
@@ -91,5 +148,7 @@ class Quests {
     get side3() {
         return this._side3;
     }
+
+    // 
 
 }

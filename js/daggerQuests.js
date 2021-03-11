@@ -15,12 +15,14 @@ const daggerQuests = {
                 filter: (evt) => (evt.actor.tag === "SLIME") && currentLevel.name === "lvl2",
                 count: 5,
             },
+            /*
             {
                 text: "Obtain the Unobtainable",
                 cls: "CollectionObjective",
                 getter: () => 0,
                 count: 1,
             },
+            */
 
         ],
     }

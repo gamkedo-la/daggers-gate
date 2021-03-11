@@ -6,8 +6,8 @@ class UxQuestInfoCtrl extends UxCtrl {
         const dialogColor = spec.dialogColor || new Color(168,36,36);
         this._font = spec.font || new Font({size:25});
         // measure the extra vertical space we need for the window which we'll add to the space required for the text
-        this.objectiveSpace = 30;
-        this.extraSpace = 65 + this.objectiveSpace * this.quest.objectives.length;
+        let objectiveSpace = (this.quest.done) ? 30 : 30 * this.quest.objectives.length;
+        this.extraSpace = 65 + objectiveSpace;
 
         // construct the UI elements
         this.view = UxView.generate({
@@ -38,7 +38,7 @@ class UxQuestInfoCtrl extends UxCtrl {
                         {
                             cls: "UxPanel",
                             tag: "objectivePanel",
-                            xxform: { top: .85, bottom: .15, left: .05, right: .05, origy:1, height: this.objectiveSpace*this.quest.objectives.length },
+                            xxform: { top: .85, bottom: .15, left: .05, right: .05, origy:1, height: objectiveSpace },
                         },
 
                         // BACK ---------------------------
@@ -61,37 +61,52 @@ class UxQuestInfoCtrl extends UxCtrl {
         this.objectivePanel = this.view.find((v) => v.tag === "objectivePanel");
         this.dialogText = this.view.find((v) => v.tag === "dialogText");
         this.backButton = this.view.find((v) => v.tag === "backButton");
-        // add objectives...
-        if (this.quest.objectives.length) {
-            let step = 1/this.quest.objectives.length
-            for (let i=0; i<this.quest.objectives.length; i++) {
-                const obj = this.quest.objectives[i];
-                // add objective text
-                let xtext = {
-                    cls: "UxText",
-                    dfltDepth: this.objectivePanel.depth + 1,
-                    dfltLayer: this.objectivePanel.layer,
-                    parent: this.objectivePanel,
-                    xxform: {parent: this.objectivePanel.xform, left: .05, right: .3, top: step*i, bottom: 1-(i+1)*step},
-                    xtext: {text: obj.text, align: "left"},
-                };
-                let v = UxView.generate(xtext);
-                this.objectivePanel.adopt(v);
-                // add objective progress
-                let progress = `${obj.count}/${obj.wantCount}`;
-                let progressColor = (obj.done) ? new Color(42,78,50) : new Color(105,27,40);
-                xtext = {
-                    cls: "UxText",
-                    dfltDepth: this.objectivePanel.depth + 1,
-                    dfltLayer: this.objectivePanel.layer,
-                    parent: this.objectivePanel,
-                    xxform: {parent: this.objectivePanel.xform, left: .7, right: .05, top: step*i, bottom: 1-(i+1)*step},
-                    xtext: {text: progress, align: "right", color: progressColor},
-                };
-                v = UxView.generate(xtext);
-                this.objectivePanel.adopt(v);
+        // add objectives... (if not complete)
+        if (!this.quest.done) {
+            if (this.quest.objectives.length) {
+                let step = 1/this.quest.objectives.length
+                for (let i=0; i<this.quest.objectives.length; i++) {
+                    const obj = this.quest.objectives[i];
+                    // add objective text
+                    let xtext = {
+                        cls: "UxText",
+                        dfltDepth: this.objectivePanel.depth + 1,
+                        dfltLayer: this.objectivePanel.layer,
+                        parent: this.objectivePanel,
+                        xxform: {parent: this.objectivePanel.xform, left: .05, right: .3, top: step*i, bottom: 1-(i+1)*step},
+                        xtext: {text: obj.text, align: "left"},
+                    };
+                    let v = UxView.generate(xtext);
+                    this.objectivePanel.adopt(v);
+                    // add objective progress
+                    let progress = `${obj.count}/${obj.wantCount}`;
+                    let progressColor = (obj.done) ? new Color(42,78,50) : new Color(105,27,40);
+                    xtext = {
+                        cls: "UxText",
+                        dfltDepth: this.objectivePanel.depth + 1,
+                        dfltLayer: this.objectivePanel.layer,
+                        parent: this.objectivePanel,
+                        xxform: {parent: this.objectivePanel.xform, left: .7, right: .05, top: step*i, bottom: 1-(i+1)*step},
+                        xtext: {text: progress, align: "right", color: progressColor},
+                    };
+                    v = UxView.generate(xtext);
+                    this.objectivePanel.adopt(v);
+                }
             }
+        // add turnin text
+        } else {
+            let xtext = {
+                cls: "UxText",
+                dfltDepth: this.objectivePanel.depth + 1,
+                dfltLayer: this.objectivePanel.layer,
+                parent: this.objectivePanel,
+                xxform: {parent: this.objectivePanel.xform, left: .05, right: .05 },
+                xtext: {text: this.quest.turnin},
+            };
+            let v = UxView.generate(xtext);
+            this.objectivePanel.adopt(v);
         }
+
         // hook actions
         this.backButton.evtClicked.listen(this.onBack.bind(this));
     }

@@ -253,7 +253,7 @@ class warriorClass extends characterClass {
             this.inventory.add(loot);
         } else {
             // determine loot amount
-            let amt = (loot.loot) ? loot.loot.amt : 1;
+            let amt = (loot.loot) ? loot.loot.amt : loot.amt || 1;
             // add loot to player
             switch (loot.tag) {
             case "MANA_DROP":

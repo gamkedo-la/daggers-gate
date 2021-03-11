@@ -125,6 +125,7 @@ class Quest {
         this.main = spec.main || false;
         this.text = spec.text || Text.rlorem,
         this.title = spec.title || "name of quest",
+        this.turnin = spec.turnin || "... return to quest giver ...",
         this.objectives = [];
         for (const xobj of spec.objectives || []) {
             let obj = Objective.generate(xobj);

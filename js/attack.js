@@ -6,6 +6,7 @@ class Attack {
     // initialize specs
     static _initSpecs() {
         this._specs = {};
+
         this._specs["ranged"] = {
             [Animator.idleEast]: {
                 state: Animator.attackEast,
@@ -58,6 +59,102 @@ class Attack {
             },
         };
         this._specs["ranged"][Animator.idle] = this._specs["ranged"][Animator.idleSouth];
+
+        this._specs["ice"] = {
+            [Animator.idleEast]: {
+                state: Animator.attackEast,
+                sketch: iceball,
+                collider: {
+                    color: "red",
+                    width: 20,
+                    height: 20,
+                },
+                ttl: 450,
+                angle: 0,
+            },
+            [Animator.idleWest]: {
+                state: Animator.attackWest,
+                sketch: iceball,
+                collider: {
+                    color: "red",
+                    width: 20,
+                    height: 20,
+                },
+                ttl: 450,
+                angle: Math.PI,
+            },
+            [Animator.idleNorth]: {
+                state: Animator.attackNorth,
+                sketch: iceball,
+                collider: {
+                    color: "red",
+                    width: 20,
+                    height: 20,
+                },
+                ttl: 450,
+                angle: -Math.PI*.5,
+            },
+            [Animator.idleSouth]: {
+                state: Animator.attackSouth,
+                sketch: iceball,
+                collider: {
+                    color: "red",
+                    width: 20,
+                    height: 20,
+                },
+                ttl: 450,
+                angle: Math.PI*.5,
+            },
+        };
+        this._specs["ice"][Animator.idle] = this._specs["ice"][Animator.idleSouth];
+
+        this._specs["fire"] = {
+            [Animator.idleEast]: {
+                state: Animator.attackEast,
+                sketch: fireball,
+                collider: {
+                    color: "red",
+                    width: 20,
+                    height: 20,
+                },
+                ttl: 450,
+                angle: 0,
+            },
+            [Animator.idleWest]: {
+                state: Animator.attackWest,
+                sketch: fireball,
+                collider: {
+                    color: "red",
+                    width: 20,
+                    height: 20,
+                },
+                ttl: 450,
+                angle: Math.PI,
+            },
+            [Animator.idleNorth]: {
+                state: Animator.attackNorth,
+                sketch: fireball,
+                collider: {
+                    color: "red",
+                    width: 20,
+                    height: 20,
+                },
+                ttl: 450,
+                angle: -Math.PI*.5,
+            },
+            [Animator.idleSouth]: {
+                state: Animator.attackSouth,
+                sketch: fireball,
+                collider: {
+                    color: "red",
+                    width: 20,
+                    height: 20,
+                },
+                ttl: 450,
+                angle: Math.PI*.5,
+            },
+        };
+        this._specs["fire"][Animator.idle] = this._specs["fire"][Animator.idleSouth];
 
         this._specs["melee"] = {
             [Animator.idleSouth]: {

@@ -1,4 +1,15 @@
 
+const actionTable = {
+    "melee": "doMeleeAttack",
+    "ranged": "doRangedAttack",
+    "open": "doOpen",
+    "grab": "doGrab",
+    "drop": "doDrop",
+    "place": "doPlace",
+    "talk": "doTalk",
+    "magic": "doMagicAttack",
+}
+
 const interactionWaitIterations = 3;
 class characterClass {
     constructor(spec={}) {
@@ -197,55 +208,43 @@ class characterClass {
 
     primaryAction() {
         this.startPrimaryAction = false;
-        //console.log("...primary action...");
-        switch (this.chosenPrimary) {
-        case "open":
-            this.doOpen(this.targetObj);
-            break;
-        case "melee":
-            this.doMeleeAttack((this.inventory)?this.inventory.mainHand:undefined);
-            break;
-        case "grab":
-            this.doGrab(this.targetObj);
-            break;
-        case "drop":
-            this.doDrop();
-            break;
-        case "place":
-            this.doPlace(this.targetObj);
-            break;
-        case "talk":
-            this.doTalk(this.targetObj);
-            break;
+        let actionData = {
+            target: this.targetObj,
+            weapon: (this.inventory) ? this.inventory.mainHand : undefined,
+        }
+        let fcnTag = actionTable[this.chosenPrimary];
+        if (fcnTag && this[fcnTag]) {
+            this[fcnTag](actionData);
         }
     }
 
     secondaryAction() {
         this.startSecondaryAction = false;
-        //console.log("...secondary action...");
-        switch (this.chosenSecondary) {
-        case "ranged":
-            console.log("trying to range attack...");
-            this.doRangedAttack();
-            break;
+        let actionData = {
+            target: this.targetObj,
+            weapon: (this.inventory) ? this.inventory.offHand : undefined,
+        }
+        let fcnTag = actionTable[this.chosenSecondary];
+        if (fcnTag && this[fcnTag]) {
+            this[fcnTag](actionData);
         }
     }
 
     // ACTIONS
-    doMeleeAttack(weapon) {
+    doMeleeAttack(data) {
         if (!this.currentAttack) {
             // lookup attack
             let xattack = Object.assign({}, Attack.getSpec("melee")[this.facing], {actor: this, idleState: this.facing});
             // transition to attack state (based on idle direction)
             this.state = xattack.state;
-            if (weapon) xattack.weapon = weapon;
+            if (data.weapon) xattack.weapon = data.weapon;
             // start the attack
             xattack.collider = Object.assign({}, xattack.collider, {x:this.x, y:this.y});
             this.currentAttack = new SyncAttack(xattack);
         }
     }
 
-    doRangedAttack() {
+    doRangedAttack(data) {
         if (!this.currentAttack) {
             /*
             if (!this.haveBow) {
@@ -266,11 +265,28 @@ class characterClass {
         }
     }
 
-    doGrab(targetObj) {
-        if (targetObj) {
-            console.log("grabbing object: " + targetObj);
-            targetObj.interact(this);
-            currentLevel.destroyObject(targetObj);
+    doMagicAttack(data) {
+        if (!this.currentAttack) {
+            let manaCost = 5;
+            if (this.mana < manaCost) {
+                console.log("no mana!");
+                return;
+            }
+            let attackKind = (data.weapon && data.weapon.tag === "FIREWAND") ? "fire" : "ice";
+            let xattack = Object.assign({}, Attack.getSpec(attackKind)[this.facing], {actor: this, idleState: this.facing});
+            xattack.collider = Object.assign({}, xattack.collider, {x:this.x, y:this.y});
+            this.currentAttack = new RangedAttack(xattack);
+            this.mana -= manaCost;
+            // transition to attack state (based on idle direction)
+            this.state = xattack.state;
+        }
+    }
+
+    doGrab(data) {
+        if (data.target) {
+            console.log("grabbing object: " + data.target);
+            data.target.interact(this);
+            currentLevel.destroyObject(data.target);
         }
     }
 
@@ -284,23 +300,23 @@ class characterClass {
         }
     }
 
-    doOpen(targetObj) {
-        if (targetObj) {
-            targetObj.interact(this);
+    doOpen(data) {
+        if (data.target) {
+            data.target.interact(this);
         }
     }
 
-    doPlace(targetObj) {
-        if (targetObj) {
-            console.log("trying to place: " + this.grabbedObj + " on: " + targetObj);
-            targetObj.interact(this);
+    doPlace(data) {
+        if (data.target) {
+            console.log("trying to place: " + this.grabbedObj + " on: " + data.target);
+            data.target.interact(this);
         }
     }
 
-    doTalk(targetObj) {
-        if (targetObj) {
-            console.log("trying to talk to: " + targetObj);
-            targetObj.interact(this);
+    doTalk(data) {
+        if (data.target) {
+            console.log("trying to talk to: " + data.target);
+            data.target.interact(this);
         }
     }
 

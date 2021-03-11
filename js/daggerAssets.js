@@ -27,6 +27,38 @@ const swordSpec = {
 };
 const sword = new Shape(swordSpec);
 
+const iceballSpec = {
+    cls: "Shape",
+	fill: true,
+	verts: [
+		{x:0, y:2},
+		{x:4, y:0},
+		{x:8, y:0},
+		{x:12, y:2},
+		{x:8, y:4},
+		{x:4, y:4},
+	],
+	borderWidth: 2,
+	borderColor: "rgba(94,215,239,1)",
+    color: "rgba(117,157,169,1)"
+};
+const iceball = new Shape(iceballSpec);
+
+const fireballSpec = {
+    cls: "Shape",
+	fill: true,
+	verts: [
+		{x:0, y:6},
+		{x:6, y:0},
+		{x:12, y:6},
+		{x:6, y:12},
+	],
+	borderWidth: 2,
+	borderColor: "rgba(226,83,34,1)",
+    color: "rgba(255,201,92,1)"
+};
+const fireball = new Shape(fireballSpec);
+
 const animators = {
     "PLAYER": {
         cls: "Animator",

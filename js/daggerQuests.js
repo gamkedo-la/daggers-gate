@@ -9,11 +9,19 @@ const daggerQuests = {
         turnin: "Return to Sir Bob in Dagger's Gate",
         objectives: [
             {
+                text: "Slay the Slimes",
                 cls: "EvtObjective",
                 event: GameEvents.enemyDied,
                 filter: (evt) => (evt.actor.tag === "SLIME") && currentLevel.name === "lvl2",
                 count: 5,
-            }
+            },
+            {
+                text: "Obtain the Unobtainable",
+                cls: "CollectionObjective",
+                getter: () => 0,
+                count: 1,
+            },
+
         ],
     }
 }

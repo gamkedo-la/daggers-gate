@@ -35,11 +35,24 @@ class Objective {
         return undefined;
     }
 
+    // CONSTRUCTOR ---------------------------------------------------------
     constructor(spec={}) {
-        this.text = spec.text;
+        this.text = spec.text || "objective";
     }
+
+    // PROPERTIES ----------------------------------------------------------
     get done() {
         return false;
+    }
+
+    // METHODS -------------------------------------------------------------
+    track() {
+    }
+    forget() {
+    }
+
+    toString() {
+        return Fmt.toString(this.constructor.name, this.text);
     }
 }
 

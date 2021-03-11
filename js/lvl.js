@@ -89,7 +89,6 @@ class Level {
                     }, spec);
                     // instantiate enemy
                     if (!this.dbgNoNpc) {
-                        console.log("creating enemy: " + Fmt.ofmt(spec));
                         let npc = new Npc(spec);
                         this.npcs.push(npc);
                     }

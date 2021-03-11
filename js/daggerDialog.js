@@ -12,7 +12,7 @@ const daggerDialogs = {
                 }
             },
             next: {
-                text: "The time has come for you to prove your worth and slay the dragon.",
+                text: "The time has come for you to prove your worth and slay the dragon.  Wait, someone already slew the dragon?  Ah yes, a real hero... oh well what do we have for this guy?  Maybe some nice SLIMES!  What do you say kid?",
                 responses: {
                     "No way!": (d) => d.done = true,
                     "OK": (d) => {

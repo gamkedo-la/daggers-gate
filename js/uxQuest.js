@@ -5,6 +5,9 @@ class UxQuestInfoCtrl extends UxCtrl {
         const titleColor = spec.titleColor || new Color(168,36,36);
         const dialogColor = spec.dialogColor || new Color(168,36,36);
         this._font = spec.font || new Font({size:25});
+        // measure the extra vertical space we need for the window which we'll add to the space required for the text
+        this.objectiveSpace = 30;
+        this.extraSpace = 65 + this.objectiveSpace * this.quest.objectives.length;
 
         // construct the UI elements
         this.view = UxView.generate({
@@ -30,7 +33,12 @@ class UxQuestInfoCtrl extends UxCtrl {
                             cls: "UxText",
                             tag: "dialogText",
                             xtext: { color: dialogColor, text: "dialog", wrap: true, fit: false, font: this._font},
-                            xxform: { otop: 25, oleft: 10, oright: 5 },
+                            xxform: { otop: 25, oleft: 20, oright: 5 },
+                        },
+                        {
+                            cls: "UxPanel",
+                            tag: "objectivePanel",
+                            xxform: { top: .85, bottom: .15, left: .05, right: .05, origy:1, height: this.objectiveSpace*this.quest.objectives.length },
                         },
 
                         // BACK ---------------------------
@@ -50,14 +58,46 @@ class UxQuestInfoCtrl extends UxCtrl {
         // lookup UI elements
         this.titleText = this.view.find((v) => v.tag === "titleText");
         this.dialogPanel = this.view.find((v) => v.tag === "dialogPanel");
+        this.objectivePanel = this.view.find((v) => v.tag === "objectivePanel");
         this.dialogText = this.view.find((v) => v.tag === "dialogText");
         this.backButton = this.view.find((v) => v.tag === "backButton");
+        // add objectives...
+        if (this.quest.objectives.length) {
+            let step = 1/this.quest.objectives.length
+            for (let i=0; i<this.quest.objectives.length; i++) {
+                const obj = this.quest.objectives[i];
+                // add objective text
+                let xtext = {
+                    cls: "UxText",
+                    dfltDepth: this.objectivePanel.depth + 1,
+                    dfltLayer: this.objectivePanel.layer,
+                    parent: this.objectivePanel,
+                    xxform: {parent: this.objectivePanel.xform, left: .05, right: .3, top: step*i, bottom: 1-(i+1)*step},
+                    xtext: {text: obj.text, align: "left"},
+                };
+                let v = UxView.generate(xtext);
+                this.objectivePanel.adopt(v);
+                // add objective progress
+                let progress = `${obj.count}/${obj.wantCount}`;
+                let progressColor = (obj.done) ? new Color(42,78,50) : new Color(105,27,40);
+                xtext = {
+                    cls: "UxText",
+                    dfltDepth: this.objectivePanel.depth + 1,
+                    dfltLayer: this.objectivePanel.layer,
+                    parent: this.objectivePanel,
+                    xxform: {parent: this.objectivePanel.xform, left: .7, right: .05, top: step*i, bottom: 1-(i+1)*step},
+                    xtext: {text: progress, align: "right", color: progressColor},
+                };
+                v = UxView.generate(xtext);
+                this.objectivePanel.adopt(v);
+            }
+        }
         // hook actions
         this.backButton.evtClicked.listen(this.onBack.bind(this));
     }
 
     keyPressed(key) {
-        if (key === KEY_ESCAPE || key === KEY_LETTER_Z || key === KEY_LETTER_X) { // Z
+        if (key === KEY_ESCAPE || key === KEY_LETTER_Z || key === KEY_LETTER_X || key === KEY_LETTER_Q) { // Z
             this.onBack();
         }
     }
@@ -65,7 +105,7 @@ class UxQuestInfoCtrl extends UxCtrl {
     updateDialog(ctx) {
         if (this.quest.text !== this.lastText) {
             this.lastText = this.quest.text;
-            let height = Text.measureWrapHeight(this._font, this.quest.text, this.dialogText.width) + 65;
+            let height = Text.measureWrapHeight(this._font, this.quest.text, this.dialogText.width) + this.extraSpace;
             this.dialogPanel.xform.height = height;
             this.dialogText.text = this.quest.text;
         }
@@ -209,7 +249,7 @@ class UxQuestCtrl extends UxCtrl {
 
     // METHODS -------------------------------------------------------------
     keyPressed(key) {
-        if (key === KEY_ESCAPE || key === 81) { // Q
+        if (key === KEY_ESCAPE || key === KEY_LETTER_Z || key === KEY_LETTER_X || key === KEY_LETTER_Q) {
             this.onBack();
         }
     }

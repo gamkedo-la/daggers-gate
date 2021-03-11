@@ -18,6 +18,23 @@
 
 
 class Objective {
+    // STATIC VARIABLES ----------------------------------------------------
+    // map for generate function, used by subclasses to "register" themselves to the generator.
+    static _genmap = new Map();
+
+    // STATIC METHODS ------------------------------------------------------
+    // the registration function for subclasses to "register" themselves to the generator
+    static _genreg(cls) {
+        const name = cls.prototype.constructor.name;
+        this._genmap.set(name, cls);
+        return name;
+    }
+    static generate(spec={}) {
+        let cls = this._genmap.get(spec.cls);
+        if (cls) return new cls(spec);
+        return undefined;
+    }
+
     constructor(spec={}) {
         this.text = spec.text;
     }
@@ -29,6 +46,7 @@ class Objective {
 class CollectionObjective extends Objective {
 
     constructor(spec={}) {
+        super(spec);
         this.getter = spec.getter || (() => 0);
         this.wantCount = spec.count || 1;
     }
@@ -38,7 +56,7 @@ class CollectionObjective extends Objective {
     }
 
     get done() {
-        this.count === this.wantCount;
+        this.count >= this.wantCount;
     }
 
 }
@@ -46,6 +64,7 @@ class CollectionObjective extends Objective {
 class EvtObjective extends Objective {
 
     constructor(spec={}) {
+        super(spec);
         this.filter = spec.filter || ((evt) => false);
         this.event = spec.event;
         this.count = 0;
@@ -53,7 +72,8 @@ class EvtObjective extends Objective {
     }
 
     get done() {
-        this.count === this.wantCount;
+        console.log("object is done: " + (this.count >= this.wantCount));
+        return this.count >= this.wantCount;
     }
 
     // start tracking the objective...
@@ -71,8 +91,10 @@ class EvtObjective extends Objective {
     }
 
     handle(evt) {
+        console.log("handle called for evt: " + Fmt.ofmt(evt));
         if (this.filter && this.filter(evt)) {
             this.count++;
+            console.log("added event count - current: " + this.count);
         }
     }
 
@@ -86,22 +108,39 @@ class Quest {
 
     // CONSTRUCTOR ---------------------------------------------------------
     constructor(spec={}) {
+        this.name = spec.name || "quest";
         this.main = spec.main || false;
         this.text = spec.text || Text.rlorem,
         this.title = spec.title || "name of quest",
-        this.objectives = spec.objectives || {},
+        this.objectives = [];
+        for (const xobj of spec.objectives || []) {
+            let obj = Objective.generate(xobj);
+            this.objectives.push(obj);
+        }
+        this.rewards = spec.rewards || [];
         this._done = false;
     }
 
     // PROPERTIES ----------------------------------------------------------
     get done() {
-        return this._done;
-    }
-    set done(v) {
-        return this._done = v;
+        let v = true;
+        for (const obj of this.objectives) {
+            console.log("q obj.done: " + obj.done);
+            v &= obj.done;
+        }
+        console.log("q done v: " + v);
+        return v;
     }
 
     // METHODS -------------------------------------------------------------
+    track() {
+        for (const obj of this.objectives) obj.track();
+    }
+
+    forget() {
+        for (const obj of this.objectives) obj.forget();
+    }
+
     toString() {
         return Fmt.toString(this.constructor.name, this.title, this.done);
     }
@@ -125,9 +164,10 @@ class Quests {
     constructor(spec={}) {
         if (!Quests._instance) Quests._instance=this;
         this._main = new Quest({title: "There and Back Again", text: Text.rlorem,});
-        this._side1 = new Quest({title: "this is a side quest #1...", text: Text.rlorem});
-        this._side2 = new Quest({title: "this is a side quest #2...", text: Text.rlorem});
-        this._side3 = undefined;
+        this._sides = [];
+        //this._side1 = new Quest({title: "this is a side quest #1...", text: Text.rlorem});
+        //this._side2 = new Quest({title: "this is a side quest #2...", text: Text.rlorem});
+        //this._side3 = undefined;
         this._completed = {};
         return Quests._instance;
     }
@@ -138,17 +178,95 @@ class Quests {
     }
 
     get side1() {
-        return this._side1;
+        return (this._sides.length > 0) ? this._sides[0] : undefined;
     }
 
     get side2() {
-        return this._side2;
+        return (this._sides.length > 1) ? this._sides[1] : undefined;
     }
 
     get side3() {
-        return this._side3;
+        return (this._sides.length > 2) ? this._sides[2] : undefined;
     }
 
-    // 
+    // PROPERTIES ----------------------------------------------------------
+    start(name) {
+        console.log("starting quest: " + name);
+        // lookup quest by name
+        let xquest = daggerQuests[name];
+        if (!xquest) {
+            console.error("invalid quest: " + name);
+        }
+        xquest.name = name;
+        // instantiate quest
+        let quest = new Quest(xquest);
+        // track based on type
+        if (quest.main) {
+            // FIXME: state/error checking to make sure previous main has been completed?
+            this._main = quest;
+        } else {
+            // FIXME: state/error checking to make sure sides isn't full?
+            this._sides.push(quest)
+        }
+        // start tracking progress on quest
+        quest.track();
+    }
+
+    checkStarted(name) {
+        if (this._main && this._main.name === name) {
+            return !this._main.done;
+        } else {
+            for (let i=0; i<this._sides.length; i++) {
+                if (this._sides[i] && this._sides[i].name === name) {
+                    return !this._sides[i].done;
+                }
+            }
+        }
+        return false;
+    }
+
+    checkDone(name) {
+        if (this.main && this._main.name === name) {
+            console.log("main is done: " + this._main.done);
+            return this._main.done;
+        } else {
+            for (let i=0; i<this._sides.length; i++) {
+                if (this._sides[i] && this._sides[i].name === name) {
+                    return this._sides[i].done;
+                }
+            }
+        }
+        return false;
+    }
+
+    checkCompleted(name) {
+        return name in this._completed;
+    }
+
+    finish(name) {
+        let quest;
+        // find quest state
+        if (this._main.name === name) {
+            quest = this._main;
+            this._main = undefined;
+        } else {
+            for (let i=0; i<this._sides.length; i++) {
+                if (this._sides[i].name === name) {
+                    quest = this._sides[i];
+                    this._sides.splice(i, 1);
+                }
+            }
+        }
+        if (!quest) {
+            console.error(`invalid quest state: ${name} is not a tracked quest`);
+            return;
+        }
+        // distribute rewards
+        for (const reward of quest.rewards) {
+            p1.gatherLoot(reward);
+        }
+        // set as completed
+        this._completed[name] = quest;
+    }
 
 }

@@ -3,6 +3,7 @@
  */
 class Level {
     constructor(spec={}) {
+        this.name = spec.name || "lvl";
         this.width = spec.width || 16;
         this.height = spec.height || 12;
         this.nentries = this.width * this.height;
@@ -490,6 +491,7 @@ class LevelLoader {
                 console.error("spec for level: " + name + " does not exist!");
                 return undefined
             }
+            spec.name = name;
             if (editor) spec.editor = true;
             if (this.dbgNoEnemy) spec.dbgNoEnemy = true;
             lvl = new Level(spec);

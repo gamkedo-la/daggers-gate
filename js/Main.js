@@ -28,6 +28,9 @@ var loaders = [
 var props;
 var currentLevel;
 
+// global quest state
+var quests = Quests.instance;
+
 // controller system
 var ctrlSys = new UxCtrlSys();
 var queuedExit;

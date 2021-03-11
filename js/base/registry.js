@@ -31,5 +31,8 @@ class Registry {
         Sketch._genreg(StretchSprite);
         Sketch._genreg(Text);
         Sketch._genreg(Shape);
+        // objectives
+        Objective._genreg(CollectionObjective);
+        Objective._genreg(EvtObjective);
     }
 }

@@ -312,9 +312,12 @@ class characterClass {
         this.spawnLoot();
         // FIXME: handle player death
         // global event
+        console.log("this.constructor.name: " + this.constructor.name);
         if (this.constructor.name === "enemyClass") {
+            console.log("triggering enemyDied");
             GameEvents.enemyDied.trigger({actor: this});
-        } else if (this.constructor.name === "gameObject") {
+        } else if (this.constructor.name === "gameObjectClass") {
+            console.log("triggering objectDestroyed");
             GameEvents.objectDestroyed.trigger({actor: this});
         }
     }

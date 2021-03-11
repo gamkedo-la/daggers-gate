@@ -160,6 +160,12 @@ const daggerNpcs = {
             height: 30, 
             //blocking: false,
         },
+        dialogs: [
+            { tag: "q1Start", predicate: (npc) => !quests.checkStarted("q1") && !quests.checkDone("q1") && !quests.checkCompleted("q1")},
+            { tag: "q1Wait", predicate: (npc) => quests.checkStarted("q1") },
+            { tag: "q1Done", predicate: (npc) => quests.checkDone("q1") },
+            { tag: "q1Complete", predicate: (npc) => quests.checkCompleted("q1") },
+        ],
     },
 };
 

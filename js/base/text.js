@@ -64,7 +64,7 @@ class Text extends Sketch {
             let tsize = Text.measure(font, testStr);
             if (tsize.x > width) {
                 lines.push(line);
-                line = "";
+                line = token;
             } else {
                 line = testStr;
             }

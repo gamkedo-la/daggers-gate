@@ -485,6 +485,7 @@ class RangedAttack {
             width: this._sketch.width,
             height: this._sketch.height,
         });
+        this.pem = spec.pem; // particle emitter
         // current position of attack
         let aoffx = spec.actorOffsetx || 0;
         let aoffy = spec.actorOffsety || 0;
@@ -503,6 +504,12 @@ class RangedAttack {
     get active() {
         return this._active;
     }
+    set active(v) {
+        if (!v) {
+            if (this.pem) this.pem.destroy();
+        }
+        this._active = v;
+    }
     get idleState() {
         return this._idleState;
     }
@@ -510,11 +517,16 @@ class RangedAttack {
     update(ctx) {
         this._ttl -= ctx.deltaTime;
         if (this._ttl <= 0) {
-            this._active = false;
+            this.active = false;
         }
         // update position
         this._x += this._dx * ctx.deltaTime;
         this._y += this._dy * ctx.deltaTime;
+        // update particle emitter
+        if (this.active && this.pem) {
+            this.pem.x = this._x;
+            this.pem.y = this._y;
+        }
         // update collider
         if (this.active) {
             this._collider.update(this._x, this._y, currentLevel.idxfromxy.bind(currentLevel));
@@ -524,7 +536,7 @@ class RangedAttack {
                 // check for collision w/ non-health colliders that will block projectile
                 if (!ohit.health) {
                     if (ohit.active && ohit.collider.blocking) {
-                        this._active = false;
+                        this.active = false;
                         return;
                     } else { // not a blocking collider, ignore it
                         continue;
@@ -546,7 +558,7 @@ class RangedAttack {
                 ohit.nudge = new Nudge(xnudge);
                 // if not piercing... we are done
                 if (!this._piercing) {
-                    this._active = false;
+                    this.active = false;
                     return;
                 }
             }
@@ -555,7 +567,7 @@ class RangedAttack {
             let idx = currentLevel.idxfromxy(this._x, this._y);
             let id = currentLevel.fgi(idx);
             if (id && !props.passable(id) && !props.permeable(id)) {
-                this._active = false;
+                this.active = false;
                 return;
             }
         }

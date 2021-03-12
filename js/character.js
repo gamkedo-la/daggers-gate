@@ -274,6 +274,23 @@ class characterClass {
             let attackKind = (data.weapon && data.weapon.tag === "FIREWAND") ? "fire" : "ice";
             let xattack = Object.assign({}, Attack.getSpec(attackKind)[this.facing], {actor: this, idleState: this.facing});
             xattack.collider = Object.assign({}, xattack.collider, {x:this.x, y:this.y});
+            if (attackKind === "fire") {
+                xattack.pem = new ParticleEmitter({
+                    interval: 50,
+                    count: 3,
+                    generator: (e) => {
+                        let xpart = {
+                            x: e.x,
+                            y: e.y,
+                            color: (Math.random() > .75) ? new Color(235,138,6,1) : new Color(255,201,92,1),
+                            dx: (Math.random() - .5)*.04,
+                            dy: (Math.random() - .5)*.04,
+                            ttl: 500,
+                        }
+                        return new FadeParticle(xpart);
+                    },
+                })
+            }
             this.currentAttack = new RangedAttack(xattack);
             this.mana -= manaCost;
             // transition to attack state (based on idle direction)

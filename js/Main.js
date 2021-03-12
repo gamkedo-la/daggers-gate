@@ -30,6 +30,8 @@ var currentLevel;
 
 // global quest state
 var quests = Quests.instance;
+// global particle state
+var particles = ParticleSystem.instance;
 
 // controller system
 var ctrlSys = new UxCtrlSys();

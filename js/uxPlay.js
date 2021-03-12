@@ -12,6 +12,8 @@ class UxPlayView extends UxView {
 		p1.draw();
 		currentLevel.lateRender(ctx);
 		ctx.translate(camera.x, camera.y);
+        // render particles
+        particles.render(ctx);
     }
 }
 
@@ -480,6 +482,8 @@ class UxPlayCtrl extends UxCtrl {
         this.updatePlayerMana();
         this.updatePlayerActions();
         //console.log("this.keyText: " + this.keyText);
+        // update particles
+        particles.update(updateCtx);
     }
 
     mouseClicked(x, y) {

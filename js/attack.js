@@ -554,7 +554,7 @@ class RangedAttack {
             // check for tile collisions
             let idx = currentLevel.idxfromxy(this._x, this._y);
             let id = currentLevel.fgi(idx);
-            if (id && !props.passable(id)) {
+            if (id && !props.passable(id) && !props.permeable(id)) {
                 this._active = false;
                 return;
             }

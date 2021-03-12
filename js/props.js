@@ -28,6 +28,7 @@ class Props {
         this._enemies = {};
         this._objects = {};
         this._passable = {};
+        this._permeable = {};
         this._lateRender = {};
         this.dbg = spec.dbg;
         // setup lookup tables
@@ -73,6 +74,11 @@ class Props {
             if (asset.passable) {
                 this._passable[id] = true;
                 if (this.dbg) console.log(" -- passable");
+            }
+            // lookup permeable (can you shoot through it?)
+            if (asset.permeable) {
+                this._permeable[id] = true;
+                if (this.dbg) console.log(" -- permeable");
             }
             // lookup lateRender
             if (asset.lateRender) {
@@ -141,6 +147,14 @@ class Props {
      */
     passable(id) {
         return this._passable[id] || false;
+    }
+
+    /**
+     * Is the tile associated w/ the given id passable?
+     * @param {*} id 
+     */
+    permeable(id) {
+        return this._permeable[id] || false;
     }
 
     /**

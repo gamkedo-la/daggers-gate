@@ -667,6 +667,8 @@ const daggerAssets = [
         {tag: "GREEN_TUNIC",             id: 80, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 350 },
         {tag: "BLUE_TUNIC",              id: 81, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 350 },
         {tag: "STONE_STAIRS",            id: 82, cls: "Sprite", width: 50, height: 50, xoffset: 100, yoffset: 350, passable: true, tileset: true },
+        {tag: "PIT",                     id: 83, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 350, tileset: true },
+        {tag: "PIT_SPIKES",              id: 84, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 350, tileset: true },
 
     ]},
 

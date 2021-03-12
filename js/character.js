@@ -290,7 +290,7 @@ class characterClass {
                         }
                         return new FadeParticle(xpart);
                     },
-                })
+                });
             }
             this.currentAttack = new RangedAttack(xattack);
             this.mana -= manaCost;

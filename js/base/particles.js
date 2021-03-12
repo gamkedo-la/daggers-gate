@@ -82,7 +82,6 @@ class ParticleEmitter {
      */
     nextTTE() {
         this.tte = this.interval;
-        console.log("tte: " + this.tte);
         if (this.jitter) {
             let ij = this.jitter * this.interval;
             this.tte += ((Math.random() * ij * 2) - ij);

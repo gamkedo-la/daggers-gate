@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+</head>
+
+<body>
+<canvas id="canvas" width="800" height="600"></canvas>
+<script src="../js/base/particles.js"></script>
+<script src="../js/daggerParticles.js"></script>
+<!--
+-->
+<script>
+    // -- global variables
+    const ctx = { deltaTime: 0 };
+    var lastUpdate = 0;
+    const maxDeltaTime = 100;
+    const canvas = document.getElementById("canvas");
+    const renderCtx = canvas.getContext("2d");
+    // -- start main process loop
+    window.requestAnimationFrame(loop);
+    // -- the main loop
+    function loop(hts) {
+        // compute delta time
+        ctx.deltaTime = Math.min(maxDeltaTime, hts - lastUpdate);
+        lastUpdate = hts;
+        // handle updates
+        update(ctx);
+        // handle rendering
+        render();
+        // setup 
+        window.requestAnimationFrame(loop);
+    }
+    // -- the update function
+    function update(ctx) {
+    }
+    // -- the render function
+    function render() {
+        renderCtx.fillStyle = 'black';
+        renderCtx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+</script>
+
+</body>
+</html>

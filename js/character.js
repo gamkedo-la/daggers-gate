@@ -282,6 +282,7 @@ class characterClass {
                         let xpart = {
                             x: e.x,
                             y: e.y,
+                            size: Math.round(Math.random()*3) + 1,
                             color: (Math.random() > .75) ? new Color(235,138,6,1) : new Color(255,201,92,1),
                             dx: (Math.random() - .5)*.04,
                             dy: (Math.random() - .5)*.04,

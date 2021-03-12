@@ -117,7 +117,8 @@ class Attack {
                     width: 20,
                     height: 20,
                 },
-                ttl: 450,
+                ttl: 650,
+                speed: .35,
                 angle: 0,
             },
             [Animator.idleWest]: {
@@ -128,7 +129,8 @@ class Attack {
                     width: 20,
                     height: 20,
                 },
-                ttl: 450,
+                ttl: 650,
+                speed: .35,
                 angle: Math.PI,
             },
             [Animator.idleNorth]: {
@@ -139,7 +141,8 @@ class Attack {
                     width: 20,
                     height: 20,
                 },
-                ttl: 450,
+                ttl: 650,
+                speed: .35,
                 angle: -Math.PI*.5,
             },
             [Animator.idleSouth]: {
@@ -150,7 +153,8 @@ class Attack {
                     width: 20,
                     height: 20,
                 },
-                ttl: 450,
+                ttl: 650,
+                speed: .35,
                 angle: Math.PI*.5,
             },
         };

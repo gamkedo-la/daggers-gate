@@ -49,17 +49,17 @@ function SetupPathfindingGridData(whichPathfinder) {
 
     collisionDebugCounter++;
     //next Loop Through Object to mark as impassible for pathFinding
-    if(collisionDebugCounter == 2)console.log("-----");
+    //if(collisionDebugCounter == 2)console.log("-----");
     for (var i = 0; i < currentLevel.objects.length; i++){
       var centerX = currentLevel.objects[i].collider.x;// + currentLevel.objects[i].collider.width/2;
       var centerY = currentLevel.objects[i].collider.y;// + currentLevel.objects[i].collider.height/2;
       var colliderIdx = currentLevel.idxfromxy(centerX, centerY);
       if(grid[colliderIdx].isNotPassible(currentLevel.objects[i].tileid)){
         grid[colliderIdx].changeElement(22);
-        if(collisionDebugCounter == 2)console.log(currentLevel.objects[i]);
+        //if(collisionDebugCounter == 2)console.log(currentLevel.objects[i]);
       }
     } 
-    if(collisionDebugCounter == 2)console.log("++++++");
+    //if(collisionDebugCounter == 2)console.log("++++++");
 	
      ///// different pass now that endR and endC are set, find h
 
@@ -145,7 +145,7 @@ function PathfindingNextStep(whichPathfinder) {
         if (endTile!=null) {
           //console.log("Best distance found: " + endTile.distance);
 			if(endTile.distance == INFINITY_START_DISTANCE){
-				console.log("No Valid Path Found");
+				//console.log("No Valid Path Found");
 			} else {
 			  // walk backward from destination to create the path
 			  var previousTile = endTile.cameFrom;

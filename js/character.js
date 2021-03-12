@@ -87,7 +87,6 @@ class characterClass {
     set state(v) {
         if (v !== this._state) {
             if (this === p1) {
-                console.log("new state: " + v);
                 if (v === undefined) console.error("invalid state");
             }
             this._state = v;

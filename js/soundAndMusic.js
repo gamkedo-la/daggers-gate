@@ -11,6 +11,7 @@ var enemyDefaultGrunt = new SoundOverlapsClass("ouch");
 var doorOpenning = new SoundOverlapsClass("door_openning");
 var manaGain = new SoundOverlapsClass("manaGain");
 var healthGain = new SoundOverlapsClass("healthGain");
+var pickingUpArrows = new SoundOverlapsClass("pickingUpArrows");
 
 function setFormat() {
     var audio = new Audio();

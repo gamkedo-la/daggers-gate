@@ -29,4 +29,11 @@ class Util {
         return true;
     }
 
+    static choose(arr) {
+        if (arr.length === 0) return undefined
+        if (arr.length === 1) return arr[0];
+        let choice = Math.floor(Math.random() * arr.length);
+        return arr[choice];
+    }
+
 }

@@ -13,23 +13,13 @@
 </head>
 <body>
 
-  <!--
-<div id="edit-buttons"></div>
-<div id="load-maps"></div>
-<div id="level-buttons"></div>
-  -->
-
 <!-- body overlay -->
 <div class="body-blackout"></div>
 
 <!-- modal for level generation text -->
-<!-- FIXME: modal close is using font-awesome stuff... need to figure out how to do similar w/out loading fas -->
 <div id="lvl-generate-modal"
   class="popup-modal shadow" 
   data-popup-modal="lvl">
-  <!--
-  <i class="fas fa-2x fa-times text-white bg-primary p-3 popup-modal__close"></i>
-  -->
   <b style="color:red" class="popup-modal__close">X</b>
   <p id="lvl-text">Level Data</p>
 </div>
@@ -37,12 +27,6 @@
 <canvas id="gameCanvas" width="800" height="600"></canvas>
 
 <p id="debugText">(recent text display or temporary debug output)</p>
-
-<!-- Container for Tile Editor -->
-<!--
-<div id="tile-buttons">
-</div>
--->
 
 <script src="js/base/fmt.js"></script>
 <script src="js/base/util.js"></script>
@@ -65,6 +49,7 @@
 <script src="js/base/store.js"></script>
 <script src="js/base/gizmo.js"></script>
 <script src="js/base/particles.js"></script>
+<script src="js/base/fx.js"></script>
 <script src="js/base/uxView.js"></script>
 <script src="js/base/uxMouse.js"></script>
 <script src="js/base/uxCanvas.js"></script>
@@ -86,6 +71,7 @@
 <script src="js/daggerDialog.js"></script>
 <script src="js/daggerQuests.js"></script>
 <script src="js/daggerParticles.js"></script>
+<script src="js/daggerFx.js"></script>
 <script src="js/GraphicsCommon.js"></script>
 <script src="js/Math.js"></script>
 <script src="js/inventory.js"></script>
@@ -99,9 +85,6 @@
 <script src="js/WorldGen.js"></script>
 <script src="js/World.js"></script>
 <script src="js/UnexploredRooms.js"></script>
-<!--
-<script src="js/TileEditorMode.js"></script>
--->
 <script src="js/Input.js"></script>
 <script src="js/gridlayout.js"></script>
 <script src="js/gridelement.js"></script>

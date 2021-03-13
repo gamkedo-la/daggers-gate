@@ -7,6 +7,9 @@
 
 <body>
 <canvas id="canvas" width="800" height="600"></canvas>
+<script src="../js/base/fmt.js"></script>
+<script src="../js/base/util.js"></script>
+<script src="../js/base/color.js"></script>
 <script src="../js/base/particles.js"></script>
 <script src="../js/daggerParticles.js"></script>
 <!--
@@ -18,6 +21,21 @@
     const maxDeltaTime = 100;
     const canvas = document.getElementById("canvas");
     const renderCtx = canvas.getContext("2d");
+
+    const em = new ParticleEmitter({
+        x: 200,
+        y: 200,
+        interval: 1000,
+        count: 5,
+        generator: (e) => {
+            let xpart = {
+                x: e.x,
+                y: e.y,
+            };
+            return new ShootingStarParticle(xpart);
+        },
+    });
+
     // -- start main process loop
     window.requestAnimationFrame(loop);
     // -- the main loop
@@ -34,11 +52,13 @@
     }
     // -- the update function
     function update(ctx) {
+        ParticleSystem.instance.update(ctx);
     }
     // -- the render function
     function render() {
         renderCtx.fillStyle = 'black';
         renderCtx.fillRect(0, 0, canvas.width, canvas.height);
+        ParticleSystem.instance.render(renderCtx);
     }
 </script>
 

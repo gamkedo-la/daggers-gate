@@ -28,6 +28,8 @@ class GameFx {
         this.vmgr = spec.vmgr || ViewMgr.instance;
         this.vmgr.add(this);
         this.dbg = spec.dbg;
+        this.waitOnChild = (spec.hasOwnProperty("waitOnChild")) ? spec.waitOnChild : true;
+        console.log("dbg: " + this.dbg);
     }
 
     get x() {
@@ -48,9 +50,9 @@ class GameFx {
             this.eol = true;
         }
         // iterate through controllers
-        for (let i=this.ctrls.length-1; i>=0; i++) {
+        for (let i=this.ctrls.length-1; i>=0; i--) {
             // if controller is done, or fx eol... remove ctrl
-            if (this.ctrls[i].done && this.eol) {
+            if (this.ctrls[i].done || this.eol) {
                 this.ctrls[i].destroy();
                 this.ctrls.pop();
                 if (this.dbg) console.log("controller is done");
@@ -80,7 +82,7 @@ class GameFx {
             }
         }
         // if no finishers left, transition to done
-        if (this.eol && this.finishers.length === 0) {
+        if (this.eol && this.finishers.length === 0 && !this.waitOnChild) {
             this.done = true;
             this.destroy();
         // otherwise... update children
@@ -93,6 +95,10 @@ class GameFx {
                 } else {
                     this.children[i].update(ctx);
                 }
+            }
+            if (this.eol && this.children.length === 0) {
+                this.done = true;
+                this.destroy();
             }
         }
     }

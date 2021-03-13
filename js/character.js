@@ -274,6 +274,7 @@ class characterClass {
             let attackKind = (data.weapon && data.weapon.tag === "FIREWAND") ? "fire" : "ice";
             let xattack = Object.assign({}, Attack.getSpec(attackKind)[this.facing], {actor: this, idleState: this.facing});
             xattack.collider = Object.assign({}, xattack.collider, {x:this.x, y:this.y});
+            if (attackKind === "fire") xattack.hitfx = (v) => new FireExplosionFx(v);
             this.currentAttack = new RangedAttack(xattack);
             if (attackKind === "fire") {
                 let attack = this.currentAttack;

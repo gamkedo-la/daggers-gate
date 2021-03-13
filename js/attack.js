@@ -499,6 +499,8 @@ class RangedAttack {
         // damage of attack...
         this._damage = spec.damage || 5;
         this._piercing = Util.objKeyValue(spec, "piercing", false);
+        // hit fx
+        this.hitfx = spec.hitfx;
         // ignore list... entities for which not to apply attack damage to
         // starts w/ actor, then applies to entities already hit (don't do damage continuously when colliders hit)
         this._ignore = [ this._actor ];
@@ -535,11 +537,14 @@ class RangedAttack {
                 if (!ohit.health) {
                     if (ohit.active && ohit.collider.blocking) {
                         this.active = false;
+                        if (this.hitfx) this.hitfx({x: this.x, y: this.y});
                         return;
                     } else { // not a blocking collider, ignore it
                         continue;
                     }
                 }
+                // generate hit fx
+                if (this.hitfx) this.hitfx({x: this.x, y: this.y});
                 console.log("attack applying damage to: " + ohit);
                 // apply damage
                 ohit.takeDamage(this._damage);
@@ -565,6 +570,7 @@ class RangedAttack {
             let idx = currentLevel.idxfromxy(this._x, this._y);
             let id = currentLevel.fgi(idx);
             if (id && !props.passable(id) && !props.permeable(id)) {
+                if (this.hitfx) this.hitfx({x: this.x, y: this.y});
                 this.active = false;
                 return;
             }

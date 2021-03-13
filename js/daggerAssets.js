@@ -133,6 +133,17 @@ const animators = {
         }
     },
 
+    "NPC2": {
+        cls: "Animator",
+        animations: {
+            [Animator.idle]: "NPC2",
+            [Animator.idleSouth]: "NPC2",
+            [Animator.idleNorth]: "NPC2_IDLE_NORTH",
+            [Animator.idleWest]: "NPC2_IDLE_WEST",
+            [Animator.idleEast]: "NPC2_IDLE_EAST",
+        }
+    },
+
 }
 
 /**
@@ -185,6 +196,22 @@ const daggerLootTables = {
 const daggerNpcs = {
     NPC1: {
         sketch: animators["NPC1"],
+        yOff: -25,
+        collider: {
+            color: "rgba(175,175,175,.75)",
+            width: 20, 
+            height: 30, 
+            //blocking: false,
+        },
+        dialogs: [
+            { tag: "q1Start", predicate: (npc) => !quests.checkStarted("q1") && !quests.checkDone("q1") && !quests.checkCompleted("q1")},
+            { tag: "q1Wait", predicate: (npc) => quests.checkStarted("q1") },
+            { tag: "q1Done", predicate: (npc) => quests.checkDone("q1") },
+            { tag: "q1Complete", predicate: (npc) => quests.checkCompleted("q1") },
+        ],
+    },
+    NPC2: {
+        sketch: animators["NPC2"],
         yOff: -25,
         collider: {
             color: "rgba(175,175,175,.75)",
@@ -909,6 +936,11 @@ const daggerAssets = [
         {tag: "NPC1_IDLE_NORTH",      cls: "Sprite", width: 50, height: 100, xoffset: 50, yoffset: 100 },
         {tag: "NPC1_IDLE_WEST",       cls: "Sprite", width: 50, height: 100, xoffset: 150, yoffset: 100 },
         {tag: "NPC1_IDLE_EAST",       cls: "Sprite", width: 50, height: 100, xoffset: 200, yoffset: 100 },
+    // 301   
+        {tag: "NPC2",                 id: 301, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 200 },
+        {tag: "NPC2_IDLE_NORTH",      cls: "Sprite", width: 50, height: 100, xoffset: 50, yoffset: 200 },
+        {tag: "NPC2_IDLE_WEST",       cls: "Sprite", width: 50, height: 100, xoffset: 150, yoffset: 200 },
+        {tag: "NPC2_IDLE_EAST",       cls: "Sprite", width: 50, height: 100, xoffset: 200, yoffset: 200 },
     ]},
 ];
 

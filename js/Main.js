@@ -91,7 +91,7 @@ function loadingDoneSoStartGame() {
 	// initialize view manager and view system
 	// - view manager will track all "views" from the game and is responsible for updating/rendering all views
 	// - view system is the "glue" that watches the global object store for new views (or deleted ones) and informs view manager of changes
-	viewMgr = new ViewMgr();
+	viewMgr = new ViewMgr({dbg: true});
 	viewSys = new ViewSystem({vmgr: viewMgr});
 	// load starting level
 	levelLoader.load(startingLevel);

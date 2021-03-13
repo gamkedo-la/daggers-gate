@@ -489,7 +489,6 @@ class RangedAttack {
             width: this._sketch.width,
             height: this._sketch.height,
         });
-        this.pem = spec.pem; // particle emitter
         // current position of attack
         let aoffx = spec.actorOffsetx || 0;
         let aoffy = spec.actorOffsety || 0;
@@ -509,14 +508,14 @@ class RangedAttack {
         return this._active;
     }
     set active(v) {
-        if (!v) {
-            if (this.pem) this.pem.destroy();
-        }
         this._active = v;
     }
     get idleState() {
         return this._idleState;
     }
+
+    get x() { return this._x; }
+    get y() { return this._y; }
 
     update(ctx) {
         this._ttl -= ctx.deltaTime;
@@ -526,11 +525,6 @@ class RangedAttack {
         // update position
         this._x += this._dx * ctx.deltaTime;
         this._y += this._dy * ctx.deltaTime;
-        // update particle emitter
-        if (this.active && this.pem) {
-            this.pem.x = this._x;
-            this.pem.y = this._y;
-        }
         // update collider
         if (this.active) {
             this._collider.update(this._x, this._y, currentLevel.idxfromxy.bind(currentLevel));

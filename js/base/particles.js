@@ -9,11 +9,11 @@ class Particle {
      * Create a new particle
      */
     constructor(spec={}) {
-        this.psys = spec.psys || ParticleSystem.instance;
+        this.psys = (spec.hasOwnProperty("psys")) ? spec.psys : ParticleSystem.instance;
         this.x = spec.x || 0;
         this.y = spec.y || 0;
         this._done = false;
-        this.psys.add(this);
+        if (this.psys) this.psys.add(this);
     }
 
     // PROPERTIES ----------------------------------------------------------
@@ -35,7 +35,11 @@ class Particle {
     }
 
     destroy() {
-        this.psys.remove(this);
+        if (this.psys) this.psys.remove(this);
+    }
+
+    toString() { 
+        return Fmt.toString(this.constructor.name);
     }
 
 }
@@ -50,9 +54,11 @@ class ParticleEmitter {
      * Create a new particle emitter
      */
     constructor(spec={}) {
-        this.psys = spec.psys || ParticleSystem.instance;
-        this.x = spec.x || 0;
-        this.y = spec.y || 0;
+        this.getx = spec.getx;
+        this.gety = spec.gety;
+        this._x = spec.x || 0;
+        this._y = spec.y || 0;
+        this.psys = (spec.hasOwnProperty("psys")) ? spec.psys : ParticleSystem.instance;
         this.generator = spec.generator || (() => undefined),
         this.interval = spec.interval || 1000,
         this.jitter = spec.jitter || 0,
@@ -62,7 +68,7 @@ class ParticleEmitter {
         // compute next time to emit
         this.tte;
         this.nextTTE();
-        this.psys.add(this);
+        if (this.psys) this.psys.add(this);
     }
 
     // PROPERTIES ----------------------------------------------------------
@@ -74,6 +80,13 @@ class ParticleEmitter {
     }
     set done(value) {
         this._done = (value) ? true : false;
+    }
+
+    get x() {
+        return (this.getx) ? this.getx() : this._x;
+    }
+    get y() {
+        return (this.gety) ? this.gety() : this._y;
     }
 
     // METHODS -------------------------------------------------------------
@@ -95,7 +108,7 @@ class ParticleEmitter {
     emit() {
         for (let i=0; i<this.count; i++) {
             let p = this.generator(this);
-            this.psys.add(p);
+            //this.psys.add(p);
         }
     }
 
@@ -129,7 +142,7 @@ class ParticleEmitter {
     }
 
     destroy() {
-        this.psys.remove(this);
+        if (this.psys) this.psys.remove(this);
     }
 }
 

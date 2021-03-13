@@ -3,7 +3,7 @@
  * A visual game effect...
  */
 class GameFx {
-    constructor(position) {
+    constructor(spec={}) {
         this.getx = spec.getx;
         this.gety = spec.gety;
         this._x = spec.x || 0;
@@ -27,6 +27,7 @@ class GameFx {
         // so all instances of GameFx will be added to ViewMgr and lifetimes will be managed through fx.update
         this.vmgr = spec.vmgr || ViewMgr.instance;
         this.vmgr.add(this);
+        this.dbg = spec.dbg;
     }
 
     get x() {
@@ -43,6 +44,7 @@ class GameFx {
     update(ctx) {
         // check for end of life of fx
         if (!this.eol && this.geteol(ctx)) {
+            if (this.dbg) console.log("setting eol");
             this.eol = true;
         }
         // iterate through controllers
@@ -51,6 +53,7 @@ class GameFx {
             if (this.ctrls[i].done && this.eol) {
                 this.ctrls[i].destroy();
                 this.ctrls.pop();
+                if (this.dbg) console.log("controller is done");
             // otherwise, update top controller
             } else {
                 this.ctrls[i].update(ctx);
@@ -58,10 +61,13 @@ class GameFx {
             }
         }
         // if no controllers left, transition to eol
-        if (this.ctrls.length === 0) this.eol = true;
+        if (this.ctrls.length === 0) {
+            this.eol = true;
+            if (this.dbg) console.log("all controllers are done, eol");
+        }
         // if eol, iterate through finishers
         if (this.eol) {
-            for (let i=this.finishers.length-1; i>=0; i++) {
+            for (let i=this.finishers.length-1; i>=0; i--) {
                 // if finisher is done, remove
                 if (this.finishers[i].done) {
                     this.finishers[i].destroy();
@@ -74,18 +80,18 @@ class GameFx {
             }
         }
         // if no finishers left, transition to done
-        if (this.finishers.length === 0) {
+        if (this.eol && this.finishers.length === 0) {
             this.done = true;
             this.destroy();
         // otherwise... update children
         } else {
-            for (let i=this.children.length-1; i>=0; i++) {
+            for (let i=this.children.length-1; i>=0; i--) {
                 // check for done
                 if (this.children[i].done) {
                     this.children.splice(i, 1);
                 // or update
                 } else {
-                    this.children.update(ctx);
+                    this.children[i].update(ctx);
                 }
             }
         }

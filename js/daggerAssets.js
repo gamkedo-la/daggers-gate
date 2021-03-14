@@ -220,10 +220,10 @@ const daggerNpcs = {
             //blocking: false,
         },
         dialogs: [
-            { tag: "q1Start", predicate: (npc) => !quests.checkStarted("q1") && !quests.checkDone("q1") && !quests.checkCompleted("q1")},
-            { tag: "q1Wait", predicate: (npc) => quests.checkStarted("q1") },
-            { tag: "q1Done", predicate: (npc) => quests.checkDone("q1") },
-            { tag: "q1Complete", predicate: (npc) => quests.checkCompleted("q1") },
+            { tag: "q2Start", predicate: (npc) => !quests.checkStarted("q2") && !quests.checkDone("q2") && !quests.checkCompleted("q2")},
+            { tag: "q2Wait", predicate: (npc) => quests.checkStarted("q2") },
+            { tag: "q2Done", predicate: (npc) => quests.checkDone("q2") },
+            { tag: "q2Complete", predicate: (npc) => quests.checkCompleted("q2") },
         ],
     },
 };

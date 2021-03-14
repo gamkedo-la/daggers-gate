@@ -696,7 +696,7 @@ const daggerAssets = [
         {tag: "STONE_STAIRS",            id: 82, cls: "Sprite", width: 50, height: 50, xoffset: 100, yoffset: 350, passable: true, tileset: true },
         {tag: "PIT",                     id: 83, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 350, tileset: true, permeable: true },
         {tag: "PIT_SPIKES",              id: 84, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 350, tileset: true, permeable: true },
-
+        {tag: "WOOD_FLOOR_ALT",              id: 89, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 350, tileset: true, permeable: true }
     ]},
 
     { src: "images/window_tiles.png", cls: "Stretch", tag: "WINDOW_BORDER", border: 15 },

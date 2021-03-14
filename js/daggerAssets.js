@@ -190,7 +190,10 @@ const daggerLootTables = {
         { chance: .25, kind: "GOLD_COINS_TWO_DROP", min: 2, max: 5},
         { chance: .1, kind: "ARROW_ONE_DROP", min: 1, max: 3},
     ],
-
+    BIG_POT: [
+    { chance: .25, kind: "GOLD_COINS_SIX_DROP", min: 5, max: 10},
+    { chance: .1, kind: "ARROW_FIVE_DROP", min: 3, max: 5},
+    ]  
 }
 
 const daggerNpcs = {
@@ -472,6 +475,18 @@ const daggerObjects = {
             },
         },
     },
+    BIG_POT: {
+        kind: "breakable",
+        health: 5,
+        maxHealth: 5,
+        collider: { width:25, height: 25 },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "BIG_POT",
+            },
+        },
+    },
 
     KEY: {
         kind: "loot",
@@ -696,7 +711,8 @@ const daggerAssets = [
         {tag: "STONE_STAIRS",            id: 82, cls: "Sprite", width: 50, height: 50, xoffset: 100, yoffset: 350, passable: true, tileset: true },
         {tag: "PIT",                     id: 83, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 350, tileset: true, permeable: true },
         {tag: "PIT_SPIKES",              id: 84, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 350, tileset: true, permeable: true },
-        {tag: "WOOD_FLOOR_ALT",              id: 89, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 350, tileset: true, permeable: true }
+        {tag: "BIG_POT",                 id: 85, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 350, tileset: true },
+        {tag: "WOOD_FLOOR_ALT",          id: 89, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 350, tileset: true, permeable: true }
     ]},
 
     { src: "images/window_tiles.png", cls: "Stretch", tag: "WINDOW_BORDER", border: 15 },

@@ -57,8 +57,18 @@ var allLevels = {
       },
       //lockPredicate: (lvl) => lvl.enemies.length !== 0,
     }),
+
+  "town": Object.assign(townSpec, {
+      exits: [
+        { x: 6, y: 2, lvl: "lvl1",    spawn: "start" },
+      ],
+      spawns: {
+        "start":  { x: 10, y: 10 },
+      },
+    }),
+
 }
-var startingLevel = "lvl1";
+var startingLevel = "town";
 var startingSpawn = "start";
 
 const TILE_W = 50;

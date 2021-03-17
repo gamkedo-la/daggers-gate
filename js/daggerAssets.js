@@ -792,6 +792,8 @@ const daggerAssets = [
         {tag: "TREE_SMALL_B",               id: 367, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*6, passable: true, tileset: true },
         {tag: "TREE_BIG_CLUSTER_3",         id: 368, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*6, passable: true, tileset: true },
         {tag: "TREE_BIG_CLUSTER_4",         id: 369, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*6, passable: true, tileset: true },
+
+        {tag: "TREE_BIG",                   id: 370, cls: "Sprite", width: 100, height: 150, xoffset: 50*8, yoffset: 50*1, passable: true, tileset: true },
     ]},
 
     { src: "images/window_tiles.png", cls: "Stretch", tag: "WINDOW_BORDER", border: 15 },

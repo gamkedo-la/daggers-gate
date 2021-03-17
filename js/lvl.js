@@ -382,6 +382,7 @@ class Level {
         let minj = Math.max(0,Math.floor(camera.y/this.sketchWidth));
         let maxi = Math.min(this.width, Math.floor(camera.maxx/this.sketchWidth)+1);
         let maxj = Math.min(this.height, Math.floor(camera.maxy/this.sketchHeight)+1);
+        // render bg
         let y = minj * this.sketchHeight;
         for (let j=minj; j<maxj; j++) {
             let idx = this.idxfromij(mini, j);
@@ -390,6 +391,18 @@ class Level {
                 if (this.bgsketches[idx]) {
                     this.bgsketches[idx].render(ctx, x, y);
                 }
+                x += this.sketchWidth;
+                idx++;
+            }
+            y += this.sketchHeight;
+        }
+
+        // render fg
+        y = minj * this.sketchHeight;
+        for (let j=minj; j<maxj; j++) {
+            let idx = this.idxfromij(mini, j);
+            let x = mini * this.sketchWidth;
+            for (let i=mini; i<maxi; i++) {
                 let fid = this.fgi(idx);
                 if (!props.lateRender(fid) && this.fgsketches[idx]) this.fgsketches[idx].render(ctx, x, y);
                 x += this.sketchWidth;
@@ -397,6 +410,7 @@ class Level {
             }
             y += this.sketchHeight;
         }
+
 
         // render objects
 		for(var i=0; i<this.objects.length; i++){

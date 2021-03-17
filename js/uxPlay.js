@@ -9,8 +9,6 @@ class UxPlayView extends UxView {
 		if(pathFindingDisplay){
 			drawPathingFindingTiles();
 	    }
-		p1.draw();
-		currentLevel.lateRender(ctx);
 		ctx.translate(camera.x, camera.y);
         // render particles
         particles.render(ctx);

@@ -397,84 +397,75 @@ class Level {
             y += this.sketchHeight;
         }
 
-        // render fg
+        // sort tiles/object/enemies/npcs/player by y
+        let sorted = new SortedGroup((v1,v2) => (v1.y-v2.y));
+		for(var i=0; i<this.objects.length; i++){
+            let obj = this.objects[i];
+            if (!obj.visible) continue;
+            if (camera.containsRect(obj.x, obj.y, this.sketchWidth, this.sketchHeight)) {
+                if (props.bgr(obj.tileid)) {
+                    obj.draw();
+                } else {
+                    sorted.add(obj);
+                }
+            }
+		}
+		for(let i=0; i<this.enemies.length; i++){
+            let enemy = this.enemies[i];
+            if (!enemy.visible) continue;
+            if (camera.containsRect(enemy.x, enemy.y, this.sketchWidth, this.sketchHeight)) {
+                if (props.bgr(enemy.tileid)) {
+                    enemy.draw();
+                } else {
+                    sorted.add(enemy);
+                }
+            }
+		}
+		for(let i=0; i<this.npcs.length; i++){
+            let npc = this.npcs[i];
+            if (!npc.visible) continue;
+            if (camera.containsRect(npc.x, npc.y, this.sketchWidth, this.sketchHeight)) {
+                if (props.bgr(npc.tileid)) {
+                    npc.draw();
+                } else {
+                    sorted.add(npc);
+                }
+            }
+		}
+        sorted.add(p1);
         y = minj * this.sketchHeight;
         for (let j=minj; j<maxj; j++) {
             let idx = this.idxfromij(mini, j);
             let x = mini * this.sketchWidth;
             for (let i=mini; i<maxi; i++) {
                 let fid = this.fgi(idx);
-                if (!props.lateRender(fid) && this.fgsketches[idx]) this.fgsketches[idx].render(ctx, x, y);
+                if (this.fgsketches[idx]) {
+                    let sketch = this.fgsketches[idx];
+                    let cx = x+this.halfWidth;
+                    let cy = y+this.halfHeight;
+                    let dx = cx-sketch.width*.5;
+                    let dy = (sketch.height > this.sketchHeight) ? (cy - sketch.height + this.halfHeight) : cy-sketch.height*.5;
+                    if (props.bgr(fid)) {
+                        sketch.render(ctx, dx, dy);
+                    } else {
+                        sorted.add({x: cx, y: cy, draw: () => { sketch.render(ctx, dx, dy); }});
+                    }
+                }
                 x += this.sketchWidth;
                 idx++;
             }
             y += this.sketchHeight;
         }
 
-
-        // render objects
-		for(var i=0; i<this.objects.length; i++){
-            let obj = this.objects[i];
-            if (!obj.visible) continue;
-            if (obj.lateRender) continue;
-            if (camera.containsRect(obj.x, obj.y, this.sketchWidth, this.sketchHeight)) {
-                obj.draw();
-            }
-		}
-
-        // render enemies
-		for(let i=0; i<this.enemies.length; i++){
-            let enemy = this.enemies[i];
-            if (!enemy.visible) continue;
-            if (camera.containsRect(enemy.x, enemy.y, this.sketchWidth, this.sketchHeight)) {
-                enemy.draw();
-            }
-		}
-
-        // render npcs
-		for(let i=0; i<this.npcs.length; i++){
-            let npc = this.npcs[i];
-            if (!npc.visible) continue;
-            if (camera.containsRect(npc.x, npc.y, this.sketchWidth, this.sketchHeight)) {
-                npc.draw();
-            }
-		}
+        // render sorted fg
+        for (const obj of sorted) {
+            obj.draw();
+        }
 
         // render rooms
 		for(var i=0; i<this.rooms.length; i++){
             this.rooms[i].draw();
 		}
-    }
-
-
-    lateRender(ctx) {
-        // render lateRender objects
-		for(var i=0; i<this.objects.length; i++){
-            let obj = this.objects[i];
-            if (!obj.visible) continue;
-            if (!obj.lateRender) continue;
-            if (camera.containsRect(obj.x, obj.y, this.sketchWidth, this.sketchHeight)) {
-                obj.draw();
-            }
-		}
-
-        // handle late rendering tiles...
-        let mini = Math.floor(camera.x/this.sketchWidth);
-        let minj = Math.floor(camera.y/this.sketchWidth);
-        let maxi = Math.min(this.width, Math.floor(camera.maxx/this.sketchWidth)+1);
-        let maxj = Math.min(this.height, Math.floor(camera.maxy/this.sketchHeight)+1);
-        let y = minj * this.sketchHeight;
-        for (let j=minj; j<maxj; j++) {
-            let idx = this.idxfromij(mini, j);
-            let x = mini * this.sketchWidth;
-            for (let i=mini; i<maxi; i++) {
-                let fid = this.fgi(idx);
-                if (props.lateRender(fid) && this.fgsketches[idx]) this.fgsketches[idx].render(ctx, x, y);
-                x += this.sketchWidth;
-                idx++;
-            }
-            y += this.sketchHeight;
-        }
     }
 
 }

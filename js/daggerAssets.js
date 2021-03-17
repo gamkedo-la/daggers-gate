@@ -630,8 +630,8 @@ const daggerAssets = [
     { src: "images/spritesheet_Dungeon_01.png", cls: "Sheet", assets: [
         //ROW 1
         {tag: "GROUND",                 id: 10, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 0, pathFindingWalkable: true, tileset: true },
-        {tag: "GROUND_SPIKES_DOWN",     id: 11, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 0, passable: true, pathFindingWalkable: true, tileset: true },
-        {tag: "GROUND_SPIKES_UP",       id: 12, cls: "Sprite", width: 50, height: 50, xoffset: 100, yoffset: 0, passable: true, pathFindingWalkable: true, tileset: true },
+        {tag: "GROUND_SPIKES_DOWN",     id: 11, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 0, passable: true, pathFindingWalkable: true, tileset: true, bgr: true },
+        {tag: "GROUND_SPIKES_UP",       id: 12, cls: "Sprite", width: 50, height: 50, xoffset: 100, yoffset: 0, passable: true, pathFindingWalkable: true, tileset: true, bgr: true },
         {tag: "WALL_BOTTOM",            id: 13, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 0, tileset: true },
         {tag: "WALL_TOP",               id: 14, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 0, tileset: true },
         {tag: "WALL_FLAG_BOTTOM",       id: 15, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 0, tileset: true },
@@ -709,8 +709,8 @@ const daggerAssets = [
         {tag: "GREEN_TUNIC",             id: 80, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 350 },
         {tag: "BLUE_TUNIC",              id: 81, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 350 },
         {tag: "STONE_STAIRS",            id: 82, cls: "Sprite", width: 50, height: 50, xoffset: 100, yoffset: 350, passable: true, tileset: true },
-        {tag: "PIT",                     id: 83, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 350, tileset: true, permeable: true },
-        {tag: "PIT_SPIKES",              id: 84, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 350, tileset: true, permeable: true },
+        {tag: "PIT",                     id: 83, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 350, tileset: true, permeable: true, bgr: true },
+        {tag: "PIT_SPIKES",              id: 84, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 350, tileset: true, permeable: true, bgr: true },
         {tag: "BIG_POT",                 id: 85, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 350, tileset: true },
         {tag: "WOOD_FLOOR_ALT",          id: 89, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 350, tileset: true, permeable: true }
     ]},

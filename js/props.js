@@ -29,7 +29,7 @@ class Props {
         this._objects = {};
         this._passable = {};
         this._permeable = {};
-        this._lateRender = {};
+        this._bgr = {};
         this.dbg = spec.dbg;
         // setup lookup tables
         this._setup(assets);
@@ -80,10 +80,10 @@ class Props {
                 this._permeable[id] = true;
                 if (this.dbg) console.log(" -- permeable");
             }
-            // lookup lateRender
-            if (asset.lateRender) {
-                this._lateRender[id] = true;
-                if (this.dbg) console.log(" -- lateRender");
+            // lookup bgr
+            if (asset.bgr) {
+                this._bgr[id] = true;
+                if (this.dbg) console.log(" -- bgr");
             }
             // tag assignment
             this._tags[id] = asset.tag;
@@ -158,11 +158,11 @@ class Props {
     }
 
     /**
-     * Is the tile associated w/ the given id set for late rendering?
+     * Is the tile associated w/ the given id set for bg rendering?
      * @param {*} id 
      */
-    lateRender(id) {
-        return this._lateRender[id] || false;
+    bgr(id) {
+        return this._bgr[id] || false;
     }
 
     /**

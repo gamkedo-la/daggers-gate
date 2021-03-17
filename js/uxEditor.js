@@ -41,7 +41,7 @@ class UxEditorView extends UxPanel {
 		// Wrapped in IF/ELSE to support Tile Editor Mode	
 		ctx.translate(-camera.x, -camera.y);
         currentLevel.render(ctx);
-        currentLevel.lateRender(ctx);
+        //currentLevel.lateRender(ctx);
         this.renderGrid(ctx);
         this.renderRooms(ctx);
 		ctx.translate(camera.x, camera.y);

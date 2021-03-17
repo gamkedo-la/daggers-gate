@@ -614,18 +614,16 @@ const daggerObjects = {
 
 const daggerAssets = [
 
+    /* === 1 - 899 ========================================================================= */
+    // bg/fg tiles and objects
+
     { src: "images/heart.png", cls: "Sheet", assets: [
-        {tag: "HEART",                 id:  1, cls: "Sprite", width: 37, height: 34, xoffset: 0, yoffset: 0 },
-        {tag: "HEART_HALF",            id:  2, cls: "Sprite", width: 37, height: 34, xoffset: 37, yoffset: 0 },
+        {tag: "HEART",                  id:  1, cls: "Sprite", width: 37, height: 34, xoffset: 0, yoffset: 0 },
+        {tag: "HEART_HALF",             id:  2, cls: "Sprite", width: 37, height: 34, xoffset: 37, yoffset: 0 },
     ]},
 
-    /*
-     { id: 2, src: "images/basicPlayerSprite-25.png", cls: "Image", tag: "PLAYER", pathFindingWalkable: true },
-     */
-     { id: 3, src: "images/world_goal.png", cls: "Image", tag: "GOAL", pathFindingWalkable: true},
-     { id: 4, src: "images/world_key.png", cls: "Image", tag: "KEY", pathFindingWalkable: true },
-     // a test 9-slice image
-     { id: 5, src: "images/nslice.png", cls: "Stretch", tag: "NSLICE", border: 14 },
+    {    tag: "GOAL",                   id: 3, src: "images/world_goal.png", cls: "Image", tag: "GOAL", pathFindingWalkable: true},
+    {    tag: "KEY",                    id: 4, src: "images/world_key.png", cls: "Image", tag: "KEY", pathFindingWalkable: true },
 
     { src: "images/spritesheet_Dungeon_01.png", cls: "Sheet", assets: [
         //ROW 1
@@ -735,8 +733,9 @@ const daggerAssets = [
         {tag: "GRASS_PATCH_TR",             id: 315, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*1, passable: true, tileset: true },
         {tag: "GRASS_PATCH_DIAG_TL",        id: 316, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*1, passable: true, tileset: true },
         {tag: "GRASS_PATCH_DIAG_TR",        id: 317, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*1, passable: true, tileset: true },
-        {tag: "TREE_BIG_TL",                id: 318, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*1, passable: true, tileset: true },
-        {tag: "TREE_BIG_TR",                id: 319, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*1, passable: true, tileset: true },
+        {tag: "TREE_BIG",                   id: 318, cls: "Sprite", width: 100, height: 150, xoffset: 50*8, yoffset: 50*1, passable: true, tileset: true },
+        //{tag: "TREE_BIG_TL",                id: 318, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*1, passable: true, tileset: true },
+        //{tag: "TREE_BIG_TR",                id: 319, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*1, passable: true, tileset: true },
 
         {tag: "GRASS_CLIFF_ML",             id: 320, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*2, passable: true, tileset: true },
         {tag: "GRASS_CLIFF_MM",             id: 321, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*2, passable: true, tileset: true },
@@ -746,8 +745,8 @@ const daggerAssets = [
         {tag: "GRASS_PATCH_MR",             id: 325, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*2, passable: true, tileset: true },
         {tag: "GRASS_PATCH_DIAG_BL",        id: 326, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*2, passable: true, tileset: true },
         {tag: "GRASS_PATCH_DIAG_BR",        id: 327, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*2, passable: true, tileset: true },
-        {tag: "TREE_BIG_ML",                id: 328, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*2, passable: true, tileset: true },
-        {tag: "TREE_BIG_MR",                id: 329, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*2, passable: true, tileset: true },
+        //{tag: "TREE_BIG_ML",                id: 328, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*2, passable: true, tileset: true },
+        //{tag: "TREE_BIG_MR",                id: 329, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*2, passable: true, tileset: true },
 
         {tag: "GRASS_CLIFF_BL",             id: 330, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*3, passable: true, tileset: true },
         {tag: "GRASS_CLIFF_BM",             id: 331, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*3, passable: true, tileset: true },
@@ -757,8 +756,8 @@ const daggerAssets = [
         {tag: "GRASS_PATCH_BR",             id: 335, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*3, passable: true, tileset: true },
         {tag: "GRASS_PATCH_DIAG_TR_BL",     id: 336, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*3, passable: true, tileset: true },
         {tag: "GRASS_PATCH_DIAG_TL_BR",     id: 337, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*3, passable: true, tileset: true },
-        {tag: "TREE_BIG_BL",                id: 338, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*3, passable: true, tileset: true },
-        {tag: "TREE_BIG_BR",                id: 339, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*3, passable: true, tileset: true },
+        //{tag: "TREE_BIG_BL",                id: 338, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*3, passable: true, tileset: true },
+        //{tag: "TREE_BIG_BR",                id: 339, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*3, passable: true, tileset: true },
 
         {tag: "ROCK_CLIFF_L",               id: 340, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*4, passable: true, tileset: true },
         {tag: "ROCK_CLIFF_M",               id: 341, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*4, passable: true, tileset: true },
@@ -768,8 +767,8 @@ const daggerAssets = [
         {tag: "ROCK_CLIFF_WATER_BR",        id: 345, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*4, passable: true, tileset: true },
         {tag: "WATER_1",                    id: 346, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*4, passable: true, tileset: true },
         {tag: "PLACEHOLDER_3",              id: 347, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*4, passable: true, tileset: true },
-        {tag: "TREE_BIG_VERT_L",            id: 348, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*4, passable: true, tileset: true },
-        {tag: "TREE_BIG_VERT_R",            id: 349, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*4, passable: true, tileset: true },
+        //{tag: "TREE_BIG_VERT_L",            id: 348, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*4, passable: true, tileset: true },
+        //{tag: "TREE_BIG_VERT_R",            id: 349, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*4, passable: true, tileset: true },
 
         {tag: "ROCK_CLIFF_BL",              id: 350, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*5, passable: true, tileset: true },
         {tag: "ROCK_CLIFF_BM",              id: 351, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*5, passable: true, tileset: true },
@@ -777,10 +776,10 @@ const daggerAssets = [
         {tag: "FENCE_1",                    id: 353, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*5, passable: true, tileset: true },
         {tag: "FENCE_2",                    id: 354, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*5, passable: true, tileset: true },
         {tag: "FENCE_3",                    id: 355, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*5, passable: true, tileset: true },
-        {tag: "TREE_SMALL_VERT",            id: 356, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*5, passable: true, tileset: true },
-        {tag: "TREE_SMALL_T",               id: 357, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*5, passable: true, tileset: true },
-        {tag: "TREE_BIG_CLUSTER_1",         id: 358, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*5, passable: true, tileset: true },
-        {tag: "TREE_BIG_CLUSTER_2",         id: 359, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*5, passable: true, tileset: true },
+        //{tag: "TREE_SMALL_VERT",            id: 356, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*5, passable: true, tileset: true },
+        {tag: "TREE_SMALL",                 id: 357, cls: "Sprite", width: 50, height: 100, xoffset: 50*7, yoffset: 50*5, passable: true, tileset: true },
+        //{tag: "TREE_BIG_CLUSTER_1",         id: 358, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*5, passable: true, tileset: true },
+        //{tag: "TREE_BIG_CLUSTER_2",         id: 359, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*5, passable: true, tileset: true },
 
         {tag: "SIGN_1",                      id: 360, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*6, passable: true, tileset: true },
         {tag: "SIGN_2",                      id: 361, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*6, passable: true, tileset: true },
@@ -789,68 +788,17 @@ const daggerAssets = [
         {tag: "FENCE_4",                    id: 364, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*6, passable: true, tileset: true },
         {tag: "FENCE_5",                    id: 365, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*6, passable: true, tileset: true },
         {tag: "FENCE_6",                    id: 366, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*6, passable: true, tileset: true },
-        {tag: "TREE_SMALL_B",               id: 367, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*6, passable: true, tileset: true },
-        {tag: "TREE_BIG_CLUSTER_3",         id: 368, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*6, passable: true, tileset: true },
-        {tag: "TREE_BIG_CLUSTER_4",         id: 369, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*6, passable: true, tileset: true },
+        //{tag: "TREE_SMALL_B",               id: 367, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*6, passable: true, tileset: true },
+        //{tag: "TREE_BIG_CLUSTER_3",         id: 368, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*6, passable: true, tileset: true },
+        //{tag: "TREE_BIG_CLUSTER_4",         id: 369, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*6, passable: true, tileset: true },
 
-        {tag: "TREE_BIG",                   id: 370, cls: "Sprite", width: 100, height: 150, xoffset: 50*8, yoffset: 50*1, passable: true, tileset: true },
     ]},
 
-    { src: "images/window_tiles.png", cls: "Stretch", tag: "WINDOW_BORDER", border: 15 },
-
-    { src: "images/buttonFrames.png", cls: "Sheet", assets: [
-        // S1-S4 border sizes
-        // OPAQ|TRAN - opaque|transparent
-        {tag: "BUTTON_TAN_S1_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*0, border: 15 },
-        {tag: "BUTTON_TAN_S2_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*0, border: 15 },
-        {tag: "BUTTON_TAN_S3_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*0, border: 15 },
-        {tag: "BUTTON_TAN_S4_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*0, border: 15 },
-        {tag: "BUTTON_TAN_S1_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*1, border: 15 },
-        {tag: "BUTTON_TAN_S2_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*1, border: 15 },
-        {tag: "BUTTON_TAN_S3_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*1, border: 15 },
-        {tag: "BUTTON_TAN_S4_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*1, border: 15 },
-        // -- RED
-        {tag: "BUTTON_RED_S1_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*2, border: 15 },
-        {tag: "BUTTON_RED_S2_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*2, border: 15 },
-        {tag: "BUTTON_RED_S3_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*2, border: 15 },
-        {tag: "BUTTON_RED_S4_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*2, border: 15 },
-        {tag: "BUTTON_RED_S1_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*3, border: 15 },
-        {tag: "BUTTON_RED_S2_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*3, border: 15 },
-        {tag: "BUTTON_RED_S3_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*3, border: 15 },
-        {tag: "BUTTON_RED_S4_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*3, border: 15 },
-        // -- GREEN
-        {tag: "BUTTON_GRN_S1_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*4, border: 15 },
-        {tag: "BUTTON_GRN_S2_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*4, border: 15 },
-        {tag: "BUTTON_GRN_S3_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*4, border: 15 },
-        {tag: "BUTTON_GRN_S4_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*4, border: 15 },
-        {tag: "BUTTON_GRN_S1_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*5, border: 15 },
-        {tag: "BUTTON_GRN_S2_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*5, border: 15 },
-        {tag: "BUTTON_GRN_S3_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*5, border: 15 },
-        {tag: "BUTTON_GRN_S4_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*5, border: 15 },
-        // -- BLUE
-        {tag: "BUTTON_BLU_S1_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*6, border: 15 },
-        {tag: "BUTTON_BLU_S2_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*6, border: 15 },
-        {tag: "BUTTON_BLU_S3_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*6, border: 15 },
-        {tag: "BUTTON_BLU_S4_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*6, border: 15 },
-        {tag: "BUTTON_BLU_S1_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*7, border: 15 },
-        {tag: "BUTTON_BLU_S2_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*7, border: 15 },
-        {tag: "BUTTON_BLU_S3_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*7, border: 15 },
-        {tag: "BUTTON_BLU_S4_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*7, border: 15 },
-    ]},
-
-    { src: "images/goldButtonFrames.png", cls: "Sheet", assets: [
-        {tag: "BUTTON_GLD_S1_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*0, border: 15 },
-        {tag: "BUTTON_GLD_S2_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*0, border: 15 },
-        {tag: "BUTTON_GLD_S3_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*0, border: 15 },
-        {tag: "BUTTON_GLD_S4_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*0, border: 15 },
-        {tag: "BUTTON_GLD_S1_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*1, border: 15 },
-        {tag: "BUTTON_GLD_S2_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*1, border: 15 },
-        {tag: "BUTTON_GLD_S3_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*1, border: 15 },
-        {tag: "BUTTON_GLD_S4_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*1, border: 15 },
-    ]},
-
+    /* === 900 - 999 ========================================================================= */
+    // Player/Enemies/NPCs
+    // === 900
     { src: "images/playerAnim.png", cls: "Sheet", assets: [
-        {tag: "PLAYER",                 id: 200, cls: "Sprite", width: 64, height: 100, xoffset: 0, yoffset: 0 },
+        {tag: "PLAYER",                 id: 900, cls: "Sprite", width: 64, height: 100, xoffset: 0, yoffset: 0 },
         {tag: "PLAYER_IDLE_NORTH",      cls: "Sprite", width: 64, height: 100, xoffset: 64, yoffset: 0 },
         {tag: "PLAYER_IDLE_WEST",       cls: "Sprite", width: 64, height: 100, xoffset: 128, yoffset: 0 },
         {tag: "PLAYER_IDLE_EAST",       cls: "Sprite", width: 64, height: 100, xoffset: 192, yoffset: 0 },
@@ -938,27 +886,27 @@ const daggerAssets = [
     ]},
 
       
+    // === 901 ---- GOBLIN ----
     { src: "images/enemies.png", cls: "Sheet", assets: [
-        // ---- GOBLIN ----
-        {tag: "GOBLIN_IDLE_NORTH",              id: 90, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 0 },
+        {tag: "GOBLIN_IDLE_NORTH",              cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 0 },
         {tag: "GOBLIN_WALK_NORTH",              cls: "Animation", cels: [
             { xoffset: 0, yoffset: 0, width: 50, height: 100, duration: 200 },
             { xoffset: 50, yoffset: 0, width: 50, height: 100, duration: 200 },
             { xoffset: 100, yoffset: 0, width: 50, height: 100, duration: 200 },
         ]},
-        {tag: "GOBLIN_IDLE_EAST",               id: 93, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 100 },
+        {tag: "GOBLIN_IDLE_EAST",               cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 100 },
         {tag: "GOBLIN_WALK_EAST",              cls: "Animation", cels: [
             { xoffset: 0, yoffset: 100, width: 50, height: 100, duration: 200 },
             { xoffset: 50, yoffset: 100, width: 50, height: 100, duration: 200 },
             { xoffset: 100, yoffset: 100, width: 50, height: 100, duration: 200 },
         ]},
-        {tag: "GOBLIN_IDLE_WEST",               id: 96, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 200 },
+        {tag: "GOBLIN_IDLE_WEST",               cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 200 },
         {tag: "GOBLIN_WALK_WEST",              cls: "Animation", cels: [
             { xoffset: 0, yoffset: 300, width: 50, height: 100, duration: 200 },
             { xoffset: 50, yoffset: 300, width: 50, height: 100, duration: 200 },
             { xoffset: 100, yoffset: 300, width: 50, height: 100, duration: 200 },
         ]},
-        {tag: "GOBLIN",                         id: 99, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 300, tileset: true },
+        {tag: "GOBLIN",                         id: 901, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 300, tileset: true },
         {tag: "GOBLIN_WALK_SOUTH",              cls: "Animation", cels: [
             { xoffset: 0, yoffset: 200, width: 50, height: 100, duration: 200 },
             { xoffset: 50, yoffset: 200, width: 50, height: 100, duration: 200 },
@@ -967,57 +915,55 @@ const daggerAssets = [
 
     ]},
 
+    // === 902 ---- SLIME ----
     { src: "images/slime.png", cls: "Sheet", assets: [
-        // ---- SLIME ----
-        {tag: "SLIME_IDLE_NORTH",              id: 100, cls: "Sprite", width: 50, height: 31, xoffset: 0, yoffset: 0 },
+        {tag: "SLIME_IDLE_NORTH",              cls: "Sprite", width: 50, height: 31, xoffset: 0, yoffset: 0 },
         {tag: "SLIME_WALK_NORTH",              cls: "Animation", cels: [
             { xoffset: 0, yoffset: 0, width: 50, height: 31, duration: 200 },
             { xoffset: 50, yoffset: 0, width: 50, height: 31, duration: 200 },
             { xoffset: 100, yoffset: 0, width: 50, height: 31, duration: 200 },
         ]},
-        {tag: "SLIME_IDLE_EAST",               id: 103, cls: "Sprite", width: 50, height: 31, xoffset: 0, yoffset: 31 },
+        {tag: "SLIME_IDLE_EAST",               cls: "Sprite", width: 50, height: 31, xoffset: 0, yoffset: 31 },
         {tag: "SLIME_WALK_EAST",              cls: "Animation", cels: [
             { xoffset: 0, yoffset: 31, width: 50, height: 31, duration: 200 },
             { xoffset: 50, yoffset: 31, width: 50, height: 31, duration: 200 },
             { xoffset: 100, yoffset: 31, width: 50, height: 31, duration: 200 },
         ]},
-        {tag: "SLIME_IDLE_WEST",               id: 106, cls: "Sprite", width: 50, height: 31, xoffset: 0, yoffset: 62 },
+        {tag: "SLIME_IDLE_WEST",               cls: "Sprite", width: 50, height: 31, xoffset: 0, yoffset: 62 },
         {tag: "SLIME_WALK_WEST",              cls: "Animation", cels: [
             { xoffset: 0, yoffset: 62, width: 50, height: 31, duration: 200 },
             { xoffset: 50, yoffset: 62, width: 50, height: 31, duration: 200 },
             { xoffset: 100, yoffset: 62, width: 50, height: 31, duration: 200 },
         ]},
-        {tag: "SLIME",                         id: 109, cls: "Sprite", width: 50, height: 31, xoffset: 0, yoffset: 93, tileset: true },
+        {tag: "SLIME",                         id: 902, cls: "Sprite", width: 50, height: 31, xoffset: 0, yoffset: 93, tileset: true },
         {tag: "SLIME_WALK_SOUTH",              cls: "Animation", cels: [
             { xoffset: 0, yoffset: 93, width: 50, height: 31, duration: 200 },
             { xoffset: 50, yoffset: 93, width: 50, height: 31, duration: 200 },
             { xoffset: 100, yoffset: 93, width: 50, height: 31, duration: 200 },
         ]},
-
     ]},
 
-    
+    // === 903  ---- DWARF AX MAN ----
     { src: "images/dwarfAxeman.png", cls: "Sheet", assets: [
-        // ---- DWARF AX MAN ----
-        {tag: "DWARF_AX_MAN_IDLE_NORTH",              id: 110, cls: "Sprite", width: 50, height: 75, xoffset: 50, yoffset: 0 },
-        {tag: "DWARF_AX_MAN_WALK_NORTH",              cls: "Animation", cels: [
+        {tag: "DWARF_AX_MAN_IDLE_NORTH",             cls: "Sprite", width: 50, height: 75, xoffset: 50, yoffset: 0 },
+        {tag: "DWARF_AX_MAN_WALK_NORTH",             cls: "Animation", cels: [
             { xoffset: 50, yoffset: 0, width: 50, height: 75, duration: 200 },
             { xoffset: 50, yoffset: 0, width: 50, height: 75, duration: 200 },
             { xoffset: 50, yoffset: 0, width: 50, height: 75, duration: 200 },
         ]},
-        {tag: "DWARF_AX_MAN_IDLE_EAST",               id: 113, cls: "Sprite", width: 50, height: 75, xoffset: 150, yoffset: 0 },
+        {tag: "DWARF_AX_MAN_IDLE_EAST",              cls: "Sprite", width: 50, height: 75, xoffset: 150, yoffset: 0 },
         {tag: "DWARF_AX_MAN_WALK_EAST",              cls: "Animation", cels: [
             { xoffset: 150, yoffset: 0, width: 50, height: 75, duration: 200 },
             { xoffset: 150, yoffset: 0, width: 50, height: 75, duration: 200 },
             { xoffset: 150, yoffset: 0, width: 50, height: 75, duration: 200 },
         ]},
-        {tag: "DWARF_AX_MAN_IDLE_WEST",               id: 116, cls: "Sprite", width: 50, height: 75, xoffset: 100, yoffset: 0 },
+        {tag: "DWARF_AX_MAN_IDLE_WEST",              cls: "Sprite", width: 50, height: 75, xoffset: 100, yoffset: 0 },
         {tag: "DWARF_AX_MAN_WALK_WEST",              cls: "Animation", cels: [
             { xoffset: 100, yoffset: 0, width: 50, height: 75, duration: 200 },
             { xoffset: 100, yoffset: 0, width: 50, height: 75, duration: 200 },
             { xoffset: 100, yoffset: 0, width: 50, height: 75, duration: 200 },
         ]},
-        {tag: "DWARF_AX_MAN",                         id: 119, cls: "Sprite", width: 50, height: 75, xoffset: 0, yoffset: 0, tileset: true },
+        {tag: "DWARF_AX_MAN",                         id: 903, cls: "Sprite", width: 50, height: 75, xoffset: 0, yoffset: 0, tileset: true },
         {tag: "DWARF_AX_MAN_WALK_SOUTH",              cls: "Animation", cels: [
             { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
             { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
@@ -1027,18 +973,73 @@ const daggerAssets = [
     ]},
 
     // NPC sheet
-    // 300
+    // === 904  ---- NPC 1 ----
     { src: "images/npc.png", cls: "Sheet", assets: [
-        {tag: "NPC1",                 id: 300, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 100 },
+        {tag: "NPC1",                 id: 904, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 100 },
         {tag: "NPC1_IDLE_NORTH",      cls: "Sprite", width: 50, height: 100, xoffset: 50, yoffset: 100 },
         {tag: "NPC1_IDLE_WEST",       cls: "Sprite", width: 50, height: 100, xoffset: 150, yoffset: 100 },
         {tag: "NPC1_IDLE_EAST",       cls: "Sprite", width: 50, height: 100, xoffset: 200, yoffset: 100 },
     // 301   
-        {tag: "NPC2",                 id: 301, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 200 },
+        {tag: "NPC2",                 id: 905, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 200 },
         {tag: "NPC2_IDLE_NORTH",      cls: "Sprite", width: 50, height: 100, xoffset: 50, yoffset: 200 },
         {tag: "NPC2_IDLE_WEST",       cls: "Sprite", width: 50, height: 100, xoffset: 150, yoffset: 200 },
         {tag: "NPC2_IDLE_EAST",       cls: "Sprite", width: 50, height: 100, xoffset: 200, yoffset: 200 },
     ]},
+
+    /* === NON INDEXED ASSETS ================================================================ */
+
+    { src: "images/window_tiles.png", cls: "Stretch", tag: "WINDOW_BORDER", border: 15 },
+    { src: "images/buttonFrames.png", cls: "Sheet", assets: [
+        // S1-S4 border sizes
+        // OPAQ|TRAN - opaque|transparent
+        {tag: "BUTTON_TAN_S1_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*0, border: 15 },
+        {tag: "BUTTON_TAN_S2_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*0, border: 15 },
+        {tag: "BUTTON_TAN_S3_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*0, border: 15 },
+        {tag: "BUTTON_TAN_S4_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*0, border: 15 },
+        {tag: "BUTTON_TAN_S1_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*1, border: 15 },
+        {tag: "BUTTON_TAN_S2_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*1, border: 15 },
+        {tag: "BUTTON_TAN_S3_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*1, border: 15 },
+        {tag: "BUTTON_TAN_S4_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*1, border: 15 },
+        // -- RED
+        {tag: "BUTTON_RED_S1_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*2, border: 15 },
+        {tag: "BUTTON_RED_S2_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*2, border: 15 },
+        {tag: "BUTTON_RED_S3_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*2, border: 15 },
+        {tag: "BUTTON_RED_S4_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*2, border: 15 },
+        {tag: "BUTTON_RED_S1_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*3, border: 15 },
+        {tag: "BUTTON_RED_S2_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*3, border: 15 },
+        {tag: "BUTTON_RED_S3_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*3, border: 15 },
+        {tag: "BUTTON_RED_S4_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*3, border: 15 },
+        // -- GREEN
+        {tag: "BUTTON_GRN_S1_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*4, border: 15 },
+        {tag: "BUTTON_GRN_S2_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*4, border: 15 },
+        {tag: "BUTTON_GRN_S3_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*4, border: 15 },
+        {tag: "BUTTON_GRN_S4_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*4, border: 15 },
+        {tag: "BUTTON_GRN_S1_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*5, border: 15 },
+        {tag: "BUTTON_GRN_S2_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*5, border: 15 },
+        {tag: "BUTTON_GRN_S3_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*5, border: 15 },
+        {tag: "BUTTON_GRN_S4_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*5, border: 15 },
+        // -- BLUE
+        {tag: "BUTTON_BLU_S1_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*6, border: 15 },
+        {tag: "BUTTON_BLU_S2_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*6, border: 15 },
+        {tag: "BUTTON_BLU_S3_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*6, border: 15 },
+        {tag: "BUTTON_BLU_S4_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*6, border: 15 },
+        {tag: "BUTTON_BLU_S1_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*7, border: 15 },
+        {tag: "BUTTON_BLU_S2_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*7, border: 15 },
+        {tag: "BUTTON_BLU_S3_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*7, border: 15 },
+        {tag: "BUTTON_BLU_S4_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*7, border: 15 },
+    ]},
+
+    { src: "images/goldButtonFrames.png", cls: "Sheet", assets: [
+        {tag: "BUTTON_GLD_S1_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*0, border: 15 },
+        {tag: "BUTTON_GLD_S2_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*0, border: 15 },
+        {tag: "BUTTON_GLD_S3_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*0, border: 15 },
+        {tag: "BUTTON_GLD_S4_OPAQ",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*0, border: 15 },
+        {tag: "BUTTON_GLD_S1_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*1, border: 15 },
+        {tag: "BUTTON_GLD_S2_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*1, border: 15 },
+        {tag: "BUTTON_GLD_S3_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*1, border: 15 },
+        {tag: "BUTTON_GLD_S4_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*1, border: 15 },
+    ]},
+
 ];
 
 class DaggerAssets {

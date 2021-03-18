@@ -349,6 +349,7 @@ class UxEditorCtrl extends UxCtrl {
 
     mouseClicked(mouseX, mouseY) {
         // skip mouse click if not on camera
+        if (!currentLevel.containsPoint(mouseX, mouseY)) return;
         if (!camera.contains(mouseX, mouseY)) return;
         // lookup idx of current mouse position
         let idx = currentLevel.idxfromxy(mouseX, mouseY);

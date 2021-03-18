@@ -399,6 +399,7 @@ class Level {
 
         // sort tiles/object/enemies/npcs/player by y
         let sorted = new SortedGroup((v1,v2) => (v1.y-v2.y));
+        let overlay = new SortedGroup((v1,v2) => (v1.y-v2.y));
 		for(var i=0; i<this.objects.length; i++){
             let obj = this.objects[i];
             if (!obj.visible) continue;
@@ -406,7 +407,11 @@ class Level {
                 if (props.bgr(obj.tileid)) {
                     obj.draw();
                 } else {
-                    sorted.add(obj);
+                    if (obj.overlay) {
+                        overlay.add(obj);
+                    } else {
+                        sorted.add(obj);
+                    }
                 }
             }
 		}
@@ -457,8 +462,13 @@ class Level {
             y += this.sketchHeight;
         }
 
-        // render sorted fg
+        // render sorted
         for (const obj of sorted) {
+            obj.draw();
+        }
+
+        // render overlay
+        for (const obj of overlay) {
             obj.draw();
         }
 

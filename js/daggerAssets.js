@@ -322,6 +322,48 @@ const daggerObjects = {
             },
         },
     },
+    VDOOR1_T: {
+        kind: "link",
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "VDOOR1_T",
+                [Animator.open]: "VDOOR1_OPEN_T",
+            },
+        },
+    },
+    VDOOR1_B: {
+        kind: "door",
+        link: { targets: ["up"], vars: ["state"] },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "VDOOR1_B",
+                [Animator.open]: "VDOOR1_OPEN_B",
+            },
+        },
+    },
+    VDOOR2_T: {
+        kind: "link",
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "VDOOR2_T",
+                [Animator.open]: "VDOOR2_OPEN_T",
+            },
+        },
+    },
+    VDOOR2_B: {
+        kind: "door",
+        link: { targets: ["up"], vars: ["state"] },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "VDOOR2_B",
+                [Animator.open]: "VDOOR2_OPEN_B",
+            },
+        },
+    },
     CHEST1_CLOSE: {
         kind: "chest",
         collider: {
@@ -800,6 +842,8 @@ const daggerAssets = [
         {tag: "BROOF_CHIMNEY",               id: 375, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*7, tileset: true },
         {tag: "BROOF_T",                     id: 376, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*7, tileset: true },
         {tag: "BROOF_TR",                    id: 377, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*7, tileset: true },
+        {tag: "VDOOR1_OPEN_T",               id: 378, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*7, tileset: true },
+        {tag: "VDOOR2_OPEN_T",               id: 379, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*7, tileset: true },
 
         {tag: "RROOF_L",                     id: 380, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*8, tileset: true },
         {tag: "RROOF_M",                     id: 381, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*8, tileset: true },
@@ -809,6 +853,8 @@ const daggerAssets = [
         {tag: "BROOF_M",                     id: 385, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*8, tileset: true },
         {tag: "VDOOR2_T",                    id: 386, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*8, tileset: true },
         {tag: "BROOF_R",                     id: 387, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*8, tileset: true },
+        {tag: "VDOOR1_OPEN_B",               id: 388, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*8, tileset: true },
+        {tag: "VDOOR2_OPEN_B",               id: 389, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*8, tileset: true },
 
         {tag: "RROOF_FL",                    id: 390, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*9, tileset: true },
         {tag: "RROOF_F",                     id: 391, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*9, tileset: true },

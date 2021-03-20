@@ -245,7 +245,7 @@ class Level {
     /**
      * get fg tile index at given x,y
      */
-    fg(x, y) {
+    getfg(x, y) {
         let i = y * this.width + x;
         return (i < this.nentries) ? this.fg[i] : 0;
     }
@@ -278,7 +278,7 @@ class Level {
     /**
      * get bg tile index at given x,y
      */
-    bg(x, y) {
+    getbg(x, y) {
         let i = y * this.width + x;
         return (i < this.nentries) ? this.bg[i] : 0;
     }

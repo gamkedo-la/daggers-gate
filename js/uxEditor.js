@@ -86,21 +86,28 @@ class UxEditorCtrl extends UxCtrl {
                         {
                             cls: "UxButton",
                             tag: "newButton",
-                            xxform: { top: .05, bottom: .9, right: .67, offset: 5},
+                            xxform: { top: .05, bottom: .9, right: .75, offset: 5},
                             xtext: { color: new Color(0,255,0,.75), text: "New", },
                         },
 
                         {
                             cls: "UxButton",
                             tag: "loadButton",
-                            xxform: { top: .05, bottom: .9, right: .33, left: .33, offset: 5},
+                            xxform: { top: .05, bottom: .9, right: .5, left: .25, offset: 5},
                             xtext: { color: new Color(0,255,0,.75), text: "Load", },
                         },
 
                         {
                             cls: "UxButton",
+                            tag: "editButton",
+                            xxform: { top: .05, bottom: .9, right: .25, left: .5, offset: 5},
+                            xtext: { color: new Color(0,255,0,.75), text: "Edit", },
+                        },
+
+                        {
+                            cls: "UxButton",
                             tag: "generateButton",
-                            xxform: { top: .05, bottom: .9, left: .67, offset: 5},
+                            xxform: { top: .05, bottom: .9, left: .75, offset: 5},
                             xtext: { color: new Color(0,255,0,.75), text: "Generate", },
                         },
 
@@ -218,6 +225,8 @@ class UxEditorCtrl extends UxCtrl {
         this.newButton.evtClicked.listen(this.onNew.bind(this));
         this.loadButton = this.view.find((v) => v.tag === "loadButton");
         this.loadButton.evtClicked.listen(this.onLoadLevel.bind(this));
+        this.editButton = this.view.find((v) => v.tag === "editButton");
+        this.editButton.evtClicked.listen(this.onEditLevel.bind(this));
         this.genButton = this.view.find((v) => v.tag === "generateButton");
         this.genButton.evtClicked.listen(this.onGenerate.bind(this));
         this.fillButton = this.view.find((v) => v.tag === "bgFillButton");
@@ -460,6 +469,13 @@ class UxEditorCtrl extends UxCtrl {
         this.view.active = false;
         // create new controller for equip menu
         ctrlSys.assign(new UxNewLvlPopUpCtrl(), true);
+    }
+
+    onEditLevel() {
+        console.log("onEditevel");
+        this.view.active = false;
+        // create new controller for equip menu
+        ctrlSys.assign(new UxEditLvlPopUpCtrl(), true);
     }
 
     onHelp() {
@@ -799,6 +815,151 @@ class UxNewLvlPopUpCtrl extends UxCtrl {
         this.onBack();
     }
 
+}
+
+class UxEditLvlPopUpCtrl extends UxCtrl {
+    constructor(spec={}) {
+        super(spec);
+        // construct the UI elements
+        this.view = UxView.generate({
+            cls: "UxCanvas",
+            cvsid: "gameCanvas",
+            layer: 1,
+            xchild: [
+                {
+                    cls: "UxPanel",
+                    xxform: { border: .2},
+                    xsketch: { cls: 'Rect', borderWidth: 5, borderColor: "green", color: new Color(25,25,25,1), xfitter: { cls: "FitToParent" }, },
+                    xchild: [
+                        {
+                            cls: "UxText",
+                            xxform: { top: .075, bottom: .85 },
+                            xtext: { color: new Color(0,255,0,.75), text: "Edit Level", },
+                        },
+                        {
+                            cls: "UxPanel",
+                            xxform: { top: .2, bottom: .1 },
+                            xchild: [
+                                {
+                                    cls: "UxText",
+                                    xxform: { bottom: .8, right: .6, left: .05, otop: 20, obottom:10},
+                                    xtext: { color: new Color(0,255,0,.75), text: "Name:", align: "left"},
+                                },
+                                {
+                                    cls: "UxInput",
+                                    tag: "nameInput",
+                                    xtext: { text: currentLevel.name},
+                                    xxform: { bottom: .8, left: .4, offset:10 },
+                                },
+                                {
+                                    cls: "UxText",
+                                    xxform: { top: .2, bottom: .6, right: .6, left: .05, otop: 20, obottom:10},
+                                    xtext: { color: new Color(0,255,0,.75), text: "Width:", align: "left"},
+                                },
+                                {
+                                    cls: "UxInput",
+                                    tag: "widthInput",
+                                    charset: '0123456789',
+                                    xtext: { text: currentLevel.width.toString()},
+                                    xxform: { top: .2, bottom: .6, left: .4, right: .4, offset:10 },
+                                },
+                                {
+                                    cls: "UxText",
+                                    xxform: { top: .4, bottom: .4, right: .6, left: .05, otop: 20, obottom:10},
+                                    xtext: { color: new Color(0,255,0,.75), text: "Height:", align: "left"},
+                                },
+                                {
+                                    cls: "UxInput",
+                                    tag: "heightInput",
+                                    charset: '0123456789',
+                                    xtext: { text: currentLevel.height.toString()},
+                                    xxform: { top: .4, bottom: .4, left: .4, right: .4, offset:10 },
+                                },
+
+                            ]
+                        },
+                        {
+                            cls: "UxButton",
+                            tag: "okButton",
+                            xxform: { top: .9, offset: 5, left: .3, right: .55 },
+                            xtext: { text: "OK", color: new Color(255,255,0,.75)},
+                        },
+                        {
+                            cls: "UxButton",
+                            tag: "backButton",
+                            xxform: { top: .9, offset: 5, left: .55, right: .3 },
+                            xtext: { text: "Back", color: new Color(255,255,0,.75)},
+                        },
+
+                    ],
+                },
+            ],
+        });
+
+        this.lvlPanel = this.view.find((v) => v.tag === "lvlPanel");
+        this.backButton = this.view.find((v) => v.tag === "backButton");
+        this.backButton.evtClicked.listen(this.onBack.bind(this));
+        this.okButton = this.view.find((v) => v.tag === "okButton");
+        this.okButton.evtClicked.listen(this.onOK.bind(this));
+        this.nameInput = this.view.find((v) => v.tag === "nameInput");
+        this.heightInput = this.view.find((v) => v.tag === "heightInput");
+        this.widthInput = this.view.find((v) => v.tag === "widthInput");
+
+    }
+
+    // EVENT CALLBACKS -----------------------------------------------------
+    onBack() {
+        console.log("onBack");
+        // restore last controller
+        ctrlSys.pop();
+        // tear down view
+        if (this.view) this.view.destroy();
+        ctrlSys.current.view.active = true;
+    }
+
+    onOK() {
+        console.log("onOK");
+        if (!confirm("Creating new level will erase level data outside of new bounds, OK to proceed?")) return;
+        let width = Math.min(gMaxLvlSize, parseInt(this.widthInput.text));
+        let height = Math.min(gMaxLvlSize, parseInt(this.heightInput.text));
+        let spec = {
+            name: this.nameInput.text,
+            width: width,
+            height: height,
+            editor: true,
+        }
+        console.log("trying to gen lvl for: " + Fmt.ofmt(spec));
+        let lvl = new Level(spec);
+        // rebuild fg/bg/room data
+        let maxw = Math.min(lvl.width, currentLevel.width);
+        let maxh = Math.min(lvl.height, currentLevel.height);
+        for (let i=0; i<maxw; i++) {
+            for (let j=0; j<maxh; j++) {
+                lvl.setfg(i, j, currentLevel.getfg(i, j));
+                lvl.setbg(i, j, currentLevel.getbg(i, j));
+            }
+        }
+        let rooms = new Array(lvl.nentries);
+        for (let idx=0; idx<currentLevel.nentries; idx++) {
+            if (ctrlSys.last.rooms[idx]) {
+                let i = currentLevel.ifromidx(idx);
+                let j = currentLevel.jfromidx(idx);
+                if (i < lvl.width && j < lvl.height) {
+                    let nidx = lvl.idxfromij(i,j);
+                    rooms[nidx] = ctrlSys.last.rooms[idx];
+                }
+            }
+        }
+        currentLevel = lvl;
+        // reset tracker and camera
+        ctrlSys.last.tracker.x = 0;
+        ctrlSys.last.tracker.y = 0;
+        ctrlSys.last.lvlName = spec.name;
+        ctrlSys.last.rooms = rooms;
+        camera.reset();
+        // close window
+        this.onBack();
+    }
 }
 
 class UxHelpPopUpCtrl extends UxCtrl {

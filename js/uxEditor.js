@@ -357,6 +357,7 @@ class UxEditorCtrl extends UxCtrl {
     }
 
     mouseClicked(mouseX, mouseY) {
+        if (this.disable) return;
         // skip mouse click if not on camera
         if (!currentLevel.containsPoint(mouseX, mouseY)) return;
         if (!camera.contains(mouseX, mouseY)) return;
@@ -375,6 +376,7 @@ class UxEditorCtrl extends UxCtrl {
     }
 
     mouseMoved(mouseX, mouseY) {
+        if (this.disable) return;
         //console.log("tracker is: " + Fmt.ofmt(this.tracker));
         if(mouseDragging) {
             let idx = currentLevel.idxfromxy(mouseX, mouseY);
@@ -549,6 +551,10 @@ ${this.pprintArray(this.rooms, currentLevel.width, 8)}
 
     onGenerate() {
         console.log("onGenerate");
+        let view = this.view;
+        let ctrl = this;
+        view.active = false;
+        ctrl.disable = true;
         const modal = document.getElementById('lvl-generate-modal');
         modal.classList.add('is--visible');
         const bodyBlackout = document.querySelector('.body-blackout');
@@ -556,11 +562,15 @@ ${this.pprintArray(this.rooms, currentLevel.width, 8)}
         modal.querySelector('.popup-modal__close').addEventListener('click', () => {
             modal.classList.remove('is--visible');
             bodyBlackout.classList.remove('is-blacked-out');
+            view.active = true;
+            ctrl.disable = false;
         });
         document.getElementById('lvl-text').innerHTML = "<pre>" + this.pprintLvl() + "</pre>";
         bodyBlackout.addEventListener('click', () => {
             modal.classList.remove('is--visible')
             bodyBlackout.classList.remove('is-blacked-out')
+            view.active = true;
+            ctrl.disable = false;
         });
     }
 

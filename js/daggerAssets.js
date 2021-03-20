@@ -336,6 +336,7 @@ const daggerObjects = {
         kind: "door",
         link: { targets: ["up"], vars: ["state"] },
         locked: false,
+        autoclose: true,
         sketch: { 
             cls: "Animator",
             animations: {
@@ -357,6 +358,8 @@ const daggerObjects = {
     VDOOR2_B: {
         kind: "door",
         link: { targets: ["up"], vars: ["state"] },
+        locked: false,
+        autoclose: true,
         sketch: { 
             cls: "Animator",
             animations: {

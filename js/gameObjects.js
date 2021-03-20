@@ -65,6 +65,7 @@ class gameObjectClass extends characterClass {
         this.lateRender = Util.objKeyValue(spec, "lateRender", false);
         this.overlay = Util.objKeyValue(spec, "overlay", false);
         this.locked = Util.objKeyValue(spec, "locked", true);
+        this.autoclose = Util.objKeyValue(spec, "autoclose", false);
         this.xxform = spec.xxform || undefined;
     }
 
@@ -179,7 +180,7 @@ class gameObjectClass extends characterClass {
         }
 
         // handle autoclose
-        if (this.kind === "door" && this.state === Animator.open) {
+        if (this.autoclose && this.kind === "door" && this.state === Animator.open) {
             if (!this.collider.overlaps(p1.interactCollider)) {
                 this.state = Animator.close;
                 this.wantAction = actionKindMap[this.kind];

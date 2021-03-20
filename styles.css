@@ -47,3 +47,11 @@
   top: -20px;
   cursor: pointer;
 }
+.popup-modal__copy {
+  position: absolute;
+  font-size: 4rem;
+  right: 40px;
+  top: -20px;
+  cursor: pointer;
+}
+

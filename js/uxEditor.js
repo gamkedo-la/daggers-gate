@@ -559,13 +559,24 @@ ${this.pprintArray(this.rooms, currentLevel.width, 8)}
         modal.classList.add('is--visible');
         const bodyBlackout = document.querySelector('.body-blackout');
         bodyBlackout.classList.add('is-blacked-out');
+        const text = document.getElementById('lvl-text');
         modal.querySelector('.popup-modal__close').addEventListener('click', () => {
             modal.classList.remove('is--visible');
             bodyBlackout.classList.remove('is-blacked-out');
             view.active = true;
             ctrl.disable = false;
         });
-        document.getElementById('lvl-text').innerHTML = "<pre>" + this.pprintLvl() + "</pre>";
+        modal.querySelector('.popup-modal__copy').addEventListener('click', () => {
+            var t = text.innerText;
+            var elem = document.createElement("textarea");
+            document.body.appendChild(elem);
+            elem.value = t;
+            elem.select();
+            document.execCommand("copy");
+            document.body.removeChild(elem);
+            alert("copied to clipboard");
+        });
+        text.innerHTML = "<pre>" + this.pprintLvl() + "</pre>";
         bodyBlackout.addEventListener('click', () => {
             modal.classList.remove('is--visible')
             bodyBlackout.classList.remove('is-blacked-out')

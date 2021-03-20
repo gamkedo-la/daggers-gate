@@ -12,7 +12,8 @@ class warriorClass extends characterClass {
         spec.interactCollider = Object.assign({
             color: "rgba(255,255,0,.25)", 
             width: 55, 
-            height: 55, 
+            height: 65, 
+            yoff: -10,
         }, spec.interact);
         spec.yOff = spec.yOff || -25;
         spec.movingSpeed = spec.movingSpeed || PLAYER_MOVE_SPEED;

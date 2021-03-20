@@ -64,6 +64,7 @@ class gameObjectClass extends characterClass {
         this.attackKind = spec.attackKind;
         this.lateRender = Util.objKeyValue(spec, "lateRender", false);
         this.overlay = Util.objKeyValue(spec, "overlay", false);
+        this.locked = Util.objKeyValue(spec, "locked", true);
         this.xxform = spec.xxform || undefined;
     }
 
@@ -72,11 +73,14 @@ class gameObjectClass extends characterClass {
         switch (this.kind) {
         case "door":
             if (this.state !== Animator.open) {
-                if (character.keysHeld > 0) {
-                    character.keysHeld--; // one less key
-                    document.getElementById("debugText").innerHTML = "Keys: " + character.keysHeld;
+                if (!this.locked || character.keysHeld > 0) {
+                    if (this.locked) {
+                        character.keysHeld--; // one less key
+                        document.getElementById("debugText").innerHTML = "Keys: " + character.keysHeld;
+                    }
                     this.state = Animator.open;
                     this.wantAction = undefined;
+                    this.locked = false;
                     this.active = false;
                     doorOpenning.play();
                 }
@@ -171,6 +175,15 @@ class gameObjectClass extends characterClass {
             if (this.loot.delayTTL > 0) {
                 this.loot.delayTTL -= updateCtx.deltaTime;
                 if (this.loot.delayTTL < 0) this.loot.delayTTL = 0;
+            }
+        }
+
+        // handle autoclose
+        if (this.kind === "door" && this.state === Animator.open) {
+            if (!this.collider.overlaps(p1.interactCollider)) {
+                this.state = Animator.close;
+                this.wantAction = actionKindMap[this.kind];
+                this.active = true;
             }
         }
 

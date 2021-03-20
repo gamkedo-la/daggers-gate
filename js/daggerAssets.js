@@ -335,6 +335,7 @@ const daggerObjects = {
     VDOOR1_B: {
         kind: "door",
         link: { targets: ["up"], vars: ["state"] },
+        locked: false,
         sketch: { 
             cls: "Animator",
             animations: {

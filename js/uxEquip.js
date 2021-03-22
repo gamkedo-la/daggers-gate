@@ -466,10 +466,16 @@ class UxEquipCtrl extends UxCtrl {
                                         xxform: { top: .125, left: .6, right: .2, offset:5 },
                                         xsketch: {},
                                         xchild: [
+
                                             {
-                                                cls: "UxPanel",
-                                                xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ),
+                                                cls: "UxButton",
+                                                tag: "healthPotionButton",
+                                                xunpressed: Object.assign( {lockRatio: true}, assets.get("BUTTON_RED_S2_OPAQ") ),
+                                                xpressed: Object.assign( {lockRatio: true}, assets.get("BUTTON_BLU_S2_OPAQ") ),
+                                                xhighlight: Object.assign( {lockRatio: true}, assets.get("BUTTON_BLU_S1_OPAQ") ),
+                                                xtext: {text:""},
                                             },
+
                                             {
                                                 cls: "UxPanel",
                                                 xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("HEALING_POTION") ),
@@ -490,9 +496,14 @@ class UxEquipCtrl extends UxCtrl {
                                         xxform: { top: .125, left: .8, offset:5 },
                                         xsketch: {},
                                         xchild: [
+
                                             {
-                                                cls: "UxPanel",
-                                                xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("BUTTON_TAN_S2_OPAQ") ),
+                                                cls: "UxButton",
+                                                tag: "manaPotionButton",
+                                                xunpressed: Object.assign( {lockRatio: true}, assets.get("BUTTON_RED_S2_OPAQ") ),
+                                                xpressed: Object.assign( {lockRatio: true}, assets.get("BUTTON_BLU_S2_OPAQ") ),
+                                                xhighlight: Object.assign( {lockRatio: true}, assets.get("BUTTON_BLU_S1_OPAQ") ),
+                                                xtext: {text:""},
                                             },
                                             {
                                                 cls: "UxPanel",
@@ -679,6 +690,11 @@ class UxEquipCtrl extends UxCtrl {
         this.arrowText = this.view.find((v) => v.tag === "arrowText");
         this.healthPotionText = this.view.find((v) => v.tag === "healthPotionText");
         this.manaPotionText = this.view.find((v) => v.tag === "manaPotionText");
+
+        this.healthPotionButton = this.view.find((v) => v.tag === "healthPotionButton");
+        this.healthPotionButton.evtClicked.listen(this.onHealthPotionClick.bind(this));
+        this.manaPotionButton = this.view.find((v) => v.tag === "manaPotionButton");
+        this.manaPotionButton.evtClicked.listen(this.onManaPotionClick.bind(this));
 
         // state
         this.swapMain = false;
@@ -903,6 +919,22 @@ class UxEquipCtrl extends UxCtrl {
             }
         }
         //console.log(`swapmain: ${this.swapMain} swapoff: ${this.swapOff} activeSlots: ${this.activeSlots}`);
+    }
+
+    onHealthPotionClick(evt) {
+        if (p1.healthPotions > 0 && p1.health < p1.maxHealth) {
+            p1.healthPotions--;
+            p1.health += 25;
+            if (p1.health > p1.maxHealth) p1.health = p1.maxHealth;
+        }
+    }
+
+    onManaPotionClick(evt) {
+        if (p1.manaPotions > 0 && p1.mana < p1.maxMana) {
+            p1.manaPotions--;
+            p1.mana += 25;
+            if (p1.mana > p1.maxMana) p1.mana = p1.maxMana;
+        }
     }
 
     onOffClick(evt) {

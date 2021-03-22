@@ -324,7 +324,7 @@ class Level {
         }
         chr.x = sp.x;
         chr.y = sp.y;
-        if (this.dbg) console.log("placed character: " + chr + " at: " + x + "," + y);
+        if (this.dbg) console.log("placed character: " + chr + " at: " + sp.x + "," + sp.y);
     }
 
     addObject(item) {
@@ -508,6 +508,7 @@ class LevelLoader {
             spec.name = name;
             if (editor) spec.editor = true;
             if (this.dbgNoEnemy) spec.dbgNoEnemy = true;
+            if (this.dbg) spec.dbg = true;
             lvl = new Level(spec);
             this._cache[name] = lvl;
         }

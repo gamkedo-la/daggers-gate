@@ -35,7 +35,7 @@ class Fmt {
             let keys = Object.keys(obj);
             for (const key of keys) {
                 let rule = fmtRules[key];
-                //if (!rule && typeof(obj[key]) === "object") rule = Fmt.ofmt;
+                if (!rule && obj[key] && obj[key].constructor.name === "Object") {rule = Fmt.ofmt};
                 kvs.push(key + Fmt.nameDelim + ((rule) ? rule(obj[key]) : obj[key]));
             }
         }

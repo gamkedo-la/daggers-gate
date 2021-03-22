@@ -144,6 +144,27 @@ const animators = {
         }
     },
 
+    "ALCHEMIST": {
+        cls: "Animator",
+        animations: {
+            [Animator.idle]: "ALCHEMIST",
+        }
+    },
+
+    "HEALER": {
+        cls: "Animator",
+        animations: {
+            [Animator.idle]: "HEALER",
+        }
+    },
+
+    "FLETCHER": {
+        cls: "Animator",
+        animations: {
+            [Animator.idle]: "FLETCHER",
+        }
+    },
+
 }
 
 /**
@@ -213,6 +234,7 @@ const daggerNpcs = {
             { tag: "q1Complete", predicate: (npc) => quests.checkCompleted("q1") },
         ],
     },
+
     NPC2: {
         sketch: animators["NPC2"],
         yOff: -25,
@@ -229,6 +251,40 @@ const daggerNpcs = {
             { tag: "q2Complete", predicate: (npc) => quests.checkCompleted("q2") },
         ],
     },
+
+    ALCHEMIST: {
+        sketch: animators["ALCHEMIST"],
+        yOff: -25,
+        collider: {
+            color: "rgba(175,175,175,.75)",
+            width: 20, 
+            height: 30, 
+            //blocking: false,
+        },
+    },
+
+    HEALER: {
+        sketch: animators["HEALER"],
+        yOff: -25,
+        collider: {
+            color: "rgba(175,175,175,.75)",
+            width: 20, 
+            height: 30, 
+            //blocking: false,
+        },
+    },
+
+    FLETCHER: {
+        sketch: animators["FLETCHER"],
+        yOff: -25,
+        collider: {
+            color: "rgba(175,175,175,.75)",
+            width: 20, 
+            height: 30, 
+            //blocking: false,
+        },
+    },
+
 };
 
 const daggerEnemies = {
@@ -1072,11 +1128,17 @@ const daggerAssets = [
         {tag: "NPC1_IDLE_NORTH",      cls: "Sprite", width: 50, height: 100, xoffset: 50, yoffset: 100 },
         {tag: "NPC1_IDLE_WEST",       cls: "Sprite", width: 50, height: 100, xoffset: 150, yoffset: 100 },
         {tag: "NPC1_IDLE_EAST",       cls: "Sprite", width: 50, height: 100, xoffset: 200, yoffset: 100 },
-    // 301   
+    // 905   
         {tag: "NPC2",                 id: 905, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 200 },
         {tag: "NPC2_IDLE_NORTH",      cls: "Sprite", width: 50, height: 100, xoffset: 50, yoffset: 200 },
         {tag: "NPC2_IDLE_WEST",       cls: "Sprite", width: 50, height: 100, xoffset: 150, yoffset: 200 },
         {tag: "NPC2_IDLE_EAST",       cls: "Sprite", width: 50, height: 100, xoffset: 200, yoffset: 200 },
+    // 906   
+        {tag: "ALCHEMIST",            id: 906, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 100 },
+    // 907   
+        {tag: "FLETCHER",             id: 907, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 100 },
+    // 908   
+        {tag: "HEALER",               id: 908, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 100 },
     ]},
 
     /* === NON INDEXED ASSETS ================================================================ */

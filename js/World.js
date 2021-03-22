@@ -60,12 +60,18 @@ var allLevels = {
 
   "town": Object.assign(townSpec, {
       exits: [
-        { x: 6, y: 2, lvl: "lvl1",    spawn: "start" },
-        { x: 13, y: 10, lvl: "house1",    spawn: "town" },
+        { x: 6, y: 2, lvl: "lvl1",          spawn: "start" },
+        { x: 13, y: 6, lvl: "alchemist",    spawn: "town" },
+        { x: 17, y: 6, lvl: "fletcher",     spawn: "town" },
+        { x: 21, y: 6, lvl: "healer",       spawn: "town" },
+        { x: 20, y: 15, lvl: "house1",      spawn: "town" },
       ],
       spawns: {
-        "start":  { x: 10, y: 10 },
-        "house1":  { x: 13, y: 11 },
+        "start":      { x: 10, y: 10 },
+        "alchemist":  { x: 13, y: 7 },
+        "fletcher":   { x: 17, y: 7 },
+        "healer":     { x: 21, y: 7 },
+        "house1":     { x: 20, y: 16 },
       },
   }),
 
@@ -75,6 +81,33 @@ var allLevels = {
       ],
       spawns: {
         "town":  { x: 4, y: 4 },
+      },
+  }),
+
+  "alchemist": Object.assign(alchemistSpec, {
+      exits: [
+        { x: 2, y: 4, lvl: "town",    spawn: "alchemist" },
+      ],
+      spawns: {
+        "town":  { x: 2, y: 3 },
+      },
+  }),
+
+  "fletcher": Object.assign(fletcherSpec, {
+      exits: [
+        { x: 2, y: 4, lvl: "town",    spawn: "fletcher" },
+      ],
+      spawns: {
+        "town":  { x: 2, y: 3 },
+      },
+  }),
+
+  "healer": Object.assign(healerSpec, {
+      exits: [
+        { x: 2, y: 4, lvl: "town",    spawn: "healer" },
+      ],
+      spawns: {
+        "town":  { x: 2, y: 3 },
       },
   }),
 

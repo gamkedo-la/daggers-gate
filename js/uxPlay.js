@@ -312,6 +312,10 @@ class UxPlayCtrl extends UxCtrl {
         if (key === 81) {  // Q
             this.onQuestMenu();
         }
+        // FIXME: remove
+        if (key === 83) {  // S
+            this.onShopMenu();
+        }
         if (key === 121) { // F10
             console.log("player debug animation toggle");
             p1.dbgAnim = !p1.dbgAnim;
@@ -502,6 +506,12 @@ class UxPlayCtrl extends UxCtrl {
         console.log("onQuestMenu");
         // activate new controller, move play controller to last
         ctrlSys.assign(new UxQuestCtrl(), true);
+    }
+
+    onShopMenu() {
+        console.log("onShopMenu");
+        // activate new controller, move play controller to last
+        ctrlSys.assign(new UxAlchemistShopCtrl(), true);
     }
 
     onStartDialog(dialog) {

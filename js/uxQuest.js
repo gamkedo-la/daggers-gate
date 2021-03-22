@@ -40,7 +40,6 @@ class UxQuestInfoCtrl extends UxCtrl {
                             tag: "objectivePanel",
                             xxform: { top: .85, bottom: .15, left: .05, right: .05, origy:1, height: objectiveSpace },
                         },
-
                         // BACK ---------------------------
                         {
                             cls: "UxButton",
@@ -55,6 +54,7 @@ class UxQuestInfoCtrl extends UxCtrl {
                 },
             ],
         });
+
         // lookup UI elements
         this.titleText = this.view.find((v) => v.tag === "titleText");
         this.dialogPanel = this.view.find((v) => v.tag === "dialogPanel");
@@ -147,6 +147,7 @@ class UxQuestCtrl extends UxCtrl {
         const titleColor = spec.titleColor || new Color(168,36,36);
         const questColor = spec.questColor || new Color(48,51,134);
         this._qsys = spec.qsys || Quests.instance;
+
         // construct the UI elements
         this.view = UxView.generate({
             cls: "UxCanvas",
@@ -232,7 +233,6 @@ class UxQuestCtrl extends UxCtrl {
                                 },
                             ],
                         },
-
                         // BACK ---------------------------
                         {
                             cls: "UxButton",
@@ -243,11 +243,11 @@ class UxQuestCtrl extends UxCtrl {
                             xpressed: Object.assign({}, assets.get("BUTTON_RED_S2_OPAQ")),
                             xhighlight: Object.assign({}, assets.get("BUTTON_RED_S3_OPAQ")),
                         },
-
                     ],
                 },
             ],
         });
+
         // lookup UI elements
         this.backButton = this.view.find((v) => v.tag === "backButton");
         this.mainQuestButton = this.view.find((v) => v.tag === "mainQuestButton");

@@ -1135,6 +1135,7 @@ const daggerAssets = [
         {tag: "NPC2_IDLE_EAST",       cls: "Sprite", width: 50, height: 100, xoffset: 200, yoffset: 200 },
     // 906   
         {tag: "ALCHEMIST",            id: 906, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 100 },
+        {tag: "ALCHEMIST_PORT",                cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 122 },
     // 907   
         {tag: "FLETCHER",             id: 907, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 100 },
     // 908   

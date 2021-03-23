@@ -389,6 +389,7 @@ class UxEquipCtrl extends UxCtrl {
                                         xxform: { top: -.25, bottom: .75, offset:5 },
                                         xtext: { color: new Color(48,51,134), text: "Consumables", },
                                     },
+
                                     // GOLD PANEL
                                     {
                                         cls: "UxPanel",

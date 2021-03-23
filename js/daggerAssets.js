@@ -261,6 +261,9 @@ const daggerNpcs = {
             height: 30, 
             //blocking: false,
         },
+        dialogs: [
+            { tag: "alchemist", predicate: (npc) => true },
+        ],
     },
 
     HEALER: {

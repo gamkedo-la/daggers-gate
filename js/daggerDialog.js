@@ -123,4 +123,20 @@ const daggerDialogs = {
         }
     },
 
+    alchemist: {
+        dfltTitle: "Alchemist",
+        dialogs: {
+            start: {
+                text: "Are you in need of my potions?",
+                responses: {
+                    "Yes": (d) => { 
+                        d.done = true; 
+                        d.npc.pendingAction = () => ctrlSys.assign(new UxAlchemistShopCtrl(), true);
+                    },
+                    "No": (d) => d.done = true,
+                }
+            },
+        }
+    },
+
 }

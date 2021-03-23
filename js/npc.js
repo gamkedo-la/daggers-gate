@@ -43,4 +43,14 @@ class Npc extends characterClass {
         */
     }
 
+    update(ctx) {
+        super.update(ctx);
+        // handle pending actions
+        if (this.pendingAction) {
+            let act = this.pendingAction;
+            this.pendingAction = undefined;
+            act();
+        }
+    }
+
 }

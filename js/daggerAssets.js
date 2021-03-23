@@ -286,6 +286,9 @@ const daggerNpcs = {
             height: 30, 
             //blocking: false,
         },
+        dialogs: [
+            { tag: "fletcher", predicate: (npc) => true },
+        ],
     },
 
 };

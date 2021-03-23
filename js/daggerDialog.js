@@ -139,4 +139,20 @@ const daggerDialogs = {
         }
     },
 
+    fletcher: {
+        dfltTitle: "Alchemist",
+        dialogs: {
+            start: {
+                text: "Looking to make a pincushion out of your enemies?",
+                responses: {
+                    "Yes": (d) => { 
+                        d.done = true; 
+                        d.npc.pendingAction = () => ctrlSys.assign(new UxFletcherShopCtrl(), true);
+                    },
+                    "No": (d) => d.done = true,
+                }
+            },
+        }
+    },
+
 }

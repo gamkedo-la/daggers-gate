@@ -41,15 +41,12 @@ class UxEquipCtrl extends UxCtrl {
                                         xchild: [
                                             {
                                                 cls: "UxPanel",
-                                                // FIXME: replace w/ character portrait sketch
-                                                xsketch: {
-                                                    cls: 'Rect',
-                                                    color: new Color(200,150,200,1),
-                                                    xfitter: { cls: "FitToParent" },
-                                                    width: 50,
-                                                    height: 50,
-                                                    lockRatio: true,
-                                                },
+                                                xsketch: { cls: 'Rect', color: new Color(223,221,154,1), xfitter: { cls: "FitToParent" }, width: 50, height: 50, lockRatio: true, },
+                                                xxform: { offset: 5 },
+                                            },
+                                            {
+                                                cls: "UxPanel",
+                                                xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("PLAYER_PORT") ),
                                                 xxform: { offset: 5 },
                                             },
                                             {

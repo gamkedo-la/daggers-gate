@@ -511,7 +511,7 @@ class UxPlayCtrl extends UxCtrl {
     onShopMenu() {
         console.log("onShopMenu");
         // activate new controller, move play controller to last
-        ctrlSys.assign(new UxFletcherShopCtrl(), true);
+        ctrlSys.assign(new UxHealerCtrl(), true);
     }
 
     onStartDialog(dialog) {

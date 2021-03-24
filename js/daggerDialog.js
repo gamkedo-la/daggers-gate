@@ -155,4 +155,20 @@ const daggerDialogs = {
         }
     },
 
+    healer: {
+        dfltTitle: "Healer",
+        dialogs: {
+            start: {
+                text: "Do you seek healing and restoration?",
+                responses: {
+                    "Yes": (d) => { 
+                        d.done = true; 
+                        d.npc.pendingAction = () => ctrlSys.assign(new UxHealerCtrl(), true);
+                    },
+                    "No": (d) => d.done = true,
+                }
+            },
+        }
+    },
+
 }

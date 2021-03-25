@@ -61,7 +61,7 @@ var allLevels = {
 
   "town": Object.assign(townSpec, {
       exits: [
-        { x: 8, y: 1, lvl: "lvl1",          spawn: "town" },
+        { x: 8, y: 0, lvl: "lvl1",          spawn: "town" },
         { x: 31, y: 8, lvl: "alchemist",    spawn: "town" },
         { x: 17, y: 6, lvl: "fletcher",     spawn: "town" },
         { x: 21, y: 6, lvl: "healer",       spawn: "town" },
@@ -73,7 +73,7 @@ var allLevels = {
         "fletcher":   { x: 17, y: 7 },
         "healer":     { x: 21, y: 7 },
         "house1":     { x: 32, y: 36 },
-        "lvl1":       { x: 8,  y: 3 },
+        "lvl1":       { x: 8,  y: 2 },
       },
   }),
 

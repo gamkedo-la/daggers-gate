@@ -6,9 +6,10 @@ var allLevels = {
   "lvl1": Object.assign(lvl1Spec, {
     exits: [
       { x: 15, y: 3, lvl: "lvl2", spawn: "lvl1" },
+      { x: 8, y: 5, lvl: "town", spawn: "lvl1" },
     ],
     spawns: {
-      "start": { x: 8, y: 5 },
+      "town": { x: 8, y: 4 },
       "lvl2": { x: 14, y: 3 },
     },
   }),
@@ -60,27 +61,29 @@ var allLevels = {
 
   "town": Object.assign(townSpec, {
       exits: [
-        { x: 6, y: 2, lvl: "lvl1",          spawn: "start" },
+        { x: 8, y: 1, lvl: "lvl1",          spawn: "town" },
         { x: 31, y: 8, lvl: "alchemist",    spawn: "town" },
         { x: 17, y: 6, lvl: "fletcher",     spawn: "town" },
         { x: 21, y: 6, lvl: "healer",       spawn: "town" },
-        { x: 20, y: 15, lvl: "house1",      spawn: "town" },
+        { x: 32, y: 35, lvl: "house1",      spawn: "town" },
       ],
       spawns: {
-        "start":      { x: 31, y: 15 },
+        
         "alchemist":  { x: 31, y: 9 },
         "fletcher":   { x: 17, y: 7 },
         "healer":     { x: 21, y: 7 },
-        "house1":     { x: 20, y: 16 },
+        "house1":     { x: 32, y: 36 },
+        "lvl1":       { x: 8,  y: 3 },
       },
   }),
 
   "house1": Object.assign(house1Spec, {
       exits: [
-        { x: 4, y: 5, lvl: "town",    spawn: "house1" },
+        { x: 4, y: 6, lvl: "town",    spawn: "house1" },
       ],
       spawns: {
-        "town":  { x: 4, y: 4 },
+        "start":  { x: 2, y: 3 },
+        "town":   { x: 4, y: 5 },
       },
   }),
 
@@ -112,7 +115,7 @@ var allLevels = {
   }),
 
 }
-var startingLevel = "town";
+var startingLevel = "house1";
 var startingSpawn = "start";
 
 const TILE_W = 50;

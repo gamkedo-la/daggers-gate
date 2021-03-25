@@ -821,6 +821,7 @@ const daggerAssets = [
         {tag: "PIT",                     id: 83, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 350, tileset: true, permeable: true, bgr: true },
         {tag: "PIT_SPIKES",              id: 84, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 350, tileset: true, permeable: true, bgr: true },
         {tag: "BIG_POT",                 id: 85, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 350, tileset: true },
+        {tag: "TELEPORT_TILE",           id: 86, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 350,  pathFindingWalkable: true, tileset: true }
         {tag: "WOOD_FLOOR_ALT",          id: 89, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 350,  pathFindingWalkable: true, tileset: true }
     ]},
 

@@ -275,6 +275,9 @@ const daggerNpcs = {
             height: 30, 
             //blocking: false,
         },
+        dialogs: [
+            { tag: "healer", predicate: (npc) => true },
+        ],
     },
 
     FLETCHER: {
@@ -978,6 +981,7 @@ const daggerAssets = [
     // === 900
     { src: "images/playerAnim.png", cls: "Sheet", assets: [
         {tag: "PLAYER",                 id: 900, cls: "Sprite", width: 64, height: 100, xoffset: 0, yoffset: 0 },
+        {tag: "PLAYER_PORT",            cls: "Sprite", width: 50, height: 50, xoffset: 7, yoffset: 22 },
         {tag: "PLAYER_IDLE_NORTH",      cls: "Sprite", width: 64, height: 100, xoffset: 64, yoffset: 0 },
         {tag: "PLAYER_IDLE_WEST",       cls: "Sprite", width: 64, height: 100, xoffset: 128, yoffset: 0 },
         {tag: "PLAYER_IDLE_EAST",       cls: "Sprite", width: 64, height: 100, xoffset: 192, yoffset: 0 },

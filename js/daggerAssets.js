@@ -930,6 +930,8 @@ const daggerAssets = [
         {tag: "BROOF_F",                     id: 395, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*9, tileset: true },
         {tag: "VDOOR2_B",                    id: 396, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*9, tileset: true },
         {tag: "BROOF_FR",                    id: 397, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*9, tileset: true },
+        {tag: "RROOF_M1",                    id: 398, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*9, tileset: true },
+        {tag: "RROOF_M2",                    id: 399, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*9, tileset: true },
 
         {tag: "VWALL1_TL",                   id: 400, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*10, tileset: true },
         {tag: "VWALL1_WINDOW",               id: 401, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*10, tileset: true },
@@ -938,6 +940,10 @@ const daggerAssets = [
         {tag: "VWALL2_TL",                   id: 404, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*10, tileset: true },
         {tag: "VWALL2_WINDOW",               id: 405, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*10, tileset: true },
         {tag: "VWALL2_TR",                   id: 406, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*10, tileset: true },
+        {tag: "VWALL2_1",                    id: 407, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*10, tileset: true },
+        {tag: "RROOF_M3",                    id: 408, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*10, tileset: true },
+        {tag: "BROOF_M1",                    id: 409, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*10, tileset: true },
+
 
         {tag: "VWALL1_BL",                   id: 410, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*11, tileset: true },
         {tag: "VWALL1_B",                    id: 411, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*11, tileset: true },
@@ -946,6 +952,24 @@ const daggerAssets = [
         {tag: "VWALL2_BL",                   id: 414, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*11, tileset: true },
         {tag: "VWALL2_B",                    id: 415, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*11, tileset: true },
         {tag: "VWALL2_BR",                   id: 416, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*11, tileset: true },
+        {tag: "VWALL2_2",                    id: 417, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*11, tileset: true },
+        {tag: "BROOF_M2",                    id: 418, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*11, tileset: true },
+        {tag: "BROOF_M3",                    id: 419, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*11, tileset: true },
+
+        {tag: "INSIDE_CEIL_1",               id: 420, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*12, tileset: true },
+        {tag: "INSIDE_CEIL_2",               id: 421, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*12, tileset: true },
+        {tag: "INSIDE_CEIL_3",               id: 422, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*12, tileset: true },
+        {tag: "INSIDE_CEIL_4",               id: 423, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*12, tileset: true },
+        {tag: "INSIDE_CEIL_5",               id: 424, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*12, tileset: true },
+        {tag: "INSIDE_CEIL_6",               id: 425, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*12, tileset: true },
+        {tag: "INSIDE_CEIL_7",               id: 426, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*12, tileset: true },
+        {tag: "INSIDE_CEIL_8",               id: 427, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*12, tileset: true },
+        {tag: "BOOKSHELF-T",                 id: 428, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*12, tileset: true },
+        {tag: "BOOKSHELF-B",                 id: 429, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*12, tileset: true },
+
+        {tag: "WOOD-WALL-T",               id: 430, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*13, tileset: true },
+        {tag: "WOOD-WALL-B",               id: 431, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*13, tileset: true },
+
 
     ]},
 

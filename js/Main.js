@@ -4,6 +4,7 @@ var canvas, canvasContext;
 var p1;
 var pathFindingDisplay = false;
 var cheatSeeThroughCeiling = true;
+var disableCollisions = false;
 
 // Font definitions
 fontDefault = "Texturina";

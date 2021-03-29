@@ -845,7 +845,7 @@ const daggerAssets = [
         {tag: "GRASS_PATCH_TR",             id: 315, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*1, passable: true, tileset: true },
         {tag: "GRASS_PATCH_DIAG_TL",        id: 316, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*1, passable: true, tileset: true },
         {tag: "GRASS_PATCH_DIAG_TR",        id: 317, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*1, passable: true, tileset: true },
-        {tag: "TREE_BIG",                   id: 318, cls: "Sprite", width: 100, height: 150, xoffset: 50*8, yoffset: 50*1, passable: true, tileset: true },
+        {tag: "TREE_BIG",                   id: 318, cls: "Sprite", width: 100, height: 150, xoffset: 50*8, yoffset: 50*1, passable: false, tileset: true },
         //{tag: "TREE_BIG_TL",                id: 318, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*1, passable: true, tileset: true },
         //{tag: "TREE_BIG_TR",                id: 319, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*1, passable: true, tileset: true },
 
@@ -889,7 +889,7 @@ const daggerAssets = [
         {tag: "FENCE_2",                    id: 354, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*5, passable: true, tileset: true },
         {tag: "FENCE_3",                    id: 355, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*5, passable: true, tileset: true },
         //{tag: "TREE_SMALL_VERT",            id: 356, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*5, passable: true, tileset: true },
-        {tag: "TREE_SMALL",                 id: 357, cls: "Sprite", width: 50, height: 100, xoffset: 50*7, yoffset: 50*5, passable: true, tileset: true },
+        {tag: "TREE_SMALL",                 id: 357, cls: "Sprite", width: 50, height: 100, xoffset: 50*7, yoffset: 50*5, passable: false, tileset: true },
         //{tag: "TREE_BIG_CLUSTER_1",         id: 358, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*5, passable: true, tileset: true },
         //{tag: "TREE_BIG_CLUSTER_2",         id: 359, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*5, passable: true, tileset: true },
 

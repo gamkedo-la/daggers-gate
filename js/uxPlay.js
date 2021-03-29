@@ -304,12 +304,14 @@ class UxPlayCtrl extends UxCtrl {
             showCollisions = !showCollisions;
         } else if (key === KEY_NUMBER_3){
             showRoomNumbers = !showRoomNumbers;
+        } else if (key === KEY_NUMBER_4) {
+            disableCollisions = !disableCollisions;
         }
 
         if (key === KEY_ESCAPE) {
             this.onEquipMenu();
         }
-        if (key === 81) {  // Q
+        if (key === KEY_LETTER_Q) {  // Q
             this.onQuestMenu();
         }
         // FIXME: remove

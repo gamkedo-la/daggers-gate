@@ -75,24 +75,26 @@ class warriorClass extends characterClass {
 
         // check for collider collisions
         // -- ran into object?
-        for (const obj of currentLevel.objects) {
-            if (obj.active && obj.collider.blocking && obj.collider.overlaps(this.nextCollider)) {
-                console.log("hit object collider " + walkIntoTileType);
-                return;
+        if (!disableCollisions) {
+            for (const obj of currentLevel.objects) {
+                if (obj.active && obj.collider.blocking && obj.collider.overlaps(this.nextCollider)) {
+                    console.log("hit object collider " + walkIntoTileType);
+                    return;
+                }
             }
-        }
-        // -- ran into enemy?
-        for (const obj of currentLevel.enemies) {
-            if (obj.collider.blocking && obj.collider.overlaps(this.nextCollider)) {
-                console.log("hit enemy collider");
-                return;
+            // -- ran into enemy?
+            for (const obj of currentLevel.enemies) {
+                if (obj.collider.blocking && obj.collider.overlaps(this.nextCollider)) {
+                    console.log("hit enemy collider");
+                    return;
+                }
             }
-        }
-        // -- ran into npc?
-        for (const obj of currentLevel.npcs) {
-            if (obj.collider.blocking && obj.collider.overlaps(this.nextCollider)) {
-                console.log("hit npc collider");
-                return;
+            // -- ran into npc?
+            for (const obj of currentLevel.npcs) {
+                if (obj.collider.blocking && obj.collider.overlaps(this.nextCollider)) {
+                    console.log("hit npc collider");
+                    return;
+                }
             }
         }
 
@@ -111,7 +113,7 @@ class warriorClass extends characterClass {
         }
 
         // we walked into a fg tile that is empty or is passable... keep walking
-        if (0 === walkIntoTileType || props.passable(walkIntoTileType)) {
+        if (0 === walkIntoTileType || props.passable(walkIntoTileType) || disableCollisions) {
             this.x = nextX;
             this.y = nextY;
             return;  // FIXME: remove after switch statement cleanup?

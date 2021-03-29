@@ -112,6 +112,13 @@ class warriorClass extends characterClass {
             }
         }
 
+        // check for bg collisions
+        let bgtile = currentLevel.bgi(walkIntoTileIndex);
+        if (bgtile && !props.passable(bgtile) && !disableCollisions) {
+            console.log("bg not passable: " + bgtile);
+            return;
+        }
+
         // we walked into a fg tile that is empty or is passable... keep walking
         if (0 === walkIntoTileType || props.passable(walkIntoTileType) || disableCollisions) {
             this.x = nextX;

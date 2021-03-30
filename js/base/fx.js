@@ -25,6 +25,7 @@ class GameFx {
         // vmgr...
         // Hackety hack hack: treating this a game view and as such, will manage through the ViewMgr.
         // so all instances of GameFx will be added to ViewMgr and lifetimes will be managed through fx.update
+        this.useCamera = true;
         this.vmgr = spec.vmgr || ViewMgr.instance;
         this.vmgr.add(this);
         this.dbg = spec.dbg;

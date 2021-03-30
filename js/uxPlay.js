@@ -1,17 +1,16 @@
 class UxPlayView extends UxView {
     constructor(spec={}) {
         super(spec);
+        this.useCamera = true;
     }
 
     render(ctx) {
-		ctx.translate(-camera.x, -camera.y);
 		currentLevel.render(ctx);
 		if(pathFindingDisplay){
 			drawPathingFindingTiles();
 	    }
-		ctx.translate(camera.x, camera.y);
         // render particles
-        particles.render(ctx);
+        //particles.render(ctx);
     }
 }
 
@@ -464,6 +463,8 @@ class UxPlayCtrl extends UxCtrl {
 			currentLevel.placeCharacter(p1, queuedExit.spawn);
 			queuedExit = undefined;
 			SetupPathfindingGridData(p1);
+            // reset camera
+            camera.reset();
 		}
         // update camera offset
         let cameraXoff = Math.max(0, (camera.width-currentLevel.maxx) * .5);

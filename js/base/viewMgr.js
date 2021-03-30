@@ -23,7 +23,9 @@ class Layer {
 
     render(ctx) {
         for (const view of this._views) {
+            if (view.useCamera) ctx.translate(-camera.x, -camera.y);
             view.render(ctx);
+            if (view.useCamera) ctx.translate(camera.x, camera.y);
         }
     }
 }

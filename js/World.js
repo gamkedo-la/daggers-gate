@@ -115,6 +115,8 @@ var allLevels = {
   }),
 
 }
+//var startingLevel = "lvl1";
+//var startingSpawn = "town";
 var startingLevel = "house1";
 var startingSpawn = "start";
 

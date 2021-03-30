@@ -207,6 +207,7 @@ class characterClass {
 
     primaryAction() {
         this.startPrimaryAction = false;
+        this.wantPrimaryAction = false;
         let actionData = {
             target: this.targetObj,
             weapon: (this.inventory) ? this.inventory.mainHand : undefined,
@@ -219,6 +220,7 @@ class characterClass {
 
     secondaryAction() {
         this.startSecondaryAction = false;
+        this.wantSecondaryAction = false;
         let actionData = {
             target: this.targetObj,
             weapon: (this.inventory) ? this.inventory.offHand : undefined,

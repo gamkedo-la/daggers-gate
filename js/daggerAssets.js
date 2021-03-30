@@ -959,13 +959,14 @@ const daggerAssets = [
 
         {tag: "WOOD-WALL-T",               id: 430, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*13, tileset: true },
         {tag: "WOOD-WALL-B",               id: 431, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*13, tileset: true },
-
-
+        {tag: "BRIDGE_LEFT_SIDE",          id: 432, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*13, tileset: true },
+        {tag: "BRIDGE_MIDDLE",             id: 433, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*13, passable: true, pathFindingWalkable: true, tileset: true },
+        {tag: "BRIDGE_LEFT_SIDE",          id: 434, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*13, tileset: true }
     ]},
 
     /* === 900 - 999 ========================================================================= */
     // Player/Enemies/NPCs
-    // === 900
+    // === 
     { src: "images/playerAnim.png", cls: "Sheet", assets: [
         {tag: "PLAYER",                 id: 900, cls: "Sprite", width: 64, height: 100, xoffset: 0, yoffset: 0 },
         {tag: "PLAYER_PORT",            cls: "Sprite", width: 50, height: 50, xoffset: 7, yoffset: 22 },

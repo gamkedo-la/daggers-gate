@@ -306,6 +306,11 @@ class UxPlayCtrl extends UxCtrl {
             showRoomNumbers = !showRoomNumbers;
         } else if (key === KEY_NUMBER_4) {
             disableCollisions = !disableCollisions;
+            if (disableCollisions) {
+                p1.movingSpeed = PLAYER_MOVE_SPEED * 2;
+            } else {
+                p1.movingSpeed = PLAYER_MOVE_SPEED;
+            }
         }
 
         if (key === KEY_ESCAPE) {
@@ -394,7 +399,7 @@ class UxPlayCtrl extends UxCtrl {
                 //let xsketch = Object.assign({parent: slot}, assets.get("HEART_PIECE1"));
                 this[key].sketch = Sketch.generate(xsketch);
             // partial health
-            } else if (p1.health < i*10 && p1.health > (i-1)*10) {
+            } else if (p1.health < i*10 && p1.health > (i-1)*10 + 2) {
                 let xsketch = Object.assign({parent: slot}, assets.get("HEART_HALF_EMPTY"), {xfitter: { cls: "FitToParent" }});
                 //this[key].sketch = assets.generate("HEART_HALF_EMPTY");
                 this[key].sketch = Sketch.generate(xsketch);
@@ -423,7 +428,7 @@ class UxPlayCtrl extends UxCtrl {
                 let xsketch = Object.assign({parent: slot}, assets.get("MANA_PIECE"), {xfitter: { cls: "FitToParent" }});
                 this[key].sketch = Sketch.generate(xsketch);
             // partial
-            } else if (p1.mana < i*10 && p1.mana > (i-1)*10) {
+            } else if (p1.mana < i*10 && p1.mana > (i-1)*10+2) {
                 let xsketch = Object.assign({parent: slot}, assets.get("MANA_HALF_EMPTY"), {xfitter: { cls: "FitToParent" }});
                 this[key].sketch = Sketch.generate(xsketch);
             // empty

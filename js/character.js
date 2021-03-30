@@ -245,12 +245,6 @@ class characterClass {
 
     doRangedAttack(data) {
         if (!this.currentAttack) {
-            /*
-            if (!this.haveBow) {
-                console.log("need bow!");
-                return;
-            }
-            */
             if (this.arrows <= 0) {
                 console.log("no arrow!");
                 return;

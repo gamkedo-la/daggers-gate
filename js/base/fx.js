@@ -29,7 +29,6 @@ class GameFx {
         this.vmgr.add(this);
         this.dbg = spec.dbg;
         this.waitOnChild = (spec.hasOwnProperty("waitOnChild")) ? spec.waitOnChild : true;
-        console.log("dbg: " + this.dbg);
     }
 
     get x() {

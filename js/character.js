@@ -386,6 +386,17 @@ class characterClass {
             if (this.nudge.done) this.nudge = undefined;
         }
 
+        // regenerate mana over time
+        let manaRegRate = 0.1;
+        if(this.mana + manaRegRate < this.maxMana)
+        {
+            this.mana += manaRegRate;
+        }
+        else
+        {
+            this.mana = this.maxMana;
+        }
+
         // update any current attack
         if (!incapacitated && this.currentAttack) {
             if (this.dbgAnim && !this.sketch._anim._step) this.sketch._anim._step = true;

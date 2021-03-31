@@ -96,7 +96,7 @@ class UxHealerCtrl extends UxCtrl {
                                         },
                                         {
                                             cls: "UxPanel",
-                                            xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("GOLD_COINS_TWO_DROP") ),
+                                            xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("HEAL_ICON") ),
                                         },
                                     ],
                                 },

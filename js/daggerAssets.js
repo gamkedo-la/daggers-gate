@@ -1218,6 +1218,10 @@ const daggerAssets = [
         {tag: "BUTTON_GLD_S4_TRAN",     cls: "StretchSprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*1, border: 15 },
     ]},
 
+    { src: "images/icons.png", cls: "Sheet", assets: [
+        {tag: "HEAL_ICON",              cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*0 },
+    ]},
+
 ];
 
 class DaggerAssets {

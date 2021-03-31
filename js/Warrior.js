@@ -122,37 +122,8 @@ class warriorClass extends characterClass {
         if (0 === fgtile || props.passable(fgtile) || disableCollisions) {
             this.x = nextX;
             this.y = nextY;
-            return;  // FIXME: remove after switch statement cleanup?
         }
 
-        // otherwise
-        // FIXME: make the rest of these game objects/loot
-        console.log("Tile Type: " + fgtile);
-        switch (fgtile) {
-            case TILE.GOAL:
-                this.reset();
-                break;
-
-            case TILE.HEART_PIECE1:
-                if (this.maxHealth < 100) {
-                    this.maxHealth += 10;
-                }
-                this.health += 10;
-                if (this.health > this.maxHealth) this.health = this.maxHealth;
-                currentLevel.setfgi(walkIntoTileIndex, 0); //remove heart
-                SetupPathfindingGridData(p1);
-                console.log("Heart");
-                break;
-
-            case TILE.HEART_TILE:
-            case TILE.HEART_PIECE2:
-                    this.health++;; 
-                    currentLevel.setfgi(walkIntoTileIndex, 0); //remove heart
-                    SetupPathfindingGridData(p1);
-                    console.log("Heart");
-                break;
-
-        }
     }
 
     choosePrimary() {
@@ -251,6 +222,23 @@ class warriorClass extends characterClass {
                 console.log("mpotion + " + amt);
                 this.manaPotions += amt;
             break;
+            case "HEART_PIECE1":
+                console.log("++ heart ++");
+                if (this.maxHealth < 100) {
+                    this.maxHealth += 10;
+                }
+                this.health += 10;
+                if (this.health > this.maxHealth) this.health = this.maxHealth;
+            break;
+            case "MANA_PIECE":
+                console.log("++ mana ++");
+                if (this.maxMana < 100) {
+                    this.maxMana += 10;
+                }
+                this.mana += 10;
+                if (this.mana > this.maxMana) this.mana = this.maxMana;
+            break;
+
             }
             // trigger global event
             GameEvents.looted.trigger({loot: { tag: loot.tag, amt: amt }});

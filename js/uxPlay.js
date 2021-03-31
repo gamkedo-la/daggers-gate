@@ -319,9 +319,11 @@ class UxPlayCtrl extends UxCtrl {
             this.onQuestMenu();
         }
         // FIXME: remove
+        /*
         if (key === 83) {  // S
             this.onShopMenu();
         }
+        */
         if (key === 121) { // F10
             console.log("player debug animation toggle");
             p1.dbgAnim = !p1.dbgAnim;

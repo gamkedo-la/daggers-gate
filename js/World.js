@@ -68,6 +68,7 @@ var allLevels = {
         { x: 32, y: 35, lvl: "house1",      spawn: "town" },
         { x: 18, y: 8, lvl: "house2",      spawn: "town" },
         { x: 17, y: 34, lvl: "house3",      spawn: "town" },
+        { x: 12, y: 25, lvl: "tavern",      spawn: "town"}
       ],
       spawns: {
         
@@ -77,6 +78,7 @@ var allLevels = {
         "house1":     { x: 32, y: 36 },
         "house2":     { x: 18, y: 9 },
         "house3":     { x: 17, y: 35 },
+        "tavern":     { x: 17, y: 35 },
         "lvl1":       { x: 8,  y: 2 },
 
       },
@@ -108,7 +110,14 @@ var allLevels = {
     "town":   { x: 2, y: 2 },
   },
 }),
-
+  "tavern": Object.assign(tavernSpec, {
+  exits: [
+    { x: 2, y: 4, lvl: "town",    spawn: "tavern" },
+  ],
+  spawns: {
+    "town":   { x: 2, y: 2 },
+  },
+}),
   "alchemist": Object.assign(alchemistSpec, {
       exits: [
         { x: 4, y: 8, lvl: "town",    spawn: "alchemist" },

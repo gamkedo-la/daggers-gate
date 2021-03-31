@@ -131,6 +131,7 @@ class warriorClass extends characterClass {
         switch (walkIntoTileType) {
             case 0:
             case TILE.GROUND:
+            case TILE.BRIDGE_MIDDLE:
             case TILE.FLOOR_FIRE_RUNE:
             case TILE.FLOOR_WATER_RUNE:
             case TILE.FLOOR_WIND_RUNE:

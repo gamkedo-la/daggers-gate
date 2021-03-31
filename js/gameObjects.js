@@ -195,6 +195,7 @@ class gameObjectClass extends characterClass {
     tileCollisionHandle(walkIntoTileIndex, walkIntoTileType, nextX, nextY) {
         switch (walkIntoTileType) {
             case TILE.GROUND:
+            case TILE.BRIDGE_MIDDLE:
             case TILE.GOAL:
             case TILE.KEY:
             case TILE.WALL_15: //OPEN DOOR

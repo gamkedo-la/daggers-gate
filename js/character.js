@@ -144,7 +144,7 @@ class characterClass {
         this.y = this.homeY;
     } // end of reset
 
-    tileCollisionHandle(walkIntoTileIndex, walkIntoTileType, nextX, nextY) {
+    tileCollisionHandle(nextX, nextY) {
         console.log("UNDEFINED FOR THIS SUBCLASS");
     }
 
@@ -534,27 +534,41 @@ class characterClass {
             nextX -= this.movingSpeed;
         }
 
-        var walkIntoTileIndex = currentLevel.idxfromxy(nextX, nextY);
-        var walkIntoTileType = currentLevel.fgi(walkIntoTileIndex);
-
         // prevent movement past edge of level
         if (nextX < 0) nextX = 0;
         if (nextX > currentLevel.maxx) nextX = currentLevel.maxx;
         if (nextY < 0) nextY = 0;
         if (nextY > currentLevel.maxy) nextY = currentLevel.maxy;
 
-		// update next collider
-        this.nextCollider.update(nextX, nextY, currentLevel.idxfromxy.bind(currentLevel));
-  
-		// handle collisions
-        this.tileCollisionHandle(walkIntoTileIndex, walkIntoTileType, nextX, nextY);
+		// handle collisions: collisions are checked in each axis independently...
+        // -- store last x,y
+        let lastX = this.x;
+        let lastY = this.y;
+        // -- x axis
+        this.nextCollider.update(nextX, this.y, currentLevel.idxfromxy);
+        this.tileCollisionHandle(nextX, this.y);
+        // -- y axis
+        this.nextCollider.update(this.x, nextY, currentLevel.idxfromxy);
+        this.tileCollisionHandle(this.x, nextY);
+        // -- adjust animator if walking diagonally, but single axis movement is prohibited
+        if ((this.move_East || this.move_West) && (lastX === this.x)) {
+            if (this.move_South) {
+                this.state = Animator.walkSouth;
+            } else if (this.move_North) {
+                this.state = Animator.walkNorth;
+            }
+        }
+        if ((this.move_North || this.move_South) && (lastY === this.y)) {
+            if (this.move_East) {
+                this.state = Animator.walkEast;
+            } else if (this.move_West) {
+                this.state = Animator.walkWest;
+            }
+        }
 
         // updates to collision boxes
-        // FIXME... assign new collider within tileCollisionHandle???
-        let tmp = this.collider;
-        this.collider = this.nextCollider;
-        this.nextCollider = tmp;
-        if (this.interactCollider) this.interactCollider.update(this.x, this.y, currentLevel.idxfromxy.bind(currentLevel));
+        this.collider.update(this.x, this.y, currentLevel.idxfromxy);
+        if (this.interactCollider) this.interactCollider.update(this.x, this.y, currentLevel.idxfromxy);
 
         // update position of grabbed object, based on current player position and facing direction
         if (this.grabbedObj) {

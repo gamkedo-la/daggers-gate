@@ -24,7 +24,6 @@ class warriorClass extends characterClass {
         super(spec);
         this.lootRange = 15;
         this.lootPullSpeed = .25; // pixels per ms
-        //this.inventory = []; // just a list of strings
         this.inventory = new Inventory();
         this.inventory.evtMainHandUpdated.listen((evt) => {
             let weapon = evt.value;
@@ -34,8 +33,6 @@ class warriorClass extends characterClass {
             let weapon = evt.value;
             this.selectedSecondary = (weapon) ? weapon.attackKind : "none";
         });
-        //this.mainHand = "";
-        //this.offHand = "";
     }
 
     // properties
@@ -71,28 +68,31 @@ class warriorClass extends characterClass {
     }
 
     //must override this function.  No super version
-    tileCollisionHandle(walkIntoTileIndex, walkIntoTileType, nextX, nextY) {
+    tileCollisionHandle(nextX, nextY) {
+        let walkIntoTileIndex = currentLevel.idxfromxy(nextX, nextY);
+        let fgtile = currentLevel.fgi(walkIntoTileIndex);
+        let bgtile = currentLevel.bgi(walkIntoTileIndex);
 
         // check for collider collisions
         // -- ran into object?
         if (!disableCollisions) {
             for (const obj of currentLevel.objects) {
                 if (obj.active && obj.collider.blocking && obj.collider.overlaps(this.nextCollider)) {
-                    console.log("hit object collider " + walkIntoTileType);
+                    console.log(`${this} hit object collider: ${obj}`);
                     return;
                 }
             }
             // -- ran into enemy?
             for (const obj of currentLevel.enemies) {
                 if (obj.collider.blocking && obj.collider.overlaps(this.nextCollider)) {
-                    console.log("hit enemy collider");
+                    console.log(`${this} hit enemy collider: ${obj}`);
                     return;
                 }
             }
             // -- ran into npc?
             for (const obj of currentLevel.npcs) {
                 if (obj.collider.blocking && obj.collider.overlaps(this.nextCollider)) {
-                    console.log("hit npc collider");
+                    console.log(`${this} hit npc collider: ${obj}`);
                     return;
                 }
             }
@@ -113,65 +113,24 @@ class warriorClass extends characterClass {
         }
 
         // check for bg collisions
-        let bgtile = currentLevel.bgi(walkIntoTileIndex);
         if (bgtile && !props.passable(bgtile) && !disableCollisions) {
             console.log("bg not passable: " + bgtile);
             return;
         }
 
         // we walked into a fg tile that is empty or is passable... keep walking
-        if (0 === walkIntoTileType || props.passable(walkIntoTileType) || disableCollisions) {
+        if (0 === fgtile || props.passable(fgtile) || disableCollisions) {
             this.x = nextX;
             this.y = nextY;
             return;  // FIXME: remove after switch statement cleanup?
         }
 
         // otherwise
-        console.log("Tile Type: " + walkIntoTileType);
-        switch (walkIntoTileType) {
-            case 0:
-            case TILE.GROUND:
-            case TILE.BRIDGE_MIDDLE:
-            case TILE.FLOOR_FIRE_RUNE:
-            case TILE.FLOOR_WATER_RUNE:
-            case TILE.FLOOR_WIND_RUNE:
-            case TILE.FLOOR_EARTH_RUNE:
-            case TILE.WALL_15: //OPEN DOOR
-                this.x = nextX;
-                this.y = nextY;
-                break;
+        // FIXME: make the rest of these game objects/loot
+        console.log("Tile Type: " + fgtile);
+        switch (fgtile) {
             case TILE.GOAL:
                 this.reset();
-                break;
-            case TILE.DOOR:
-                if (p1.interactWithObject) {
-                    //if (this.controlKeyForinteractWithObject = spaceKey;
-                    if (this.keysHeld > 0) {
-                        this.keysHeld--; // one less key
-                        document.getElementById("debugText").innerHTML = "Keys: " + this.keysHeld;
-                        currentLevel.setfgi(walkIntoTileIndex, TILE.WALL_15); //remove door
-                        SetupPathfindingGridData(p1);
-                        doorOpenning.play();
-                        console.log("open door")
-                    }
-                }
-                break;
-            case TILE.DOOR_YELLOW_FRONT:
-                if (this.keysHeld > 0) {
-                    this.keysHeld--; // one less key
-                    document.getElementById("debugText").innerHTML = "Keys: " + this.keysHeld;
-                    currentLevel.setfgi(walkIntoTileIndex, 0); //remove door
-                    SetupPathfindingGridData(p1);
-                    doorOpenning.play();
-                    console.log("open door")
-                }
-                break;
-
-            case TILE.CHEST1_CLOSE:
-                    this.keysHeld--; // use key
-                    document.getElementById("debugText").innerHTML = "Keys: " + this.keysHeld + " Gold:" + this.gold;
-                    currentLevel.setfgi(walkIntoTileIndex, 33); //open chest
-                    this.gold = 10;
                 break;
 
             case TILE.HEART_PIECE1:
@@ -184,6 +143,7 @@ class warriorClass extends characterClass {
                 SetupPathfindingGridData(p1);
                 console.log("Heart");
                 break;
+
             case TILE.HEART_TILE:
             case TILE.HEART_PIECE2:
                     this.health++;; 
@@ -191,27 +151,7 @@ class warriorClass extends characterClass {
                     SetupPathfindingGridData(p1);
                     console.log("Heart");
                 break;
-            case TILE.GROUND_SPIKES_UP:
-                this.takeDamage(5);
-                SetupPathfindingGridData(p1);
-                console.log("Take Damage from Spike");
-                break;
-            case TILE.WALL_1:
-            case TILE.WALL_2:
-            case TILE.WALL_3:
-            case TILE.WALL_4:
-            case TILE.WALL_5:
-            case TILE.WALL_6:
-            case TILE.WALL_7:
-            case TILE.WALL_8:
-            case TILE.WALL_9:
-            case TILE.WALL_10:
-            case TILE.WALL_11:
-            case TILE.WALL_12:
-            case TILE.WALL_13:
-            default:
-                // any other tile type number was found... do nothing, for now
-            break;
+
         }
     }
 

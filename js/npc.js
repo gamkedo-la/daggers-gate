@@ -13,7 +13,7 @@ class Npc extends characterClass {
     }
 
     // METHODS -------------------------------------------------------------
-    tileCollisionHandle(walkIntoTileIndex, walkIntoTileType, nextX, nextY) {
+    tileCollisionHandle(nextX, nextY) {
     }
 
     interact(other) {

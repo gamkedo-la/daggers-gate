@@ -29,6 +29,8 @@ class Level {
         let spawns = spec.spawns || {};
         this.dbg = spec.dbg;
         this.dbgNoEnemy = spec.dbgNoEnemy;
+        // bind functions
+        Util.bind(this, "idxfromxy");
         this.init(exits, spawns);
     }
 

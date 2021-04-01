@@ -118,6 +118,7 @@ class Attack {
                     height: 20,
                 },
                 ttl: 650,
+                blockTTL: 250,
                 speed: .35,
                 angle: 0,
             },
@@ -130,6 +131,7 @@ class Attack {
                     height: 20,
                 },
                 ttl: 650,
+                blockTTL: 250,
                 speed: .35,
                 angle: Math.PI,
             },
@@ -154,6 +156,7 @@ class Attack {
                     height: 20,
                 },
                 ttl: 650,
+                blockTTL: 250,
                 speed: .35,
                 angle: Math.PI*.5,
             },
@@ -294,6 +297,9 @@ class Attack {
         this._ignore = [ this._actor ];
     }
 
+    get blocking() {
+        return true;
+    }
     get active() {
         return this._active;
     }
@@ -385,6 +391,10 @@ class SyncAttack {
         this.updateSwing(this._animIdx);
     }
 
+    get blocking() {
+        return true;
+    }
+
     get active() {
         return this._active;
     }
@@ -474,6 +484,7 @@ class RangedAttack {
         this._collider = new Collider(spec.collider || {});
         // ttl for attack
         this._ttl = spec.ttl || 250;
+        this._blockTTL = spec.blockTTL || this._ttl;
         this._speed = spec.speed || .5; // pixels per ms
         // is attack still active
         this._active = true;
@@ -506,6 +517,10 @@ class RangedAttack {
         this._ignore = [ this._actor ];
     }
 
+    get blocking() {
+        return this._blockTTL > 0;
+    }
+
     get active() {
         return this._active;
     }
@@ -523,6 +538,9 @@ class RangedAttack {
         this._ttl -= ctx.deltaTime;
         if (this._ttl <= 0) {
             this.active = false;
+        }
+        if (this._blockTTL > 0) {
+            this._blockTTL -= ctx.deltaTime;
         }
         // update position
         this._x += this._dx * ctx.deltaTime;

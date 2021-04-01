@@ -448,6 +448,7 @@ const daggerObjects = {
             },
         },
     },
+
     GEM_WIND: {
         kind: "pickup",
         collider: {
@@ -462,6 +463,7 @@ const daggerObjects = {
             },
         },
     },
+
     GEM_WATER: {
         kind: "pickup",
         collider: {
@@ -708,6 +710,33 @@ const daggerObjects = {
         },
         collider: { blocking: false, width:45, height: 45 },
     },
+
+    HEART_PIECE1: {
+        kind: "loot",
+        loot: {
+            amt: 1,
+        },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "HEART_PIECE1",
+            },
+        },
+    },
+
+    MANA_PIECE: {
+        kind: "loot",
+        loot: {
+            amt: 1,
+        },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "MANA_PIECE",
+            },
+        },
+    },
+
     DOOR_ARCH: {
         overlay: true,
         sketch: { 

@@ -192,76 +192,7 @@ class gameObjectClass extends characterClass {
     }
 
     //must override this function.  No super version
-    tileCollisionHandle(walkIntoTileIndex, walkIntoTileType, nextX, nextY) {
-        switch (walkIntoTileType) {
-            case TILE.GROUND:
-            case TILE.BRIDGE_MIDDLE:
-            case TILE.GOAL:
-            case TILE.KEY:
-            case TILE.WALL_15: //OPEN DOOR
-                this.x = nextX;
-                this.y = nextY;
-                break;
-			case TILE.FLOOR_FIRE_RUNE:
-				if(this.myName == "Fire Rune"){
-					this.correctPuzzleLocation = true;
-				} else {
-					this.x = nextX;
-					this.y = nextY;
-				}
-				break;
-            case TILE.FLOOR_WATER_RUNE:
-				if(this.myName == "Water Rune"){
-					this.correctPuzzleLocation = true;
-				} else {
-					this.x = nextX;
-					this.y = nextY;
-				}
-				break;
-            case TILE.FLOOR_WIND_RUNE:
-            if(this.myName == "Wind Rune"){
-					this.correctPuzzleLocation = true;
-				} else {
-					this.x = nextX;
-					this.y = nextY;
-				}
-				break;
-			case TILE.FLOOR_EARTH_RUNE:
-				if(this.myName == "Earth Rune"){
-					this.correctPuzzleLocation = true;
-				} else {
-					this.x = nextX;
-					this.y = nextY;
-				}
-				break;
-            case TILE.DOOR:
-            case TILE.DOOR_YELLOW_FRONT:
-            case TILE.WALL_1:
-            case TILE.WALL_2:
-            case TILE.WALL_3:
-            case TILE.WALL_4:
-            case TILE.WALL_5:
-            case TILE.WALL_6:
-            case TILE.WALL_7:
-            case TILE.WALL_8:
-            case TILE.WALL_9:
-            case TILE.WALL_10:
-            case TILE.WALL_11:
-            case TILE.WALL_12:
-            case TILE.WALL_13:
-            default:
-                // any other tile type number was found... do nothing, for now
-                break;
-        }
+    tileCollisionHandle(nextX, nextY) {
     }
-
-    /*
-    draw() {
-        drawBitmapCenteredAtLocationWithRotation(this.stateSketch, this.x+this.xOff, this.y+this.yOff, 0.0);
-        if (showCollisions) {
-            this.collider.draw(canvasContext);
-        }
-    }
-    */
 
 } // end of class

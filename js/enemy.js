@@ -23,40 +23,31 @@ class enemyClass extends characterClass {
     }
 
     //must override this function.  No super version
-    tileCollisionHandle(walkIntoTileIndex, walkIntoTileType, nextX, nextY) {
-        switch (walkIntoTileType) {
-            case 0:
-            case TILE.GROUND:
-            case TILE.GOAL:
-            case TILE.FLOOR_FIRE_RUNE:
-            case TILE.FLOOR_WATER_RUNE:
-            case TILE.FLOOR_WIND_RUNE:
-            case TILE.FLOOR_EARTH_RUNE:
-            case TILE.KEY:
-                this.x = nextX;
-                this.y = nextY;
-                break;
-            case TILE.DOOR:
-            case TILE.DOOR_YELLOW_FRONT:
-            case TILE.DOOR_RIGHTSIDE_TOP:
-            case TILE.DOOR_RIGHTSIDE_BOTTOM:
-            case TILE.WALL_1:
-            case TILE.WALL_2:
-            case TILE.WALL_3:
-            case TILE.WALL_4:
-            case TILE.WALL_5:
-            case TILE.WALL_6:
-            case TILE.WALL_7:
-            case TILE.WALL_8:
-            case TILE.WALL_9:
-            case TILE.WALL_10:
-            case TILE.WALL_11:
-            case TILE.WALL_12:
-            case TILE.WALL_13:
-            default:
-                // any other tile type number was found... do nothing, for now
-                break;
+    tileCollisionHandle(nextX, nextY) {
+        let walkIntoTileIndex = currentLevel.idxfromxy(nextX, nextY);
+        let fgtile = currentLevel.fgi(walkIntoTileIndex);
+        let bgtile = currentLevel.bgi(walkIntoTileIndex);
+
+        // check for collisions against objects...
+        for (const obj of currentLevel.objects) {
+            if (obj.active && obj.collider.blocking && obj.collider.overlaps(this.nextCollider)) {
+                console.log(`${this} hit object collider: ${obj}`);
+                return;
+            }
         }
+
+        // check for bg collisions
+        if (bgtile && !props.passable(bgtile)) {
+            console.log("bg not passable: " + bgtile);
+            return;
+        }
+
+        // we walked into a fg tile that is empty or is passable... keep walking
+        if (0 === fgtile || props.passable(fgtile)) {
+            this.x = nextX;
+            this.y = nextY;
+        }
+
     }
 
     move(updateCtx) {

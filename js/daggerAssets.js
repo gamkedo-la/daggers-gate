@@ -1250,6 +1250,7 @@ const daggerAssets = [
     { src: "images/icons.png", cls: "Sheet", assets: [
         {tag: "HEAL_ICON",              cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*0 },
     ]},
+    { src: "images/daggerGate-Exploring.jpg", cls: "Image", tag: "MAIN_BG" },
 
 ];
 

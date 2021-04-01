@@ -416,7 +416,7 @@ class characterClass {
         // handle movement
         // -- blocked if attacking
         // -- blocked if incapacitated
-        if (!this.currentAttack && !incapacitated) {
+        if (!(this.currentAttack && this.currentAttack.blocking) && !incapacitated) {
             this.move(updateCtx);
         }
 

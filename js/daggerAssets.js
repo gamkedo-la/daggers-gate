@@ -550,6 +550,7 @@ const daggerObjects = {
             },
         },
     },
+
     GROUND_SPIKES_UP: {
         kind: "trap",
         trap: {
@@ -565,6 +566,23 @@ const daggerObjects = {
             },
         },
     },
+
+    TRAP_FIRE: {
+        kind: "trap",
+        trap: {
+            activeTTL: 1500,
+            idleTTL: 3500,
+            damage: 5,
+        },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "TRAP_IDLE",
+                [Animator.active]: "TRAP_FIRE_SHOOT",
+            },
+        },
+    },
+
     CRATE: {
         kind: "breakable",
         health: 10,
@@ -991,6 +1009,17 @@ const daggerAssets = [
         {tag: "BRIDGE_LEFT_SIDE",          id: 432, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*13, tileset: true },
         {tag: "BRIDGE_MIDDLE",             id: 433, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*13, passable: true, pathFindingWalkable: true, tileset: true },
         {tag: "BRIDGE_RIGHT_SIDE",         id: 434, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*13, tileset: true }
+    ]},
+
+    { src: "images/traps.png", cls: "Sheet", assets: [
+        {tag: "TRAP_IDLE",                  id: 500, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 50, tileset: true },
+        {tag: "TRAP_FIRE",                  id: 501, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 50, tileset: true },
+        {tag: "TRAP_FIRE_SHOOT",            cls: "Animation", cels: [
+            { xoffset: 0, yoffset: 50, width: 50, height: 50, duration: 1000 },
+            { xoffset: 50, yoffset: 0, width: 50, height: 50, duration: 200 },
+            { xoffset: 50, yoffset: 50, width: 50, height: 50, duration: 200 },
+            { xoffset: 50, yoffset: 0, width: 50, height: 50, duration: 200 },
+        ]},
     ]},
 
     /* === 900 - 999 ========================================================================= */

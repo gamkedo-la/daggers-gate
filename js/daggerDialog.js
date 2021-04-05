@@ -140,7 +140,7 @@ const daggerDialogs = {
     },
 
     fletcher: {
-        dfltTitle: "Alchemist",
+        dfltTitle: "Fletcher",
         dialogs: {
             start: {
                 text: "Looking to make a pincushion out of your enemies?",

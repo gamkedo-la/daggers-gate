@@ -262,12 +262,15 @@ class characterClass {
 
     doMagicAttack(data) {
         if (!this.currentAttack) {
-            let manaCost = 5;
+            // resolve mana cost...
+            let manaCost = data.hasOwnProperty("manaCost") ? data.manaCost : 5;
             if (this.mana < manaCost) {
                 console.log("no mana!");
                 return;
             }
-            let attackKind = (data.weapon && data.weapon.tag === "FIREWAND") ? "fire" : "ice";
+            // resolve attack kind...
+            let attackKind = data.attackKind;
+            if (!attackKind) attackKind = (data.weapon && data.weapon.tag === "FIREWAND") ? "fire" : "ice";
             let xattack = Object.assign({}, Attack.getSpec(attackKind)[this.facing], {actor: this, idleState: this.facing});
             xattack.collider = Object.assign({}, xattack.collider, {x:this.x, y:this.y});
             if (attackKind === "fire") xattack.hitfx = (v) => new FireExplosionFx(v);

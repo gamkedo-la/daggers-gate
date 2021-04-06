@@ -223,6 +223,9 @@ class Level {
 
     findAll(filter, first) {
         let match = [];
+        if (filter(p1)) {
+            match.push(p1);
+        }
         for (const obj of this.objects) {
             if (filter(obj)) {
                 if (first) return obj;

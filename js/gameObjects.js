@@ -50,7 +50,10 @@ class gameObjectClass extends characterClass {
             let ttl = Math.floor(Math.random() * this.trap.idleTTL);
             this.trap.ttl = ttl;
             this.trap.ignore = [this];
-            this.active = false;
+            if (!this.trap.projectile) this.active = false;
+            // FIXME
+            this.idleState = (this.trap.projectile) ? this.trap.facing : Animator.idle;
+            this.state = this.idleState;
         }
         this.correctPuzzleLocation = false;
         this.want = spec.want || undefined;
@@ -131,31 +134,64 @@ class gameObjectClass extends characterClass {
 
     update(updateCtx) {
         // handle trap updates
-        if (this.trap) {
-            let duration = (this.state === Animator.idle) ? this.trap.idleTTL : this.trap.activeTTL;
-            this.trap.ttl += updateCtx.deltaTime;
-            //console.log("this.trap.ttl: " + this.trap.ttl);
-            // swap states once we have reached state TTL
-            if (this.trap.ttl > duration) {
-                this.trap.ttl = 0;
-                this.state = (this.state === Animator.idle) ? Animator.active : Animator.idle;
-                this.active = (this.state === Animator.active);
-                // reset ignore list during state transitions
-                this.trap.ignore = [this];
-            }
-
-            // handle trap effects
-            if (this.active) {
-                if (this.collider.overlaps(p1.collider) && !this.trap.ignore.includes(p1)) {
-                    console.log("player taking trap damage: " + this.trap.damage);
-                    p1.takeDamage(this.trap.damage);
-                    this.trap.ignore.push(p1);
+        if (this.trap && this.trap.projectile) {
+            // for projectile traps...
+            // -- state is managed as either idle, or in attacking state
+            if (this.trap.projectile) {
+                if (!this.currentAttack) {
+                    if (this.startedTimer) {
+                        this.trap.ttl += updateCtx.deltaTime;
+                        if (this.trap.ttl > this.trap.idleTTL) {
+                            let projectileDelay = this.trap.projectileDelay || 0;
+                            if (this.trap.ttl > this.trap.idleTTL + projectileDelay) {
+                                // setup attack
+                                let actionData = {
+                                    manaCost: 0,
+                                    attackKind: this.trap.projectile,
+                                }
+                                this.doMagicAttack(actionData);
+                                this.startedTimer = false;
+                            } else {
+                                if (this.state !== Animator.delay) {
+                                    this.state = Animator.delay;
+                                }
+                            }
+                        }
+                    } else {
+                        this.startedTimer = true;
+                        this.trap.ttl = 0;
+                    }
                 }
-                let ohits = currentLevel.findAll((v) => v.health > 0 && this.collider.overlaps(v.collider) && !this.trap.ignore.includes(v));
-                for (const ohit of ohits) {
-                    console.log("enemy: " + ohit + " taking trap damage: " + this.trap.damage);
-                    ohit.takeDamage(this.trap.damage);
-                    this.trap.ignore.push(ohit);
+
+            // for stationary traps
+            // -- state is handled via timers
+            // ---- idle timer for idle state
+            // ---- active timer for active state
+            } else {
+                let duration = (this.state === this.idleState) ? this.trap.idleTTL : this.trap.activeTTL;
+                this.trap.ttl += updateCtx.deltaTime;
+                // swap states once we have reached state TTL
+                if (this.trap.ttl > duration) {
+                    this.trap.ttl = 0;
+                    this.state = (this.state === this.idleState) ? Animator.active : Animator.idle;
+                    this.active = (this.state === Animator.active);
+                    // reset ignore list during state transitions
+                    this.trap.ignore = [this];
+                }
+
+                // handle trap effects
+                if (this.active) {
+                    if (this.collider.overlaps(p1.collider) && !this.trap.ignore.includes(p1)) {
+                        console.log("player taking trap damage: " + this.trap.damage);
+                        p1.takeDamage(this.trap.damage);
+                        this.trap.ignore.push(p1);
+                    }
+                    let ohits = currentLevel.findAll((v) => v.health > 0 && this.collider.overlaps(v.collider) && !this.trap.ignore.includes(v));
+                    for (const ohit of ohits) {
+                        console.log("enemy: " + ohit + " taking trap damage: " + this.trap.damage);
+                        ohit.takeDamage(this.trap.damage);
+                        this.trap.ignore.push(ohit);
+                    }
                 }
             }
         }

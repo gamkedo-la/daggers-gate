@@ -24,6 +24,7 @@ class Animator {
     static death =          35;
     static idleTransparent =36;
     static openTransparent =37;
+    static delay =          38;
 
     // PROPERTIES ----------------------------------------------------------
     get width() {

@@ -570,15 +570,18 @@ const daggerObjects = {
     TRAP_FIRE: {
         kind: "trap",
         trap: {
-            activeTTL: 1500,
-            idleTTL: 3500,
+            idleTTL: 2500,
             damage: 5,
+            projectile: "fire",
+            projectileDelay: 400,
+            facing: Animator.idleSouth,
         },
         sketch: { 
             cls: "Animator",
             animations: {
-                [Animator.idle]: "TRAP_IDLE",
-                [Animator.active]: "TRAP_FIRE_SHOOT",
+                [Animator.idleSouth]: "TRAP_IDLE",
+                [Animator.delay]: "TRAP_FIRE_BUILDUP",
+                [Animator.attackSouth]: "TRAP_FIRE_SHOOT",
             },
         },
     },
@@ -1013,13 +1016,29 @@ const daggerAssets = [
 
     { src: "images/traps.png", cls: "Sheet", assets: [
         {tag: "TRAP_IDLE",                  id: 500, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 50, tileset: true },
-        {tag: "TRAP_FIRE",                  id: 501, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 50, tileset: true },
-        {tag: "TRAP_FIRE_SHOOT",            cls: "Animation", cels: [
-            { xoffset: 0, yoffset: 50, width: 50, height: 50, duration: 1000 },
-            { xoffset: 50, yoffset: 0, width: 50, height: 50, duration: 200 },
-            { xoffset: 50, yoffset: 50, width: 50, height: 50, duration: 200 },
-            { xoffset: 50, yoffset: 0, width: 50, height: 50, duration: 200 },
+        {tag: "TRAP_FIRE",                  id: 501, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50, tileset: true },
+        {tag: "TRAP_ICE",                   id: 502, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50, tileset: true },
+        {tag: "TRAP_POISON",                id: 503, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50, tileset: true },
+        {tag: "TRAP_WIND",                  id: 504, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50, tileset: true },
+        {tag: "TRAP_FIRE_BUILDUP",            cls: "Animation", cels: [
+            { xoffset: 50, yoffset: 0, width: 50, height: 50, duration: 300 },
+            { xoffset: 50, yoffset: 50, width: 50, height: 50, duration: 100 },
         ]},
+        {tag: "TRAP_FIRE_SHOOT",            cls: "Animation", loop: false, cels: [
+            { xoffset: 50, yoffset: 50, width: 50, height: 50, duration: 100 },
+            { xoffset: 50, yoffset: 0, width: 50, height: 50, duration: 300 },
+        ]},
+        {tag: "TRAP_IDLE_WEST",             id: 505, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 100, tileset: true },
+        {tag: "TRAP_FIRE_WEST",             id: 506, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 150, tileset: true },
+        {tag: "TRAP_ICE_WEST",              id: 507, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 150, tileset: true },
+        {tag: "TRAP_POISON_WEST",           id: 508, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 150, tileset: true },
+        {tag: "TRAP_WIND_WEST",             id: 509, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 150, tileset: true },
+
+        {tag: "TRAP_IDLE_EAST",             id: 510, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 200, tileset: true },
+        {tag: "TRAP_FIRE_EAST",             id: 511, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 250, tileset: true },
+        {tag: "TRAP_ICE_EAST",              id: 512, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 250, tileset: true },
+        {tag: "TRAP_POISON_EAST",           id: 513, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 250, tileset: true },
+        {tag: "TRAP_WIND_EAST",             id: 514, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 250, tileset: true },
     ]},
 
     /* === 900 - 999 ========================================================================= */

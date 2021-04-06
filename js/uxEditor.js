@@ -276,9 +276,9 @@ class UxEditorCtrl extends UxCtrl {
         this.destroySelectButtons();
         let row = 0;
         let col = 0;
-        let maxCols = Math.floor(this.tilePanel.width/40);
+        let maxCols = Math.floor(this.tilePanel.width/30);
         let colStep = 1/maxCols;
-        let maxRows = Math.floor(this.tilePanel.height/40);
+        let maxRows = Math.floor(this.tilePanel.height/30);
         let rowStep = 1/maxRows;
         // add button for "zero/no tile"
         let bspec = {

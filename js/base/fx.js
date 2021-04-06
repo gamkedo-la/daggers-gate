@@ -111,6 +111,7 @@ class GameFx {
     }
 
     destroy() {
+        //console.log("fx destroy: " + this);
         this.vmgr.remove(this);
     }
 

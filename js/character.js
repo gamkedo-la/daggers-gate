@@ -148,6 +148,25 @@ class characterClass {
         console.log("UNDEFINED FOR THIS SUBCLASS");
     }
 
+    applyChilled() {
+        this.chilled = true;
+        this.chilledTTL = 5000;
+        self = this;
+        if (!this.chillFx) this.chillFx = new ChillFx({
+            //dbg: true,
+            getx: () => self.x,
+            gety: () => self.y,
+        });
+    }
+    removeChilled() {
+        this.chilled = false;
+        this.chilledTTL = 0;
+        if (this.chillFx) {
+            this.chillFx.destroy();
+            this.chillFx = undefined;
+        }
+    }
+
     /**
      * spawn loot from object loot table
      * loot table should be of the form:
@@ -345,7 +364,7 @@ class characterClass {
         console.log(this + " has died");
         this.state = Animator.death;
         this.deathTTL = this.delayDeath;
-        // FIXME: add loot
+        this.removeChilled();
         this.spawnLoot();
         // FIXME: handle player death
         // global event
@@ -430,6 +449,14 @@ class characterClass {
         // update delay TTLs
         if (this.attackDelayTTL > 0) this.attackDelayTTL -= updateCtx.deltaTime;
 
+        // handle chilled condition
+        if (this.chilled) {
+            if (this.chilledTTL > 0) this.chilledTTL -= updateCtx.deltaTime;
+            if (this.chilledTTL <= 0) {
+                this.removeChilled();
+            }
+        }
+
         // handle movement
         // -- blocked if attacking
         // -- blocked if incapacitated
@@ -462,6 +489,10 @@ class characterClass {
         var charCol = Math.floor(this.x / TILE_W);
         var charRow = Math.floor(this.y / TILE_H);
 
+        // compute movement speed
+        let movingSpeed = this.movingSpeed;
+        if (this.chilled) movingSpeed *= .5;
+
         // handle path finding movement
         if (this.tilePath.length > 0) {
             var targetIndex = this.tilePath[0];
@@ -474,9 +505,9 @@ class characterClass {
 
             this.move_East = this.move_West = this.move_North = this.move_South = false;
 
-            if (deltaX <= this.movingSpeed) {
+            if (deltaX <= movingSpeed) {
                 this.x = targetX;
-                if (deltaY <= this.movingSpeed) {
+                if (deltaY <= movingSpeed) {
                     this.y = targetY;
                     this.tilePath.shift();
                 } else if (targetY < this.y) {
@@ -484,9 +515,9 @@ class characterClass {
                 } else {
                     this.move_South = true;
                 }
-            } else if (deltaY <= this.movingSpeed) {
+            } else if (deltaY <= movingSpeed) {
                 this.y = targetY;
-                if (deltaX <= this.movingSpeed) {
+                if (deltaX <= movingSpeed) {
                     this.x = targetX;
                     this.tilePath.shift();
                 } else if (targetX < this.x) {
@@ -497,9 +528,9 @@ class characterClass {
             } else { // move towards center of closest tile
                 targetX = charCol * TILE_W + (TILE_W * 0.5);
                 targetY = charRow * TILE_H + (TILE_H * 0.5);
-                if (targetY < this.y - this.movingSpeed) {
+                if (targetY < this.y - movingSpeed) {
                     this.move_North = true;
-                } else if (targetY > this.y + this.movingSpeed) {
+                } else if (targetY > this.y + movingSpeed) {
                     this.move_South = true;
                 } else if (targetX < this.x) {
                     this.move_West = true;
@@ -539,16 +570,16 @@ class characterClass {
         }
 
         if (this.move_North) {
-            nextY -= this.movingSpeed;
+            nextY -= movingSpeed;
         }
         if (this.move_East) {
-            nextX += this.movingSpeed;
+            nextX += movingSpeed;
         }
         if (this.move_South) {
-            nextY += this.movingSpeed;
+            nextY += movingSpeed;
         }
         if (this.move_West) {
-            nextX -= this.movingSpeed;
+            nextX -= movingSpeed;
         }
 
         // prevent movement past edge of level

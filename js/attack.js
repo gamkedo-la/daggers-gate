@@ -62,6 +62,7 @@ class Attack {
 
         this._specs["ice"] = {
             [Animator.idleEast]: {
+                kind: "ice",
                 state: Animator.attackEast,
                 sketch: iceball,
                 collider: {
@@ -73,6 +74,7 @@ class Attack {
                 angle: 0,
             },
             [Animator.idleWest]: {
+                kind: "ice",
                 state: Animator.attackWest,
                 sketch: iceball,
                 collider: {
@@ -84,6 +86,7 @@ class Attack {
                 angle: Math.PI,
             },
             [Animator.idleNorth]: {
+                kind: "ice",
                 state: Animator.attackNorth,
                 sketch: iceball,
                 collider: {
@@ -95,6 +98,7 @@ class Attack {
                 angle: -Math.PI*.5,
             },
             [Animator.idleSouth]: {
+                kind: "ice",
                 state: Animator.attackSouth,
                 sketch: iceball,
                 collider: {
@@ -478,6 +482,7 @@ class SyncAttack {
 
 class RangedAttack {
     constructor(spec={}) {
+        this._kind = spec.kind || "ranged";
         // actor for attack (who is attacking?)
         this._actor = spec.actor || {x:0, y:0};
         // collider associated w/ attack
@@ -563,9 +568,19 @@ class RangedAttack {
                 }
                 // generate hit fx
                 if (this.hitfx) this.hitfx({x: this.x, y: this.y});
-                console.log("attack applying damage to: " + ohit);
-                // apply damage
-                ohit.takeDamage(this._damage);
+                // for ice attack...
+                if (this._kind === "ice") {
+                    // apply double damage if already chilled...
+                    if (ohit.chilled) {
+                        console.log("attack applying double damage to: " + ohit);
+                        ohit.takeDamage(this._damage*2);
+                    }
+                    ohit.applyChilled();
+                } else {
+                    // apply damage
+                    console.log("attack applying damage to: " + ohit);
+                    ohit.takeDamage(this._damage);
+                }
                 // add object to ignore list
                 this._ignore.push(ohit);
                 // nudge object

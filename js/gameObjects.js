@@ -51,9 +51,9 @@ class gameObjectClass extends characterClass {
             this.trap.ttl = ttl;
             this.trap.ignore = [this];
             if (!this.trap.projectile) this.active = false;
-            // FIXME
             this.idleState = (this.trap.projectile) ? this.trap.facing : Animator.idle;
             this.state = this.idleState;
+            if (this.trap.facing) this._facing = this.trap.facing;
         }
         this.correctPuzzleLocation = false;
         this.want = spec.want || undefined;
@@ -70,6 +70,25 @@ class gameObjectClass extends characterClass {
         this.locked = Util.objKeyValue(spec, "locked", true);
         this.autoclose = Util.objKeyValue(spec, "autoclose", false);
         this.xxform = spec.xxform || undefined;
+    }
+
+    get facing() {
+        if (this._facing) return this._facing;
+        switch (this._state) {
+        case Animator.idleEast:
+        case Animator.attackEast:
+        case Animator.walkEast:
+            return Animator.idleEast;
+        case Animator.idleWest:
+        case Animator.attackWest:
+        case Animator.walkWest:
+            return Animator.idleWest;
+        case Animator.idleNorth:
+        case Animator.attackNorth:
+        case Animator.walkNorth:
+            return Animator.idleNorth;
+        }
+        return Animator.idleSouth;
     }
 
     interact(character) {
@@ -148,6 +167,8 @@ class gameObjectClass extends characterClass {
                                 let actionData = {
                                     manaCost: 0,
                                     attackKind: this.trap.projectile,
+                                    xoff: this.trap.attackXoff || 0,
+                                    yoff: this.trap.attackYoff || 0,
                                 }
                                 this.doMagicAttack(actionData);
                                 this.startedTimer = false;

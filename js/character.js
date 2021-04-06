@@ -271,8 +271,14 @@ class characterClass {
             // resolve attack kind...
             let attackKind = data.attackKind;
             if (!attackKind) attackKind = (data.weapon && data.weapon.tag === "FIREWAND") ? "fire" : "ice";
+            // resolve attack offsets
+            let xoff = data.xoff || 0;
+            let yoff = data.yoff || 0;
+            // build attack
             let xattack = Object.assign({}, Attack.getSpec(attackKind)[this.facing], {actor: this, idleState: this.facing});
             xattack.collider = Object.assign({}, xattack.collider, {x:this.x, y:this.y});
+            xattack.actorOffsetx = xoff;
+            xattack.actorOffsety = yoff;
             if (attackKind === "fire") xattack.hitfx = (v) => new FireExplosionFx(v);
             this.currentAttack = new RangedAttack(xattack);
             if (attackKind === "fire") {

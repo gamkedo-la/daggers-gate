@@ -106,7 +106,6 @@ class ShootingStarParticle extends Particle {
                             dy: (Math.random() - .5)*.04,
                             ttl: this.subTTL,
                         }
-                        //console.log("xpart: " + Fmt.ofmt(xpart));
                         let p = new FadeParticle(xpart);
                         this.emitTTL = this.emitDelay;
                     }
@@ -124,6 +123,53 @@ class ShootingStarParticle extends Particle {
         ctx.fill();
         // children
         for (const child of this.children) child.render(ctx);
+    }
+
+}
+
+class SnowflakeParticle extends Particle {
+    constructor(spec={}) {
+        super(spec);
+        this.dx = spec.dx || .01;
+        this.dy = spec.dy || 0;
+        this.size = spec.size || 3;
+        this.width = this.size * .25;
+        this.dblSize = this.size * 2;
+        this.color = spec.color || new Color(94,215,239,1);
+        this.ttl = spec.ttl || 1000;
+        this.fade = this.color.a;
+        this.fadeRate = this.fade/this.ttl;
+        this.angle = Math.random() * Math.PI*2;
+        let rotate = Object.hasOwnProperty("rotate") ? spec.rotate : (Math.random() * Math.PI);
+        this.rotateRate = rotate/this.ttl;
+    }
+
+    update(ctx) {
+        let dt = ctx.deltaTime;
+        if (this.done) return;
+        // update position
+        this.x += (this.dx * dt);
+        this.y += (this.dy * dt);
+        // fade... slowly fade to nothing
+        this.fade -= (dt * this.fadeRate);
+        this.color.a = this.fade;
+        // rotatation...
+        this.angle += (dt * this.rotateRate);
+        // time-to-live
+        this.ttl -= dt;
+        if (this.ttl <= 0) this._done = true;
+    }
+
+    render(ctx) {
+        if (this._done) return;
+        ctx.beginPath();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.angle);
+        ctx.fillStyle = this.color.toString();
+        ctx.fillRect(-this.size, -this.width, this.dblSize, this.width*2);
+        ctx.fillRect(-this.width, -this.size, this.width*2, this.dblSize);
+        ctx.rotate(-this.angle);
+        ctx.translate(-this.x, -this.y);
     }
 
 }

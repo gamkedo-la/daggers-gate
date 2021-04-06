@@ -280,10 +280,18 @@ class characterClass {
             xattack.actorOffsetx = xoff;
             xattack.actorOffsety = yoff;
             if (attackKind === "fire") xattack.hitfx = (v) => new FireExplosionFx(v);
+            if (attackKind === "ice") xattack.hitfx = (v) => new IceExplosionFx(v);
             this.currentAttack = new RangedAttack(xattack);
             if (attackKind === "fire") {
                 let attack = this.currentAttack;
                 let fx = new FireTrailFx({
+                    getx: () => attack.x,
+                    gety: () => attack.y,
+                    geteol: () => !(attack.active),
+                });
+            } else if (attackKind === "ice") {
+                let attack = this.currentAttack;
+                let fx = new IceTrailFx({
                     getx: () => attack.x,
                     gety: () => attack.y,
                     geteol: () => !(attack.active),

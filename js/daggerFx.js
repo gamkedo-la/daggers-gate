@@ -1,11 +1,9 @@
 
 class FireTrailFx extends GameFx {
-
     constructor(spec={}) {
         spec.depth = 2;
         super(spec);
         let fx = this;
-
         this.ctrls.push(new ParticleEmitter({
             getx: () => fx.x,
             gety: () => fx.y,
@@ -26,19 +24,41 @@ class FireTrailFx extends GameFx {
                 return new FadeParticle(xpart);
             },
         }));
-
-
     }
-
 }
 
-class FireExplosionFx extends GameFx {
-
+class IceTrailFx extends GameFx {
     constructor(spec={}) {
         spec.depth = 2;
         super(spec);
         let fx = this;
+        this.ctrls.push(new ParticleEmitter({
+            getx: () => fx.x,
+            gety: () => fx.y,
+            psys: undefined,
+            interval: 50,
+            count: 3,
+            generator: (e) => {
+                let xpart = {
+                    psys: this,
+                    x: e.x,
+                    y: e.y,
+                    size: Math.round(Math.random()*3) + 1,
+                    dx: (Math.random() - .5)*.04,
+                    dy: (Math.random() - .5)*.04,
+                    ttl: 500,
+                }
+                return new SnowflakeParticle(xpart);
+            },
+        }));
+    }
+}
 
+class FireExplosionFx extends GameFx {
+    constructor(spec={}) {
+        spec.depth = 2;
+        super(spec);
+        let fx = this;
         this.ctrls.push(new ParticleEmitter({
             getx: () => fx.x,
             gety: () => fx.y,
@@ -59,7 +79,6 @@ class FireExplosionFx extends GameFx {
                 return new ShootingStarParticle(xpart);
             },
         }));
-
         this.ctrls.push(new ParticleEmitter({
             getx: () => fx.x,
             gety: () => fx.y,
@@ -86,8 +105,58 @@ class FireExplosionFx extends GameFx {
                 return new FadeParticle(xpart);
             },
         }));
-
-
     }
+}
 
+class IceExplosionFx extends GameFx {
+    constructor(spec={}) {
+        spec.depth = 2;
+        super(spec);
+        let fx = this;
+        this.ctrls.push(new ParticleEmitter({
+            getx: () => fx.x,
+            gety: () => fx.y,
+            count: 7,
+            ttl: 10,
+            interval: 100,
+            generator: (e) => {
+                let xpart = {
+                    psys: this,
+                    x: e.x,
+                    y: e.y,
+                    colors: [
+                        new Color(94,215,239,1), 
+                        new Color(32,150,205,1),
+                        new Color(38,98,171,1),
+                    ],
+                };
+                return new ShootingStarParticle(xpart);
+            },
+        }));
+        this.ctrls.push(new ParticleEmitter({
+            getx: () => fx.x,
+            gety: () => fx.y,
+            psys: undefined,
+            interval: 100,
+            ttl: 10,
+            count: 10,
+            generator: (e) => {
+                let xpart = {
+                    psys: this,
+                    x: e.x,
+                    y: e.y,
+                    size: Math.round(Math.random()*5) + 5,
+                    color: Util.choose([
+                        new Color(94,215,239,1), 
+                        new Color(32,150,205,1),
+                        new Color(38,98,171,1),
+                    ]),
+                    dx: (Math.random() - .5)*.08,
+                    dy: (Math.random() - .5)*.08,
+                    ttl: 450,
+                }
+                return new SnowflakeParticle(xpart);
+            },
+        }));
+    }
 }

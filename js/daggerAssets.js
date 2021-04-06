@@ -638,6 +638,77 @@ const daggerObjects = {
         },
     },
 
+    TRAP_ICE: {
+        kind: "trap",
+        trap: {
+            idleTTL: 2500,
+            damage: 5,
+            projectile: "ice",
+            projectileDelay: 400,
+            facing: Animator.idleSouth,
+        },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idleSouth]: "TRAP_IDLE",
+                [Animator.delay]: "TRAP_ICE_BUILDUP",
+                [Animator.attackSouth]: "TRAP_ICE_SHOOT",
+            },
+        },
+    },
+
+    TRAP_ICE_WEST: {
+        kind: "trap",
+        collider: {
+            height: 8, 
+            width: 8, 
+            xoff: 20,
+            blocking: false,
+        }, 
+        trap: {
+            idleTTL: 2500,
+            damage: 5,
+            projectile: "ice",
+            projectileDelay: 400,
+            facing: Animator.idleWest,
+            attackXoff: 20,
+        },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idleWest]: "TRAP_IDLE_WEST",
+                [Animator.delay]: "TRAP_ICE_BUILDUP_WEST",
+                [Animator.attackWest]: "TRAP_ICE_SHOOT_WEST",
+            },
+        },
+    },
+
+    TRAP_ICE_EAST: {
+        kind: "trap",
+        collider: {
+            height: 8, 
+            width: 8, 
+            xoff: -20,
+            blocking: false,
+        }, 
+        trap: {
+            idleTTL: 2500,
+            damage: 5,
+            projectile: "ice",
+            projectileDelay: 400,
+            facing: Animator.idleEast,
+            attackXoff: -20,
+        },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idleEast]: "TRAP_IDLE_EAST",
+                [Animator.delay]: "TRAP_ICE_BUILDUP_EAST",
+                [Animator.attackEast]: "TRAP_ICE_SHOOT_EAST",
+            },
+        },
+    },
+
     CRATE: {
         kind: "breakable",
         health: 10,
@@ -1092,6 +1163,30 @@ const daggerAssets = [
             { xoffset: 50, yoffset: 50, width: 50, height: 50, duration: 100 },
             { xoffset: 50, yoffset: 0, width: 50, height: 50, duration: 300 },
         ]},
+        {tag: "TRAP_ICE_BUILDUP", cls: "Animation", loop: false, cels: [
+            { xoffset: 100, yoffset: 0, width: 50, height: 50, duration: 300 },
+            { xoffset: 100, yoffset: 50, width: 50, height: 50, duration: 100 },
+        ]},
+        {tag: "TRAP_ICE_SHOOT", cls: "Animation", loop: false, cels: [
+            { xoffset: 100, yoffset: 50, width: 50, height: 50, duration: 100 },
+            { xoffset: 100, yoffset: 0, width: 50, height: 50, duration: 300 },
+        ]},
+        {tag: "TRAP_POISON_BUILDUP", cls: "Animation", loop: false, cels: [
+            { xoffset: 150, yoffset: 0, width: 50, height: 50, duration: 300 },
+            { xoffset: 150, yoffset: 50, width: 50, height: 50, duration: 100 },
+        ]},
+        {tag: "TRAP_POISON_SHOOT", cls: "Animation", loop: false, cels: [
+            { xoffset: 150, yoffset: 50, width: 50, height: 50, duration: 100 },
+            { xoffset: 150, yoffset: 0, width: 50, height: 50, duration: 300 },
+        ]},
+        {tag: "TRAP_WIND_BUILDUP", cls: "Animation", loop: false, cels: [
+            { xoffset: 200, yoffset: 0, width: 50, height: 50, duration: 300 },
+            { xoffset: 200, yoffset: 50, width: 50, height: 50, duration: 100 },
+        ]},
+        {tag: "TRAP_WIND_SHOOT", cls: "Animation", loop: false, cels: [
+            { xoffset: 200, yoffset: 50, width: 50, height: 50, duration: 100 },
+            { xoffset: 200, yoffset: 0, width: 50, height: 50, duration: 300 },
+        ]},
 
         {tag: "TRAP_FIRE_BUILDUP_WEST", cls: "Animation", loop: false, cels: [
             { xoffset: 50, yoffset: 100, width: 50, height: 50, duration: 300 },
@@ -1101,6 +1196,30 @@ const daggerAssets = [
             { xoffset: 50, yoffset: 150, width: 50, height: 50, duration: 100 },
             { xoffset: 50, yoffset: 100, width: 50, height: 50, duration: 300 },
         ]},
+        {tag: "TRAP_ICE_BUILDUP_WEST", cls: "Animation", loop: false, cels: [
+            { xoffset: 100, yoffset: 100, width: 50, height: 50, duration: 300 },
+            { xoffset: 100, yoffset: 150, width: 50, height: 50, duration: 100 },
+        ]},
+        {tag: "TRAP_ICE_SHOOT_WEST", cls: "Animation", loop: false, cels: [
+            { xoffset: 100, yoffset: 150, width: 50, height: 50, duration: 100 },
+            { xoffset: 100, yoffset: 100, width: 50, height: 50, duration: 300 },
+        ]},
+        {tag: "TRAP_POISON_BUILDUP_WEST", cls: "Animation", loop: false, cels: [
+            { xoffset: 150, yoffset: 100, width: 50, height: 50, duration: 300 },
+            { xoffset: 150, yoffset: 150, width: 50, height: 50, duration: 100 },
+        ]},
+        {tag: "TRAP_POISON_SHOOT_WEST", cls: "Animation", loop: false, cels: [
+            { xoffset: 150, yoffset: 150, width: 50, height: 50, duration: 100 },
+            { xoffset: 150, yoffset: 100, width: 50, height: 50, duration: 300 },
+        ]},
+        {tag: "TRAP_WIND_BUILDUP_WEST", cls: "Animation", loop: false, cels: [
+            { xoffset: 200, yoffset: 100, width: 50, height: 50, duration: 300 },
+            { xoffset: 200, yoffset: 150, width: 50, height: 50, duration: 100 },
+        ]},
+        {tag: "TRAP_WIND_SHOOT_WEST", cls: "Animation", loop: false, cels: [
+            { xoffset: 200, yoffset: 150, width: 50, height: 50, duration: 100 },
+            { xoffset: 200, yoffset: 100, width: 50, height: 50, duration: 300 },
+        ]},
 
         {tag: "TRAP_FIRE_BUILDUP_EAST", cls: "Animation", loop: false, cels: [
             { xoffset: 50, yoffset: 200, width: 50, height: 50, duration: 300 },
@@ -1109,6 +1228,30 @@ const daggerAssets = [
         {tag: "TRAP_FIRE_SHOOT_EAST", cls: "Animation", loop: false, cels: [
             { xoffset: 50, yoffset: 250, width: 50, height: 50, duration: 100 },
             { xoffset: 50, yoffset: 200, width: 50, height: 50, duration: 300 },
+        ]},
+        {tag: "TRAP_ICE_BUILDUP_EAST", cls: "Animation", loop: false, cels: [
+            { xoffset: 100, yoffset: 200, width: 50, height: 50, duration: 300 },
+            { xoffset: 100, yoffset: 250, width: 50, height: 50, duration: 100 },
+        ]},
+        {tag: "TRAP_ICE_SHOOT_EAST", cls: "Animation", loop: false, cels: [
+            { xoffset: 100, yoffset: 250, width: 50, height: 50, duration: 100 },
+            { xoffset: 100, yoffset: 200, width: 50, height: 50, duration: 300 },
+        ]},
+        {tag: "TRAP_POISON_BUILDUP_EAST", cls: "Animation", loop: false, cels: [
+            { xoffset: 150, yoffset: 200, width: 50, height: 50, duration: 300 },
+            { xoffset: 150, yoffset: 250, width: 50, height: 50, duration: 100 },
+        ]},
+        {tag: "TRAP_POISON_SHOOT_EAST", cls: "Animation", loop: false, cels: [
+            { xoffset: 150, yoffset: 250, width: 50, height: 50, duration: 100 },
+            { xoffset: 150, yoffset: 200, width: 50, height: 50, duration: 300 },
+        ]},
+        {tag: "TRAP_WIND_BUILDUP_EAST", cls: "Animation", loop: false, cels: [
+            { xoffset: 200, yoffset: 200, width: 50, height: 50, duration: 300 },
+            { xoffset: 200, yoffset: 250, width: 50, height: 50, duration: 100 },
+        ]},
+        {tag: "TRAP_WIND_SHOOT_EAST", cls: "Animation", loop: false, cels: [
+            { xoffset: 200, yoffset: 250, width: 50, height: 50, duration: 100 },
+            { xoffset: 200, yoffset: 200, width: 50, height: 50, duration: 300 },
         ]},
 
     ]},

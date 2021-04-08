@@ -1,4 +1,4 @@
-bb/**
+/**
  * This file contains editor-generated world specifications
  * 
  * !!! PLEASE NOTE: you can manually edit the data in the arrays below, but please do not

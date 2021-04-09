@@ -191,6 +191,7 @@ class gameObjectClass extends characterClass {
             } else {
                 wantIndex = currentLevel.rightFromIdx(myIndex);
             }
+            if (wantIndex === myIndex) return;
             let clear = currentLevel.isClearAtIdx(wantIndex);
             if (clear) {
                 // start translation

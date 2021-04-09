@@ -1,6 +1,7 @@
 // save the canvas for dimensions, and its 2d context for drawing to it
 var canvas, canvasContext;
 
+// practice commit here, will remove shortly!
 var p1;
 var pathFindingDisplay = false;
 var cheatSeeThroughCeiling = true;

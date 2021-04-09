@@ -205,6 +205,7 @@ class SheetLoader {
             const promises = [];
             const animSpec = {
                 tag: asset.tag, 
+                id: asset.id,
                 cls: "Animation", 
                 cels: [],
             }

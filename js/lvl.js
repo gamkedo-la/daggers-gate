@@ -173,6 +173,21 @@ class Level {
         return (idx%this.width < this.width) ? idx+1 : idx;
     }
 
+    isClearAtIdx(idx) {
+        let fgtile = currentLevel.fgi(idx);
+        let bgtile = currentLevel.bgi(idx);
+        if (fgtile && !props.passable(fgtile)) return false;
+        if (bgtile && !props.passable(bgtile)) return false;
+        //console.log("fg bg clear");
+        let x = this.xfromidx(idx);
+        let y = this.yfromidx(idx);
+        let bounds = new Bounds(x,y,this.sketchWidth,this.sketchHeight);
+        let obj = this.findAll((v) => v.collider && v.collider.blocking && v.collider.overlaps(bounds), true);
+        //console.log("obj: " + obj);
+        if (obj) return false;
+        return true;
+    }
+
     findId(id) {
         for (let i=0; i<this.nentries; i++) {
             if (this.fg[i] === id) {

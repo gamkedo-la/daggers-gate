@@ -894,6 +894,17 @@ const daggerObjects = {
         lateRender: true,
     },
 
+    PUSH_STONE: {
+        kind: "pushable",
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "PUSH_STONE",
+            },
+        },
+        collider: { blocking: true, width: 34, height: 40 },
+    },
+
 };
 
 const daggerAssets = [
@@ -1253,7 +1264,16 @@ const daggerAssets = [
             { xoffset: 200, yoffset: 250, width: 50, height: 50, duration: 100 },
             { xoffset: 200, yoffset: 200, width: 50, height: 50, duration: 300 },
         ]},
+    ]},
 
+    { src: "images/pushStone.png", cls: "Sheet", assets: [
+        {tag: "PUSH_STONE",             id: 520, cls: "Animation", cels: [
+            { xoffset: 0, yoffset: 0, width: 50, height: 50, duration: 200 },
+            { xoffset: 50, yoffset: 0, width: 50, height: 50, duration: 200 },
+            { xoffset: 100, yoffset: 0, width: 50, height: 50, duration: 200 },
+            { xoffset: 150, yoffset: 0, width: 50, height: 50, duration: 200 },
+            { xoffset: 200, yoffset: 0, width: 50, height: 50, duration: 400 },
+        ]},
     ]},
 
     /* === 900 - 999 ========================================================================= */
@@ -1531,6 +1551,7 @@ class DaggerAssets {
             "open": {cls: "Text", text: "o", color: new Color(225,0,0,.75)},
             "magic": {cls: "Text", text: "#", color: new Color(225,0,0,.75)},
             "talk": {cls: "Text", text: "t", color: new Color(225,0,0,.75)},
+            "push": {cls: "Text", text: ">", color: new Color(225,0,0,.75)},
         };
     }
 }

@@ -7,6 +7,7 @@ var actionKindMap = {
     "pickup": "grab",
     "altar": "drop",
     "npc": "talk",
+    "pushable": "push",
 }
 
 // used to "nudge" a game object a short distance before expiring...
@@ -35,6 +36,33 @@ class Nudge {
     }
 }
 
+class Translation {
+    constructor(spec={}) {
+        this.target = spec.target;
+        this.ttl = spec.ttl || 700;
+        this.x = Util.objKeyValue(spec, "x", 0);
+        this.y = Util.objKeyValue(spec, "y", 0);
+        this.dx = (this.x-this.target.x)/this.ttl;
+        this.dy = (this.y-this.target.y)/this.ttl;
+        console.log("dx: " + this.dx + " dy: " + this.dy);
+    }
+
+    get done() {
+        return (this.ttl <= 0);
+    }
+
+    update(ctx) {
+        this.ttl -= ctx.deltaTime;
+        if (this.ttl > 0) {
+            this.target.x += (this.dx * ctx.deltaTime);
+            this.target.y += (this.dy * ctx.deltaTime);
+        } else {
+            this.target.x = this.x;
+            this.target.y = this.y;
+        }
+    }
+}
+
 //gameObjects have similar code to Character class for movement.
 class gameObjectClass extends characterClass {
     constructor(spec={}) {
@@ -44,6 +72,7 @@ class gameObjectClass extends characterClass {
         // set spec defaults
         spec.kind = spec.kind || "object";
         super(spec);
+        if (this.tag === "PUSH_STONE") console.log("stone: " + this);
         this.trap = (spec.trap) ? Object.assign({}, spec.trap) : undefined;
         if (this.trap) {
             // pick random ttl, so that traps do not go off at the same time
@@ -137,6 +166,38 @@ class gameObjectClass extends characterClass {
                 this.state = Animator.solved;
                 // destroy dropped object
                 currentLevel.destroyObject(obj);
+            }
+            break;
+        case "pushable":
+            // if currently in translation... don't allow to be pushed again until translation is done...
+            if (this.translation) return;
+            // determine direction from player to object
+            let v = new Vect(this.x-character.x, this.y-character.y);
+            let heading = v.heading();
+            if (heading < 0) heading += 360;
+            // determine direction from heading
+            let wantIndex;
+            let myIndex = currentLevel.idxfromxy(this.x, this.y);
+            // -- south
+            if (heading >= 45 && heading < 135) {
+                wantIndex = currentLevel.downFromIdx(myIndex);
+            // -- west
+            } else if (heading >= 135 && heading < 225) {
+                wantIndex = currentLevel.leftFromIdx(myIndex);
+            // -- north
+            } else if (heading >= 225 && heading < 315) {
+                wantIndex = currentLevel.upFromIdx(myIndex);
+            // -- east
+            } else {
+                wantIndex = currentLevel.rightFromIdx(myIndex);
+            }
+            let clear = currentLevel.isClearAtIdx(wantIndex);
+            if (clear) {
+                // start translation
+                let tx = currentLevel.xfromidx(wantIndex, true);
+                let ty = currentLevel.yfromidx(wantIndex, true);
+                let trans = new Translation({target: this, x:tx, y:ty});
+                this.translation = trans;
             }
             break;
         }

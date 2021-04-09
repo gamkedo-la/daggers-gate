@@ -8,6 +8,7 @@ const actionTable = {
     "place": "doPlace",
     "talk": "doTalk",
     "magic": "doMagicAttack",
+    "push": "doPush",
 }
 
 const interactionWaitIterations = 3;
@@ -330,6 +331,15 @@ class characterClass {
         }
     }
 
+    doPush(data) {
+        if (data.target) {
+            console.log("push object: " + data.target);
+            data.target.interact(this);
+            //data.target.interact(this);
+            //currentLevel.destroyObject(data.target);
+        }
+    }
+
     doDrop() {
         if (this.grabbedObj) {
             console.log("dropping object: " + this.grabbedObj);
@@ -412,10 +422,14 @@ class characterClass {
         }
         let incapacitated = (this.state === Animator.death);
 
-        // handle "nudge"
+        // handle "nudge" and "translation"
         if (this.nudge) {
             this.nudge.update(updateCtx)
             if (this.nudge.done) this.nudge = undefined;
+        }
+        if (this.translation) {
+            this.translation.update(updateCtx)
+            if (this.translation.done) this.translation = undefined;
         }
 
         // regenerate mana over time

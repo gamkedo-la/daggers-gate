@@ -168,6 +168,31 @@ class characterClass {
         }
     }
 
+    applyPoisoned() {
+        this.poisoned = true;
+        this.poisonTick = 0;
+        this.poisonedTTL = 20000;    // 20 seconds
+        /*
+        if (this.chillFx) console.log("already chilled");
+        if (!this.chillFx) this.chillFx = new ChillFx({
+            dbg: true,
+            getx: () => this.x,
+            gety: () => this.y,
+        });
+        */
+    }
+    removePoisoned() {
+        this.poisoned = false;
+        this.poisonedTTL = 0;
+        this.poisonTick = 0;
+        /*
+        if (this.chillFx) {
+            this.chillFx.destroy();
+            this.chillFx = undefined;
+        }
+        */
+    }
+
     /**
      * spawn loot from object loot table
      * loot table should be of the form:
@@ -316,6 +341,15 @@ class characterClass {
                     gety: () => attack.y,
                     geteol: () => !(attack.active),
                 });
+            } else if (attackKind === "poison") {
+                let attack = this.currentAttack;
+                /*
+                let fx = new IceTrailFx({
+                    getx: () => attack.x,
+                    gety: () => attack.y,
+                    geteol: () => !(attack.active),
+                });
+                */
             }
             this.mana -= manaCost;
             // transition to attack state (based on idle direction)
@@ -468,6 +502,18 @@ class characterClass {
             if (this.chilledTTL > 0) this.chilledTTL -= updateCtx.deltaTime;
             if (this.chilledTTL <= 0) {
                 this.removeChilled();
+            }
+        }
+        // handle poisoned condition
+        if (this.poisoned) {
+            this.poisonTick += updateCtx.deltaTime;
+            if (this.poisonTick > 2000) {
+                this.poisonTick = 0;
+                this.takeDamage(2);
+            }
+            if (this.poisonedTTL > 0) this.poisonedTTL -= updateCtx.deltaTime;
+            if (this.poisonedTTL <= 0) {
+                this.removePoisoned();
             }
         }
 

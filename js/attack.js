@@ -60,6 +60,62 @@ class Attack {
         };
         this._specs["ranged"][Animator.idle] = this._specs["ranged"][Animator.idleSouth];
 
+        this._specs["poison"] = {
+            [Animator.idleEast]: {
+                kind: "poison",
+                state: Animator.attackEast,
+                sketch: assets.generate("POISON_DART"),
+                collider: {
+                    color: "red",
+                    width: 40,
+                    height: 20,
+                },
+                ttl: 450,
+                angle: 0,
+                rotation: Math.PI * .5,
+            },
+            [Animator.idleWest]: {
+                kind: "poison",
+                state: Animator.attackWest,
+                sketch: assets.generate("POISON_DART"),
+                collider: {
+                    color: "red",
+                    width: 40,
+                    height: 20,
+                },
+                ttl: 450,
+                angle: Math.PI,
+                rotation: Math.PI * .5,
+            },
+            [Animator.idleNorth]: {
+                kind: "poison",
+                state: Animator.attackNorth,
+                sketch: assets.generate("POISON_DART"),
+                collider: {
+                    color: "red",
+                    width: 25,
+                    height: 25,
+                },
+                ttl: 450,
+                angle: -Math.PI*.5,
+                rotation: Math.PI * .5,
+            },
+            [Animator.idleSouth]: {
+                kind: "poison",
+                state: Animator.attackSouth,
+                sketch: assets.generate("POISON_DART"),
+                collider: {
+                    color: "red",
+                    width: 25,
+                    height: 25,
+                },
+                ttl: 450,
+                angle: Math.PI*.5,
+                rotation: Math.PI * .5,
+            },
+        };
+        this._specs["poison"][Animator.idle] = this._specs["poison"][Animator.idleSouth];
+
         this._specs["ice"] = {
             [Animator.idleEast]: {
                 kind: "ice",
@@ -576,6 +632,9 @@ class RangedAttack {
                         ohit.takeDamage(this._damage*2);
                     }
                     ohit.applyChilled();
+                } else if (this._kind === "poison") {
+                    ohit.takeDamage(this._damage);
+                    ohit.applyPoisoned();
                 } else {
                     // apply damage
                     console.log("attack applying damage to: " + ohit);

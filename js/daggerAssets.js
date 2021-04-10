@@ -567,6 +567,25 @@ const daggerObjects = {
         },
     },
 
+    TRAP_POISON: {
+        kind: "trap",
+        trap: {
+            idleTTL: 2500,
+            damage: 5,
+            projectile: "poison",
+            projectileDelay: 400,
+            facing: Animator.idleSouth,
+        },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idleSouth]: "TRAP_IDLE",
+                [Animator.delay]: "TRAP_POISON_BUILDUP",
+                [Animator.attackSouth]: "TRAP_POISON_SHOOT",
+            },
+        },
+    },
+
     TRAP_FIRE: {
         kind: "trap",
         trap: {
@@ -1006,6 +1025,7 @@ const daggerAssets = [
         {tag: "PIT_SPIKES",              id: 84, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 350, tileset: true, permeable: true, bgr: true },
         {tag: "BIG_POT",                 id: 85, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 350, tileset: true },
         {tag: "TELEPORT_TILE",           id: 86, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 350,  passable: true, pathFindingWalkable: true, tileset: true },
+        {tag: "POISON_DART",             id: 87, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 350, },
         {tag: "WOOD_FLOOR_ALT",          id: 89, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 350,  passable: true, pathFindingWalkable: true, tileset: true },
     ]},
 

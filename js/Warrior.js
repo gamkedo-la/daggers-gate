@@ -22,6 +22,7 @@ class warriorClass extends characterClass {
         spec.mana = 15;
         spec.maxMana = 30;
         super(spec);
+        this.moveable = true;
         this.lootRange = 15;
         this.lootPullSpeed = .25; // pixels per ms
         this.inventory = new Inventory();
@@ -78,21 +79,21 @@ class warriorClass extends characterClass {
         if (!disableCollisions) {
             for (const obj of currentLevel.objects) {
                 if (obj.active && obj.collider.blocking && obj.collider.overlaps(this.nextCollider)) {
-                    console.log(`${this} hit object collider: ${obj}`);
+                    //console.log(`${this} hit object collider: ${obj}`);
                     return;
                 }
             }
             // -- ran into enemy?
             for (const obj of currentLevel.enemies) {
                 if (obj.collider.blocking && obj.collider.overlaps(this.nextCollider)) {
-                    console.log(`${this} hit enemy collider: ${obj}`);
+                    //console.log(`${this} hit enemy collider: ${obj}`);
                     return;
                 }
             }
             // -- ran into npc?
             for (const obj of currentLevel.npcs) {
                 if (obj.collider.blocking && obj.collider.overlaps(this.nextCollider)) {
-                    console.log(`${this} hit npc collider: ${obj}`);
+                    //console.log(`${this} hit npc collider: ${obj}`);
                     return;
                 }
             }

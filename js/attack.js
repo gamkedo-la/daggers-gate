@@ -227,6 +227,73 @@ class Attack {
         };
         this._specs["fire"][Animator.idle] = this._specs["fire"][Animator.idleSouth];
 
+        let windTTL = 750;
+        let windSpeed = .45;
+        this._specs["wind"] = {
+            [Animator.idleEast]: {
+                kind: "wind",
+                state: Animator.attackEast,
+                sketch: assets.generate("WIND_GUST"),
+                collider: {
+                    color: "red",
+                    width: 20,
+                    height: 20,
+                },
+                ttl: windTTL,
+                blockTTL: 250,
+                speed: windSpeed,
+                rotation: -Math.PI*.5,
+                angle: 0,
+            },
+            [Animator.idleWest]: {
+                kind: "wind",
+                state: Animator.attackWest,
+                sketch: assets.generate("WIND_GUST"),
+                collider: {
+                    color: "red",
+                    width: 20,
+                    height: 20,
+                },
+                ttl: windTTL,
+                blockTTL: 250,
+                speed: windSpeed,
+                rotation: -Math.PI*.5,
+                angle: Math.PI,
+            },
+            [Animator.idleNorth]: {
+                kind: "wind",
+                state: Animator.attackNorth,
+                sketch: assets.generate("WIND_GUST"),
+                collider: {
+                    color: "red",
+                    width: 20,
+                    height: 20,
+                },
+                ttl: windTTL,
+                blockTTL: 250,
+                speed: windSpeed,
+                rotation: -Math.PI*.5,
+                angle: -Math.PI*.5,
+            },
+            [Animator.idleSouth]: {
+                kind: "wind",
+                state: Animator.attackSouth,
+                sketch: assets.generate("WIND_GUST"),
+                piercing: true,
+                collider: {
+                    color: "red",
+                    width: 40,
+                    height: 50,
+                },
+                ttl: windTTL,
+                blockTTL: 250,
+                speed: windSpeed,
+                rotation: -Math.PI*.5,
+                angle: Math.PI*.5,
+            },
+        };
+        this._specs["wind"][Animator.idle] = this._specs["wind"][Animator.idleSouth];
+
         this._specs["melee"] = {
             [Animator.idleSouth]: {
                 state: Animator.attackSouth,
@@ -626,6 +693,11 @@ class RangedAttack {
                         continue;
                     }
                 }
+                if (this._kind === "wind" && !ohit.moveable) {
+                    this.active = false;
+                    if (this.hitfx) this.hitfx({x: this.x, y: this.y});
+                    return;
+                }
                 // generate hit fx
                 if (this.hitfx) this.hitfx({x: this.x, y: this.y});
                 // for ice attack...
@@ -639,6 +711,9 @@ class RangedAttack {
                 } else if (this._kind === "poison") {
                     ohit.takeDamage(this._damage);
                     ohit.applyPoisoned();
+                } else if (this._kind === "wind") {
+                    console.log("blown which idle: " + this.idleState);
+                    ohit.applyBlown(this.idleState);
                 } else {
                     // apply damage
                     console.log("attack applying damage to: " + ohit);
@@ -647,14 +722,16 @@ class RangedAttack {
                 // add object to ignore list
                 this._ignore.push(ohit);
                 // nudge object
-                let v = new Vect(ohit.x-this._x, ohit.y-this._y).normalize().mult(.15);
-                let xnudge = {
-                    ttl: 100,
-                    dx: v.x,
-                    dy: v.y,
-                    target: ohit,
+                if (this._kind !== "wind") {
+                    let v = new Vect(ohit.x-this._x, ohit.y-this._y).normalize().mult(.15);
+                    let xnudge = {
+                        ttl: 100,
+                        dx: v.x,
+                        dy: v.y,
+                        target: ohit,
+                    }
+                    ohit.nudge = new Nudge(xnudge);
                 }
-                ohit.nudge = new Nudge(xnudge);
                 // if not piercing... we are done
                 if (!this._piercing) {
                     this.active = false;

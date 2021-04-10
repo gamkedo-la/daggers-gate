@@ -185,6 +185,16 @@ class characterClass {
         }
     }
 
+    applyBlown(dir) {
+        this.stopPathfinding();
+        this.blown = true;
+        this.blownDir = dir;
+    }
+    removeBlown() {
+        this.blown = false;
+        this.move_East = this.move_West = this.move_North = this.move_South = false;
+    }
+
     /**
      * spawn loot from object loot table
      * loot table should be of the form:
@@ -401,10 +411,10 @@ class characterClass {
         this.deathTTL = this.delayDeath;
         this.removeChilled();
         this.removePoisoned();
+        this.removeBlown();
         this.spawnLoot();
         // FIXME: handle player death
         // global event
-        console.log("this.constructor.name: " + this.constructor.name);
         if (this.constructor.name === "enemyClass") {
             console.log("triggering enemyDied");
             GameEvents.enemyDied.trigger({actor: this});
@@ -509,6 +519,25 @@ class characterClass {
             }
         }
 
+        // handle blown condition
+        if (this.blown) {
+            this.move_East = this.move_West = this.move_North = this.move_South = false;
+            switch (this.blownDir) {
+            case Animator.idleEast:
+                this.move_East = true;
+                break;
+            case Animator.idleWest:
+                this.move_West = true;
+                break;
+            case Animator.idleSouth:
+                this.move_South = true;
+                break;
+            case Animator.idleNorth:
+                this.move_North = true;
+                break;
+            }
+        }
+
         // handle movement
         // -- blocked if attacking
         // -- blocked if incapacitated
@@ -544,9 +573,10 @@ class characterClass {
         // compute movement speed
         let movingSpeed = this.movingSpeed;
         if (this.chilled) movingSpeed *= .5;
+        if (this.blown) movingSpeed *= 3;
 
         // handle path finding movement
-        if (this.tilePath.length > 0) {
+        if (!this.blown && this.tilePath.length > 0) {
             var targetIndex = this.tilePath[0];
             var targetC = currentLevel.ifromidx(targetIndex);
             var targetR = currentLevel.jfromidx(targetIndex);
@@ -621,6 +651,7 @@ class characterClass {
             }
         }
 
+        // update position
         if (this.move_North) {
             nextY -= movingSpeed;
         }
@@ -669,6 +700,12 @@ class characterClass {
         // updates to collision boxes
         this.collider.update(this.x, this.y, currentLevel.idxfromxy);
         if (this.interactCollider) this.interactCollider.update(this.x, this.y, currentLevel.idxfromxy);
+
+        // handle blown termination (when char hits something...)
+        if (this.blown && (lastX === this.x) && (lastY === this.y)) {
+            //console.log("remove blown");
+            this.removeBlown();
+        }
 
         // update position of grabbed object, based on current player position and facing direction
         if (this.grabbedObj) {

@@ -567,6 +567,74 @@ const daggerObjects = {
         },
     },
 
+    TRAP_WIND: {
+        kind: "trap",
+        trap: {
+            idleTTL: 1200,
+            projectile: "wind",
+            projectileDelay: 400,
+            facing: Animator.idleSouth,
+        },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idleSouth]: "TRAP_IDLE",
+                [Animator.delay]: "TRAP_WIND_BUILDUP",
+                [Animator.attackSouth]: "TRAP_WIND_SHOOT",
+            },
+        },
+    },
+
+    TRAP_WIND_WEST: {
+        kind: "trap",
+        collider: {
+            height: 8, 
+            width: 8, 
+            xoff: 20,
+            blocking: false,
+        }, 
+        trap: {
+            idleTTL: 1200,
+            projectile: "wind",
+            projectileDelay: 400,
+            facing: Animator.idleWest,
+            attackXoff: 20,
+        },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idleWest]: "TRAP_IDLE_WEST",
+                [Animator.delay]: "TRAP_WIND_BUILDUP_WEST",
+                [Animator.attackWest]: "TRAP_WIND_SHOOT_WEST",
+            },
+        },
+    },
+
+    TRAP_WIND_EAST: {
+        kind: "trap",
+        collider: {
+            height: 8, 
+            width: 8, 
+            xoff: -20,
+            blocking: false,
+        }, 
+        trap: {
+            idleTTL: 1200,
+            projectile: "wind",
+            projectileDelay: 400,
+            facing: Animator.idleEast,
+            attackXoff: -20,
+        },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idleEast]: "TRAP_IDLE_EAST",
+                [Animator.delay]: "TRAP_WIND_BUILDUP_EAST",
+                [Animator.attackEast]: "TRAP_WIND_SHOOT_EAST",
+            },
+        },
+    },
+
     TRAP_POISON: {
         kind: "trap",
         trap: {
@@ -1075,6 +1143,7 @@ const daggerAssets = [
         {tag: "BIG_POT",                 id: 85, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 350, tileset: true },
         {tag: "TELEPORT_TILE",           id: 86, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 350,  passable: true, pathFindingWalkable: true, tileset: true },
         {tag: "POISON_DART",             id: 87, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 350, },
+        {tag: "WIND_GUST",               id: 88, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 350, },
         {tag: "WOOD_FLOOR_ALT",          id: 89, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 350,  passable: true, pathFindingWalkable: true, tileset: true },
     ]},
 

@@ -15,6 +15,7 @@ class enemyClass extends characterClass {
         //console.log("enemy collider spec: " + Fmt.ofmt(spec.collider));
         spec.movingSpeed = spec.movingSpeed || ENEMY_MOVE_SPEED;
         super(spec);
+        this.moveable = true;
         this.framesBeforeReThink = AI_FRAME_THINK_TIME;
         this.moving = false;
         this.patrolling = true;

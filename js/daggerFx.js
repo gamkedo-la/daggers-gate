@@ -189,3 +189,70 @@ class IceExplosionFx extends GameFx {
         }));
     }
 }
+
+class PoisonExplosionFx extends GameFx {
+    constructor(spec={}) {
+        spec.depth = 2;
+        super(spec);
+        let fx = this;
+        this.ctrls.push(new ParticleEmitter({
+            getx: () => fx.x,
+            gety: () => fx.y,
+            psys: undefined,
+            interval: 100,
+            ttl: 10,
+            count: 10,
+            generator: (e) => {
+                let xpart = {
+                    psys: this,
+                    x: e.x,
+                    y: e.y,
+                    size: Math.round(Math.random()*5) + 5,
+                    color: Util.choose([
+                        new Color(205,224,66,1), 
+                        new Color(104,178,41,1),
+                        new Color(97,123,71,1),
+                    ]),
+                    dx: (Math.random() - .5)*.08,
+                    dy: (Math.random() - .5)*.08,
+                    ttl: 650,
+                }
+                return new FadeParticle(xpart);
+            },
+        }));
+    }
+}
+
+class PoisonFx extends GameFx {
+    constructor(spec={}) {
+        spec.depth = 2;
+        super(spec);
+        let fx = this;
+        this.ctrls.push(new ParticleEmitter({
+            getx: () => fx.x,
+            gety: () => fx.y,
+            psys: undefined,
+            interval: 50,
+            count: 1,
+            generator: (e) => {
+                let xoff = Math.round(Math.random() * 10) - 5;
+                let yoff = Math.round(Math.random() * 20) - 10;
+                let xpart = {
+                    psys: this,
+                    x: e.x + xoff,
+                    y: e.y + yoff,
+                    size: Math.round(Math.random()*3) + 3,
+                    color: Util.choose([
+                        new Color(205,224,66,.5), 
+                        new Color(104,178,41,.5),
+                        new Color(97,123,71,.5),
+                    ]),
+                    dx: (Math.random() - .5)*.08,
+                    dy: (Math.random() - .5)*.08,
+                    ttl: 500,
+                }
+                return new FadeParticle(xpart);
+            },
+        }));
+    }
+}

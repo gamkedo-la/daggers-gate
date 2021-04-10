@@ -152,9 +152,7 @@ class characterClass {
     applyChilled() {
         this.chilled = true;
         this.chilledTTL = 5000;
-        if (this.chillFx) console.log("already chilled");
         if (!this.chillFx) this.chillFx = new ChillFx({
-            dbg: true,
             getx: () => this.x,
             gety: () => this.y,
         });
@@ -172,25 +170,19 @@ class characterClass {
         this.poisoned = true;
         this.poisonTick = 0;
         this.poisonedTTL = 20000;    // 20 seconds
-        /*
-        if (this.chillFx) console.log("already chilled");
-        if (!this.chillFx) this.chillFx = new ChillFx({
-            dbg: true,
+        if (!this.poisonFx) this.poisonFx = new PoisonFx({
             getx: () => this.x,
             gety: () => this.y,
         });
-        */
     }
     removePoisoned() {
         this.poisoned = false;
         this.poisonedTTL = 0;
         this.poisonTick = 0;
-        /*
-        if (this.chillFx) {
-            this.chillFx.destroy();
-            this.chillFx = undefined;
+        if (this.poisonFx) {
+            this.poisonFx.destroy();
+            this.poisonFx = undefined;
         }
-        */
     }
 
     /**
@@ -326,6 +318,7 @@ class characterClass {
             xattack.actorOffsety = yoff;
             if (attackKind === "fire") xattack.hitfx = (v) => new FireExplosionFx(v);
             if (attackKind === "ice") xattack.hitfx = (v) => new IceExplosionFx(v);
+            if (attackKind === "poison") xattack.hitfx = (v) => new PoisonExplosionFx(v);
             this.currentAttack = new RangedAttack(xattack);
             if (attackKind === "fire") {
                 let attack = this.currentAttack;
@@ -509,7 +502,7 @@ class characterClass {
             this.poisonTick += updateCtx.deltaTime;
             if (this.poisonTick > 2000) {
                 this.poisonTick = 0;
-                this.takeDamage(2);
+                this.takeDamage(1);
             }
             if (this.poisonedTTL > 0) this.poisonedTTL -= updateCtx.deltaTime;
             if (this.poisonedTTL <= 0) {

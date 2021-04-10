@@ -63,6 +63,7 @@ class Attack {
         this._specs["poison"] = {
             [Animator.idleEast]: {
                 kind: "poison",
+                damage: 1,
                 state: Animator.attackEast,
                 sketch: assets.generate("POISON_DART"),
                 collider: {
@@ -76,6 +77,7 @@ class Attack {
             },
             [Animator.idleWest]: {
                 kind: "poison",
+                damage: 1,
                 state: Animator.attackWest,
                 sketch: assets.generate("POISON_DART"),
                 collider: {
@@ -89,6 +91,7 @@ class Attack {
             },
             [Animator.idleNorth]: {
                 kind: "poison",
+                damage: 1,
                 state: Animator.attackNorth,
                 sketch: assets.generate("POISON_DART"),
                 collider: {
@@ -102,6 +105,7 @@ class Attack {
             },
             [Animator.idleSouth]: {
                 kind: "poison",
+                damage: 1,
                 state: Animator.attackSouth,
                 sketch: assets.generate("POISON_DART"),
                 collider: {

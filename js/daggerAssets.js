@@ -571,7 +571,6 @@ const daggerObjects = {
         kind: "trap",
         trap: {
             idleTTL: 2500,
-            damage: 5,
             projectile: "poison",
             projectileDelay: 400,
             facing: Animator.idleSouth,
@@ -582,6 +581,56 @@ const daggerObjects = {
                 [Animator.idleSouth]: "TRAP_IDLE",
                 [Animator.delay]: "TRAP_POISON_BUILDUP",
                 [Animator.attackSouth]: "TRAP_POISON_SHOOT",
+            },
+        },
+    },
+
+    TRAP_POISON_WEST: {
+        kind: "trap",
+        collider: {
+            height: 8, 
+            width: 8, 
+            xoff: 20,
+            blocking: false,
+        }, 
+        trap: {
+            idleTTL: 2500,
+            projectile: "poison",
+            projectileDelay: 400,
+            facing: Animator.idleWest,
+            attackXoff: 20,
+        },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idleWest]: "TRAP_IDLE_WEST",
+                [Animator.delay]: "TRAP_POISON_BUILDUP_WEST",
+                [Animator.attackWest]: "TRAP_POISON_SHOOT_WEST",
+            },
+        },
+    },
+
+    TRAP_POISON_EAST: {
+        kind: "trap",
+        collider: {
+            height: 8, 
+            width: 8, 
+            xoff: -20,
+            blocking: false,
+        }, 
+        trap: {
+            idleTTL: 2500,
+            projectile: "poison",
+            projectileDelay: 400,
+            facing: Animator.idleEast,
+            attackXoff: -20,
+        },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idleEast]: "TRAP_IDLE_EAST",
+                [Animator.delay]: "TRAP_POISON_BUILDUP_EAST",
+                [Animator.attackEast]: "TRAP_POISON_SHOOT_EAST",
             },
         },
     },

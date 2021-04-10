@@ -152,11 +152,11 @@ class characterClass {
     applyChilled() {
         this.chilled = true;
         this.chilledTTL = 5000;
-        self = this;
+        if (this.chillFx) console.log("already chilled");
         if (!this.chillFx) this.chillFx = new ChillFx({
-            //dbg: true,
-            getx: () => self.x,
-            gety: () => self.y,
+            dbg: true,
+            getx: () => this.x,
+            gety: () => this.y,
         });
     }
     removeChilled() {

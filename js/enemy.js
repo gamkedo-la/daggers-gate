@@ -31,14 +31,14 @@ class enemyClass extends characterClass {
         // check for collisions against objects...
         for (const obj of currentLevel.objects) {
             if (obj.active && obj.collider.blocking && obj.collider.overlaps(this.nextCollider)) {
-                console.log(`${this} hit object collider: ${obj}`);
+                //console.log(`${this} hit object collider: ${obj}`);
                 return;
             }
         }
 
         // check for bg collisions
         if (bgtile && !props.passable(bgtile)) {
-            console.log("bg not passable: " + bgtile);
+            //console.log("bg not passable: " + bgtile);
             return;
         }
 

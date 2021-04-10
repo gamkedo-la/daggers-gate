@@ -3,7 +3,12 @@
  * A visual game effect...
  */
 class GameFx {
+    static _id = 1;
+    static get gid() {
+        return this._id++;
+    }
     constructor(spec={}) {
+        this.gid = GameFx.gid;
         this.getx = spec.getx;
         this.gety = spec.gety;
         this._x = spec.x || 0;

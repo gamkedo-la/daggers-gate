@@ -126,8 +126,10 @@ class ViewMgr {
         // add view to layer, stamp w/ layer index
         layer.add(view);
         view.lidx = this.layerIdx(view.layer, view.depth);
+        //console.log("layer.views: " + layer._views);
         // add view to master view list
         this._views.push(view);
+        //console.log("master.views: " + this._views);
     }
 
     remove(view) {

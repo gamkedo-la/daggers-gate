@@ -400,6 +400,7 @@ class characterClass {
         this.state = Animator.death;
         this.deathTTL = this.delayDeath;
         this.removeChilled();
+        this.removePoisoned();
         this.spawnLoot();
         // FIXME: handle player death
         // global event

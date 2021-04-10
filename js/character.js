@@ -189,10 +189,19 @@ class characterClass {
         this.stopPathfinding();
         this.blown = true;
         this.blownDir = dir;
+        if (!this.blownFx) this.blownFx = new BlownFx({
+            getx: () => this.x,
+            gety: () => this.y,
+        });
+        console.log("blownFx: " + this.blownFx);
     }
     removeBlown() {
         this.blown = false;
         this.move_East = this.move_West = this.move_North = this.move_South = false;
+        if (this.blownFx) {
+            this.blownFx.destroy();
+            this.blownFx = undefined;
+        }
     }
 
     /**
@@ -329,6 +338,7 @@ class characterClass {
             if (attackKind === "fire") xattack.hitfx = (v) => new FireExplosionFx(v);
             if (attackKind === "ice") xattack.hitfx = (v) => new IceExplosionFx(v);
             if (attackKind === "poison") xattack.hitfx = (v) => new PoisonExplosionFx(v);
+            if (attackKind === "wind") xattack.hitfx = (v) => new WindExplosionFx(v);
             this.currentAttack = new RangedAttack(xattack);
             if (attackKind === "fire") {
                 let attack = this.currentAttack;
@@ -347,6 +357,13 @@ class characterClass {
             } else if (attackKind === "poison") {
                 let attack = this.currentAttack;
                 let fx = new PoisonTrailFx({
+                    getx: () => attack.x,
+                    gety: () => attack.y,
+                    geteol: () => !(attack.active),
+                });
+            } else if (attackKind === "wind") {
+                let attack = this.currentAttack;
+                let fx = new WindTrailFx({
                     getx: () => attack.x,
                     gety: () => attack.y,
                     geteol: () => !(attack.active),

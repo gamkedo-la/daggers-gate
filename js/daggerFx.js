@@ -288,3 +288,142 @@ class PoisonTrailFx extends GameFx {
         }));
     }
 }
+
+class WindExplosionFx extends GameFx {
+    constructor(spec={}) {
+        spec.depth = 2;
+        super(spec);
+        let fx = this;
+        this.ctrls.push(new ParticleEmitter({
+            getx: () => fx.x,
+            gety: () => fx.y,
+            psys: undefined,
+            interval: 100,
+            ttl: 10,
+            count: 10,
+            generator: (e) => {
+                let xoff = Math.round(Math.random() * 10) - 5;
+                let yoff = Math.round(Math.random() * 20) - 10;
+                let xpart = {
+                    psys: this,
+                    x: e.x + xoff,
+                    y: e.y + yoff,
+                    size: Math.round(Math.random()*5) + 5,
+                    color: Util.choose([
+                        new Color(184,216,209,.5), 
+                        new Color(117,157,169,.5),
+                        new Color(82,106,152,.5),
+                    ]),
+                    dx: (Math.random() - .5)*.1,
+                    dy: (Math.random() - .5)*.1,
+                    ttl: 450,
+                }
+                return new FadeParticle(xpart);
+            },
+        }));
+        this.ctrls.push(new ParticleEmitter({
+            getx: () => fx.x,
+            gety: () => fx.y,
+            psys: undefined,
+            interval: 100,
+            ttl: 10,
+            count: 10,
+            generator: (e) => {
+                let xoff = Math.round(Math.random() * 10) - 5;
+                let yoff = Math.round(Math.random() * 20) - 10;
+                let rotate = (Math.random() * Math.PI*10) - Math.PI*5;
+                let xpart = {
+                    psys: this,
+                    x: e.x + xoff,
+                    y: e.y + yoff,
+                    rotate: rotate,
+                    size: Math.round(Math.random()*3) + 5,
+                    color: Util.choose([
+                        new Color(184,216,209,.5), 
+                        new Color(117,157,169,.5),
+                        new Color(82,106,152,.5),
+                    ]),
+                    dx: (Math.random() - .5)*.1,
+                    dy: (Math.random() - .5)*.1,
+                    ttl: 550,
+                }
+                return new FadeTwirlParticle(xpart);
+            },
+        }));
+
+    }
+}
+
+class BlownFx extends GameFx {
+    constructor(spec={}) {
+        spec.depth = 2;
+        super(spec);
+        let fx = this;
+        this.ctrls.push(new ParticleEmitter({
+            getx: () => fx.x,
+            gety: () => fx.y,
+            psys: undefined,
+            interval: 50,
+            count: 1,
+            generator: (e) => {
+                let xoff = Math.round(Math.random() * 20) - 10;
+                let yoff = Math.round(Math.random() * 40) - 20;
+                let rotate = (Math.random() * Math.PI*10) - Math.PI*5;
+                let xpart = {
+                    psys: this,
+                    x: e.x + xoff,
+                    y: e.y + yoff,
+                    size: Math.round(Math.random()*5) + 5,
+                    rotate: rotate,
+                    color: Util.choose([
+                        new Color(184,216,209,.5), 
+                        new Color(117,157,169,.5),
+                        new Color(82,106,152,.5),
+                    ]),
+                    dx: (Math.random() - .5)*.1,
+                    dy: (Math.random() - .5)*.1,
+                    ttl: 500,
+                }
+                return new FadeTwirlParticle(xpart);
+            },
+        }));
+    }
+}
+
+class WindTrailFx extends GameFx {
+    constructor(spec={}) {
+        spec.depth = 2;
+        super(spec);
+        let fx = this;
+        this.ctrls.push(new ParticleEmitter({
+            getx: () => fx.x,
+            gety: () => fx.y,
+            psys: undefined,
+            interval: 50,
+            count: 3,
+            generator: (e) => {
+                let xoff = Math.round(Math.random() * 30) - 15;
+                let yoff = Math.round(Math.random() * 30) - 15;
+                let rotate = (Math.random() * Math.PI*10) - Math.PI*5;
+                let xpart = {
+                    psys: this,
+                    x: e.x + xoff,
+                    y: e.y + yoff,
+                    rotate: rotate,
+                    size: Math.round(Math.random()*3) + 3,
+                    color: Util.choose([
+                        new Color(184,216,209,.5), 
+                        new Color(117,157,169,.5),
+                        new Color(82,106,152,.5),
+                    ]),
+                    //dx: 0,
+                    //dy: 0,
+                    dx: (Math.random() - .5)*.04,
+                    dy: (Math.random() - .5)*.04,
+                    ttl: 600,
+                }
+                return new FadeTwirlParticle(xpart);
+            },
+        }));
+    }
+}

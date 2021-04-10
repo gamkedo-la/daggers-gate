@@ -173,3 +173,51 @@ class SnowflakeParticle extends Particle {
     }
 
 }
+
+class FadeTwirlParticle extends Particle {
+    constructor(spec={}) {
+        super(spec);
+        this.dx = spec.dx || 0;
+        this.dy = spec.dy || 0;
+        this.size = spec.size || 3;
+        this.color = spec.color || new Color(255,201,92,1);
+        this.ttl = spec.ttl || 1000;
+        this.fade = this.color.a;
+        this.fadeRate = this.fade/this.ttl;
+        this.angle = Math.random() * Math.PI*2;
+        let rotate = spec.hasOwnProperty("rotate") ? spec.rotate : (Math.random() * Math.PI);
+        this.rotateRate = rotate/this.ttl;
+        this.width = spec.width || this.size * .5;
+        this.arc = spec.arc || Math.PI*.75;
+    }
+
+    update(ctx) {
+        let dt = ctx.deltaTime;
+        if (this.done) return;
+        // update position
+        this.x += (this.dx * dt);
+        this.y += (this.dy * dt);
+        // rotatation...
+        this.angle += (dt * this.rotateRate);
+        // fade... slowly fade to nothing
+        this.fade -= (dt * this.fadeRate);
+        this.color.a = this.fade;
+        // time-to-live
+        this.ttl -= dt;
+        if (this.ttl <= 0) this._done = true;
+    }
+
+    render(ctx) {
+        if (this._done) return;
+        ctx.beginPath();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.angle);
+        ctx.arc(this.size*.5, this.size*.5, this.size, 0, this.arc);
+        ctx.lineWidth = this.width;
+        ctx.strokeStyle = this.color.toString();
+        ctx.stroke();
+        ctx.rotate(-this.angle);
+        ctx.translate(-this.x, -this.y);
+    }
+
+}

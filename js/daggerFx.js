@@ -249,7 +249,39 @@ class PoisonFx extends GameFx {
                     ]),
                     dx: (Math.random() - .5)*.08,
                     dy: (Math.random() - .5)*.08,
-                    ttl: 500,
+                    ttl: 600,
+                }
+                return new FadeParticle(xpart);
+            },
+        }));
+    }
+}
+
+class PoisonTrailFx extends GameFx {
+    constructor(spec={}) {
+        spec.depth = 2;
+        super(spec);
+        let fx = this;
+        this.ctrls.push(new ParticleEmitter({
+            getx: () => fx.x,
+            gety: () => fx.y,
+            psys: undefined,
+            interval: 50,
+            count: 3,
+            generator: (e) => {
+                let xpart = {
+                    psys: this,
+                    x: e.x,
+                    y: e.y,
+                    size: Math.round(Math.random()*3) + 1,
+                    color: Util.choose([
+                        new Color(205,224,66,.75), 
+                        new Color(104,178,41,.75),
+                        new Color(97,123,71,.75),
+                    ]),
+                    dx: (Math.random() - .5)*.04,
+                    dy: (Math.random() - .5)*.04,
+                    ttl: 600,
                 }
                 return new FadeParticle(xpart);
             },

@@ -336,13 +336,11 @@ class characterClass {
                 });
             } else if (attackKind === "poison") {
                 let attack = this.currentAttack;
-                /*
-                let fx = new IceTrailFx({
+                let fx = new PoisonTrailFx({
                     getx: () => attack.x,
                     gety: () => attack.y,
                     geteol: () => !(attack.active),
                 });
-                */
             }
             this.mana -= manaCost;
             // transition to attack state (based on idle direction)

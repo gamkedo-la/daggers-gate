@@ -1283,7 +1283,12 @@ const daggerAssets = [
         {tag: "WOOD-WALL-B",               id: 431, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*13, tileset: true },
         {tag: "BRIDGE_LEFT_SIDE",          id: 432, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*13, tileset: true },
         {tag: "BRIDGE_MIDDLE",             id: 433, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*13, passable: true, pathFindingWalkable: true, tileset: true },
-        {tag: "BRIDGE_RIGHT_SIDE",         id: 434, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*13, tileset: true }
+        {tag: "BRIDGE_RIGHT_SIDE",         id: 434, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*13, tileset: true },
+
+        {tag: "PAINTING_CASTLE-T",          id: 440, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*14, tileset: true },
+        {tag: "PAINTING_CASTLE-B",          id: 441, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*14, tileset: true },      
+        {tag: "MONEY_BOX-T",                id: 442, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*14, tileset: true },
+        {tag: "MONEY_BOX-B",                id: 443, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*14, tileset: true }
     ]},
 
     { src: "images/traps.png", cls: "Sheet", assets: [

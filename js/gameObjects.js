@@ -72,7 +72,6 @@ class gameObjectClass extends characterClass {
         // set spec defaults
         spec.kind = spec.kind || "object";
         super(spec);
-        if (this.tag === "PUSH_STONE") console.log("stone: " + this);
         this.trap = (spec.trap) ? Object.assign({}, spec.trap) : undefined;
         if (this.trap) {
             // pick random ttl, so that traps do not go off at the same time
@@ -86,7 +85,6 @@ class gameObjectClass extends characterClass {
         }
         this.correctPuzzleLocation = false;
         this.want = spec.want || undefined;
-        //console.log("created gameobject: " + this);
         // tag object w/ wanted action
         this.wantAction = actionKindMap[this.kind];
         this.nudge = (spec.nudge) ? new Nudge(Object.assign({}, spec.nudge, {target:this})): undefined;
@@ -121,7 +119,6 @@ class gameObjectClass extends characterClass {
     }
 
     interact(character) {
-        //console.log("game object kind: " + this.kind);
         switch (this.kind) {
         case "door":
             if (this.state !== Animator.open) {
@@ -215,7 +212,7 @@ class gameObjectClass extends characterClass {
 
     update(updateCtx) {
         // handle trap updates
-        if (this.trap && this.trap.projectile) {
+        if (this.trap) {
             // for projectile traps...
             // -- state is managed as either idle, or in attacking state
             if (this.trap.projectile) {

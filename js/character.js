@@ -394,7 +394,8 @@ class characterClass {
     doDrop() {
         if (this.grabbedObj) {
             console.log("dropping object: " + this.grabbedObj);
-            this.grabbedObj.y += 15;
+            //this.grabbedObj.y += 15;
+            this.grabbedObj.reset();
             //this.grabbedObj.visible = true;
             currentLevel.addObject(this.grabbedObj);
             this.grabbedObj = undefined;

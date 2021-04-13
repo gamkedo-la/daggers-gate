@@ -861,10 +861,12 @@ const daggerObjects = {
         health: 5,
         maxHealth: 5,
         collider: { width:25, height: 25 },
+        delayDeath: 1000,
         sketch: { 
             cls: "Animator",
             animations: {
                 [Animator.idle]: "POT",
+                [Animator.death]: "POT_DESTROYED",
             },
         },
     },
@@ -1145,6 +1147,8 @@ const daggerAssets = [
         {tag: "POISON_DART",             id: 87, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 350, },
         {tag: "WIND_GUST",               id: 88, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 350, },
         {tag: "WOOD_FLOOR_ALT",          id: 89, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 350,  passable: true, pathFindingWalkable: true, tileset: true },
+        //ROW 9    
+        {tag: "POT_DESTROYED",          id: 90, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 400, },
     ]},
 
     { src: "images/spritesheet_Overworld.png", cls: "Sheet", assets: [

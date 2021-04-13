@@ -883,6 +883,18 @@ const daggerObjects = {
         },
     },
 
+    RESET_BUTTON: {
+        kind: "button",
+        collider: { width:35, height: 35, blocking: false },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "RESET_BUTTON",
+                [Animator.pressed]: "RESET_BUTTON_PRESSED",
+            },
+        },
+    },
+
     KEY: {
         kind: "loot",
         loot: {
@@ -1148,7 +1160,13 @@ const daggerAssets = [
         {tag: "WIND_GUST",               id: 88, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 350, },
         {tag: "WOOD_FLOOR_ALT",          id: 89, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 350,  passable: true, pathFindingWalkable: true, tileset: true },
         //ROW 9    
-        {tag: "POT_DESTROYED",          id: 90, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 400, },
+        {tag: "POT_DESTROYED",           id: 90, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 400, },
+        {tag: "RESET_BUTTON",            id: 91, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 400, tileset: true },
+        {tag: "RESET_BUTTON_PRESSED",            cls: "Animation", loop: false, cels: [
+            { xoffset: 100, yoffset: 400, width: 50, height: 50, duration: 200 },
+            { xoffset: 150, yoffset: 4000, width: 50, height: 50, duration: 200 },
+        ]},
+        // NEXT ID: 94
     ]},
 
     { src: "images/spritesheet_Overworld.png", cls: "Sheet", assets: [

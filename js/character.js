@@ -193,7 +193,6 @@ class characterClass {
             getx: () => this.x,
             gety: () => this.y,
         });
-        console.log("blownFx: " + this.blownFx);
     }
     removeBlown() {
         this.blown = false;
@@ -467,10 +466,12 @@ class characterClass {
         }
         if (this.deathTTL > 0) {
             this.deathTTL -= updateCtx.deltaTime;
-            if (this.constructor.name === "enemyClass") {
-                currentLevel.destroyEnemy(this);
-            } else {
-                currentLevel.destroyObject(this);
+            if (this.deathTTL <= 0) {
+                if (this.constructor.name === "enemyClass") {
+                    currentLevel.destroyEnemy(this);
+                } else {
+                    currentLevel.destroyObject(this);
+                }
             }
         }
         let incapacitated = (this.state === Animator.death);

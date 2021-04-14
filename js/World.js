@@ -51,10 +51,12 @@ var allLevels = {
 
   "temple_area1": Object.assign(temple_area1Spec, {
       exits: [
-        { x: 21, y: 20, lvl: "temple_entryway",    spawn: "temple_area1" },
+        { x: 21, y: 20, lvl: "temple_entryway",   spawn: "temple_area1" },
+        { x: 8,  y: 14,  lvl: "house1",            spawn: "temple_area1"}
       ],
       spawns: {
         "temple_entryway":  { x: 21, y: 19 },
+        "house1": { x: 8, y: 12 }
       },
       //lockPredicate: (lvl) => lvl.enemies.length !== 0,
     }),
@@ -89,10 +91,12 @@ var allLevels = {
   "house1": Object.assign(house1Spec, {
       exits: [
         { x: 4, y: 6, lvl: "town",    spawn: "house1" },
+        { x: 1, y: 5, lvl: "temple_area1", spawn: "house1" },
       ],
       spawns: {
         "start":  { x: 2, y: 3 },
         "town":   { x: 4, y: 5 },
+        "temple_area1": { x: 4, y: 5  }, // when spawning from temple_area1; spawn at door
       },
   }),
 

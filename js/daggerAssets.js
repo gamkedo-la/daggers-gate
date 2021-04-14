@@ -1167,7 +1167,12 @@ const daggerAssets = [
             { xoffset: 100, yoffset: 400, width: 50, height: 50, duration: 50 },
             { xoffset: 150, yoffset: 400, width: 50, height: 50, duration: 100 },
         ]},
-        // NEXT ID: 94
+        {tag: "CHASM_EDGE",           id: 94, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 400, tileset: true },
+        {tag: "CHASM",                id: 95, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 400, tileset: true },
+        {tag: "DOOR_WESTERN_B",       id: 96, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 400, tileset: true },
+        {tag: "DOOR_WESTERN_T",       id: 97, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 400, tileset: true },
+        {tag: "DOOR_SOUTHERN",        id: 98, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 400, tileset: true },
+        // NEXT ID: 96
     ]},
 
     { src: "images/spritesheet_Overworld.png", cls: "Sheet", assets: [

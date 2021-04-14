@@ -885,6 +885,7 @@ const daggerObjects = {
 
     RESET_BUTTON: {
         kind: "button",
+        resetRange: 50*10,
         collider: { width:35, height: 35, blocking: false },
         sketch: { 
             cls: "Animator",
@@ -1161,10 +1162,10 @@ const daggerAssets = [
         {tag: "WOOD_FLOOR_ALT",          id: 89, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 350,  passable: true, pathFindingWalkable: true, tileset: true },
         //ROW 9    
         {tag: "POT_DESTROYED",           id: 90, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 400, },
-        {tag: "RESET_BUTTON",            id: 91, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 400, tileset: true },
-        {tag: "RESET_BUTTON_PRESSED",            cls: "Animation", loop: false, cels: [
-            { xoffset: 100, yoffset: 400, width: 50, height: 50, duration: 200 },
-            { xoffset: 150, yoffset: 4000, width: 50, height: 50, duration: 200 },
+        {tag: "RESET_BUTTON",            id: 91, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 400, tileset: true, bgr: true },
+        {tag: "RESET_BUTTON_PRESSED",            cls: "Animation", loop: false, bgr: true, cels: [
+            { xoffset: 100, yoffset: 400, width: 50, height: 50, duration: 50 },
+            { xoffset: 150, yoffset: 400, width: 50, height: 50, duration: 100 },
         ]},
         // NEXT ID: 94
     ]},

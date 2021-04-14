@@ -25,6 +25,7 @@ class Animator {
     static idleTransparent =36;
     static openTransparent =37;
     static delay =          38;
+    static pressed =        39;
 
     // PROPERTIES ----------------------------------------------------------
     get width() {

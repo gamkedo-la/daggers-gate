@@ -96,6 +96,7 @@ class gameObjectClass extends characterClass {
         this.overlay = Util.objKeyValue(spec, "overlay", false);
         this.locked = Util.objKeyValue(spec, "locked", true);
         this.autoclose = Util.objKeyValue(spec, "autoclose", false);
+        this.resetRange = Util.objKeyValue(spec, "resetRange", 0);
         this.xxform = spec.xxform || undefined;
     }
 
@@ -203,9 +204,27 @@ class gameObjectClass extends characterClass {
 
     /**
      * What to do when another character has collided with us
-     * @param {*} thisEntity 
+     * @param {*} other 
      */
-    checkCollisionAgainst(thisEntity) {
+    checkCollisionAgainst(other) {
+        // handle button collisions
+        if (this.kind === "button" && other === p1) {
+            if (p1.collider.overlaps(this.collider)) {
+                if (this.state === Animator.idle) {
+                    this.state = Animator.pressed;
+                    if (this.resetRange) {
+                        let v1 = new Vect(this.x, this.y);
+                        for (const obj of currentLevel.findObject((obj) => obj.kind === "pushable" && v1.dist(obj.x, obj.y) <= this.resetRange)) {
+                            obj.reset();
+                        }
+                    }
+                }
+            } else {
+                if (this.state !== Animator.idle) {
+                    this.state = Animator.idle;
+                }
+            }
+        }
         // FIXME: handling damage by player running into spikes goes here...
 
     }

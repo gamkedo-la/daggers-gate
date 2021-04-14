@@ -1,9 +1,9 @@
 var audioFormat;
 var isMuted = false;
-var soundSetforMeetings = false; //make false to hear at normal level
+var soundSetforMeetings = true; //make false to hear at normal level
 
-//background music
-var guitarChords = new BackgroundMusicClass();
+//Background Sounds
+var musicSound = new BackgroundMusicClass("basicGuitarChords");
 
 //Warrior's Voice
 var warriorOuch = new SoundOverlapsClass("ouch");
@@ -56,15 +56,15 @@ function SoundOverlapsClass(filenameWithPath) {
     }
 }  
 
-function BackgroundMusicClass() {
-    this.loopSong = function(filenameWithPath) {
+function BackgroundMusicClass(filenameWithPath) {
+    this.loopSong = function() {
 		setFormat();
 
 		if (musicSound != null) {
-			musicSound.pause();
+		//	musicSound.pause();
 			musicSound = null;
 		}
-		musicSound = new Audio("sound/music/" + filenameWithPath + audioFormat);
+		musicSound = new Audio("sound/" + filenameWithPath + audioFormat);
 		if(soundSetforMeetings){
 			musicSound.volume = 0.04; //quieter for screen sharing during meetings
 		}

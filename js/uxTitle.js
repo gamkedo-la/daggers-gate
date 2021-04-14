@@ -42,6 +42,8 @@ class UxTitleCtrl extends UxCtrl {
     keyPressed(key) {
         if (key === KEY_SPACE) {
             this.onStart();
+            musicSound.loopSong();
+
         }
     }
 

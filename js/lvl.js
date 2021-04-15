@@ -96,7 +96,14 @@ class Level {
                     }
                 }
 
-                // lookup objects
+                // spawn objects
+                if (this.spawnObject(this.bg[i], i)) {
+                    this.bg[i] = 0;
+                }
+                if (this.spawnObject(this.fg[i], i)) {
+                    this.fg[i] = 0;
+                }
+                /*
                 spec = props.getObjectSpec(this.fg[i]);
                 if (spec) {
                     // don't draw as lvl data
@@ -114,12 +121,32 @@ class Level {
                     let obj = new gameObjectClass(spec);
                     this.objects.push(obj);
                 }
+                */
             }
             // FIXME
             // lookup sprites
             this.bgsketches[i] = this.genSketch(this.bg[i]);
             this.fgsketches[i] = this.genSketch(this.fg[i]);
         }
+    }
+
+    spawnObject(oid, idx) {
+        let spec = props.getObjectSpec(oid);
+        let obj = undefined;
+        if (spec) {
+            let tag = props.getTag(oid);
+            spec = Object.assign({
+                tileid: oid,
+                tag: tag,
+                sketch: assets.get(tag),
+                name: props.getName(oid),
+                x: this.xfromidx(idx, true),
+                y: this.yfromidx(idx, true),
+            }, spec);
+            obj = new gameObjectClass(spec);
+            this.objects.push(obj);
+        }
+        return obj;
     }
 
     isLocked() {

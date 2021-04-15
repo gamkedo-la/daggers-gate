@@ -225,6 +225,14 @@ class gameObjectClass extends characterClass {
                 }
             }
         }
+        if (this.kind === "void") {
+            if (p1.collider.overlaps(this.collider)) {
+                if (!other.falling) {
+                    console.log("yep we're falling");
+                    other.doFall(this.x, this.y);
+                }
+            }
+        }
         // FIXME: handling damage by player running into spikes goes here...
 
     }

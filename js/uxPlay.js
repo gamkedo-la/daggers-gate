@@ -463,6 +463,7 @@ class UxPlayCtrl extends UxCtrl {
 			levelLoader.load(queuedExit.lvl);
 			// respawn player
 			currentLevel.placeCharacter(p1, queuedExit.spawn);
+            p1.lastSpawn = queuedExit.spawn;
 			queuedExit = undefined;
 			SetupPathfindingGridData(p1);
             // reset camera

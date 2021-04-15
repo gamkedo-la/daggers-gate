@@ -34,6 +34,7 @@ class warriorClass extends characterClass {
             let weapon = evt.value;
             this.selectedSecondary = (weapon) ? weapon.attackKind : "none";
         });
+        console.log("player yoff: " + this.yOff);
     }
 
     // properties

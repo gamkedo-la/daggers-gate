@@ -77,6 +77,9 @@ class characterClass {
         this.attackDelayTTL = 0;
         this.delayDeath = spec.delayDeath || 500;
         this.deathTTL = 0;
+        // scale/rotation
+        this.scale = 1;
+        this.angle = 0;
     }
 
     get state() {
@@ -186,6 +189,7 @@ class characterClass {
     }
 
     applyBlown(dir) {
+        if (this.falling) return;
         this.stopPathfinding();
         this.blown = true;
         this.blownDir = dir;
@@ -201,6 +205,18 @@ class characterClass {
             this.blownFx.destroy();
             this.blownFx = undefined;
         }
+    }
+
+    doFall(x,y) {
+        console.log("start doFall");
+        if (this.currentAttack) this.currentAttack = undefined;
+        if (this.blown) this.removeBlown();
+        if (this.grabbedObj) this.doDrop();
+        this.falling = true;
+        this.translation = new Translation({target: this, x:x, y:y, ttl: 200});
+        this.fallTTL = 500;
+        this.dscale = 1/this.fallTTL;
+        this.dangle = Math.PI*2/this.fallTTL;
     }
 
     /**
@@ -481,10 +497,12 @@ class characterClass {
         if (this.nudge) {
             this.nudge.update(updateCtx)
             if (this.nudge.done) this.nudge = undefined;
+            this.collider.update(this.x, this.y, currentLevel.idxfromxy);
         }
         if (this.translation) {
             this.translation.update(updateCtx)
             if (this.translation.done) this.translation = undefined;
+            this.collider.update(this.x, this.y, currentLevel.idxfromxy);
         }
 
         // regenerate mana over time
@@ -555,6 +573,26 @@ class characterClass {
                 this.move_North = true;
                 break;
             }
+        }
+
+        // handle falling condition
+        if (this.falling) {
+            // translate
+            if (this.translation) {
+                // do nothing...
+            } else if (this.fallTTL > 0) {
+                this.fallTTL -= updateCtx.deltaTime;
+                this.scale -= this.dscale * updateCtx.deltaTime;
+                this.angle += this.dangle * updateCtx.deltaTime;
+            } else {
+                console.log("this falling set to false");
+                this.falling = false;
+                //this.takeDamage(10);
+                this.respawn();
+                this.scale = 1;
+                this.angle = 0;
+            }
+            incapacitated = true;
         }
 
         // handle movement
@@ -782,13 +820,42 @@ class characterClass {
         }
     }
 
+    respawn() {
+        if (this.lastSpawn) {
+            currentLevel.placeCharacter(this, this.lastSpawn);
+            this.collider.update(this.x, this.y, currentLevel.idxfromxy);
+            this.removeBlown();
+        } else {
+            this.reset();
+        }
+    }
+
     draw() {
         // handle grabbed object or attack behind player
         if(this.facing === Animator.idleNorth) {
             if (this.grabbedObj) this.grabbedObj.draw();
             if (this.currentAttack) this.currentAttack.render(canvasContext);
         }
-        drawBitmapCenteredAtLocationWithRotation(this.sketch, this.x+this.xOff, this.y+this.yOff, 0.0);
+
+        // draw the character's sketch
+        if (this.sketch && this.sketch.render) {
+            let atX = this.x;
+            let atY = this.y;
+            let width = this.sketch.width;
+            let height = this.sketch.height;
+            let minx = -width * .5 + this.xOff;
+            let miny = -height * .5 + this.yOff;
+            canvasContext.save();
+            canvasContext.translate(atX,atY);
+            if (this.angle) canvasContext.rotate(this.angle);
+            if (this.scale !== 1) canvasContext.scale(this.scale, this.scale);
+            this.sketch.render(canvasContext, minx, miny);
+            canvasContext.restore();
+            //colorRect(atX-4, atY-4, 8, 8, "black");
+            //colorRect(this.x-4, this.y-4, 8, 8, "red");
+        }
+
+        //drawBitmapCenteredAtLocationWithRotation(this.sketch, this.x+this.xOff, this.y+this.yOff, this.angle, this.scale);
         if (showCollisions) {
             if (this.interactCollider) this.interactCollider.draw(canvasContext);
             this.collider.draw(canvasContext);

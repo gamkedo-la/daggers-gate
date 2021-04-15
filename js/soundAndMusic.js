@@ -3,7 +3,8 @@ var isMuted = false;
 var soundSetforMeetings = true; //make false to hear at normal level
 
 //Background Sounds
-var musicSound = new BackgroundMusicClass("basicGuitarChords");
+var musicSound = new BackgroundMusicClass("kyleTrack_1");
+
 
 //Warrior's Voice
 var warriorOuch = new SoundOverlapsClass("ouch");

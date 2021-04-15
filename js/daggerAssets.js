@@ -1337,6 +1337,8 @@ const daggerAssets = [
         {tag: "BRIDGE_RIGHT_SIDE",         id: 434, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*13, tileset: true },
         {tag: "BED-T",                     id: 435, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*13, tileset: true},
         {tag: "BED-B",                     id: 436, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*13, tileset: true },
+        {tag: "DRESSER-T",                 id: 437, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*13, tileset: true},
+        {tag: "DRESSER-B",                 id: 438, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*13, tileset: true },
 
         {tag: "PAINTING_CASTLE-T",          id: 440, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*14, tileset: true },
         {tag: "PAINTING_CASTLE-B",          id: 441, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*14, tileset: true },      

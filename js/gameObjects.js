@@ -44,7 +44,6 @@ class Translation {
         this.y = Util.objKeyValue(spec, "y", 0);
         this.dx = (this.x-this.target.x)/this.ttl;
         this.dy = (this.y-this.target.y)/this.ttl;
-        console.log("dx: " + this.dx + " dy: " + this.dy);
     }
 
     get done() {
@@ -151,12 +150,12 @@ class gameObjectClass extends characterClass {
             if (!character.grabbedObj) {
                 character.grabbedObj = this;
                 //this.visible = false; // object is drawn during player render, don't draw during lvl render
-                console.log("picked up: " + this);
+                //console.log("picked up: " + this);
             }
             break;
         case "altar":
             if (character.grabbedObj && character.grabbedObj.tag === this.want) {
-                console.log("placing gem on altar...");
+                //console.log("placing gem on altar...");
                 // character drops object
                 let obj = character.grabbedObj;
                 character.grabbedObj = undefined;
@@ -228,7 +227,6 @@ class gameObjectClass extends characterClass {
         if (this.kind === "void") {
             if (p1.collider.overlaps(this.collider)) {
                 if (!other.falling) {
-                    console.log("yep we're falling");
                     other.doFall(this.x, this.y);
                 }
             }
@@ -289,13 +287,13 @@ class gameObjectClass extends characterClass {
                 // handle trap effects
                 if (this.active) {
                     if (this.collider.overlaps(p1.collider) && !this.trap.ignore.includes(p1)) {
-                        console.log("player taking trap damage: " + this.trap.damage);
+                        //console.log("player taking trap damage: " + this.trap.damage);
                         p1.takeDamage(this.trap.damage);
                         this.trap.ignore.push(p1);
                     }
                     let ohits = currentLevel.findAll((v) => v.health > 0 && this.collider.overlaps(v.collider) && !this.trap.ignore.includes(v));
                     for (const ohit of ohits) {
-                        console.log("enemy: " + ohit + " taking trap damage: " + this.trap.damage);
+                        //console.log("enemy: " + ohit + " taking trap damage: " + this.trap.damage);
                         ohit.takeDamage(this.trap.damage);
                         this.trap.ignore.push(ohit);
                     }

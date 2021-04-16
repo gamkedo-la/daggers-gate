@@ -34,7 +34,6 @@ class warriorClass extends characterClass {
             let weapon = evt.value;
             this.selectedSecondary = (weapon) ? weapon.attackKind : "none";
         });
-        console.log("player yoff: " + this.yOff);
     }
 
     // properties
@@ -253,12 +252,12 @@ class warriorClass extends characterClass {
         // select primary/secondary actions...
         let newPrimary = this.choosePrimary()
         if (newPrimary !== this.chosenPrimary) {
-            console.log("new primary action: " + newPrimary);
+            //console.log("new primary action: " + newPrimary);
             this.chosenPrimary = newPrimary;
         }
         let newSecondary = this.chooseSecondary()
         if (newSecondary !== this.chosenSecondary) {
-            console.log("new secondary action: " + newSecondary);
+            //console.log("new secondary action: " + newSecondary);
             this.chosenSecondary = newSecondary;
         }
 

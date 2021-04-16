@@ -208,7 +208,6 @@ class characterClass {
     }
 
     doFall(x,y) {
-        console.log("start doFall");
         if (this.currentAttack) this.currentAttack = undefined;
         if (this.blown) this.removeBlown();
         if (this.grabbedObj) this.doDrop();
@@ -585,7 +584,6 @@ class characterClass {
                 this.scale -= this.dscale * updateCtx.deltaTime;
                 this.angle += this.dangle * updateCtx.deltaTime;
             } else {
-                console.log("this falling set to false");
                 this.falling = false;
                 //this.takeDamage(10);
                 this.respawn();

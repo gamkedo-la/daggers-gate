@@ -1671,7 +1671,9 @@ const daggerAssets = [
         {tag: "ALCHEMIST",            id: 906, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 100 },
         {tag: "ALCHEMIST_PORT",                cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 122 },
     // 907   
-        {tag: "FLETCHER",             id: 907, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 100 },
+        {tag: "FLETCHER",             id: 907, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 300 },
+        {tag: "FLETCHER_PORT",                cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 322 },
+       
     // 908   
         {tag: "HEALER",               id: 908, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 100 },
     ]},

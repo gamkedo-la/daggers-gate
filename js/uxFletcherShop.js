@@ -49,7 +49,7 @@ class UxFletcherShopCtrl extends UxCtrl {
                                         },
                                         {
                                             cls: "UxPanel",
-                                            xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("ALCHEMIST_PORT") ),
+                                            xsketch: Object.assign( {lockRatio: true, xfitter: { cls: "FitToParent" }}, assets.get("FLETCHER_PORT") ),
                                             xxform: { offset: 5 },
                                         },
                                         {

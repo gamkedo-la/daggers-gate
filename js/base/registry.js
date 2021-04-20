@@ -24,6 +24,7 @@ class Registry {
         UxView._genreg(UxTitleView);
         UxView._genreg(UxPlayView);
         UxView._genreg(UxEditorView);
+        UxView._genreg(UxFader);
         // sketches
         Sketch._genreg(Animation);
         Sketch._genreg(Rect);

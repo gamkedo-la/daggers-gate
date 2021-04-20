@@ -32,6 +32,12 @@ class UxPlayCtrl extends UxCtrl {
                     tag: "play",
                     xxform: { origx: 0, origy: 0 },
                 },
+                {
+                    cls: "UxFader",
+                    tag: "play",
+                    fadeTTL: 2500,
+                    xxform: { origx: 0, origy: 0 },
+                },
 
                 // Z panel ---------------------------------------------------------------------------------
                 {

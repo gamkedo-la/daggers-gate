@@ -1683,13 +1683,14 @@ const daggerAssets = [
         {tag: "NPC2_IDLE_WEST",       cls: "Sprite", width: 50, height: 100, xoffset: 150, yoffset: 200 },
         {tag: "NPC2_IDLE_EAST",       cls: "Sprite", width: 50, height: 100, xoffset: 200, yoffset: 200 },
     // 906   
-        {tag: "ALCHEMIST",            id: 906, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 100 },
-        {tag: "ALCHEMIST_PORT",                cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 122 },
+        {tag: "ALCHEMIST",            id: 906, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 500 },
+        {tag: "ALCHEMIST_PORT",                cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 522 },
     // 907   
         {tag: "FLETCHER",             id: 907, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 300 },
-        {tag: "FLETCHER_PORT",                cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 322 },
+        {tag: "FLETCHER_PORT",                 cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 322 },
     // 908   
-        {tag: "HEALER",               id: 908, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 100 },
+        {tag: "HEALER",               id: 908, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 500 },
+        {tag: "HEALER_PORT",                   cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 522 },
     // 909   
         {tag: "ELDER",                id: 909,  cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 400 },
         {tag: "ELDER_PORT",                     cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 422 },

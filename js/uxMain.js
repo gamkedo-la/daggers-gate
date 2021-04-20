@@ -84,7 +84,7 @@ class UxMainCtrl extends UxCtrl {
     onStart(evt) {
         console.log("onStart");
         // build out next controller
-        ctrlSys.assign(new UxPlayCtrl());
+        ctrlSys.assign(new UxStoryCtrl());
         // tear down my view
         this.view.destroy();
     }

@@ -34,7 +34,6 @@ class UxPlayCtrl extends UxCtrl {
                 },
                 {
                     cls: "UxFader",
-                    tag: "play",
                     fadeTTL: 2500,
                     xxform: { origx: 0, origy: 0 },
                 },

@@ -1183,8 +1183,10 @@ const daggerAssets = [
         {tag: "POISON_DART",             id: 87, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 350, },
         {tag: "WIND_GUST",               id: 88, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 350, },
         {tag: "WOOD_FLOOR_ALT",          id: 89, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 350,  passable: true, pathFindingWalkable: true, tileset: true },
-        //ROW 9    
-        {tag: "POT_DESTROYED",           id: 90, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 400, },
+        //ROW 9   
+            // remove the following line once the separate spritesheet 
+            // has been tested and is proven to be working
+            // {tag: "POT_DESTROYED",           id: 521, cls: "Animation", width: 50, height: 50, xoffset: 0, yoffset: 400, },
         {tag: "RESET_BUTTON",            id: 91, cls: "Sprite", width: 50, height: 50, xoffset: 50, yoffset: 400, tileset: true, bgr: true },
         {tag: "RESET_BUTTON_PRESSED",            cls: "Animation", loop: false, bgr: true, cels: [
             { xoffset: 100, yoffset: 400, width: 50, height: 50, duration: 50 },
@@ -1475,6 +1477,15 @@ const daggerAssets = [
             { xoffset: 200, yoffset: 0, width: 50, height: 50, duration: 400 },
         ]},
     ]},
+
+    { src: "images/potDestroyed.png", cls: "Sheet", assets: [
+            {tag: "POT_DESTROYED",             id: 521, cls: "Animation", loop: false, cels: [
+                    { xoffset: 0, yoffset: 0, width: 50, height: 50, duration: 100 },
+                    { xoffset: 50, yoffset: 0, width: 50, height: 50, duration: 100 },
+                    { xoffset: 100, yoffset: 0, width: 50, height: 50, duration: 100 },
+                    { xoffset: 150, yoffset: 0, width: 50, height: 50, duration: 300 },
+                ]},
+        ]},
 
     /* === 900 - 999 ========================================================================= */
     // Player/Enemies/NPCs

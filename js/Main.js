@@ -42,7 +42,7 @@ var levelLoader = new LevelLoader({
 	lvls: allLevels,
 	// FYI: uncomment to disable enemies in maps
 	//dbgNoEnemy: true,
-	//dbg: true,
+	dbg: true,
 });
 var framesPerSecond = 30;
 var deltaTime = 1000/framesPerSecond;

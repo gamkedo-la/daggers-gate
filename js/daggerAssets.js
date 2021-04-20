@@ -165,6 +165,13 @@ const animators = {
         }
     },
 
+    "ELDER": {
+        cls: "Animator",
+        animations: {
+            [Animator.idle]: "ELDER",
+        }
+    },
+
 }
 
 /**
@@ -1681,9 +1688,11 @@ const daggerAssets = [
     // 907   
         {tag: "FLETCHER",             id: 907, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 300 },
         {tag: "FLETCHER_PORT",                cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 322 },
-       
     // 908   
         {tag: "HEALER",               id: 908, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 100 },
+    // 909   
+        {tag: "ELDER",                id: 909,  cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 400 },
+        {tag: "ELDER_PORT",                     cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 422 },
     ]},
 
     /* === NON INDEXED ASSETS ================================================================ */

@@ -169,7 +169,7 @@ const animators = {
         cls: "Animator",
         animations: {
             [Animator.idle]: "ELDER",
-        }
+        },
     },
 
 }
@@ -298,6 +298,23 @@ const daggerNpcs = {
         },
         dialogs: [
             { tag: "fletcher", predicate: (npc) => true },
+        ],
+    },
+
+    ELDER: {
+        sketch: animators["ELDER"],
+        yOff: -25,
+        collider: {
+            color: "rgba(175,175,175,.75)",
+            width: 20, 
+            height: 30, 
+            //blocking: false,
+        },
+        dialogs: [
+            { tag: "clariceStart", predicate: (npc) => !quests.checkStarted("m2") && !quests.checkDone("m2") && !quests.checkCompleted("m2")},
+            { tag: "clariceWait", predicate: (npc) => quests.checkStarted("m2") },
+            { tag: "clariceDone", predicate: (npc) => quests.checkDone("m2") },
+            { tag: "clariceComplete", predicate: (npc) => quests.checkCompleted("m2") },
         ],
     },
 

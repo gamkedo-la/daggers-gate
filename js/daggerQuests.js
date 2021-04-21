@@ -1,4 +1,39 @@
 const daggerQuests = {
+    "m1": {
+        main: true,
+        title: "An Evil Awakens, A Hero Rises, Pt. 1",
+        text: "You awaken from a restless sleep with haunted visions of your town in ruins, your friends murdered, and your own death.  Seek out Elder Clarice.  She may be able to help sort out your dreams and guide you.",
+        rewards: [
+            { tag: "GOLD_COINS_TWO_DROP", amt: 5 },
+        ],
+        objectives: [
+            {
+                text: "Speak with Elder Clarice",
+                cls: "CollectionObjective",
+                getter: () => 0,
+                count: 1,
+            },
+        ],
+    },
+
+    "m2": {
+        main: true,
+        title: "An Evil Awakens, A Hero Rises, Pt. 2",
+        text: "Seek the artifact from the Temple of the Elements, located in the Church cellar here in town.  Unlock the internal temple seals by matching rune stones to rune pillars to reach the artifact.  Avoid any temple safeguards.",
+        rewards: [
+            { tag: "GOLD_COINS_TWO_DROP", amt: 5 },
+        ],
+        turnin: "Return to Elder Clarice in Dagger's Gate",
+        objectives: [
+            {
+                text: "Obtain the Ancient Artifact",
+                cls: "CollectionObjective",
+                getter: () => 0,
+                count: 1,
+            },
+        ],
+    },
+
     "q1": {
         main: true,
         title: "There and Back Again",
@@ -23,9 +58,9 @@ const daggerQuests = {
                 count: 1,
             },
             */
-
         ],
     },
+
     "q2": {
         main: true,
         title: "Find the Ice Wand",

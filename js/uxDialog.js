@@ -32,7 +32,7 @@ class UxDialogCtrl extends UxCtrl {
                             cls: "UxText",
                             tag: "dialogText",
                             xtext: { color: dialogColor, text: "dialog", wrap: true, fit: false, font: this._font},
-                            xxform: { otop: 25, oleft: 10, oright: 5 },
+                            xxform: { otop: 25, oleft: 20, oright: 15 },
                         },
                     ],
                 },

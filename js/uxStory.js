@@ -65,7 +65,6 @@ class UxStoryCtrl extends UxCtrl {
         // lookup UI elements
         this.dialogPanel = this.view.find((v) => v.tag === "dialogPanel");
         this.dialogText = this.view.find((v) => v.tag === "dialogText");
-
         let height = Text.measureWrapHeight(this._font, dialog, this.dialogText.width) + this.extraSpace;
         this.dialogPanel.xform.height = height;
     }
@@ -99,6 +98,8 @@ class UxStoryCtrl extends UxCtrl {
 
     // EVENT CALLBACKS -----------------------------------------------------
     onStart(evt) {
+        // start the main quest
+        Quests.instance.start("m1");
         // build out next controller
         ctrlSys.assign(new UxPlayCtrl());
         // tear down my view

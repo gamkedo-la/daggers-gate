@@ -457,6 +457,20 @@ const daggerObjects = {
             },
         },
     },
+    CHURCH_DOOR: {
+        kind: "door",
+        locked: false,
+        autoclose: true,
+        yoff: 25,
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "CHURCH_DOOR",
+                [Animator.open]: "CHURCH_DOOR_OPEN",
+            },
+        },
+    },
+
     CHEST1_CLOSE: {
         kind: "chest",
         collider: {
@@ -1507,6 +1521,51 @@ const daggerAssets = [
                     { xoffset: 150, yoffset: 0, width: 50, height: 50, duration: 300 },
                 ]},
         ]},
+
+    { src: "images/church.png", cls: "Sheet", assets: [
+        // -- row 1
+        {tag: "CHURCH_R1",              id: 530, cls: "Sprite", width: 50*5, height: 50, xoffset: 0, yoffset: 0, tileset: true },
+        {tag: "STUCCO_WALL_TL",         id: 531, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*0, tileset: true },
+        {tag: "STUCCO_WALL_T",          id: 532, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*0, tileset: true },
+        {tag: "STUCCO_WALL_TR",         id: 533, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*0, tileset: true },
+        {tag: "WOOD_FLOOR_3",           id: 534, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*0, tileset: true, passable: true },
+        // -- row 2
+        {tag: "CHURCH_R2",              id: 540, cls: "Sprite", width: 50*5, height: 50, xoffset: 0, yoffset: 50*1, tileset: true },
+        {tag: "STUCCO_WALL_L",          id: 541, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*1, tileset: true },
+        {tag: "STUCCO_WALL",            id: 542, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*1, tileset: true },
+        {tag: "STUCCO_WALL_R",          id: 543, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*1, tileset: true },
+        // -- row 3
+        {tag: "CHURCH_R3",              id: 550, cls: "Sprite", width: 50*5, height: 50, xoffset: 0, yoffset: 50*2, tileset: true },
+        {tag: "BRICK_FLOOR_A",          id: 551, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*2, tileset: true, passable: true },
+        {tag: "BRICK_STAIRS_DOWN",      id: 552, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*2, tileset: true },
+        // -- row 4
+        {tag: "CHURCH_R4",              id: 560, cls: "Sprite", width: 50*5, height: 50, xoffset: 0, yoffset: 50*3, tileset: true },
+        {tag: "BRICK_FLOOR_B",          id: 561, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*3, tileset: true, passable: true },
+        // -- row 5
+        {tag: "CHURCH_R5",              id: 570, cls: "Sprite", width: 50*5, height: 50, xoffset: 0, yoffset: 50*4, tileset: true },
+        {tag: "STUCCO_WALL_BL",         id: 571, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*4, tileset: true },
+        {tag: "STUCCO_WALL_BTL",        id: 572, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*4, tileset: true },
+        {tag: "STUCCO_WALL_RTB",        id: 573, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*4, tileset: true },
+        {tag: "STUCCO_WALL_BR",         id: 574, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*4, tileset: true },
+        // -- row 6
+        {tag: "CHURCH_R6",              id: 580, cls: "Sprite", width: 50*5, height: 50, xoffset: 0, yoffset: 50*5, tileset: true },
+        {tag: "CHURCH_DOOR",            id: 581, cls: "Sprite", width: 50, height: 50*2, xoffset: 50*5, yoffset: 50*5, tileset: true },
+        // -- row 7
+        {tag: "CHURCH_R7",              id: 590, cls: "Sprite", width: 50*5, height: 50, xoffset: 0, yoffset: 50*6, tileset: true },
+        // -- row 8
+        {tag: "CHURCH_R8_1",            id: 600, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 50*7, tileset: true },
+        {tag: "CHURCH_R8_2",            id: 601, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*7, tileset: true },
+        {tag: "CHURCH_R8_3",            id: 602, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*7, tileset: true },
+        {tag: "CHURCH_R8_4",            id: 603, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*7, tileset: true },
+        {tag: "CHURCH_DOOR_OPEN",                cls: "Sprite", width: 50, height: 50*2, xoffset: 50*5, yoffset: 50*7, },
+        // -- row 9
+        {tag: "CHURCH_R9_1",            id: 610, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 50*8, tileset: true },
+        {tag: "CHURCH_R9_2",            id: 611, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*8, tileset: true },
+        {tag: "CHURCH_R9_3",            id: 612, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*8, tileset: true },
+        {tag: "CHURCH_R9_4",            id: 613, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*8, tileset: true },
+
+
+    ]},
 
     /* === 900 - 999 ========================================================================= */
     // Player/Enemies/NPCs

@@ -359,8 +359,10 @@ class UxEditorCtrl extends UxCtrl {
     mouseClicked(mouseX, mouseY) {
         if (this.disable) return;
         // skip mouse click if not on camera
+        console.log(`mouse: ${mouseX},${mouseY} lvl: ${currentLevel.maxx},${currentLevel.maxy} camera: ${camera.maxx},${camera.maxy}`);
         if (!currentLevel.containsPoint(mouseX, mouseY)) return;
         if (!camera.contains(mouseX, mouseY)) return;
+        console.log("placing tile");
         // lookup idx of current mouse position
         let idx = currentLevel.idxfromxy(mouseX, mouseY);
         if (this.selectMode === "fg") {

@@ -72,6 +72,7 @@ var allLevels = {
         { x: 17, y: 34, lvl: "house3",      spawn: "town" },
         { x: 12, y: 25, lvl: "tavern",      spawn: "town"},
         { x: 20, y: 25, lvl: "tavern",      spawn: "town2"},
+        { x: 43, y: 11, lvl: "church",      spawn: "town"},
 
       ],
       spawns: {
@@ -84,7 +85,7 @@ var allLevels = {
         "house3":     { x: 17, y: 35 },
         "tavern":     { x: 12, y: 26 },
         "tavern2":    { x: 20, y: 26 },
-
+        "church":     { x: 43, y: 12 },
       },
   }),
 
@@ -150,6 +151,26 @@ var allLevels = {
       ],
       spawns: {
         "town":  { x: 2, y: 3 },
+      },
+  }),
+
+  "church": Object.assign(churchSpec, {
+      exits: [
+        { x: 2, y: 8, lvl: "town",          spawn: "church" },
+        { x: 1, y: 1, lvl: "churchCellar",  spawn: "church" },
+      ],
+      spawns: {
+        "town":  { x: 2, y: 7 },
+        "churchCellar":  { x: 1, y: 2 },
+      },
+  }),
+
+  "churchCellar": Object.assign(churchCellarSpec, {
+      exits: [
+        { x: 2, y: 8, lvl: "church",    spawn: "churchCellar" },
+      ],
+      spawns: {
+        "church":  { x: 2, y: 7 },
       },
   }),
 

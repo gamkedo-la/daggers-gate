@@ -2,6 +2,7 @@
 
 const _playerMeleeFrameDuration = 40;
 const _playerIdleFrameDuration = 60;
+const _templeGateFrameDuration = 60;
 
 // FIXME: remove when we have real sword
 const swordSpec = {
@@ -457,16 +458,37 @@ const daggerObjects = {
             },
         },
     },
-    CHURCH_DOOR: {
-        kind: "door",
-        locked: false,
-        autoclose: true,
-        yoff: 25,
+    CHURCH_DOOR_T: {
+        kind: "link",
         sketch: { 
             cls: "Animator",
             animations: {
-                [Animator.idle]: "CHURCH_DOOR",
-                [Animator.open]: "CHURCH_DOOR_OPEN",
+                [Animator.idle]: "CHURCH_DOOR_T",
+                [Animator.open]: "CHURCH_DOOR_T_OPEN",
+            },
+        },
+    },
+    CHURCH_DOOR_B: {
+        kind: "door",
+        locked: false,
+        link: { targets: ["up"], vars: ["state"] },
+        autoclose: true,
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "CHURCH_DOOR_B",
+                [Animator.open]: "CHURCH_DOOR_B_OPEN",
+            },
+        },
+    },
+    TEMPLE_GATE: {
+        kind: "door",
+        locked: true,
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "TEMPLE_GATE",
+                [Animator.open]: "TEMPLE_GATE_OPEN",
             },
         },
     },
@@ -1528,7 +1550,6 @@ const daggerAssets = [
         {tag: "STUCCO_WALL_TL",         id: 531, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*0, tileset: true },
         {tag: "STUCCO_WALL_T",          id: 532, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*0, tileset: true },
         {tag: "STUCCO_WALL_TR",         id: 533, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*0, tileset: true },
-        {tag: "WOOD_FLOOR_3",           id: 534, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*0, tileset: true, passable: true },
         // -- row 2
         {tag: "CHURCH_R2",              id: 540, cls: "Sprite", width: 50*5, height: 50, xoffset: 0, yoffset: 50*1, tileset: true },
         {tag: "STUCCO_WALL_L",          id: 541, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*1, tileset: true },
@@ -1549,20 +1570,40 @@ const daggerAssets = [
         {tag: "STUCCO_WALL_BR",         id: 574, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*4, tileset: true },
         // -- row 6
         {tag: "CHURCH_R6",              id: 580, cls: "Sprite", width: 50*5, height: 50, xoffset: 0, yoffset: 50*5, tileset: true },
-        {tag: "CHURCH_DOOR",            id: 581, cls: "Sprite", width: 50, height: 50*2, xoffset: 50*5, yoffset: 50*5, tileset: true },
+        {tag: "CHURCH_DOOR_T",          id: 581, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*5, tileset: true },
+        {tag: "WOOD_FLOOR_3",           id: 582, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*5, tileset: true, passable: true },
+        {tag: "STUCCO_WALL_LTT",        id: 583, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*5, tileset: true },
+        {tag: "STUCCO_WALL_2",          id: 584, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*5, tileset: true },
+        {tag: "STUCCO_WALL_2_R",        id: 585, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*5, tileset: true },
         // -- row 7
         {tag: "CHURCH_R7",              id: 590, cls: "Sprite", width: 50*5, height: 50, xoffset: 0, yoffset: 50*6, tileset: true },
+        {tag: "CHURCH_DOOR_B",          id: 591, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*6, tileset: true },
+        {tag: "DBRICK_FLOOR_A",         id: 592, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*6, tileset: true, passable: true },
+        {tag: "DBRICK_FLOOR_B",         id: 593, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*6, tileset: true, passable: true },
+        {tag: "STUCCO_WALL_TTR",        id: 594, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*6, tileset: true },
+        {tag: "STUCCO_WALL_2_L",        id: 595, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*6, tileset: true },
         // -- row 8
         {tag: "CHURCH_R8_1",            id: 600, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 50*7, tileset: true },
         {tag: "CHURCH_R8_2",            id: 601, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*7, tileset: true },
         {tag: "CHURCH_R8_3",            id: 602, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*7, tileset: true },
         {tag: "CHURCH_R8_4",            id: 603, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*7, tileset: true },
-        {tag: "CHURCH_DOOR_OPEN",                cls: "Sprite", width: 50, height: 50*2, xoffset: 50*5, yoffset: 50*7, },
+        {tag: "CHURCH_DOOR_T_OPEN",              cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*7, },
+        {tag: "TEMPLE_GATE",            id: 604, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*7, tileset: true },
+        {tag: "TEMPLE_GATE_OPEN",               cls: "Animation", loop: false, cels: [
+            { xoffset: 50*7, yoffset: 50*7, width: 50, height: 50, duration: _templeGateFrameDuration },
+            { xoffset: 50*8, yoffset: 50*7, width: 50, height: 50, duration: _templeGateFrameDuration },
+            { xoffset: 50*9, yoffset: 50*7, width: 50, height: 50, duration: _templeGateFrameDuration },
+            { xoffset: 50*6, yoffset: 50*8, width: 50, height: 50, duration: _templeGateFrameDuration },
+            { xoffset: 50*7, yoffset: 50*8, width: 50, height: 50, duration: _templeGateFrameDuration },
+            { xoffset: 50*8, yoffset: 50*8, width: 50, height: 50, duration: _templeGateFrameDuration },
+            { xoffset: 50*9, yoffset: 50*8, width: 50, height: 50, duration: _templeGateFrameDuration },
+        ]},
         // -- row 9
         {tag: "CHURCH_R9_1",            id: 610, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 50*8, tileset: true },
         {tag: "CHURCH_R9_2",            id: 611, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*8, tileset: true },
         {tag: "CHURCH_R9_3",            id: 612, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*8, tileset: true },
         {tag: "CHURCH_R9_4",            id: 613, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*8, tileset: true },
+        {tag: "CHURCH_DOOR_B_OPEN",              cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*8, },
 
 
     ]},

@@ -1604,6 +1604,8 @@ const daggerAssets = [
         {tag: "CHURCH_R9_3",            id: 612, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*8, tileset: true },
         {tag: "CHURCH_R9_4",            id: 613, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*8, tileset: true },
         {tag: "CHURCH_DOOR_B_OPEN",              cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*8, },
+        // -- row 10
+        {tag: "STUCCO_WALL_B",          id: 620, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*9, tileset: true },
 
 
     ]},

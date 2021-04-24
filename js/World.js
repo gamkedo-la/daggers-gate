@@ -39,11 +39,11 @@ var allLevels = {
 
   "temple_entryway": Object.assign(temple_entrywaySpec, {
       exits: [
-        { x: 8, y: 12,  lvl: "lvl2",              spawn: "temple_entryway" }, 
+        { x: 8, y: 12,  lvl: "churchCellar",      spawn: "temple_entryway" }, 
         { x: 3, y: 4,   lvl: "temple_area1",      spawn: "temple_entryway" },
       ],
       spawns: {
-        "lvl2":           { x: 8, y: 10 },
+        "churchCellar":   { x: 8, y: 10 },
         "temple_area1":   { x: 3 , y: 5 },
       },
       //lockPredicate: (lvl) => lvl.enemies.length !== 0,
@@ -156,21 +156,23 @@ var allLevels = {
 
   "church": Object.assign(churchSpec, {
       exits: [
-        { x: 2, y: 8, lvl: "town",          spawn: "church" },
+        { x: 3, y: 8, lvl: "town",          spawn: "church" },
         { x: 1, y: 1, lvl: "churchCellar",  spawn: "church" },
       ],
       spawns: {
-        "town":  { x: 2, y: 7 },
+        "town":  { x: 3, y: 7 },
         "churchCellar":  { x: 1, y: 2 },
       },
   }),
 
   "churchCellar": Object.assign(churchCellarSpec, {
       exits: [
-        { x: 2, y: 8, lvl: "church",    spawn: "churchCellar" },
+        { x: 3, y: 8, lvl: "church",            spawn: "churchCellar" },
+        { x: 3, y: 0, lvl: "temple_entryway",   spawn: "churchCellar" },
       ],
       spawns: {
-        "church":  { x: 2, y: 7 },
+        "church":           { x: 3, y: 7 },
+        "temple_entryway":  { x: 3, y: 1 },
       },
   }),
 

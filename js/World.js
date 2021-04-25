@@ -156,11 +156,11 @@ var allLevels = {
 
   "church": Object.assign(churchSpec, {
       exits: [
-        { x: 3, y: 8, lvl: "town",          spawn: "church" },
+        { x: 3, y: 11, lvl: "town",          spawn: "church" },
         { x: 1, y: 1, lvl: "churchCellar",  spawn: "church" },
       ],
       spawns: {
-        "town":  { x: 3, y: 7 },
+        "town":  { x: 3, y: 10 },
         "churchCellar":  { x: 1, y: 2 },
       },
   }),

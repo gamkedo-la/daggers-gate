@@ -1612,6 +1612,9 @@ const daggerAssets = [
         {tag: "CHURCH_ALTAR_D",          id: 624, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*9, tileset: true },
         {tag: "CHURCH_ALTAR_E",          id: 625, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*9, tileset: true },
         {tag: "CHURCH_ALTAR_F",          id: 626, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*9, tileset: true },
+        {tag: "CHURCH_BENCH_A",          id: 627, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*9, tileset: true },
+        {tag: "CHURCH_BENCH_B",          id: 628, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*9, tileset: true },
+        {tag: "CHURCH_BENCH_C",          id: 629, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*9, tileset: true },
 
 
     ]},

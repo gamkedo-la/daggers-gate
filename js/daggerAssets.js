@@ -1606,6 +1606,12 @@ const daggerAssets = [
         {tag: "CHURCH_DOOR_B_OPEN",              cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*8, },
         // -- row 10
         {tag: "STUCCO_WALL_B",          id: 620, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*9, tileset: true },
+        {tag: "CHURCH_ALTAR_A",          id: 621, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*9, tileset: true },
+        {tag: "CHURCH_ALTAR_B",          id: 622, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*9, tileset: true },
+        {tag: "CHURCH_ALTAR_C",          id: 623, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*9, tileset: true },
+        {tag: "CHURCH_ALTAR_D",          id: 624, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*9, tileset: true },
+        {tag: "CHURCH_ALTAR_E",          id: 625, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*9, tileset: true },
+        {tag: "CHURCH_ALTAR_F",          id: 626, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*9, tileset: true },
 
 
     ]},

@@ -171,7 +171,7 @@ class warriorClass extends characterClass {
 
     gatherLoot(loot) {
         // if loot is a weapon...
-        if (loot.mainHand || loot.offHand) {
+        if (loot.mainHand || loot.offHand || loot.misc) {
             console.log(" ----- INVENTORY ADD");
             this.inventory.add(loot);
         } else {

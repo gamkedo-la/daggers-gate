@@ -5,6 +5,7 @@ const daggerQuests = {
         text: "You awaken from a restless sleep with haunted visions of your town in ruins, your friends murdered, and your own death.  Seek out Elder Clarice.  She may be able to help sort out your dreams and guide you.",
         rewards: [
             { tag: "GOLD_COINS_TWO_DROP", amt: 5 },
+            { tag: "TEMPLE_KEY", amt: 1, misc: true },
         ],
         objectives: [
             {

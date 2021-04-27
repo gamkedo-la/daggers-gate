@@ -122,7 +122,15 @@ class gameObjectClass extends characterClass {
         switch (this.kind) {
         case "door":
             if (this.state !== Animator.open) {
-                if (!this.locked || character.keysHeld > 0) {
+                if (this.tag === "TEMPLE_GATE") {
+                    if (character.inventory.includes("TEMPLE_KEY")) {
+                        this.state = Animator.open;
+                        this.wantAction = undefined;
+                        this.locked = false;
+                        this.active = false;
+                        doorOpenning.play();
+                    }
+                } else if (!this.locked || character.keysHeld > 0) {
                     if (this.locked) {
                         character.keysHeld--; // one less key
                         document.getElementById("debugText").innerHTML = "Keys: " + character.keysHeld;

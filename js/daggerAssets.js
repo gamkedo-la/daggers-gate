@@ -1219,7 +1219,13 @@ const daggerAssets = [
         {tag: "DOOR_ARCH",              id: 65, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 250, tileset: true },
         {tag: "DOOR_ARCH_TRANS",        id: 66, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 250, },
         {tag: "DOOR_OPEN_TOP_TRANS",    id: 67, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 250, },
-        {tag: "WALL_TORCH_TOP",         id: 68, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 250, tileset: true },
+        {tag: "WALL_TORCH_TOP",         id: 68, cls: "Animation", cels: [
+            { xoffset: 400, yoffset: 250, width: 50, height: 50, duration: 100 },
+            { xoffset: 0, yoffset: 450, width: 50, height: 50, duration: 100 },
+            { xoffset: 50, yoffset: 450, width: 50, height: 50, duration: 100 },
+            { xoffset: 100, yoffset: 450, width: 50, height: 50, duration: 100 },
+        ]},
+        //{tag: "WALL_TORCH_TOP",         id: 68, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 250, tileset: true },
         {tag: "WALL_TORCH_BOTTOM",      id: 69, cls: "Sprite", width: 50, height: 50, xoffset: 450, yoffset: 250, tileset: true },
         //ROW 7
         {tag: "STONE_FLOOR",             id: 70, cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 300, passable: true, tileset: true },
@@ -1254,7 +1260,6 @@ const daggerAssets = [
         {tag: "DOOR_WESTERN_B",       id: 96, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 400, tileset: true },
         {tag: "DOOR_WESTERN_T",       id: 97, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 400, tileset: true },
         {tag: "DOOR_SOUTHERN",        id: 98, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 400, tileset: true },
-        // NEXT ID: 96
     ]},
 
     { src: "images/spritesheet_Overworld.png", cls: "Sheet", assets: [

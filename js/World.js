@@ -39,11 +39,11 @@ var allLevels = {
 
   "temple_entryway": Object.assign(temple_entrywaySpec, {
       exits: [
-        { x: 8, y: 12,  lvl: "churchCellar",      spawn: "temple_entryway" }, 
+        { x: 8, y: 12,  lvl: "churchCellar",      spawn: "temple_entryway" }, //leaves church to spawn in Temple Entryway
         { x: 3, y: 4,   lvl: "temple_area1",      spawn: "temple_entryway" },
       ],
       spawns: {
-        "churchCellar":   { x: 8, y: 10 },
+        "churchCellar":   { x: 8, y: 10 }, //Spawn location from Church Cellar
         "temple_area1":   { x: 3 , y: 5 },
       },
       //lockPredicate: (lvl) => lvl.enemies.length !== 0,
@@ -51,14 +51,25 @@ var allLevels = {
 
   "temple_area1": Object.assign(temple_area1Spec, {
       exits: [
-        { x: 21, y: 20, lvl: "temple_entryway",   spawn: "temple_area1" },
-        { x: 8,  y: 14,  lvl: "house1",            spawn: "temple_area1"}
+        { x: 8, y: 14, lvl: "temple_entryway",   spawn: "temple_area1" }, //leaves Area1 to Temple Entryway
+        { x: 8,  y: 1,  lvl: "temple_area1B",    spawn: "temple_area1"}
       ],
       spawns: {
-        "temple_entryway":  { x: 21, y: 19 },
-        "house1": { x: 8, y: 12 }
+        "temple_entryway":  { x: 8, y: 12 },
+        "temple_area1B":  { x: 8, y: 2 },
+        "house1": { x: 8, y: 12 },
+
       },
       //lockPredicate: (lvl) => lvl.enemies.length !== 0,
+    }),
+
+  "temple_area1B": Object.assign(temple_area1BSpec, {
+      exits: [
+        { x: 8, y: 14, lvl: "temple_area1",   spawn: "temple_area1" }, //leaves Area 1B to Area 1
+      ],
+      spawns: {
+        "temple_area1":  { x: 8, y: 12 },
+      },
     }),
 
   "town": Object.assign(townSpec, {

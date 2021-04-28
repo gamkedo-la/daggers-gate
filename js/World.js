@@ -65,7 +65,7 @@ var allLevels = {
 
   "temple_area1B": Object.assign(temple_area1BSpec, {
       exits: [
-        { x: 8, y: 14, lvl: "temple_area1",   spawn: "temple_area1" }, //leaves Area 1B to Area 1
+        { x: 8, y: 14, lvl: "temple_area1",   spawn: "temple_area1B" }, //leaves Area 1B to Area 1
       ],
       spawns: {
         "temple_area1":  { x: 8, y: 12 },

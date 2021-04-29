@@ -41,10 +41,12 @@ var allLevels = {
       exits: [
         { x: 8, y: 12,  lvl: "churchCellar",      spawn: "temple_entryway" }, //leaves church to spawn in Temple Entryway
         { x: 3, y: 4,   lvl: "temple_area1",      spawn: "temple_entryway" },
+        { x: 3, y: 11,   lvl: "temple_area1C",      spawn: "temple_entryway" },
       ],
       spawns: {
         "churchCellar":   { x: 8, y: 10 }, //Spawn location from Church Cellar
         "temple_area1":   { x: 3 , y: 5 },
+        "temple_area1C":   { x: 3 , y: 10 },
       },
       //lockPredicate: (lvl) => lvl.enemies.length !== 0,
     }),
@@ -69,6 +71,15 @@ var allLevels = {
       ],
       spawns: {
         "temple_area1":  { x: 8, y: 12 },
+      },
+    }),
+
+    "temple_area1C": Object.assign(temple_area1CSpec, {
+      exits: [
+        { x: 8, y: 1, lvl: "temple_entryway",   spawn: "temple_area1C" }, //leaves Area1C to Temple Entryway
+      ],
+      spawns: {
+        "temple_entryway":  { x: 8, y: 2 },
       },
     }),
 

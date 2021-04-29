@@ -944,13 +944,34 @@ const daggerObjects = {
         },
     },
 
-    CHASM: {
+    DUNGEON_WATER: {
         kind: "void",
         collider: { width:35, height: 35, blocking: false },
         sketch: { 
             cls: "Animator",
             animations: {
                 [Animator.idle]: "CHASM",
+            },
+        },
+    },
+
+    DUNGEON_WATER_EDGE: {
+        kind: "void",
+        collider: { width:35, height: 35, blocking: false },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "DUNGEON_WATER_EDGE",
+            },
+        },
+    },
+    DUNGEON_WATER: {
+        kind: "void",
+        collider: { width:35, height: 35, blocking: false },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "DUNGEON_WATER",
             },
         },
     },
@@ -965,6 +986,9 @@ const daggerObjects = {
             },
         },
     },
+
+
+
 
     RESET_BUTTON: {
         kind: "button",
@@ -1260,6 +1284,9 @@ const daggerAssets = [
         {tag: "DOOR_WESTERN_B",       id: 96, cls: "Sprite", width: 50, height: 50, xoffset: 300, yoffset: 400, tileset: true },
         {tag: "DOOR_WESTERN_T",       id: 97, cls: "Sprite", width: 50, height: 50, xoffset: 350, yoffset: 400, tileset: true },
         {tag: "DOOR_SOUTHERN",        id: 98, cls: "Sprite", width: 50, height: 50, xoffset: 400, yoffset: 400, tileset: true },
+        //ROW 10
+        {tag: "DUNGEON_WATER_EDGE",           id: 107, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 450, tileset: true, bgr: true },
+        {tag: "DUNGEON_WATER",                id: 108, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 450, tileset: true, bgr: true },
     ]},
 
     { src: "images/spritesheet_Overworld.png", cls: "Sheet", assets: [

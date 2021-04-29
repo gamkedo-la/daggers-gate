@@ -77,11 +77,24 @@ var allLevels = {
     "temple_area1C": Object.assign(temple_area1CSpec, {
       exits: [
         { x: 8, y: 1, lvl: "temple_entryway",   spawn: "temple_area1C" }, //leaves Area1C to Temple Entryway
+        { x: 8, y: 14, lvl: "temple_area1D",   spawn: "temple_area1C" }, //leaves Area1C to temple area1C
       ],
       spawns: {
         "temple_entryway":  { x: 8, y: 2 },
+        "temple_area1D": { x: 8, y: 12 },
+
       },
     }),
+
+    "temple_area1D": Object.assign(temple_area1DSpec, {
+      exits: [
+        { x: 8, y: 2, lvl: "temple_area1C",   spawn: "temple_area1D" }, //leaves Area1C to Temple Entryway
+      ],
+      spawns: {
+        "temple_area1C":  { x: 8, y: 3 },
+      },
+    }),
+
 
   "town": Object.assign(townSpec, {
       exits: [

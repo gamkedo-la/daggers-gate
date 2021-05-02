@@ -42,11 +42,13 @@ var allLevels = {
         { x: 8, y: 12,  lvl: "churchCellar",      spawn: "temple_entryway" }, //leaves church to spawn in Temple Entryway
         { x: 3, y: 4,   lvl: "temple_area1",      spawn: "temple_entryway" },
         { x: 3, y: 11,   lvl: "temple_area1C",      spawn: "temple_entryway" },
+        { x: 13, y: 3,   lvl: "temple_firePuzzle",      spawn: "temple_entryway" },
       ],
       spawns: {
         "churchCellar":   { x: 8, y: 10 }, //Spawn location from Church Cellar
         "temple_area1":   { x: 3 , y: 5 },
         "temple_area1C":   { x: 3 , y: 10 },
+        "temple_firePuzzle":   { x: 13 , y: 5 },
       },
       //lockPredicate: (lvl) => lvl.enemies.length !== 0,
     }),
@@ -92,6 +94,15 @@ var allLevels = {
       ],
       spawns: {
         "temple_area1C":  { x: 8, y: 3 },
+      },
+    }),
+
+    "temple_firePuzzle": Object.assign(temple_FirePuzzleSpec, {
+      exits: [
+        { x: 16, y: 22, lvl: "temple_entryway",   spawn: "temple_firePuzzle" }, //leaves Area1C to Temple Entryway
+      ],
+      spawns: {
+        "temple_entryway":  { x: 16, y: 21 },
       },
     }),
 

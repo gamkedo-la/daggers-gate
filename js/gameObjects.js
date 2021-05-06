@@ -84,6 +84,7 @@ class gameObjectClass extends characterClass {
         }
         this.correctPuzzleLocation = false;
         this.want = spec.want || undefined;
+        this.gateCondition = spec.gateCondition || (() => false);
         // tag object w/ wanted action
         this.wantAction = actionKindMap[this.kind];
         this.nudge = (spec.nudge) ? new Nudge(Object.assign({}, spec.nudge, {target:this})): undefined;
@@ -334,6 +335,19 @@ class gameObjectClass extends characterClass {
                 this.state = Animator.close;
                 this.wantAction = actionKindMap[this.kind];
                 this.active = true;
+            }
+        }
+
+        // handle gate conditions
+        if (this.kind === "altarGate" && this.state !== Animator.open) {
+            let solved = this.gateCondition();
+            /*
+            for (const obj of currentLevel.findObject((obj) => (obj.kind === "altar") && (obj.want === "GEM_EARTH"))) {
+                solved &= (obj.state === Animator.solved);
+            }
+            */
+            if (solved) {
+                this.state = Animator.open;
             }
         }
 

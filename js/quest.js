@@ -69,7 +69,7 @@ class CollectionObjective extends Objective {
     }
 
     get done() {
-        this.count >= this.wantCount;
+        return this.count >= this.wantCount;
     }
 
 }

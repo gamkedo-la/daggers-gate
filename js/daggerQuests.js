@@ -1,4 +1,5 @@
 const daggerQuests = {
+
     "m1": {
         main: true,
         title: "An Evil Awakens, A Hero Rises, Pt. 1",
@@ -28,6 +29,24 @@ const daggerQuests = {
         objectives: [
             {
                 text: "Obtain the Ancient Artifact",
+                cls: "CollectionObjective",
+                getter: () => ((p1.inventory.includes("SWORD") ? 1 : 0)),
+                count: 1,
+            },
+        ],
+    },
+
+    "m3": {
+        main: true,
+        title: "Darkness Encroaches, Pt. 1",
+        text: "News of Fisherman Godwin's attack is speading through the village.  Seek him out in his hut by the river.  Find out more about where he was attacked and " +
+            "the creatures that attacked him.",
+        rewards: [
+            { tag: "GOLD_COINS_TWO_DROP", amt: 5 },
+        ],
+        objectives: [
+            {
+                text: "Speak with Fisherman Godwin",
                 cls: "CollectionObjective",
                 getter: () => 0,
                 count: 1,

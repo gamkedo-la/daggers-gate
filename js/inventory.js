@@ -77,6 +77,8 @@ class Inventory {
     }
 
     includes(tag) {
+        if (this._mainHand && this._mainHand.tag === tag) return true;
+        if (this._offHand && this._offHand.tag === tag) return true;
         for (let i=0; i<this.size; i++) {
             if (this._slots[i] && this._slots[i].tag === tag) return true;
         }

@@ -153,6 +153,7 @@ class characterClass {
     }
 
     applyChilled() {
+        if (disableCollisions && this === p1) return;
         this.chilled = true;
         this.chilledTTL = 5000;
         if (!this.chillFx) this.chillFx = new ChillFx({
@@ -170,6 +171,7 @@ class characterClass {
     }
 
     applyPoisoned() {
+        if (disableCollisions && this === p1) return;
         this.poisoned = true;
         this.poisonTick = 0;
         this.poisonedTTL = 20000;    // 20 seconds
@@ -189,6 +191,7 @@ class characterClass {
     }
 
     applyBlown(dir) {
+        if (disableCollisions && this === p1) return;
         if (this.falling) return;
         this.stopPathfinding();
         this.blown = true;
@@ -208,6 +211,7 @@ class characterClass {
     }
 
     doFall(x,y) {
+        if (disableCollisions && this === p1) return;
         if (this.currentAttack) this.currentAttack = undefined;
         if (this.blown) this.removeBlown();
         if (this.grabbedObj) this.doDrop();
@@ -808,6 +812,7 @@ class characterClass {
     }
 
     takeDamage(amount){
+        if (disableCollisions && this === p1) return;
         var damageAmount = amount;
         let oldHealth = this.health;
         this.health = this.health - damageAmount;

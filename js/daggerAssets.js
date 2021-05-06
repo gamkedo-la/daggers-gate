@@ -493,6 +493,25 @@ const daggerObjects = {
         },
     },
 
+    PORTCULLIS_CLOSED: {
+        kind: "altarGate",
+        yOff: -25,
+        gateCondition: () => {
+            let solved = true;
+            for (const obj of currentLevel.findObject((obj) => (obj.kind === "altar"))) {
+                solved &= (obj.state === Animator.solved);
+            }
+            return solved;
+        },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "PORTCULLIS_CLOSED",
+                [Animator.open]: "PORTCULLIS_OPENING",
+            },
+        },
+    },
+
     CHEST1_CLOSE: {
         kind: "chest",
         collider: {
@@ -1649,7 +1668,47 @@ const daggerAssets = [
         {tag: "CHURCH_BENCH_C",          id: 629, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*9, tileset: true },
         // -- row 11
         {tag: "TEMPLE_KEY",                       cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*10 },
+    ]},
 
+    { src: "images/objectAnimations.png", cls: "Sheet", assets: [
+        {tag: "PORTCULLIS_OPENING",       id: 650, cls: "Animation", loop: false, cels: [
+            { xoffset: 100, yoffset: 0, width: 50, height: 100, duration: 100 },
+            { xoffset: 50, yoffset: 0, width: 50, height: 100, duration: 100 },
+            { xoffset: 0, yoffset: 0, width: 50, height: 100, duration: 100 },
+        ]},
+        {tag: "PORTCULLIS_CLOSING",       id: 651, cls: "Animation", loop: false, cels: [
+            { xoffset: 50, yoffset: 0, width: 50, height: 100, duration: 100 },
+            { xoffset: 100, yoffset: 0, width: 50, height: 100, duration: 100 },
+            { xoffset: 150, yoffset: 0, width: 50, height: 100, duration: 100 },
+        ]},
+        {tag: "PORTCULLIS_OPEN",          id: 652, cls: "Sprite", width: 50, height: 100, xoffset: 50*0, yoffset: 50*0, tileset: true },
+        {tag: "PORTCULLIS_CLOSED",        id: 653, cls: "Sprite", width: 50, height: 100, xoffset: 50*3, yoffset: 50*0, tileset: true },
+
+        {tag: "YELLOW_GATE_OPENING",      id: 654, cls: "Animation", loop: false, cels: [
+            { xoffset: 50, yoffset: 100, width: 50, height: 100, duration: 100 },
+            { xoffset: 100, yoffset: 100, width: 50, height: 100, duration: 100 },
+            { xoffset: 150, yoffset: 100, width: 50, height: 100, duration: 100 },
+        ]},
+        {tag: "YELLOW_GATE_CLOSING",      id: 655, cls: "Animation", loop: false, cels: [
+            { xoffset: 100, yoffset: 100, width: 50, height: 100, duration: 100 },
+            { xoffset: 50, yoffset: 100, width: 50, height: 100, duration: 100 },
+            { xoffset: 0, yoffset: 100, width: 50, height: 100, duration: 100 },
+        ]},
+        {tag: "YELLOW_GATE_OPEN",         id: 656, cls: "Sprite", width: 50, height: 100, xoffset: 50*3, yoffset: 50*2, tileset: true },
+        {tag: "YELLOW_GATE_CLOSED",       id: 657, cls: "Sprite", width: 50, height: 100, xoffset: 50*0, yoffset: 50*2, tileset: true },
+
+        {tag: "GREEN_GATE_OPENING",       id: 654, cls: "Animation", loop: false, cels: [
+            { xoffset: 50, yoffset: 200, width: 50, height: 100, duration: 100 },
+            { xoffset: 100, yoffset: 200, width: 50, height: 100, duration: 100 },
+            { xoffset: 150, yoffset: 200, width: 50, height: 100, duration: 100 },
+        ]},
+        {tag: "GREEN_GATE_CLOSING",       id: 655, cls: "Animation", loop: false, cels: [
+            { xoffset: 100, yoffset: 200, width: 50, height: 100, duration: 100 },
+            { xoffset: 50, yoffset: 200, width: 50, height: 100, duration: 100 },
+            { xoffset: 0, yoffset: 200, width: 50, height: 100, duration: 100 },
+        ]},
+        {tag: "GREEN_GATE_OPEN",          id: 656, cls: "Sprite", width: 50, height: 100, xoffset: 50*3, yoffset: 50*4, tileset: true },
+        {tag: "GREEN_GATE_CLOSED",        id: 657, cls: "Sprite", width: 50, height: 100, xoffset: 50*0, yoffset: 50*4, tileset: true },
 
     ]},
 

@@ -1450,12 +1450,43 @@ const daggerAssets = [
         {tag: "DRESSER-T",                 id: 437, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*13, tileset: true},
         {tag: "DRESSER-B",                 id: 438, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*13, tileset: true },
 
+        // row 15
         {tag: "PAINTING_CASTLE-T",          id: 440, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*14, tileset: true },
         {tag: "PAINTING_CASTLE-B",          id: 441, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*14, tileset: true },      
         {tag: "MONEY_BOX-T",                id: 442, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*14, tileset: true },
         {tag: "MONEY_BOX-B",                id: 443, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*14, tileset: true },
         {tag: "POTION_SHELF-T",             id: 444, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*14, tileset: true },
-        {tag: "POTION_SHELF-B",             id: 445, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*14, tileset: true }
+        {tag: "POTION_SHELF-B",             id: 445, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*14, tileset: true },
+        // row 16
+        {tag: "XROOF_TL",                    id: 450, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*15, tileset: true },
+        {tag: "XROOF_CHIMNEY",               id: 451, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*15, tileset: true },
+        {tag: "XROOF_T",                     id: 452, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*15, tileset: true },
+        {tag: "XROOF_TR",                    id: 453, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*15, tileset: true },
+        {tag: "VDOOR3_OPEN_T",               id: 454, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*15, tileset: true },
+        {tag: "XROOF_LL",                    id: 455, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*15, tileset: true },
+        {tag: "XROOF_MM",                    id: 456, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*15, tileset: true },
+        {tag: "XROOF_RR",                    id: 457, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*15, tileset: true },
+        // row 16
+        {tag: "XROOF_L",                     id: 460, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*16, tileset: true },
+        {tag: "XROOF_M",                     id: 461, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*16, tileset: true },
+        {tag: "VDOOR3_T",                    id: 462, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*16, tileset: true },
+        {tag: "XROOF_R",                     id: 463, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*16, tileset: true },
+        {tag: "VDOOR3_OPEN_B",               id: 464, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*16, tileset: true },
+        // row 17
+        {tag: "XROOF_FL",                    id: 470, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*17, tileset: true },
+        {tag: "XROOF_F",                     id: 471, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*17, tileset: true },
+        {tag: "VDOOR3_B",                    id: 472, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*17, tileset: true },
+        {tag: "XROOF_FR",                    id: 473, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*17, tileset: true },
+        // row 18
+        {tag: "VWALL3_TL",                   id: 480, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*18, tileset: true },
+        {tag: "VWALL3_WINDOW",               id: 481, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*18, tileset: true },
+        {tag: "VWALL3_TR",                   id: 482, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*18, tileset: true },
+        {tag: "VWALL3_T",                    id: 483, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*18, tileset: true },
+        // row 18
+        {tag: "VWALL3_BL",                   id: 490, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*19, tileset: true },
+        {tag: "VWALL3_WINDOW_B",             id: 491, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*19, tileset: true },
+        {tag: "VWALL3_BR",                   id: 492, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*19, tileset: true },
+        {tag: "VWALL3_B",                    id: 493, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*19, tileset: true },
     ]},
 
     { src: "images/traps.png", cls: "Sheet", assets: [

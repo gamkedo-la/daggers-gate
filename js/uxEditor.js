@@ -381,6 +381,8 @@ class UxEditorCtrl extends UxCtrl {
         if (this.disable) return;
         //console.log("tracker is: " + Fmt.ofmt(this.tracker));
         if(mouseDragging) {
+            if (!currentLevel.containsPoint(mouseX, mouseY)) return;
+            if (!camera.contains(mouseX, mouseY)) return;
             let idx = currentLevel.idxfromxy(mouseX, mouseY);
             if (this.selectMode === "fg") {
                 currentLevel.setfgi(idx, this.fgId);
@@ -651,9 +653,9 @@ class UxLoadLvlPopUpCtrl extends UxCtrl {
         // build out level buttons
         let row = 0;
         let col = 0;
-        let maxCols = 2;
+        let maxCols = 3;
         let colStep = 1/maxCols;
-        let maxRows = Math.floor(this.lvlPanel.height/50);
+        let maxRows = Math.floor(this.lvlPanel.height/40);
         let rowStep = 1/maxRows;
         for (const lvlName in allLevels) {
             let bspec = {

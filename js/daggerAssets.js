@@ -1975,6 +1975,7 @@ const daggerAssets = [
         {tag: "HEAL_ICON",              cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*0 },
     ]},
     { src: "images/daggerGate-Exploring.jpg", cls: "Image", tag: "MAIN_BG" },
+    { src: "images/burning-village.jpg", cls: "Image", tag: "BURNING_VILLAGE" },
 
 ];
 

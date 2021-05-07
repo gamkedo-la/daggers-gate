@@ -10,7 +10,7 @@ class UxStoryCtrl extends UxCtrl {
     // CONSTRUCTOR ---------------------------------------------------------
     constructor(spec={}) {
         super(spec);
-        const dialogColor = spec.dialogColor || new Color(168,36,36);
+        const dialogColor = spec.dialogColor || new Color(226,83,34);
         this.extraSpace = 25;
         this.dialogIndex = 0;
         this.lastDialogIndex = 0;
@@ -25,17 +25,14 @@ class UxStoryCtrl extends UxCtrl {
                     cls: "UxPanel",
                     tag: "storyPanel",
                     xxform: { origx: 0, origy: 0 },
-                    xsketch: {
-                        cls: 'Rect',
-                        color: new Color(20,20,20,1),
-                        xfitter: { cls: "FitToParent" },
-                    },
+                    xsketch: Object.assign({}, assets.get("BURNING_VILLAGE"), {xfitter: { cls: "FitToParent" }}),
+                    //xsketch: { cls: 'Rect', color: new Color(20,20,20,1), xfitter: { cls: "FitToParent" }, },
                     xchild: [
                         {
                             cls: "UxPanel",
                             tag: "dialogPanel",
-                            //xsketch: Object.assign({}, assets.get("BUTTON_BLU_S1_OPAQ"), {xfitter: { cls: "FitToParent" }}),
                             xsketch: {},
+                            xsketch: { cls: 'Rect', color: new Color(20,20,20,.55), xfitter: { cls: "FitToParent" }, },
                             xxform: { left: .15, right: .15, top: .7, bottom: .3, height: 50 },
                             xchild: [
                                 {

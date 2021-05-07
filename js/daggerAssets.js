@@ -458,6 +458,30 @@ const daggerObjects = {
             },
         },
     },
+    VDOOR3_T: {
+        kind: "link",
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "VDOOR3_T",
+                [Animator.open]: "VDOOR3_OPEN_T",
+            },
+        },
+    },
+    VDOOR3_B: {
+        kind: "door",
+        link: { targets: ["up"], vars: ["state"] },
+        locked: false,
+        autoclose: true,
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "VDOOR3_B",
+                [Animator.open]: "VDOOR3_OPEN_B",
+            },
+        },
+    },
+
     CHURCH_DOOR_T: {
         kind: "link",
         sketch: { 
@@ -1348,22 +1372,26 @@ const daggerAssets = [
         {tag: "GRASS_PATCH_DIAG_TR_BL",     id: 336, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*3, passable: true, tileset: true },
         {tag: "GRASS_PATCH_DIAG_TL_BR",     id: 337, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*3, passable: true, tileset: true },
 
-        {tag: "ROCK_CLIFF_L",               id: 340, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*4, passable: true, tileset: true },
-        {tag: "ROCK_CLIFF_M",               id: 341, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*4, passable: true, tileset: true },
-        {tag: "ROCK_CLIFF_R",               id: 342, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*4, passable: true, tileset: true },
-        {tag: "ROCK_CLIFF_WATER_BL",        id: 343, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*4, passable: false, tileset: true },
-        {tag: "ROCK_CLIFF_WATER_BM",        id: 344, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*4, passable: false, tileset: true },
-        {tag: "ROCK_CLIFF_WATER_BR",        id: 345, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*4, passable: false, tileset: true },
-        {tag: "WATER_1",                    id: 346, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*4, passable: false, tileset: true },
-        {tag: "PLACEHOLDER_3",              id: 347, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*4, passable: true, tileset: true },
+        // row 5
+        {tag: "ROCK_CLIFF_L",               id: 340, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*4, tileset: true },
+        {tag: "ROCK_CLIFF_M",               id: 341, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*4, tileset: true },
+        {tag: "ROCK_CLIFF_R",               id: 342, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*4, tileset: true },
+        {tag: "ROCK_CLIFF_WATER_BL",        id: 343, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*4, tileset: true },
+        {tag: "ROCK_CLIFF_WATER_BM",        id: 344, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*4, tileset: true },
+        {tag: "ROCK_CLIFF_WATER_BR",        id: 345, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*4, tileset: true },
+        {tag: "WATER_1",                    id: 346, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*4, tileset: true },
+        {tag: "WATER_2",                    id: 347, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*4, tileset: true },
+        {tag: "CAVE_T",                     id: 348, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*4, tileset: true },
 
-        {tag: "ROCK_CLIFF_BL",              id: 350, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*5, passable: true, tileset: true },
-        {tag: "ROCK_CLIFF_BM",              id: 351, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*5, passable: true, tileset: true },
-        {tag: "ROCK_CLIFF_BR",              id: 352, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*5, passable: true, tileset: true },
+        // row 6
+        {tag: "ROCK_CLIFF_BL",              id: 350, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*5, tileset: true },
+        {tag: "ROCK_CLIFF_BM",              id: 351, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*5, tileset: true },
+        {tag: "ROCK_CLIFF_BR",              id: 352, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*5, tileset: true },
         {tag: "FENCE_1",                    id: 353, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*5, passable: false, tileset: true },
         {tag: "FENCE_2",                    id: 354, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*5, passable: false, tileset: true },
         {tag: "FENCE_3",                    id: 355, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*5, passable: false, tileset: true },
         {tag: "TREE_SMALL",                 id: 357, cls: "Sprite", width: 50, height: 100, xoffset: 50*7, yoffset: 50*5, passable: false, tileset: true },
+        {tag: "CAVE_B",                     id: 358, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*5, passable: true, tileset: true },
 
         {tag: "SIGN_1",                      id: 360, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*6, passable: false, tileset: true },
         {tag: "SIGN_2",                      id: 361, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*6, passable: false, tileset: true },
@@ -1457,6 +1485,8 @@ const daggerAssets = [
         {tag: "MONEY_BOX-B",                id: 443, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*14, tileset: true },
         {tag: "POTION_SHELF-T",             id: 444, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*14, tileset: true },
         {tag: "POTION_SHELF-B",             id: 445, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*14, tileset: true },
+        {tag: "GRASS_WATER1",               id: 448, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*14, passable: true, tileset: true },
+        {tag: "GRASS_WATER2",               id: 449, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*14, passable: true, tileset: true },
         // row 16
         {tag: "XROOF_TL",                    id: 450, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*15, tileset: true },
         {tag: "XROOF_CHIMNEY",               id: 451, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*15, tileset: true },
@@ -1466,6 +1496,8 @@ const daggerAssets = [
         {tag: "XROOF_LL",                    id: 455, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*15, tileset: true },
         {tag: "XROOF_MM",                    id: 456, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*15, tileset: true },
         {tag: "XROOF_RR",                    id: 457, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*15, tileset: true },
+        {tag: "GRASS_WATER3",                id: 458, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*15, passable: true, tileset: true },
+        {tag: "GRASS_WATER4",                id: 459, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*15, passable: true, tileset: true },
         // row 16
         {tag: "XROOF_L",                     id: 460, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*16, tileset: true },
         {tag: "XROOF_M",                     id: 461, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*16, tileset: true },

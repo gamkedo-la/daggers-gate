@@ -141,6 +141,9 @@ var allLevels = {
         { x: 12, y: 25, lvl: "tavern",      spawn: "town"},
         { x: 20, y: 25, lvl: "tavern",      spawn: "town2"},
         { x: 43, y: 11, lvl: "church",      spawn: "town"},
+        { x: 49, y: 14, lvl: "east",        spawn: "town1"},
+        { x: 49, y: 15, lvl: "east",        spawn: "town2"},
+        { x: 49, y: 16, lvl: "east",        spawn: "town3"},
 
       ],
       spawns: {
@@ -154,6 +157,9 @@ var allLevels = {
         "tavern":     { x: 12, y: 26 },
         "tavern2":    { x: 20, y: 26 },
         "church":     { x: 43, y: 12 },
+        "east1":      { x: 48, y: 14 },
+        "east2":      { x: 48, y: 15 },
+        "east3":      { x: 48, y: 16 },
       },
   }),
 
@@ -241,6 +247,19 @@ var allLevels = {
       spawns: {
         "church":           { x: 3, y: 7 },
         "temple_entryway":  { x: 3, y: 1 },
+      },
+  }),
+
+  "east": Object.assign(eastSpec, {
+      exits: [
+        { x: 0, y: 14, lvl: "town",   spawn: "east1" },
+        { x: 0, y: 15, lvl: "town",   spawn: "east2" },
+        { x: 0, y: 16, lvl: "town",   spawn: "east3" },
+      ],
+      spawns: {
+        "town1": { x: 1, y: 14 },
+        "town2": { x: 1, y: 15 },
+        "town3": { x: 1, y: 16 },
       },
   }),
 

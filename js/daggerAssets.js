@@ -173,6 +173,13 @@ const animators = {
         },
     },
 
+    "GODWIN": {
+        cls: "Animator",
+        animations: {
+            [Animator.idle]: "GODWIN",
+        },
+    },
+
 }
 
 /**
@@ -317,6 +324,20 @@ const daggerNpcs = {
             { tag: "clariceDone", predicate: (npc) => quests.checkDone("m2") },
             { tag: "clariceComplete", predicate: (npc) => quests.checkCompleted("m2") },
         ],
+
+    GODWIN: {
+        sketch: animators["GODWIN"],
+        yOff: -25,
+        collider: {
+            color: "rgba(175,175,175,.75)",
+            width: 40, 
+            height: 30, 
+            //blocking: false,
+        },
+        dialogs: [
+         //EMPTY FOR NOW
+        ],
+        },
     },
 
 };
@@ -1978,6 +1999,9 @@ const daggerAssets = [
     // 909   
         {tag: "ELDER",                id: 909,  cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 400 },
         {tag: "ELDER_PORT",                     cls: "Sprite", width: 50, height: 50, xoffset: 0, yoffset: 422 },
+    // 910   FISHERMAN
+        {tag: "GODWIN",                id: 910,  cls: "Sprite", width: 75, height: 100, xoffset: 0, yoffset: 600 },
+        {tag: "GODWIN_PORT",                     cls: "Sprite", width: 75, height: 50, xoffset: 0, yoffset: 622 },
     ]},
 
     /* === NON INDEXED ASSETS ================================================================ */

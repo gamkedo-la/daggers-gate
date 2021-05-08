@@ -180,6 +180,86 @@ const daggerDialogs = {
         },
     },
 
+    godwinDflt: {
+        dfltTitle: "Fisherman Godwin",
+        dialogs: {
+            start: {
+                text: "Quit buggering me kid, can't you see I'm busy?",
+                responses: {
+                    "Ok": (d) => d.done = true,
+                }
+            },
+        },
+    },
+    godwinStart: {
+        dfltTitle: "Fisherman Godwin",
+        dialogs: {
+            start: {
+                text: "Bugger me.  Never seen anything like it.  Nasty creatures with green skin and definitely looking for a rumble.  Can't say i care to see 'em again.",
+                responses: {
+                    "What happened?": (d) => d.load("next1"),
+                },
+            },
+            next1: {
+                text: "Just minding me own business fishing by the river to the east of here.  Creatures come out of the mountains and rushed me.  I hightailed it out of there, " +
+                      "but I lost my best fishing pole.  Can't expect me to feed the town can ya without a pole and with those creatures still lurking out there?",
+                responses: {
+                    "Ok": (d) => {
+                        d.done = true;
+                        quests.finish("m3");
+                        quests.start("m4");
+                    },
+                },
+            },
+        },
+    },
+    godwinWait: {
+        dfltTitle: "Fisherman Godwin",
+        dialogs: {
+            start: {
+                text: "Buggering buggers... you done yet?  I need that pole back!",
+                responses: {
+                    "Ok": (d) => d.done = true,
+                },
+            },
+        },
+    },
+    godwinDone: {
+        dfltTitle: "Fisherman Godwin",
+        dialogs: {
+            start: {
+                text: "You have it?  You have it!  Good job kid, knew you could do it.  Can I have it now?",
+                responses: {
+                    "Here you go": (d) => {
+                        d.load("next1");
+                        p1.inventory.removeTag("FISHING_POLE");
+                    },
+                },
+            },
+            next1: {
+                text: "Go bugger Clarice.  I don't have anything else fer ya.",
+                responses: {
+                    "OK": (d) => {
+                        d.done = true;
+                        quests.finish("m4");
+                        quests.start("m5");
+                    }
+                },
+            }
+        },
+    },
+    godwinComplete: {
+        dfltTitle: "Fisherman Godwin",
+        dialogs: {
+            start: {
+                text: "Thanks kid.",
+                responses: {
+                    "Ok": (d) => d.done = true,
+                },
+            },
+        },
+    },
+
     q1Start: {
         dfltTitle: "Sir Bob",
         dialogs: {

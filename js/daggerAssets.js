@@ -316,7 +316,6 @@ const daggerNpcs = {
             color: "rgba(175,175,175,.75)",
             width: 20, 
             height: 30, 
-            //blocking: false,
         },
         dialogs: [
             { tag: "clariceStart", predicate: (npc) => !quests.checkStarted("m2") && !quests.checkDone("m2") && !quests.checkCompleted("m2")},
@@ -324,6 +323,7 @@ const daggerNpcs = {
             { tag: "clariceDone", predicate: (npc) => quests.checkDone("m2") },
             { tag: "clariceComplete", predicate: (npc) => quests.checkCompleted("m2") },
         ],
+    },
 
     GODWIN: {
         sketch: animators["GODWIN"],
@@ -332,12 +332,15 @@ const daggerNpcs = {
             color: "rgba(175,175,175,.75)",
             width: 40, 
             height: 30, 
-            //blocking: false,
         },
         dialogs: [
+            { tag: "godwinStart", predicate: (npc) => quests.checkStarted("m3") && !quests.checkCompleted("m3")},
+            { tag: "godwinWait", predicate: (npc) => quests.checkStarted("m4") },
+            { tag: "godwinDone", predicate: (npc) => quests.checkDone("m4") },
+            { tag: "godwinComplete", predicate: (npc) => quests.checkCompleted("m4") },
+            { tag: "godwinDflt", predicate: (npc) => true},
          //EMPTY FOR NOW
         ],
-        },
     },
 
 };

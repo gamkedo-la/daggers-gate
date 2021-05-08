@@ -144,10 +144,10 @@ var allLevels = {
         { x: 49, y: 14, lvl: "east",        spawn: "town1"},
         { x: 49, y: 15, lvl: "east",        spawn: "town2"},
         { x: 49, y: 16, lvl: "east",        spawn: "town3"},
+        { x: 44, y: 27, lvl: "fisher",      spawn: "town"},
 
       ],
       spawns: {
-        
         "alchemist":  { x: 31, y: 9 },
         "fletcher":   { x: 33, y: 26 },
         "healer":     { x: 21, y: 7 },
@@ -160,6 +160,7 @@ var allLevels = {
         "east1":      { x: 48, y: 14 },
         "east2":      { x: 48, y: 15 },
         "east3":      { x: 48, y: 16 },
+        "fisher":     { x: 44, y: 28 },
       },
   }),
 
@@ -260,6 +261,15 @@ var allLevels = {
         "town1": { x: 1, y: 14 },
         "town2": { x: 1, y: 15 },
         "town3": { x: 1, y: 16 },
+      },
+  }),
+
+  "fisher": Object.assign(fisherSpec, {
+      exits: [
+        { x: 2, y: 6, lvl: "town",   spawn: "fisher" },
+      ],
+      spawns: {
+        "town": { x: 2, y: 5 },
       },
   }),
 

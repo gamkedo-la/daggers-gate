@@ -525,6 +525,10 @@ class Level {
 		}
     }
 
+    toString() {
+        return Fmt.toString(this.constructor.name, this.name);
+    }
+
 }
 
 /** ========================================================================

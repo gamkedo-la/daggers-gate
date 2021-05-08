@@ -478,6 +478,8 @@ class UxPlayCtrl extends UxCtrl {
 			SetupPathfindingGridData(p1);
             // reset camera
             camera.reset();
+            this.cameraXoff = 0;
+            this.cameraYoff = 0;
 		}
         // update camera offset
         let cameraXoff = Math.max(0, (camera.width-currentLevel.maxx) * .5);

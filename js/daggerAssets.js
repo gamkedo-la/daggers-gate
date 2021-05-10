@@ -1733,6 +1733,46 @@ const daggerAssets = [
         {tag: "TEMPLE_KEY",                       cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*10 },
     ]},
 
+    { src: "images/goblinCaveTiles.png", cls: "Sheet", assets: [
+        {tag: "FLOOR_1",                id: 800, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*0, passable: true, tileset: true },
+        {tag: "FLOOR_2",                id: 801, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*0, passable: true, tileset: true },
+        {tag: "STONE_1",                id: 802, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*0, passable: true, tileset: true },
+        {tag: "STONE_2",                id: 803, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*0, passable: true, tileset: true },
+        {tag: "STONE_SPIRE_A",          id: 804, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*0, passable: true, tileset: true },
+        {tag: "STONE_SPIRE_B",          id: 805, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*0, passable: true, tileset: true },
+        {tag: "OPENING_A",              id: 806, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*0, passable: true, tileset: true },
+        {tag: "OPENING_B",              id: 807, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*0, passable: true, tileset: true },
+        {tag: "CHASM",                  id: 808, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*0, passable: true, tileset: true },
+        {tag: "EMPTY",                  id: 809, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*0, passable: true, tileset: true },
+        // ROW --2
+        {tag: "CAVE_CIEL_A",            id: 810, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*1, passable: true, tileset: true },
+        {tag: "CAVE_CIEL_B",            id: 811, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*1, passable: true, tileset: true },
+        {tag: "CAVE_CIEL_C",            id: 812, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*1, passable: true, tileset: true },
+        {tag: "CAVE_CIEL_D",            id: 813, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*1, passable: true, tileset: true },
+        {tag: "CAVE_CIEL_E",            id: 814, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*1, passable: true, tileset: true },
+        {tag: "CAVE_CIEL_F",            id: 815, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*1, passable: true, tileset: true },
+        {tag: "CAVE_CIEL_G",            id: 816, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*1, passable: true, tileset: true },
+        {tag: "CAVE_CIEL_H",            id: 817, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*1, passable: true, tileset: true },
+        {tag: "CAVE_CIEL_I",            id: 818, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*1, passable: true, tileset: true },
+        {tag: "EMPTY",                  id: 819, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*1, passable: true, tileset: true },
+        // ROW -- 3
+        {tag: "WALL_TOP_A",             id: 820, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*2, passable: true, tileset: true },
+        {tag: "WALL_TOP_B",             id: 821, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*2, passable: true, tileset: true },
+        {tag: "WALL_TOP_C",             id: 822, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*2, passable: true, tileset: true },
+        {tag: "WALL_MID_A",             id: 823, cls: "Sprite", width: 50, height: 50, xoffset: 50*3, yoffset: 50*2, passable: true, tileset: true },
+        {tag: "WALL_MID_B",             id: 824, cls: "Sprite", width: 50, height: 50, xoffset: 50*4, yoffset: 50*2, passable: true, tileset: true },
+        {tag: "WALL_MID_C",             id: 825, cls: "Sprite", width: 50, height: 50, xoffset: 50*5, yoffset: 50*2, passable: true, tileset: true },
+        {tag: "WALL_BOT_A",             id: 826, cls: "Sprite", width: 50, height: 50, xoffset: 50*6, yoffset: 50*2, passable: true, tileset: true },
+        {tag: "WALL_BOT_B",             id: 827, cls: "Sprite", width: 50, height: 50, xoffset: 50*7, yoffset: 50*2, passable: true, tileset: true },
+        {tag: "WALL_BOT_C",             id: 828, cls: "Sprite", width: 50, height: 50, xoffset: 50*8, yoffset: 50*2, passable: true, tileset: true },
+        {tag: "EMPTY",                  id: 829, cls: "Sprite", width: 50, height: 50, xoffset: 50*9, yoffset: 50*2, passable: true, tileset: true },
+        // ROW -- 4
+        // {tag: "EMPTY",                  id: 825, cls: "Sprite", width: 50, height: 50, xoffset: 50*0, yoffset: 50*3, passable: true, tileset: true },
+        // {tag: "EMPTY",                  id: 826, cls: "Sprite", width: 50, height: 50, xoffset: 50*1, yoffset: 50*3, passable: true, tileset: true },
+        // {tag: "EMPTY",                  id: 827, cls: "Sprite", width: 50, height: 50, xoffset: 50*2, yoffset: 50*3, passable: true, tileset: true },
+    ]},
+
+
     { src: "images/objectAnimations.png", cls: "Sheet", assets: [
         {tag: "PORTCULLIS_OPENING",       id: 650, cls: "Animation", loop: false, cels: [
             { xoffset: 100, yoffset: 0, width: 50, height: 100, duration: 100 },

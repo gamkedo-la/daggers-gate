@@ -132,6 +132,12 @@ class ViewMgr {
         //console.log("master.views: " + this._views);
     }
 
+    *findall(filter=(v) => true) {
+        for (const view of this._views) {
+            if (filter(view)) yield view;
+        }
+    }
+
     remove(view) {
         if (this.dbg) console.log("view manager removing view: " + view);
         // lookup layer view for view

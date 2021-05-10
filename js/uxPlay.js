@@ -464,6 +464,11 @@ class UxPlayCtrl extends UxCtrl {
     update(updateCtx) {
 		// handle level exit
 		if (queuedExit) {
+            // remove any current fx
+            let vmgr = ViewMgr.instance;
+             for (const fx of vmgr.findall((v) => (v instanceof(GameFx)))) {
+                fx.eol = true;
+            }
 			// load queued level
 			levelLoader.load(queuedExit.lvl);
 			// respawn player
@@ -473,6 +478,8 @@ class UxPlayCtrl extends UxCtrl {
 			SetupPathfindingGridData(p1);
             // reset camera
             camera.reset();
+            this.cameraXoff = 0;
+            this.cameraYoff = 0;
 		}
         // update camera offset
         let cameraXoff = Math.max(0, (camera.width-currentLevel.maxx) * .5);

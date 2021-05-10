@@ -54,6 +54,32 @@ const daggerQuests = {
         ],
     },
 
+    "m4": {
+        main: true,
+        title: "Darkness Encroaches, Pt. 2",
+        text: "Godwin has sent you east of the village.  Search the nearby mountains for any clues to where the creatures could be hiding.  " +
+              "Defeat their leader and retrieve Godwin's fishing pole.",
+        rewards: [
+            { tag: "GOLD_COINS_TWO_DROP", amt: 5 },
+        ],
+        turnin: "Return to Fisherman Godwin in Dagger's Gate",
+        objectives: [
+            {
+                text: "Defeat the Orc Leader",
+                cls: "EvtObjective",
+                event: GameEvents.enemyDied,
+                filter: (evt) => (evt.actor.tag === "ORC_LEADER"),
+                count: 1,
+            },
+            {
+                text: "Retrieve Godwin's Fishing Pole",
+                cls: "CollectionObjective",
+                getter: () => ((p1.inventory.includes("FISHING_POLE") ? 1 : 0)),
+                count: 1,
+            },
+        ],
+    },
+
     "q1": {
         main: true,
         title: "There and Back Again",

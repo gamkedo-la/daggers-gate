@@ -52,6 +52,7 @@ var updateCtx = {
 var camera = new Camera({
 	width: 800,
 	height: 600,
+	//dbg: true,
 });
 
 var viewMgr;

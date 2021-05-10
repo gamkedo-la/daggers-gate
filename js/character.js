@@ -395,6 +395,7 @@ class characterClass {
 
     doGrab(data) {
         if (data.target) {
+            data.target.homeLvl = currentLevel;
             console.log("grabbing object: " + data.target);
             data.target.interact(this);
             currentLevel.destroyObject(data.target);
@@ -416,7 +417,11 @@ class characterClass {
             //this.grabbedObj.y += 15;
             this.grabbedObj.reset();
             //this.grabbedObj.visible = true;
-            currentLevel.addObject(this.grabbedObj);
+            if (this.grabbedObj.homeLvl && (this.grabbedObj.homeLvl !== currentLevel)) {
+                this.grabbedObj.homeLvl.addObject(this.grabbedObj);
+            } else {
+                currentLevel.addObject(this.grabbedObj);
+            }
             this.grabbedObj = undefined;
         }
     }

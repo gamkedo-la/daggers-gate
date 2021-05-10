@@ -26,6 +26,18 @@ var allLevels = {
       "temple_entryway":  { x: 2, y: 3 },
     },
   }),
+  "lvl3": Object.assign(lvl2Spec, {
+    exits: [
+     // { x: 0, y: 3, lvl: "lvl2",            spawn: "lvl3" },
+     // { x: 5, y: 0, lvl: "testroom",        spawn: "lvl3" },
+     // { x: 2, y: 1, lvl: "temple_entryway", spawn: "lvl3" },
+    ],
+    spawns: {
+     // "lvl2":             { x: 1, y: 3 },
+     // "testroom":         { x: 5, y: 1 },
+      //"temple_entryway":  { x: 2, y: 3 },
+    },
+  }),
 
   "testroom": Object.assign(testroomSpec, {
     exits: [
@@ -144,10 +156,10 @@ var allLevels = {
         { x: 49, y: 14, lvl: "east",        spawn: "town1"},
         { x: 49, y: 15, lvl: "east",        spawn: "town2"},
         { x: 49, y: 16, lvl: "east",        spawn: "town3"},
+        { x: 44, y: 27, lvl: "fisher",      spawn: "town"},
 
       ],
       spawns: {
-        
         "alchemist":  { x: 31, y: 9 },
         "fletcher":   { x: 33, y: 26 },
         "healer":     { x: 21, y: 7 },
@@ -160,6 +172,7 @@ var allLevels = {
         "east1":      { x: 48, y: 14 },
         "east2":      { x: 48, y: 15 },
         "east3":      { x: 48, y: 16 },
+        "fisher":     { x: 44, y: 28 },
       },
   }),
 
@@ -260,6 +273,15 @@ var allLevels = {
         "town1": { x: 1, y: 14 },
         "town2": { x: 1, y: 15 },
         "town3": { x: 1, y: 16 },
+      },
+  }),
+
+  "fisher": Object.assign(fisherSpec, {
+      exits: [
+        { x: 2, y: 6, lvl: "town",   spawn: "fisher" },
+      ],
+      spawns: {
+        "town": { x: 2, y: 5 },
       },
   }),
 

@@ -90,6 +90,23 @@ class Inventory {
         if (idx != -1) this._slots[idx] = undefined;
     }
 
+    removeTag(tag) {
+        if (this._mainHand && this._mainHand.tag === tag) {
+            this._mainHand = undefined;
+            return;
+        }
+        if (this._offHand && this._offHand.tag === tag) {
+            this._offHand = undefined;
+            return;
+        }
+        for (let i=0; i<this.size; i++) {
+            if (this._slots[i] && this._slots[i].tag === tag) {
+                this._slots[i] = undefined;
+                return;
+            }
+        }
+    }
+
     removeAt(idx) {
         let swap = this._slot[idx];
         this._slots[idx] = undefined;

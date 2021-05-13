@@ -7,6 +7,55 @@ class Attack {
     static _initSpecs() {
         this._specs = {};
 
+
+
+        // generic enemy attack w/ no sketch
+        this._specs["enemy"] = {
+            [Animator.idleEast]: {
+                state: Animator.attackEast,
+                collider: {
+                    color: "red",
+                    width: 45,
+                    height: 50,
+                    xoff: 30, 
+                },
+                ttl: 450,
+            },
+            [Animator.idleWest]: {
+                state: Animator.attackWest,
+                collider: {
+                    color: "red",
+                    width: 45,
+                    height: 50,
+                    xoff: -30, 
+                },
+                ttl: 450,
+            },
+            [Animator.idleNorth]: {
+                state: Animator.attackNorth,
+                collider: {
+                    color: "red",
+                    width: 25,
+                    height: 25,
+                    width: 60,
+                    height: 45,
+                    yoff: -20,
+                },
+                ttl: 450,
+            },
+            [Animator.idleSouth]: {
+                state: Animator.attackSouth,
+                collider: {
+                    color: "red",
+                    width: 60,
+                    height: 45,
+                    yoff: 20,
+                },
+                ttl: 450,
+            },
+        };
+        this._specs["enemy"][Animator.idle] = this._specs["enemy"][Animator.idleSouth];
+
         this._specs["ranged"] = {
             [Animator.idleEast]: {
                 state: Animator.attackEast,

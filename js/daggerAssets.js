@@ -339,7 +339,6 @@ const daggerNpcs = {
             { tag: "godwinDone", predicate: (npc) => quests.checkDone("m4") },
             { tag: "godwinComplete", predicate: (npc) => quests.checkCompleted("m4") },
             { tag: "godwinDflt", predicate: (npc) => true},
-         //EMPTY FOR NOW
         ],
     },
 
@@ -354,6 +353,8 @@ const daggerEnemies = {
             width: 25, 
             height: 40, 
         },
+        attackTag: "enemy",
+        delayBetweenAttacks: 500,
     },
     SLIME: {
         sketch: animators["SLIME"],

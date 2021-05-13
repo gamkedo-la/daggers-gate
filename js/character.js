@@ -305,17 +305,54 @@ class characterClass {
         }
     }
 
+    faceTowards(target) {
+        if (!target) return;
+        // heading to target
+        let v = new Vect(target.x-this.x, target.y-this.y);
+        let heading = v.heading();
+        if (heading > -135 && heading <= -45) {
+            this.state = Animator.idleNorth;
+        } else if (heading > -45 && heading <= 45) {
+            this.state = Animator.idleEast;
+        } else if (heading > 45 && heading <= 135) {
+            this.state = Animator.idleSouth;
+        } else {
+            this.state = Animator.idleWest;
+        }
+    }
+
+    walkTowards(target) {
+        if (!target) return;
+        // heading to target
+        let v = new Vect(target.x-this.x, target.y-this.y);
+        let heading = v.heading();
+        if (heading > -135 && heading <= -45) {
+            this.state = Animator.walkNorth;
+        } else if (heading > -45 && heading <= 45) {
+            this.state = Animator.walkEast;
+        } else if (heading > 45 && heading <= 135) {
+            this.state = Animator.walkSouth;
+        } else {
+            this.state = Animator.walkWest;
+        }
+    }
+
     // ACTIONS
     doMeleeAttack(data) {
         if (!this.currentAttack) {
+            let tag = data.tag || "melee";
             // lookup attack
-            let xattack = Object.assign({}, Attack.getSpec("melee")[this.facing], {actor: this, idleState: this.facing});
+            let xattack = Object.assign({}, Attack.getSpec(tag)[this.facing], {actor: this, idleState: this.facing});
             // transition to attack state (based on idle direction)
             this.state = xattack.state;
             if (data.weapon) xattack.weapon = data.weapon;
             // start the attack
             xattack.collider = Object.assign({}, xattack.collider, {x:this.x, y:this.y});
-            this.currentAttack = new SyncAttack(xattack);
+            if (this === p1) {
+                this.currentAttack = new SyncAttack(xattack);
+            } else {
+                this.currentAttack = new Attack(xattack);
+            }
         }
     }
 
@@ -469,6 +506,10 @@ class characterClass {
         // expecting subclasses to override this function...
     }
 
+    aiUpdate(updateCtx) {
+        // expecting subclasses to override this function...
+    }
+
     // update character based on current state and inputs
     update(updateCtx) {
         // resolve link during move/update of object
@@ -602,6 +643,9 @@ class characterClass {
             incapacitated = true;
         }
 
+        // AI callout
+        this.aiUpdate(updateCtx);
+
         // handle movement
         // -- blocked if attacking
         // -- blocked if incapacitated
@@ -688,45 +732,58 @@ class characterClass {
 
         // update state
         this.moving = true;
-        if (this.move_West) {
-            this.state = Animator.walkWest;
-        } else if (this.move_East) {
-            this.state = Animator.walkEast;
-        } else if (this.move_North) {
-            this.state = Animator.walkNorth;
-        } else if (this.move_South) {
-            this.state = Animator.walkSouth;
+        if (this.moveTarget) {
+            this.walkTowards(this.moveTarget);
         } else {
-            this.moving = false;
-            // handle transition from moving state to idle state
-            switch(this.state) {
-            case Animator.walkEast:
-                this.state = Animator.idleEast;
-                break;
-            case Animator.walkWest:
-                this.state = Animator.idleWest;
-                break;
-            case Animator.walkNorth:
-                this.state = Animator.idleNorth;
-                break;
-            case Animator.walkSouth:
-                this.state = Animator.idleSouth;
-                break;
+            if (this.move_West) {
+                this.state = Animator.walkWest;
+            } else if (this.move_East) {
+                this.state = Animator.walkEast;
+            } else if (this.move_North) {
+                this.state = Animator.walkNorth;
+            } else if (this.move_South) {
+                this.state = Animator.walkSouth;
+            } else {
+                this.moving = false;
+                // handle transition from moving state to idle state
+                switch(this.state) {
+                case Animator.walkEast:
+                    this.state = Animator.idleEast;
+                    break;
+                case Animator.walkWest:
+                    this.state = Animator.idleWest;
+                    break;
+                case Animator.walkNorth:
+                    this.state = Animator.idleNorth;
+                    break;
+                case Animator.walkSouth:
+                    this.state = Animator.idleSouth;
+                    break;
+                }
             }
         }
 
         // update position
-        if (this.move_North) {
-            nextY -= movingSpeed;
-        }
-        if (this.move_East) {
-            nextX += movingSpeed;
-        }
-        if (this.move_South) {
-            nextY += movingSpeed;
-        }
-        if (this.move_West) {
-            nextX -= movingSpeed;
+        if (this.moveTarget) {
+            // compute vector towards target
+            let v = new Vect(this.moveTarget.x-this.x, this.moveTarget.y-this.y);
+            // normalize speed
+            v.normalize().mult(movingSpeed);
+            nextX += v.x;
+            nextY += v.y;
+        } else {
+            if (this.move_North) {
+                nextY -= movingSpeed;
+            }
+            if (this.move_East) {
+                nextX += movingSpeed;
+            }
+            if (this.move_South) {
+                nextY += movingSpeed;
+            }
+            if (this.move_West) {
+                nextX -= movingSpeed;
+            }
         }
 
         // prevent movement past edge of level

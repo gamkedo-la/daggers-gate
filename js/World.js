@@ -93,10 +93,10 @@ var allLevels = {
 
   "temple_earthRuneArea": Object.assign(temple_earthRuneAreaSpec, {
       exits: [
-        { x: 7,  y: 1,  lvl: "temple_entryway",    spawn: "temple_earthRuneArea"}
+        { x: 11,  y: 1,  lvl: "temple_entryway",    spawn: "temple_earthRuneArea"}
       ],
       spawns: {
-        "temple_entryway":  { x: 7, y: 2 },
+        "temple_entryway":  { x: 11, y: 2 },
       },
     }),
 

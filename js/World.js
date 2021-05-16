@@ -38,6 +38,18 @@ var allLevels = {
       //"temple_entryway":  { x: 2, y: 3 },
     },
   }),
+  "lvl4": Object.assign(lvl2Spec, {
+    exits: [
+     // { x: 0, y: 3, lvl: "lvl2",            spawn: "lvl3" },
+     // { x: 5, y: 0, lvl: "testroom",        spawn: "lvl3" },
+     // { x: 2, y: 1, lvl: "temple_entryway", spawn: "lvl3" },
+    ],
+    spawns: {
+     // "lvl2":             { x: 1, y: 3 },
+     // "testroom":         { x: 5, y: 1 },
+      //"temple_entryway":  { x: 2, y: 3 },
+    },
+  }),
 
   "testroom": Object.assign(testroomSpec, {
     exits: [

@@ -38,7 +38,7 @@ var allLevels = {
       //"temple_entryway":  { x: 2, y: 3 },
     },
   }),
-  "lvl4": Object.assign(lvl2Spec, {
+  "lvl4": Object.assign(lvl4Spec, {
     exits: [
      // { x: 0, y: 3, lvl: "lvl2",            spawn: "lvl3" },
      // { x: 5, y: 0, lvl: "testroom",        spawn: "lvl3" },
@@ -280,11 +280,13 @@ var allLevels = {
         { x: 0, y: 14, lvl: "town",   spawn: "east1" },
         { x: 0, y: 15, lvl: "town",   spawn: "east2" },
         { x: 0, y: 16, lvl: "town",   spawn: "east3" },
+        { x: 47, y: 19, lvl: "caveEntrance",   spawn: "east" },
       ],
       spawns: {
         "town1": { x: 1, y: 14 },
         "town2": { x: 1, y: 15 },
         "town3": { x: 1, y: 16 },
+        "caveEntrance": { x: 47, y: 20 },
       },
   }),
 
@@ -297,11 +299,22 @@ var allLevels = {
       },
   }),
 
+  "caveEntrance": Object.assign(caveEntranceSpec, {
+      exits: [
+        { x: 6, y: 11, lvl: "east",   spawn: "caveEntrance" },
+        { x: 8, y: 1, lvl: "cave2",   spawn: "caveEntrance" },
+      ],
+      spawns: {
+        "east": { x: 6, y: 10 },
+        "cave2": { x: 8, y: 2 },
+      },
+  }),
+
 }
-//var startingLevel = "lvl1";
-//var startingSpawn = "town";
-var startingLevel = "house1";
-var startingSpawn = "start";
+var startingLevel = "caveEntrance";
+var startingSpawn = "east";
+//var startingLevel = "house1";
+//var startingSpawn = "start";
 
 const TILE_W = 50;
 const TILE_H = 50;

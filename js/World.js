@@ -310,6 +310,39 @@ var allLevels = {
       },
   }),
 
+  "cave2": Object.assign(cave2Spec, {
+      exits: [
+        { x: 2, y: 11, lvl: "caveEntrance",   spawn: "cave2" },
+        { x: 2, y: 2, lvl: "cave3",   spawn: "cave2" },
+      ],
+      spawns: {
+        "caveEntrance": { x: 2, y: 10 },
+        "cave3": { x: 2, y: 3 },
+      },
+  }),
+
+  "cave3": Object.assign(cave3Spec, {
+      exits: [
+        { x: 2, y: 7, lvl: "cave2",   spawn: "cave3" },
+        { x: 2, y: 2, lvl: "cave4",   spawn: "cave3" },
+        { x: 12, y: 4, lvl: "cave5",   spawn: "cave3" },
+      ],
+      spawns: {
+        "cave2": { x: 2, y: 6 },
+        "cave4": { x: 2, y: 3 },
+        "cave5": { x: 12, y: 5 },
+      },
+  }),
+
+  "cave5": Object.assign(cave5Spec, {
+      exits: [
+        { x: 12, y: 15, lvl: "cave3",   spawn: "cave5" },
+      ],
+      spawns: {
+        "cave3": { x: 12, y: 14 },
+      },
+  }),
+
 }
 var startingLevel = "caveEntrance";
 var startingSpawn = "east";

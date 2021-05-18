@@ -48,11 +48,13 @@ class UxMainCtrl extends UxCtrl {
                                     xxform: { left: .2, top:.545, bottom: .345, right: .2},
                                     xtext: { text: "Credits", font: new Font({family:fontMenu}) },
                                 }),
+                                /*
                                 Object.assign({}, UxTemplates.button, {
                                     tag: "optionsButton",
                                     xxform: { left: .2, top:.745, bottom: .145, right: .2},
                                     xtext: { text: "Options", font: new Font({family:fontMenu}) },
                                 }),
+                                */
                             ],
                         },
                     ],

@@ -62,8 +62,12 @@ class Camera {
             if (this.dbg) console.log("pan left - tx: " + tx + " wmaxx: " + wmaxx + " newx: " + this._x);
         }
         // right of pan area
-        if (tx > (this._x + this.width - this.dx) && tx <= wmaxx-this.dx) {
-            this._x = tx - (this.width - this.dx);
+        if (tx > (this._x + this.width - this.dx)) {
+            if (tx <= wmaxx-this.dx) {
+                this._x = tx - (this.width - this.dx);
+            } else {
+                this._x = wmaxx - this.width;
+            }
             if (this.dbg) console.log("pan right - tx: " + tx + " wmaxx: " + wmaxx + " newx: " + this._x);
         }
         // above pan area
@@ -72,8 +76,12 @@ class Camera {
             if (this.dbg) console.log("pan up - ty: " + ty + " wmaxy: " + wmaxy + " newy: " + this._y);
         }
         // below pan area
-        if (ty > (this._y + this.height - this.dy) && ty <= wmaxy-this.dy) {
-            this._y = ty - (this.height - this.dy);
+        if (ty > (this._y + this.height - this.dy)) {
+            if (ty <= wmaxy-this.dy) {
+                this._y = ty - (this.height - this.dy);
+            } else {
+                this._y = wmaxy - this.height;
+            }
             if (this.dbg) console.log("pan down - ty: " + ty + " wmaxy: " + wmaxy + " newy: " + this._y);
         }
     }

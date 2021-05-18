@@ -324,13 +324,22 @@ var allLevels = {
   "cave3": Object.assign(cave3Spec, {
       exits: [
         { x: 2, y: 7, lvl: "cave2",   spawn: "cave3" },
-        { x: 2, y: 2, lvl: "cave4",   spawn: "cave3" },
+        { x: 2, y: 1, lvl: "cave4",   spawn: "cave3" },
         { x: 12, y: 4, lvl: "cave5",   spawn: "cave3" },
       ],
       spawns: {
         "cave2": { x: 2, y: 6 },
-        "cave4": { x: 2, y: 3 },
+        "cave4": { x: 2, y: 2 },
         "cave5": { x: 12, y: 5 },
+      },
+  }),
+
+  "cave4": Object.assign(cave4Spec, {
+      exits: [
+        { x: 16, y: 9, lvl: "cave3",   spawn: "cave4" },
+      ],
+      spawns: {
+        "cave3": { x: 16, y: 8 },
       },
   }),
 

@@ -1995,28 +1995,31 @@ const daggerAssets = [
         {tag: "DWARF_AX_MAN_IDLE_NORTH",             cls: "Sprite", width: 50, height: 75, xoffset: 50, yoffset: 0 },
         {tag: "DWARF_AX_MAN_WALK_NORTH",             cls: "Animation", cels: [
             { xoffset: 50, yoffset: 0, width: 50, height: 75, duration: 200 },
-            { xoffset: 50, yoffset: 0, width: 50, height: 75, duration: 200 },
-            { xoffset: 50, yoffset: 0, width: 50, height: 75, duration: 200 },
+            { xoffset: 50, yoffset: 75, width: 50, height: 75, duration: 200 },
+            { xoffset: 50, yoffset: 150, width: 50, height: 75, duration: 200 },
+            { xoffset: 50, yoffset: 225, width: 50, height: 75, duration: 200 }
         ]},
         {tag: "DWARF_AX_MAN_IDLE_EAST",              cls: "Sprite", width: 50, height: 75, xoffset: 150, yoffset: 0 },
         {tag: "DWARF_AX_MAN_WALK_EAST",              cls: "Animation", cels: [
             { xoffset: 150, yoffset: 0, width: 50, height: 75, duration: 200 },
-            { xoffset: 150, yoffset: 0, width: 50, height: 75, duration: 200 },
-            { xoffset: 150, yoffset: 0, width: 50, height: 75, duration: 200 },
+            { xoffset: 150, yoffset: 75, width: 50, height: 75, duration: 200 },
+            { xoffset: 150, yoffset: 150, width: 50, height: 75, duration: 200 },
+            { xoffset: 150, yoffset: 225, width: 50, height: 75, duration: 200 }
         ]},
         {tag: "DWARF_AX_MAN_IDLE_WEST",              cls: "Sprite", width: 50, height: 75, xoffset: 100, yoffset: 0 },
         {tag: "DWARF_AX_MAN_WALK_WEST",              cls: "Animation", cels: [
             { xoffset: 100, yoffset: 0, width: 50, height: 75, duration: 200 },
-            { xoffset: 100, yoffset: 0, width: 50, height: 75, duration: 200 },
-            { xoffset: 100, yoffset: 0, width: 50, height: 75, duration: 200 },
+            { xoffset: 100, yoffset: 75, width: 50, height: 75, duration: 200 },
+            { xoffset: 100, yoffset: 150, width: 50, height: 75, duration: 200 },
+            { xoffset: 100, yoffset: 225, width: 50, height: 75, duration: 200 }
         ]},
         {tag: "DWARF_AX_MAN",                         id: 903, cls: "Sprite", width: 50, height: 75, xoffset: 0, yoffset: 0, tileset: true },
         {tag: "DWARF_AX_MAN_WALK_SOUTH",              cls: "Animation", cels: [
             { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
-            { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
-            { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
+            { xoffset: 0, yoffset: 75, width: 50, height: 75, duration: 200 },
+            { xoffset: 0, yoffset: 150, width: 50, height: 75, duration: 200 },
+            { xoffset: 0, yoffset: 225, width: 50, height: 75, duration: 200 }
         ]},
-
     ]},
 
     // NPC sheet

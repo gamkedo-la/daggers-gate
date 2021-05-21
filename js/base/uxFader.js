@@ -14,7 +14,7 @@ class UxFader extends UxView {
         this.fadeTTL = spec.fadeTTL || 1000;
         this.fadeRate = 1/this.fadeTTL;
         let color = spec.color || new Color(0,0,0);
-        color.alpha = (this.fadein) ? 0 : 1;
+        color.a = (this.fadein) ? 0 : 1;
         this._sketch = Sketch.generate({
             parent: this,
             cls: "Rect",

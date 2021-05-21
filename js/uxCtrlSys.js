@@ -46,4 +46,12 @@ class UxCtrlSys {
         }
     }
 
+    clear() {
+        for (const ctrl of this._stack) {
+            if (ctrl.view) ctrl.view.destroy();
+        }
+        this._stack = [];
+        this._current = undefined;
+    }
+
 }

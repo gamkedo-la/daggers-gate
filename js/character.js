@@ -491,7 +491,6 @@ class characterClass {
         this.removePoisoned();
         this.removeBlown();
         this.spawnLoot();
-        // FIXME: handle player death
         // global event
         if (this.constructor.name === "enemyClass") {
             console.log("triggering enemyDied");
@@ -499,6 +498,10 @@ class characterClass {
         } else if (this.constructor.name === "gameObjectClass") {
             console.log("triggering objectDestroyed");
             GameEvents.objectDestroyed.trigger({actor: this});
+        }
+        // handle player death
+        if (this === p1) {
+            UxCtrlSys.instance.current.onGameOver();
         }
     }
 

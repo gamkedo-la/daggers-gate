@@ -69,12 +69,12 @@ class UxMainCtrl extends UxCtrl {
         this.startButton = this.view.find((v) => v.tag === "startButton");
         this.editorButton = this.view.find((v) => v.tag === "editorButton");
         this.creditsButton = this.view.find((v) => v.tag === "creditsButton");
-        this.optionsButton = this.view.find((v) => v.tag === "optionsButton");
+        //this.optionsButton = this.view.find((v) => v.tag === "optionsButton");
         // hook actions
         this.startButton.evtClicked.listen(this.onStart.bind(this));
         this.editorButton.evtClicked.listen(this.onEditor.bind(this));
         this.creditsButton.evtClicked.listen(this.onCredits.bind(this));
-        this.optionsButton.evtClicked.listen(this.onOptions.bind(this));
+        //this.optionsButton.evtClicked.listen(this.onOptions.bind(this));
     }
 
     keyPressed(key) {

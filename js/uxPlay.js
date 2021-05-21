@@ -152,9 +152,9 @@ class UxPlayCtrl extends UxCtrl {
                             xxform: { width:slotSize, height:slotSize, left:.95, right:.05, top:.5, bottom:.5},
                         },
                     ],
-
                 },
 
+                // mana panel ---------------------------------------------------------------------------------
                 {
                     cls: "UxPanel",
                     tag: "manaPanel",
@@ -214,6 +214,7 @@ class UxPlayCtrl extends UxCtrl {
                     ],
                 },
 
+                // key panel ---------------------------------------------------------------------------------
                 {
                     cls: "UxPanel",
                     tag: "keyPanel",
@@ -235,7 +236,6 @@ class UxPlayCtrl extends UxCtrl {
                             xsketch: Object.assign({}, assets.get("KEY"), {xfitter: { cls: "FitToParent" }}),
                             xxform: { border: .15 },
                         },
-
                         {
                             cls: "UxText",
                             tag: "keyText",
@@ -245,6 +245,7 @@ class UxPlayCtrl extends UxCtrl {
                     ],
                 },
 
+                // arrow panel ---------------------------------------------------------------------------------
                 {
                     cls: "UxPanel",
                     tag: "arrowPanel",
@@ -324,11 +325,9 @@ class UxPlayCtrl extends UxCtrl {
             this.onQuestMenu();
         }
         // FIXME: remove
-        /*
-        if (key === 83) {  // S
-            this.onShopMenu();
+        if (key === 71) {  // S
+            this.onGameOver();
         }
-        */
         if (key === 121) { // F10
             console.log("player debug animation toggle");
             p1.dbgAnim = !p1.dbgAnim;
@@ -535,6 +534,12 @@ class UxPlayCtrl extends UxCtrl {
         console.log("onShopMenu");
         // activate new controller, move play controller to last
         ctrlSys.assign(new UxHealerCtrl(), true);
+    }
+
+    onGameOver() {
+        console.log("onGameOver");
+        // activate new controller, move play controller to last
+        ctrlSys.assign(new UxGameOverCtrl(), true);
     }
 
     onStartDialog(dialog) {

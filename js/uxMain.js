@@ -101,7 +101,10 @@ class UxMainCtrl extends UxCtrl {
     }
 
     onCredits(evt) {
-        console.log("onCredits");
+        // build out next controller
+        ctrlSys.assign(new UxCreditsCtrl());
+        // tear down my view
+        this.view.destroy();
     }
 
     onOptions(evt) {

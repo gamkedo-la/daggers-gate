@@ -91,6 +91,10 @@ const animators = {
             [Animator.walkNorth]: "GOBLIN_WALK_NORTH",
             [Animator.walkWest]: "GOBLIN_WALK_WEST",
             [Animator.walkEast]: "GOBLIN_WALK_EAST",
+            [Animator.attackSouth]: "GOBLIN_ATTACK_SOUTH",
+            [Animator.attackNorth]: "GOBLIN_ATTACK_NORTH",
+            [Animator.attackWest]: "GOBLIN_ATTACK_WEST",
+            [Animator.attackEast]: "GOBLIN_ATTACK_EAST",
         }
     },
     "SLIME": {
@@ -120,6 +124,10 @@ const animators = {
             [Animator.walkNorth]: "DWARF_AX_MAN_WALK_NORTH",
             [Animator.walkWest]: "DWARF_AX_MAN_WALK_WEST",
             [Animator.walkEast]: "DWARF_AX_MAN_WALK_EAST",
+            [Animator.attackSouth]: "DWARF_AX_MAN_ATTACK_SOUTH",
+            [Animator.attackNorth]: "DWARF_AX_MAN_ATTACK_NORTH",
+            [Animator.attackWest]: "DWARF_AX_MAN_ATTACK_WEST",
+            [Animator.attackEast]: "DWARF_AX_MAN_ATTACK_EAST",
         }
     },
 
@@ -368,9 +376,13 @@ const daggerEnemies = {
     DWARF_AX_MAN: {
         sketch: animators["DWARF_AX_MAN"],
         yOff: -12,
+        health: 50,
+        maxHealth: 50,
         collider: {
             blocking: false,
-        }
+        },
+        attackTag: "enemy",
+        delayBetweenAttacks: 500,
     }
 };
 
@@ -1941,11 +1953,21 @@ const daggerAssets = [
             { xoffset: 50, yoffset: 0, width: 50, height: 100, duration: 200 },
             { xoffset: 100, yoffset: 0, width: 50, height: 100, duration: 200 },
         ]},
+        {tag: "GOBLIN_ATTACK_NORTH",              cls: "Animation", cels: [
+            { xoffset: 150, yoffset: 0, width: 50, height: 100, duration: 200 },
+            { xoffset: 200, yoffset: 0, width: 50, height: 100, duration: 200 },
+            { xoffset: 250, yoffset: 0, width: 50, height: 100, duration: 200 },
+        ]},
         {tag: "GOBLIN_IDLE_EAST",               cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 100 },
         {tag: "GOBLIN_WALK_EAST",              cls: "Animation", cels: [
             { xoffset: 0, yoffset: 100, width: 50, height: 100, duration: 200 },
             { xoffset: 50, yoffset: 100, width: 50, height: 100, duration: 200 },
             { xoffset: 100, yoffset: 100, width: 50, height: 100, duration: 200 },
+        ]},
+        {tag: "GOBLIN_ATTACK_EAST",              cls: "Animation", cels: [
+            { xoffset: 150, yoffset: 100, width: 50, height: 100, duration: 200 },
+            { xoffset: 200, yoffset: 100, width: 50, height: 100, duration: 200 },
+            { xoffset: 250, yoffset: 100, width: 50, height: 100, duration: 200 },
         ]},
         {tag: "GOBLIN_IDLE_WEST",               cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 200 },
         {tag: "GOBLIN_WALK_WEST",              cls: "Animation", cels: [
@@ -1953,11 +1975,21 @@ const daggerAssets = [
             { xoffset: 50, yoffset: 300, width: 50, height: 100, duration: 200 },
             { xoffset: 100, yoffset: 300, width: 50, height: 100, duration: 200 },
         ]},
+        {tag: "GOBLIN_ATTACK_WEST",              cls: "Animation", cels: [
+            { xoffset: 150, yoffset: 300, width: 50, height: 100, duration: 200 },
+            { xoffset: 200, yoffset: 300, width: 50, height: 100, duration: 200 },
+            { xoffset: 250, yoffset: 300, width: 50, height: 100, duration: 200 },
+        ]},
         {tag: "GOBLIN",                         id: 901, cls: "Sprite", width: 50, height: 100, xoffset: 0, yoffset: 300, tileset: true },
         {tag: "GOBLIN_WALK_SOUTH",              cls: "Animation", cels: [
             { xoffset: 0, yoffset: 200, width: 50, height: 100, duration: 200 },
             { xoffset: 50, yoffset: 200, width: 50, height: 100, duration: 200 },
             { xoffset: 100, yoffset: 200, width: 50, height: 100, duration: 200 },
+        ]},
+        {tag: "GOBLIN_ATTACK_SOUTH",              cls: "Animation", cels: [
+            { xoffset: 150, yoffset: 200, width: 50, height: 100, duration: 200 },
+            { xoffset: 200, yoffset: 200, width: 50, height: 100, duration: 200 },
+            { xoffset: 250, yoffset: 200, width: 50, height: 100, duration: 200 },
         ]},
 
     ]},
@@ -1999,12 +2031,22 @@ const daggerAssets = [
             { xoffset: 50, yoffset: 150, width: 50, height: 75, duration: 200 },
             { xoffset: 50, yoffset: 225, width: 50, height: 75, duration: 200 }
         ]},
+        {tag: "DWARF_AX_MAN_ATTACK_NORTH",             cls: "Animation", cels: [
+            { xoffset: 50, yoffset: 75*5, width: 50, height: 75, duration: 200 },
+            { xoffset: 50, yoffset: 75*6, width: 50, height: 75, duration: 200 },
+            { xoffset: 50, yoffset: 75*7, width: 50, height: 75, duration: 200 }
+        ]},
         {tag: "DWARF_AX_MAN_IDLE_EAST",              cls: "Sprite", width: 50, height: 75, xoffset: 150, yoffset: 0 },
         {tag: "DWARF_AX_MAN_WALK_EAST",              cls: "Animation", cels: [
             { xoffset: 150, yoffset: 0, width: 50, height: 75, duration: 200 },
             { xoffset: 150, yoffset: 75, width: 50, height: 75, duration: 200 },
             { xoffset: 150, yoffset: 150, width: 50, height: 75, duration: 200 },
             { xoffset: 150, yoffset: 225, width: 50, height: 75, duration: 200 }
+        ]},
+        {tag: "DWARF_AX_MAN_ATTACK_EAST",             cls: "Animation", cels: [
+            { xoffset: 150, yoffset: 75*5, width: 50, height: 75, duration: 200 },
+            { xoffset: 150, yoffset: 75*6, width: 50, height: 75, duration: 200 },
+            { xoffset: 150, yoffset: 75*7, width: 50, height: 75, duration: 200 }
         ]},
         {tag: "DWARF_AX_MAN_IDLE_WEST",              cls: "Sprite", width: 50, height: 75, xoffset: 100, yoffset: 0 },
         {tag: "DWARF_AX_MAN_WALK_WEST",              cls: "Animation", cels: [
@@ -2013,12 +2055,22 @@ const daggerAssets = [
             { xoffset: 100, yoffset: 150, width: 50, height: 75, duration: 200 },
             { xoffset: 100, yoffset: 225, width: 50, height: 75, duration: 200 }
         ]},
+        {tag: "DWARF_AX_MAN_ATTACK_WEST",             cls: "Animation", cels: [
+            { xoffset: 100, yoffset: 75*5, width: 50, height: 75, duration: 200 },
+            { xoffset: 100, yoffset: 75*6, width: 50, height: 75, duration: 200 },
+            { xoffset: 100, yoffset: 75*7, width: 50, height: 75, duration: 200 }
+        ]},
         {tag: "DWARF_AX_MAN",                         id: 903, cls: "Sprite", width: 50, height: 75, xoffset: 0, yoffset: 0, tileset: true },
         {tag: "DWARF_AX_MAN_WALK_SOUTH",              cls: "Animation", cels: [
             { xoffset: 0, yoffset: 0, width: 50, height: 75, duration: 200 },
             { xoffset: 0, yoffset: 75, width: 50, height: 75, duration: 200 },
             { xoffset: 0, yoffset: 150, width: 50, height: 75, duration: 200 },
             { xoffset: 0, yoffset: 225, width: 50, height: 75, duration: 200 }
+        ]},
+        {tag: "DWARF_AX_MAN_ATTACK_SOUTH",             cls: "Animation", cels: [
+            { xoffset: 0, yoffset: 75*5, width: 50, height: 75, duration: 200 },
+            { xoffset: 0, yoffset: 75*6, width: 50, height: 75, duration: 200 },
+            { xoffset: 0, yoffset: 75*7, width: 50, height: 75, duration: 200 }
         ]},
     ]},
 

@@ -653,7 +653,7 @@ class UxLoadLvlPopUpCtrl extends UxCtrl {
         // build out level buttons
         let row = 0;
         let col = 0;
-        let maxCols = 3;
+        let maxCols = 4;
         let colStep = 1/maxCols;
         let maxRows = Math.floor(this.lvlPanel.height/40);
         let rowStep = 1/maxRows;
@@ -1004,7 +1004,7 @@ class UxHelpPopUpCtrl extends UxCtrl {
                         {
                             cls: "UxText",
                             xxform: { top: .075, bottom: .85 },
-                            xtext: { color: new Color(0,255,0,.75), text: "Editor Key Bindings", },
+                            xtext: { color: new Color(0,255,0,.75), text: "Editor Help", },
                         },
                         {
                             cls: "UxPanel",
@@ -1029,6 +1029,36 @@ class UxHelpPopUpCtrl extends UxCtrl {
                                     cls: "UxText",
                                     xtext: { text: "Switch between Foreground, Background, Room editor modes"},
                                     xxform: { top: .2, bottom: .6, left: .3, offset:10 },
+                                },
+                                {
+                                    cls: "UxText",
+                                    xxform: { top: .4, bottom: .4, right: .7, left: .05, otop: 20, obottom:10},
+                                    xtext: { color: new Color(0,255,0,.75), text: "Edit Existing Level", align: "left"},
+                                },
+                                {
+                                    cls: "UxText",
+                                    xtext: { text: "Press <Load> button, select level, edit, generate level data, save to game"},
+                                    xxform: { top: .4, bottom: .4, left: .3, offset:10 },
+                                },
+                                {
+                                    cls: "UxText",
+                                    xxform: { top: .6, bottom: .2, right: .7, left: .05, otop: 20, obottom:10},
+                                    xtext: { color: new Color(0,255,0,.75), text: "Generate level data", align: "left"},
+                                },
+                                {
+                                    cls: "UxText",
+                                    xtext: { text: "Press <Generate> button, press <#> in upper right to copy to clipboard", wrap: true, fit: false},
+                                    xxform: { top: .6, bottom: .2, left: .3, offset:10 },
+                                },
+                                {
+                                    cls: "UxText",
+                                    xxform: { top: .8, bottom: 0, right: .7, left: .05, otop: 20, obottom:10},
+                                    xtext: { color: new Color(0,255,0,.75), text: "Save to Game", align: "left"},
+                                },
+                                {
+                                    cls: "UxText",
+                                    xtext: { text: "Edit WorldGen.js with new/updated level data from clipboard, for new update World.js for new level definition", wrap: true, fit: false},
+                                    xxform: { top: .8, bottom: 0, left: .3, offset:10 },
                                 },
                             ]
                         },

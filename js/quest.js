@@ -203,7 +203,13 @@ class Quests {
         return (this._sides.length > 2) ? this._sides[2] : undefined;
     }
 
-    // PROPERTIES ----------------------------------------------------------
+    // METHODS -------------------------------------------------------------
+    reset() {
+        this.sides = [];
+        this._completed = {};
+        this._main = undefined;
+    }
+
     start(name) {
         console.log("starting quest: " + name);
         // lookup quest by name

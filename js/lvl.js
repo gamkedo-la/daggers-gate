@@ -548,8 +548,10 @@ class LevelLoader {
         // level exists in cache?
         if (name in this._cache) {
             lvl = this._cache[name];
+            console.log("load from cache: " + name);
         // otherwise, need to instantiate new level
         } else {
+            console.log("load from new: " + name);
             // level exists in specs?
             let spec = this._specs[name];
             if (!spec) {

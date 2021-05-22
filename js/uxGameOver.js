@@ -45,14 +45,21 @@ class UxGameOverCtrl extends UxCtrl {
 
     // EVENT CALLBACKS -----------------------------------------------------
     onStart() {
+        // reset levels...
+        console.log("reset levels...");
+        levelLoader.clear();
+        // reset player...
+        console.log("reset player...");
+        p1.reset(true);
+        console.log(`player pos: ${p1.x},${p1.y}`);
+        // reset quests...
+        quests.reset();
         // build out next controller
         //let ctrl = new UxPlayCtrl();
         ctrlSys.clear();
         ctrlSys.assign(new UxMainCtrl());
         // tear down my view
         this.view.destroy();
-        // FIXME: remove global???
-        titleScreen = false;
     }
 
 }

@@ -110,6 +110,7 @@ function loadingDoneSoStartGame() {
 		sketch: animators["PLAYER"],
 		name: "Player",
 	});
+	p1.reset(true);
 	// relocate player to spawn point
 	currentLevel.placeCharacter(p1, startingSpawn);
 	// camera follows player

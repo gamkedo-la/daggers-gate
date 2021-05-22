@@ -59,8 +59,10 @@ class characterClass {
         // character attributes
         this.health = Util.objKeyValue(spec, "health", 0);
         this.maxHealth = Util.objKeyValue(spec, "maxHealth", 0);
+        this.startHealth = this.maxHealth;
         this.mana = Util.objKeyValue(spec, "mana", 0);
         this.maxMana = Util.objKeyValue(spec, "maxMana", 0);
+        this.startMana = this.maxMana;
         // variables for held objects
         this.grabbedObj;
         // linking of objects (used to handle double doors, where each part of the door is a separate object)
@@ -143,9 +145,16 @@ class characterClass {
         if (idx !== -1) other.links.splice(idx, 1);
     }
 
-    reset() {
+    reset(all=false) {
         this.x = this.homeX;
         this.y = this.homeY;
+        this.state = Animator.idle;
+        if (all) {
+            this.maxHealth = this.startHealth;
+            this.health = this.startHealth;
+            this.maxMana = this.startMana;
+            this.mana = this.startMana;
+        }
     } // end of reset
 
     tileCollisionHandle(nextX, nextY) {

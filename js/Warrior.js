@@ -54,13 +54,17 @@ class warriorClass extends characterClass {
         this.secActKey = secActKey;
     }
 
-    reset() {
-        this.keysHeld = 8;
-        this.gold = 0;
-        this.arrows = 0;
-        this.healthPotions = 0;
-        this.manaPotions = 0;
-        super.reset();
+    reset(all=false) {
+        if (all) {
+            this.keysHeld = 8;
+            this.gold = 0;
+            this.arrows = 0;
+            this.healthPotions = 0;
+            this.manaPotions = 0;
+            if (this.inventory) this.inventory.clear();
+            this.gold = 0;
+        }
+        super.reset(all);
     } // end of reset
 
     takeDamage(amount) {

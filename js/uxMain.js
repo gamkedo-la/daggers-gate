@@ -83,6 +83,10 @@ class UxMainCtrl extends UxCtrl {
 
     onStart(evt) {
         console.log("onStart");
+        // load starting level
+        levelLoader.load(startingLevel);
+        // relocate player to spawn point
+        currentLevel.placeCharacter(p1, startingSpawn);
         // build out next controller
         ctrlSys.assign(new UxStoryCtrl());
         // tear down my view

@@ -69,6 +69,12 @@ class Inventory {
         }
     }
 
+    clear() {
+        this._mainHand = undefined;
+        this._offHand = undefined;
+        this._slots = new Array(this.size);
+    }
+
     get(idx) {
         return this._slots[idx];
     }

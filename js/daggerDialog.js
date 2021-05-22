@@ -179,6 +179,17 @@ const daggerDialogs = {
             },
         },
     },
+    clariceFinal: {
+        dfltTitle: "Clarice",
+        dialogs: {
+            start: {
+                text: "The journey ends for now...",
+                responses: {
+                    "Ok": (d) => d.done = true,
+                }
+            },
+        },
+    },
 
     godwinDflt: {
         dfltTitle: "Fisherman Godwin",

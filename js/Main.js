@@ -6,7 +6,7 @@ var pathFindingDisplay = false;
 var cheatSeeThroughCeiling = true;
 var disableCollisions = false;
 // enable global debug to allow key bindings cheats
-var globalDebug = true;
+var globalDebug = false;
 
 // Font definitions
 fontDefault = "Texturina";

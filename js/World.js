@@ -353,10 +353,10 @@ var allLevels = {
   }),
 
 }
-var startingLevel = "caveEntrance";
-var startingSpawn = "east";
-//var startingLevel = "house1";
-//var startingSpawn = "start";
+//var startingLevel = "caveEntrance";
+//var startingSpawn = "east";
+var startingLevel = "house1";
+var startingSpawn = "start";
 
 const TILE_W = 50;
 const TILE_H = 50;

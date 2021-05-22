@@ -80,6 +80,23 @@ const daggerQuests = {
         ],
     },
 
+    "m5": {
+        main: true,
+        title: "What's next?",
+        text: "Return to Elder Clarice for news on the growing darkness...",
+        rewards: [
+            { tag: "GOLD_COINS_TWO_DROP", amt: 5 },
+        ],
+        objectives: [
+            {
+                text: "Speak with Elder Clarice",
+                cls: "CollectionObjective",
+                getter: () => 0,
+                count: 1,
+            },
+        ],
+    },
+
     "q1": {
         main: true,
         title: "There and Back Again",

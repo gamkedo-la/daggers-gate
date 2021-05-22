@@ -326,6 +326,7 @@ const daggerNpcs = {
             height: 30, 
         },
         dialogs: [
+            { tag: "clariceFinal", predicate: (npc) => quests.checkStarted("m5") },
             { tag: "clariceStart", predicate: (npc) => !quests.checkStarted("m2") && !quests.checkDone("m2") && !quests.checkCompleted("m2")},
             { tag: "clariceWait", predicate: (npc) => quests.checkStarted("m2") },
             { tag: "clariceDone", predicate: (npc) => quests.checkDone("m2") },

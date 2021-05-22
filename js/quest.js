@@ -85,7 +85,7 @@ class EvtObjective extends Objective {
     }
 
     get done() {
-        console.log("object is done: " + (this.count >= this.wantCount));
+        //console.log("object is done: " + (this.count >= this.wantCount));
         return this.count >= this.wantCount;
     }
 
@@ -104,7 +104,7 @@ class EvtObjective extends Objective {
     }
 
     handle(evt) {
-        console.log("handle called for evt: " + Fmt.ofmt(evt));
+        //console.log("handle called for evt: " + Fmt.ofmt(evt));
         if (this.filter && this.filter(evt)) {
             this.count++;
             console.log("added event count - current: " + this.count);
@@ -139,10 +139,10 @@ class Quest {
     get done() {
         let v = true;
         for (const obj of this.objectives) {
-            console.log("q obj.done: " + obj.done);
+            //console.log("q obj.done: " + obj.done);
             v &= obj.done;
         }
-        console.log("q done v: " + v);
+        //console.log("q done v: " + v);
         return v;
     }
 

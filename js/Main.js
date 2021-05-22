@@ -5,6 +5,8 @@ var p1;
 var pathFindingDisplay = false;
 var cheatSeeThroughCeiling = true;
 var disableCollisions = false;
+// enable global debug to allow key bindings cheats
+var globalDebug = false;
 
 // Font definitions
 fontDefault = "Texturina";

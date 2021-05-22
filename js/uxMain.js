@@ -48,13 +48,11 @@ class UxMainCtrl extends UxCtrl {
                                     xxform: { left: .2, top:.545, bottom: .345, right: .2},
                                     xtext: { text: "Credits", font: new Font({family:fontMenu}) },
                                 }),
-                                /*
                                 Object.assign({}, UxTemplates.button, {
-                                    tag: "optionsButton",
+                                    tag: "helpButton",
                                     xxform: { left: .2, top:.745, bottom: .145, right: .2},
-                                    xtext: { text: "Options", font: new Font({family:fontMenu}) },
+                                    xtext: { text: "Help", font: new Font({family:fontMenu}) },
                                 }),
-                                */
                             ],
                         },
                     ],
@@ -69,12 +67,12 @@ class UxMainCtrl extends UxCtrl {
         this.startButton = this.view.find((v) => v.tag === "startButton");
         this.editorButton = this.view.find((v) => v.tag === "editorButton");
         this.creditsButton = this.view.find((v) => v.tag === "creditsButton");
-        //this.optionsButton = this.view.find((v) => v.tag === "optionsButton");
+        this.helpButton = this.view.find((v) => v.tag === "helpButton");
         // hook actions
         this.startButton.evtClicked.listen(this.onStart.bind(this));
         this.editorButton.evtClicked.listen(this.onEditor.bind(this));
         this.creditsButton.evtClicked.listen(this.onCredits.bind(this));
-        //this.optionsButton.evtClicked.listen(this.onOptions.bind(this));
+        this.helpButton.evtClicked.listen(this.onHelp.bind(this));
     }
 
     keyPressed(key) {
@@ -107,8 +105,10 @@ class UxMainCtrl extends UxCtrl {
         this.view.destroy();
     }
 
-    onOptions(evt) {
-        console.log("onOptions");
+    onHelp(evt) {
+        console.log("onHelp");
+        // create new controller for equip menu
+        ctrlSys.assign(new UxMainHelpPopUpCtrl(), true);
     }
 
 

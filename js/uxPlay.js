@@ -303,36 +303,39 @@ class UxPlayCtrl extends UxCtrl {
 
     keyPressed(key) {
         setKeyHoldState(key, p1, true);
-        if(key === KEY_NUMBER_1){
-            pathFindingDisplay = !pathFindingDisplay;
-        } else if (key === KEY_NUMBER_2){
-            showCollisions = !showCollisions;
-        } else if (key === KEY_NUMBER_3){
-            showRoomNumbers = !showRoomNumbers;
-        } else if (key === KEY_NUMBER_4) {
-            disableCollisions = !disableCollisions;
-            if (disableCollisions) {
-                p1.movingSpeed = PLAYER_MOVE_SPEED * 2;
-            } else {
-                p1.movingSpeed = PLAYER_MOVE_SPEED;
+        if (globalDebug) {
+            if(key === KEY_NUMBER_1){
+                pathFindingDisplay = !pathFindingDisplay;
+            } else if (key === KEY_NUMBER_2){
+                showCollisions = !showCollisions;
+            } else if (key === KEY_NUMBER_3){
+                showRoomNumbers = !showRoomNumbers;
+            } else if (key === KEY_NUMBER_4) {
+                disableCollisions = !disableCollisions;
+                if (disableCollisions) {
+                    p1.movingSpeed = PLAYER_MOVE_SPEED * 2;
+                } else {
+                    p1.movingSpeed = PLAYER_MOVE_SPEED;
+                }
             }
         }
 
         if (key === KEY_ESCAPE) {
             this.onEquipMenu();
         }
-        if (key === KEY_LETTER_Q) {  // Q
+        if (key === KEY_LETTER_Q) {
             this.onQuestMenu();
         }
-        // FIXME: remove
-        if (key === 71) {  // S
-            this.onGameOver();
+        if (key === KEY_LETTER_H) {
+            this.onHelp();
         }
-        if (key === 121) { // F10
-            console.log("player debug animation toggle");
-            p1.dbgAnim = !p1.dbgAnim;
+        if (globalDebug) {
+            if (key === 121) { // F10
+                console.log("player debug animation toggle");
+                p1.dbgAnim = !p1.dbgAnim;
+            }
+            if (p1.dbgAnim) this.checkDbgAnimKeys(key);
         }
-        if (p1.dbgAnim) this.checkDbgAnimKeys(key);
     }
 
     keyReleased(key) {
@@ -540,6 +543,12 @@ class UxPlayCtrl extends UxCtrl {
         console.log("onGameOver");
         // activate new controller, move play controller to last
         ctrlSys.assign(new UxGameOverCtrl(), true);
+    }
+
+    onHelp() {
+        console.log("onHelp");
+        // activate new controller, move play controller to last
+        ctrlSys.assign(new UxMainHelpPopUpCtrl(), true);
     }
 
     onStartDialog(dialog) {

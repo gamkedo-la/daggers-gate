@@ -12,6 +12,7 @@ const KEY_NUMBER_2 = 50;
 const KEY_NUMBER_3 = 51;
 const KEY_NUMBER_4 = 52;
 const KEY_LETTER_F = 70;
+const KEY_LETTER_H = 72;
 const KEY_LETTER_B = 66;
 const KEY_LETTER_Q = 81;
 const KEY_LETTER_R = 82;

@@ -174,6 +174,7 @@ class warriorClass extends characterClass {
     }
 
     gatherLoot(loot) {
+        console.log("loot: " + Fmt.ofmt(loot));
         // if loot is a weapon...
         if (loot.mainHand || loot.offHand || loot.misc) {
             console.log(" ----- INVENTORY ADD");

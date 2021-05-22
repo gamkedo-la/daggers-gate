@@ -91,6 +91,7 @@ class gameObjectClass extends characterClass {
         this.loot = spec.loot;
         this.mainHand = spec.mainHand;
         this.offHand = spec.offHand;
+        this.misc = spec.misc;
         this.attackKind = spec.attackKind;
         this.lateRender = Util.objKeyValue(spec, "lateRender", false);
         this.overlay = Util.objKeyValue(spec, "overlay", false);

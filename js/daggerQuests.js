@@ -68,7 +68,7 @@ const daggerQuests = {
                 text: "Defeat the Orc Leader",
                 cls: "EvtObjective",
                 event: GameEvents.enemyDied,
-                filter: (evt) => (evt.actor.tag === "ORC_LEADER"),
+                filter: (evt) => (evt.actor.tag === "DWARF_AX_MAN"),
                 count: 1,
             },
             {

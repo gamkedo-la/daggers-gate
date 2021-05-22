@@ -1192,6 +1192,21 @@ const daggerObjects = {
         },
         collider: { blocking: false, width:45, height: 45 },
     },
+    FISHING_POLE: {
+        kind: "loot",
+        misc: true,
+        loot: {
+            amt: 1,
+            misc: true,
+        },
+        sketch: { 
+            cls: "Animator",
+            animations: {
+                [Animator.idle]: "FISHING_POLE",
+            },
+        },
+        collider: { blocking: false, width:45, height: 45 },
+    },
 
     HEART_PIECE1: {
         kind: "loot",
@@ -1367,6 +1382,7 @@ const daggerAssets = [
         //ROW 10
         {tag: "DUNGEON_WATER_EDGE",           id: 107, cls: "Sprite", width: 50, height: 50, xoffset: 150, yoffset: 450, tileset: true, bgr: true },
         {tag: "DUNGEON_WATER",                id: 108, cls: "Sprite", width: 50, height: 50, xoffset: 200, yoffset: 450, tileset: true, bgr: true },
+        {tag: "FISHING_POLE",                 id: 109, cls: "Sprite", width: 50, height: 50, xoffset: 250, yoffset: 450, tileset: true, bgr: true },
     ]},
 
     { src: "images/spritesheet_Overworld.png", cls: "Sheet", assets: [

@@ -8,8 +8,8 @@ class Camera {
         this.halfWidth = this.width * .5;
         this.halfHeight = this.height * .5;
         // deltas for borders around game level in which the camera will not pan
-        this.dx = spec.dx || 150;
-        this.dy = spec.dy || 150;
+        this.dx = spec.dx || 250;
+        this.dy = spec.dy || 250;
         // current offset of camera
         this._x = 0;
         this._y = 0;

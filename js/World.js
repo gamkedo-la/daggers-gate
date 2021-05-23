@@ -28,26 +28,22 @@ var allLevels = {
   }),
   "lvl3": Object.assign(lvl2Spec, {
     exits: [
-     // { x: 0, y: 3, lvl: "lvl2",            spawn: "lvl3" },
-     // { x: 5, y: 0, lvl: "testroom",        spawn: "lvl3" },
-     // { x: 2, y: 1, lvl: "temple_entryway", spawn: "lvl3" },
+     { x: 5, y: 0, lvl: "east",        spawn: "lvl3" },
+     { x: 2, y: 1, lvl: "lvl4", spawn: "lvl3" },
     ],
     spawns: {
-     // "lvl2":             { x: 1, y: 3 },
-     // "testroom":         { x: 5, y: 1 },
-      //"temple_entryway":  { x: 2, y: 3 },
+      "lvl3":      { x: 1, y: 3 },
+      "lvl4":       { x: 5, y: 1 },
     },
   }),
   "lvl4": Object.assign(lvl4Spec, {
     exits: [
-     // { x: 0, y: 3, lvl: "lvl2",            spawn: "lvl3" },
-     // { x: 5, y: 0, lvl: "testroom",        spawn: "lvl3" },
-     // { x: 2, y: 1, lvl: "temple_entryway", spawn: "lvl3" },
+      { x: 4050, y: 0, lvl: "lvl3",        spawn: "lvl4" },
+      { x: 2, y: 1, lvl: "house3", spawn: "lvl4" },
     ],
     spawns: {
-     // "lvl2":             { x: 1, y: 3 },
-     // "testroom":         { x: 5, y: 1 },
-      //"temple_entryway":  { x: 2, y: 3 },
+      "lvl3":             { x: 1, y: 3 },
+      "house2":         { x: 5, y: 5 },
     },
   }),
 
@@ -281,12 +277,14 @@ var allLevels = {
         { x: 0, y: 15, lvl: "town",   spawn: "east2" },
         { x: 0, y: 16, lvl: "town",   spawn: "east3" },
         { x: 47, y: 19, lvl: "caveEntrance",   spawn: "east" },
+        { x: 10, y: 10, lvl: "lvl3",   spawn: "east" },
       ],
       spawns: {
         "town1": { x: 1, y: 14 },
         "town2": { x: 1, y: 15 },
         "town3": { x: 1, y: 16 },
         "caveEntrance": { x: 47, y: 20 },
+        "lvl3": { x: 10, y: 11 },
       },
   }),
 

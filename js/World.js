@@ -187,7 +187,7 @@ var allLevels = {
   "house1": Object.assign(house1Spec, {
       exits: [
         { x: 4, y: 6, lvl: "town",    spawn: "house1" },
-        { x: 1, y: 5, lvl: "temple_area1", spawn: "house1" },
+       // { x: 1, y: 5, lvl: "temple_area1", spawn: "house1" },
       ],
       spawns: {
         "start":  { x: 2, y: 3 },
